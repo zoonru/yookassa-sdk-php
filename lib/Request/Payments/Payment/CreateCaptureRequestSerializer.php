@@ -33,7 +33,7 @@ use YooKassa\Model\TransferInterface;
 /**
  * Класс объекта осуществляющего сериализацию запроса к API на подтверждение заказа
  *
- * @package YooKassa\Request\Payments\Payment
+ * @package YooKassa
  */
 class CreateCaptureRequestSerializer
 {
@@ -144,10 +144,16 @@ class CreateCaptureRequestSerializer
     {
         $result = array();
         foreach ($transfers as $transfer) {
-            $result[] = array(
+            $item = array(
                 'account_id' => $transfer->getAccountId(),
                 'amount' => $this->serializeAmount($transfer->getAmount())
             );
+
+            if ($transfer->hasPlatformFeeAmount()) {
+                $item['platform_fee_amount'] = $this->serializeAmount($transfer->getPlatformFeeAmount());
+            }
+
+            $result[] = $item;
         }
 
         return $result;
