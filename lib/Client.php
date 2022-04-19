@@ -112,7 +112,7 @@ class Client extends BaseClient
     /**
      * Текущая версия библиотеки
      */
-    const SDK_VERSION = '2.4.0';
+    const SDK_VERSION = '2.4.1';
 
     /**
      * Получить список платежей магазина
@@ -575,7 +575,7 @@ class Client extends BaseClient
      *
      * Запрос позволяет подписаться на уведомления о событии (например, на переход платежа в статус successed).
      *
-     * @example 01-client.php 192 32 Создание Webhook
+     * @example 01-client.php 192 33 Создание Webhook
      *
      * @param Webhook|array $request
      * @param string|null $idempotencyKey [Ключ идемпотентности](https://yookassa.ru/developers/using-api/basics?lang=php#idempotence)

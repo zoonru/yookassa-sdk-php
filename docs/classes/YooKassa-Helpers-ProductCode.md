@@ -65,7 +65,7 @@ var_dump($receiptItem);
   * \YooKassa\Helpers\ProductCode
 
 * See Also:
-  * [](https://github.com/yoomoney/yookassa-sdk-php/blob/master/lib/Helpers/ProductCode.php)
+  * [](https://git.yoomoney.ru/projects/SDK/repos/yookassa-sdk-php/browse/lib/Helpers/ProductCode.php)
 
 ---
 ## Constants
@@ -344,6 +344,6 @@ public validate() : bool
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-14 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-04-19 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

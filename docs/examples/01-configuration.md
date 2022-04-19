@@ -100,7 +100,7 @@ array(5) {
 require_once 'vendor/autoload.php';
 
 $client = new \YooKassa\Client();
-$client->setAuth('xxxxxx', 'test_XXXXXXX');
+$client->setAuthToken('token_XXXXXXX');
 
 $webHookUrl = 'https://merchant-site.ru/payment-notification';
 $needWebHookList = array(

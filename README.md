@@ -1,10 +1,10 @@
 # YooKassa API PHP Client Library
 
-[![Build Status](https://travis-ci.org/yoomoney/yookassa-sdk-php.svg?branch=master)](https://travis-ci.org/yoomoney/yookassa-sdk-php)
-[![Latest Stable Version](https://poser.pugx.org/yoomoney/yookassa-sdk-php/v/stable)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
-[![Total Downloads](https://poser.pugx.org/yoomoney/yookassa-sdk-php/downloads)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
-[![Monthly Downloads](https://poser.pugx.org/yoomoney/yookassa-sdk-php/d/monthly)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
-[![License](https://poser.pugx.org/yoomoney/yookassa-sdk-php/license)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
+[![Build Status](https://img.shields.io/travis/yoomoney/yookassa-sdk-php)](https://travis-ci.org/yoomoney/yookassa-sdk-php)
+[![Latest Stable Version](https://img.shields.io/packagist/v/yoomoney/yookassa-sdk-php?label=stable)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
+[![Total Downloads](https://img.shields.io/packagist/dt/yoomoney/yookassa-sdk-php)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/yoomoney/yookassa-sdk-php)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
+[![License](https://img.shields.io/packagist/l/yoomoney/yookassa-sdk-php)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
 
 Russian | [English](README.en.md)
 
@@ -45,7 +45,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 ### Вручную
 
-1. Скачайте [архив YooKassa API PHP Client Library](https://github.com/yoomoney/yookassa-sdk-php/archive/master.zip), распакуйте его и скопируйте каталог lib в нужное место в вашем проекте.
+1. Скачайте [архив YooKassa API PHP Client Library](https://git.yoomoney.ru/rest/api/latest/projects/SDK/repos/yookassa-sdk-php/archive?format=zip), распакуйте его и скопируйте каталог lib в нужное место в вашем проекте.
 2. В коде вашего проекта подключите автозагрузку файлов нашего клиента:
 ```php
 require __DIR__ . '/lib/autoload.php'; 

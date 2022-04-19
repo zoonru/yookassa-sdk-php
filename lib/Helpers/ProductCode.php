@@ -32,7 +32,7 @@ namespace YooKassa\Helpers;
  * @example 04-product-code.php 6 6 Вариант через метод
  * @example 04-product-code.php 14 6 Вариант через массив
  *
- * @link https://github.com/yoomoney/yookassa-sdk-php/blob/master/lib/Helpers/ProductCode.php
+ * @link https://git.yoomoney.ru/projects/SDK/repos/yookassa-sdk-php/browse/lib/Helpers/ProductCode.php
  *
  * @package YooKassa
  */
