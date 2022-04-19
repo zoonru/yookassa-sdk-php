@@ -235,7 +235,7 @@ DEFAULT_ATTEMPTS_COUNT = 3
 Текущая версия библиотеки
 
 ```php
-SDK_VERSION = '2.4.0'
+SDK_VERSION = '2.4.1'
 ```
 
 
@@ -412,6 +412,7 @@ public addWebhook(\YooKassa\Model\Webhook\Webhook|array $request, string|null $i
 ```php
 // В данном примере мы устанавливаем вебхуки для succeeded и canceled уведомлений.
 // А так же проверяем, не установлены ли уже вебхуки. И если установлены на неверный адрес, удаляем.
+$client->setAuthToken('token_XXXXXXX');
 try {
     $webHookUrl = 'https://merchant-site.ru/payment-notification';
     $needWebHookList = array(
@@ -647,6 +648,7 @@ public createDeal(\YooKassa\Request\Deals\CreateDealRequestInterface|array $deal
 Запрос на создание сделки:
 
 ```php
+// Запрос на создание сделки
 try {
     $response = $client->createDeal(
         array(
@@ -664,7 +666,6 @@ try {
     $response = $e;
 }
 
-var_dump($response);
 
 ```
 
@@ -822,6 +823,7 @@ public createPayout(\YooKassa\Request\Payouts\CreatePayoutRequestInterface|array
 Запрос на создание выплаты:
 
 ```php
+// Создание выплаты
 $request = array(
     'amount' => array(
         'value' => '80.00',
@@ -848,7 +850,6 @@ try {
     $result = $e;
 }
 
-var_dump($result);
 
 ```
 
@@ -1087,6 +1088,7 @@ public getDealInfo(string $dealId) : \YooKassa\Model\DealInterface|null
 Получить информацию о сделке:
 
 ```php
+var_dump($response);
 
 // Получить информацию о сделке
 try {
@@ -1094,7 +1096,6 @@ try {
     echo $response->getStatus();
 } catch (\Exception $e) {
     $response = $e;
-}
 
 ```
 
@@ -1145,6 +1146,7 @@ public getDeals(\YooKassa\Request\Deals\DealsRequestInterface|array|null $filter
 Получить список сделок с фильтрацией:
 
 ```php
+var_dump($response);
 
 // Получить список сделок с фильтрацией
 $cursor = null;
@@ -1171,7 +1173,6 @@ try {
         }
     } while ($cursor = $deals->getNextCursor());
 } catch (\Exception $e) {
-    $response = $e;
 
 ```
 
@@ -1276,6 +1277,7 @@ public getPayments(\YooKassa\Request\Payments\PaymentsRequestInterface|array|nul
 Получить список платежей магазина с фильтрацией:
 
 ```php
+// Получить список платежей с фильтрацией
 $cursor = null;
 $params = array(
     'limit' => 30,
@@ -1298,7 +1300,6 @@ try {
     $response = $e;
 }
 
-var_dump($response);
 
 ```
 
@@ -1345,6 +1346,7 @@ public getPayoutInfo(string $payoutId) : \YooKassa\Model\PayoutInterface|null
 Получить информацию о выплате:
 
 ```php
+// Получить информацию о выплате
 $payoutId = 'po-285c0ab7-0003-5000-9000-0e1166498fda';
 try {
     $response = $client->getPayoutInfo($payoutId);
@@ -1352,7 +1354,6 @@ try {
     $response = $e;
 }
 
-var_dump($response);
 
 ```
 
@@ -1458,6 +1459,7 @@ public getReceipts(\YooKassa\Model\PaymentInterface|\YooKassa\Model\RefundInterf
 Получить список чеков магазина с фильтрацией:
 
 ```php
+// Получить список чеков с фильтрацией
 $cursor = null;
 $params = array(
     'limit' => 30,
@@ -1478,7 +1480,6 @@ try {
     $response = $e;
 }
 
-var_dump($response);
 
 ```
 
@@ -1584,6 +1585,7 @@ public getRefunds(\YooKassa\Request\Refunds\RefundsRequestInterface|array|null $
 Получить список возвратов платежей магазина с фильтрацией:
 
 ```php
+// Получить список возвратов с фильтрацией
 $cursor = null;
 $params = array(
     'limit' => 30,
@@ -1606,7 +1608,6 @@ try {
     $response = $e;
 }
 
-var_dump($response);
 
 ```
 
@@ -1650,6 +1651,7 @@ public getWebhooks() : \YooKassa\Request\Webhook\WebhookListResponse|null
 ```php
 // В данном примере мы устанавливаем вебхуки для succeeded и canceled уведомлений.
 // А так же проверяем, не установлены ли уже вебхуки. И если установлены на неверный адрес, удаляем.
+$client->setAuthToken('token_XXXXXXX');
 try {
     $webHookUrl = 'https://merchant-site.ru/payment-notification';
     $needWebHookList = array(
@@ -1679,7 +1681,6 @@ try {
     $response = $e;
 }
 
-var_dump($response);
 
 ```
 
@@ -1810,6 +1811,7 @@ public removeWebhook(string $webhookId, string|null $idempotencyKey = null) : \Y
 ```php
 // В данном примере мы устанавливаем вебхуки для succeeded и canceled уведомлений.
 // А так же проверяем, не установлены ли уже вебхуки. И если установлены на неверный адрес, удаляем.
+$client->setAuthToken('token_XXXXXXX');
 try {
     $webHookUrl = 'https://merchant-site.ru/payment-notification';
     $needWebHookList = array(
@@ -1839,7 +1841,6 @@ try {
     $response = $e;
 }
 
-var_dump($response);
 
 ```
 
@@ -2168,6 +2169,6 @@ protected handleError(\YooKassa\Common\ResponseObject $response) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-14 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-04-19 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney
