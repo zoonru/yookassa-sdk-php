@@ -529,6 +529,6 @@ protected initCurrentObject() : \YooKassa\Request\Receipts\CreatePostReceiptRequ
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-19 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney
