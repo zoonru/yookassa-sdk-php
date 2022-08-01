@@ -26,6 +26,9 @@
 
 namespace YooKassa\Request\Receipts;
 
+use YooKassa\Model\Receipt\AdditionalUserProps;
+use YooKassa\Model\Receipt\IndustryDetails;
+use YooKassa\Model\Receipt\OperationalDetails;
 use YooKassa\Model\ReceiptCustomer;
 use YooKassa\Model\ReceiptCustomerInterface;
 use YooKassa\Model\ReceiptItemInterface;
@@ -44,8 +47,13 @@ use YooKassa\Model\SupplierInterface;
  * @property ReceiptCustomer $customer Информация о плательщике
  * @property int $taxSystemCode Код системы налогообложения. Число 1-6
  * @property int $tax_system_code Код системы налогообложения. Число 1-6
+ * @property AdditionalUserProps $additionalUserProps Дополнительный реквизит пользователя
+ * @property AdditionalUserProps $additional_user_props Дополнительный реквизит пользователя
+ * @property IndustryDetails[] $receiptIndustryDetails Отраслевой реквизит чека
+ * @property IndustryDetails[] $receipt_industry_details Отраслевой реквизит чека
+ * @property OperationalDetails $receiptOperationalDetails Операционный реквизит чека
+ * @property OperationalDetails $receipt_operational_details Операционный реквизит чека
  * @property ReceiptItemInterface[] $items Список товаров в заказе
- * @property SupplierInterface $supplier Информация о поставщике товара или услуги
  * @property SettlementInterface[] $settlements Массив оплат, обеспечивающих выдачу товара
  */
 interface CreatePostReceiptRequestInterface
@@ -109,6 +117,45 @@ interface CreatePostReceiptRequestInterface
      * @return CreatePostReceiptRequestInterface
      */
     public function setTaxSystemCode($value);
+
+    /**
+     * Возвращает дополнительный реквизит пользователя
+     *
+     *  @return AdditionalUserProps Дополнительный реквизит пользователя
+     */
+    public function getAdditionalUserProps();
+
+    /**
+     * Устанавливает дополнительный реквизит пользователя
+     *
+     * @param AdditionalUserProps $value Дополнительный реквизит пользователя
+     * @return CreatePostReceiptRequestInterface
+     */
+    public function setAdditionalUserProps($value);
+
+    /**
+     * Возвращает отраслевой реквизит чека
+     * @return IndustryDetails[] Отраслевой реквизит чека
+     */
+    public function getReceiptIndustryDetails();
+
+    /**
+     * Устанавливает отраслевой реквизит чека
+     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     */
+    public function setReceiptIndustryDetails($value);
+
+    /**
+     * Возвращает операционный реквизит чека
+     * @return OperationalDetails Операционный реквизит чека
+     */
+    public function getReceiptOperationalDetails();
+
+    /**
+     * Устанавливает операционный реквизит чека
+     * @param array|OperationalDetails $value Операционный реквизит чека
+     */
+    public function setReceiptOperationalDetails($value);
 
     /**
      * Возвращает информацию о плательщике.
@@ -182,5 +229,5 @@ interface CreatePostReceiptRequestInterface
      * Проверяет есть ли в чеке хотя бы одна позиция
      * @return bool True если чек не пуст, false если в чеке нет ни одной позиции
      */
-    function notEmpty();
+    public function notEmpty();
 }

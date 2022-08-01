@@ -27,11 +27,14 @@
 namespace YooKassa\Request\Receipts;
 
 
+use YooKassa\Common\AbstractPaymentRequestBuilder;
 use YooKassa\Common\AbstractRequest;
 use YooKassa\Common\AbstractRequestBuilder;
 use YooKassa\Common\Exceptions\InvalidRequestException;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\MonetaryAmount;
+use YooKassa\Model\Receipt\AdditionalUserProps;
+use YooKassa\Model\Receipt\IndustryDetails;
 use YooKassa\Model\ReceiptCustomer;
 use YooKassa\Model\ReceiptCustomerInterface;
 use YooKassa\Model\ReceiptItemInterface;
@@ -171,6 +174,41 @@ class CreatePostReceiptRequestBuilder extends AbstractRequestBuilder
     }
 
     /**
+     * Устанавливает дополнительный реквизит пользователя
+     *
+     * @param AdditionalUserProps|array $value Дополнительный реквизит пользователя
+     * @return CreatePostReceiptRequestBuilder Инстанс билдера запросов
+     */
+    public function setAdditionalUserProps($value)
+    {
+        $this->currentObject->setAdditionalUserProps($value);
+        return $this;
+    }
+
+    /**
+     * Устанавливает отраслевой реквизит чека
+     *
+     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+    CreatePostReceiptRequestBuilder     */
+    public function setReceiptIndustryDetails($value)
+    {
+        $this->currentObject->setReceiptIndustryDetails($value);
+        return $this;
+    }
+
+    /**
+     * Устанавливает отраслевой реквизит чека
+     *
+     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     * @return CreatePostReceiptRequestBuilder Инстанс билдера запросов
+     */
+    public function setReceiptOperationalDetails($value)
+    {
+        $this->currentObject->setReceiptOperationalDetails($value);
+        return $this;
+    }
+
+    /**
      * Устанавливает тип чека в онлайн-кассе
      *
      * @param string $value Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
@@ -227,7 +265,7 @@ class CreatePostReceiptRequestBuilder extends AbstractRequestBuilder
      * @param string|null $type Тип объекта чека
      * @return CreatePostReceiptRequestBuilder
      */
-    public function setObjectId($value, $type=null)
+    public function setObjectId($value, $type = null)
     {
         $this->currentObject->setObjectId($value);
         if (!empty($type)) {
@@ -272,5 +310,4 @@ class CreatePostReceiptRequestBuilder extends AbstractRequestBuilder
 
         return parent::build($options);
     }
-
 }

@@ -43,7 +43,8 @@ class ReceiptResponseFactoryTest extends TestCase
             ),
             array(
                 array(
-                    'type' => ReceiptType::REFUND
+                    'type' => ReceiptType::REFUND,
+                    'payment_id' => 1
                 )
             )
         );

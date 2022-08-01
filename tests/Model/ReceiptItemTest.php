@@ -3,15 +3,19 @@
 namespace Tests\YooKassa\Model;
 
 use PHPUnit\Framework\TestCase;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
+use YooKassa\Helpers\ProductCode;
 use YooKassa\Helpers\Random;
 use YooKassa\Helpers\StringObject;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\Receipt\AgentType;
+use YooKassa\Model\Receipt\IndustryDetails;
+use YooKassa\Model\Receipt\MarkCodeInfo;
+use YooKassa\Model\Receipt\MarkQuantity;
 use YooKassa\Model\Receipt\PaymentMode;
 use YooKassa\Model\Receipt\PaymentSubject;
 use YooKassa\Model\Receipt\ReceiptItemAmount;
+use YooKassa\Model\Receipt\ReceiptItemMeasure;
 use YooKassa\Model\ReceiptItem;
 use YooKassa\Model\Supplier;
 
@@ -220,7 +224,7 @@ class ReceiptItemTest extends TestCase
     }
 
     /**
-     * @dataProvider validDataAgent
+     * @dataProvider validDataAgentType
      * @param $value
      */
     public function testSetAgentType($value)
@@ -231,13 +235,49 @@ class ReceiptItemTest extends TestCase
         self::assertSame($value, $instance->getAgentType());
     }
 
-    public function validDataAgent()
+    public function validDataAgentType()
     {
-        $values = array();
+        $values = array(
+            array(null,),
+        );
         for ($i = 0; $i < 5; $i++) {
             $values[] = array(Random::value(AgentType::getValidValues()));
         }
         return $values;
+    }
+
+    /**
+     * @dataProvider invalidAgentTypeDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetInvalidAgentType($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->setAgentType($value);
+    }
+
+    /**
+     * @dataProvider invalidAgentTypeDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetterInvalidAgentType($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->agent_type = $value;
+    }
+
+    public function invalidAgentTypeDataProvider()
+    {
+        return array(
+            array(1, 'InvalidPropertyValueTypeException'),
+            array(Random::str(10), 'InvalidPropertyValueException'),
+            array(true, 'InvalidPropertyValueTypeException'),
+            array(new \stdClass(), 'InvalidPropertyValueTypeException'),
+        );
     }
 
     /**
@@ -250,9 +290,44 @@ class ReceiptItemTest extends TestCase
         self::assertNull($instance->getSupplier());
         $instance->setSupplier($value);
         if (is_array($value)) {
-            $value = new Supplier($value);
+            self::assertEquals($value, $instance->getSupplier()->toArray());
+        } else {
+            self::assertEquals($value, $instance->getSupplier());
         }
-        self::assertEquals($value, $instance->getSupplier());
+    }
+
+    /**
+     * @dataProvider invalidSupplierDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetInvalidSupplier($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->setSupplier($value);
+    }
+
+    /**
+     * @dataProvider invalidSupplierDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetterInvalidSupplier($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->supplier = $value;
+    }
+
+    public function invalidSupplierDataProvider()
+    {
+        return array(
+            array(1, 'InvalidPropertyValueTypeException'),
+            array(Random::str(10), 'InvalidPropertyValueTypeException'),
+            array(true, 'InvalidPropertyValueTypeException'),
+            array(new \stdClass(), 'InvalidPropertyValueTypeException'),
+        );
     }
 
     /**
@@ -262,6 +337,7 @@ class ReceiptItemTest extends TestCase
     public function validDataSupplier()
     {
         $validData = array(
+            array(null,),
             array(
                 array(
                     'name' => Random::str(1, 100),
@@ -498,8 +574,13 @@ class ReceiptItemTest extends TestCase
         self::assertNull($instance->getPrice());
         self::assertNull($instance->price);
         $instance->setPrice($value);
-        self::assertSame($value, $instance->getPrice());
-        self::assertSame($value, $instance->price);
+        if (is_array($value)) {
+            self::assertSame($value, $instance->getPrice()->toArray());
+            self::assertSame($value, $instance->price->toArray());
+        } else {
+            self::assertSame($value, $instance->getPrice());
+            self::assertSame($value, $instance->price);
+        }
     }
 
     /**
@@ -511,22 +592,33 @@ class ReceiptItemTest extends TestCase
     {
         $instance        = $this->getTestInstance();
         $instance->price = $value;
-        self::assertSame($value, $instance->getPrice());
-        self::assertSame($value, $instance->price);
+        if (is_array($value)) {
+            self::assertSame($value, $instance->getPrice()->toArray());
+            self::assertSame($value, $instance->price->toArray());
+        } else {
+            self::assertSame($value, $instance->getPrice());
+            self::assertSame($value, $instance->price);
+        }
     }
 
     public function validPriceDataProvider()
     {
         return array(
             array(
+                array(
+                    'value' => number_format(Random::float(1, 100), 2, '.', ''),
+                    'currency' => Random::value(CurrencyCode::getValidValues()),
+                ),
+            ),
+            array(
                 new ReceiptItemAmount(array(
-                    'value' => Random::int(1, 100),
+                    'value' => number_format(Random::float(1, 100), 2, '.', ''),
                     'currency' => Random::value(CurrencyCode::getValidValues()),
                 )),
             ),
             array(
                 new ReceiptItemAmount(
-                    Random::int(1, 100),
+                    number_format(Random::float(1, 100), 2, '.', ''),
                     Random::value(CurrencyCode::getValidValues())
                 ),
             ),
@@ -543,10 +635,8 @@ class ReceiptItemTest extends TestCase
      */
     public function testSetInvalidPrice($value)
     {
-        if (class_exists('InvalidPropertyValueTypeException')) {
-            self::setExpectedException('InvalidPropertyValueTypeException');
-            $this->getTestInstance()->setPrice($value);
-        }
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
+        $this->getTestInstance()->setPrice($value);
     }
 
     /**
@@ -556,26 +646,21 @@ class ReceiptItemTest extends TestCase
      */
     public function testSetterInvalidPrice($value)
     {
-        if (class_exists('InvalidPropertyValueTypeException')) {
-            self::setExpectedException('InvalidPropertyValueTypeException');
-            $this->getTestInstance()->price = $value;
-        }
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
+        $this->getTestInstance()->price = $value;
     }
 
     public function invalidPriceDataProvider()
     {
-        $result = array(
+        return array(
             array(null),
             array(''),
             array(1.0),
             array(1),
             array(true),
             array(false),
-            array(array()),
             array(new \stdClass()),
         );
-
-        return $result;
     }
 
     /**
@@ -862,8 +947,6 @@ class ReceiptItemTest extends TestCase
         );
     }
 
-    ////////////////////////////////////////////////////////////////
-
     /**
      * @dataProvider validProductCodeDataProvider
      *
@@ -915,6 +998,7 @@ class ReceiptItemTest extends TestCase
             array(null),
             array(''),
             array(Random::str(2, 96, '0123456789ABCDEF ')),
+            array(new ProductCode('010463003407001221SxMGorvNuq6Wk91fgr92sdfsdfghfgjh')),
         );
     }
 
@@ -949,10 +1033,9 @@ class ReceiptItemTest extends TestCase
             array(new \stdClass()),
             array(array()),
             array(Random::str(2, 96, 'GHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=`~?><:"\'')),
+            array(Random::str(97, 100, '0123456789ABCDEF ')),
         );
     }
-
-    ////////////////////////////////////////////////////////////////
 
     /**
      * @dataProvider validCountryOfOriginCodeDataProvider
@@ -1208,6 +1291,527 @@ class ReceiptItemTest extends TestCase
             array(Random::float(-100, -0.001)),
             array(array()),
             array(new \stdClass()),
+        );
+    }
+
+    /**
+     * @dataProvider validMarkCodeInfoDataProvider
+     *
+     * @param array|MarkCodeInfo $value
+     */
+    public function testGetSetMarkCodeInfo($value)
+    {
+        $instance = $this->getTestInstance();
+
+        self::assertNull($instance->getMarkCodeInfo());
+        self::assertNull($instance->mark_code_info);
+        $instance->setMarkCodeInfo($value);
+        if (is_array($value)) {
+            self::assertSame($value, $instance->getMarkCodeInfo()->toArray());
+            self::assertSame($value, $instance->mark_code_info->toArray());
+        } else {
+            self::assertSame($value, $instance->getMarkCodeInfo());
+            self::assertSame($value, $instance->mark_code_info);
+        }
+    }
+
+    /**
+     * @dataProvider validMarkCodeInfoDataProvider
+     *
+     * @param array|MarkCodeInfo $value
+     */
+    public function testSetterMarkCodeInfo($value)
+    {
+        $instance = $this->getTestInstance();
+        $instance->mark_code_info = $value;
+        if (is_array($value)) {
+            self::assertSame($value, $instance->getMarkCodeInfo()->toArray());
+            self::assertSame($value, $instance->mark_code_info->toArray());
+        } else {
+            self::assertSame($value, $instance->getMarkCodeInfo());
+            self::assertSame($value, $instance->mark_code_info);
+        }
+    }
+
+    public function validMarkCodeInfoDataProvider()
+    {
+        return array(
+            array(
+                new MarkCodeInfo(array(
+                    'mark_code_raw' => '010460406000590021N4N57RTCBUZTQ\u001d2403054002410161218\u001d1424010191ffd0\u001g92tIAF/YVpU4roQS3M/m4z78yFq0nc/WsSmLeX6QkF/YVWwy5IMYAeiQ91Xa2m/fFSJcOkb2N+uUUtfr4n0mOX0Q==',
+                )),
+            ),
+            array(
+                array(
+                    'mark_code_raw' => '010460406000590021N4N57RTCBUZTQ\u001d2403054002410161218\u001d1424010191ffd0\u001g92tIAF/YVpU4roQS3M/m4z78yFq0nc/WsSmLeX6QkF/YVWwy5IMYAeiQ91Xa2m/fFSJcOkb2N+uUUtfr4n0mOX0Q==',
+                ),
+            ),
+            array(
+                new MarkCodeInfo(),
+            ),
+            array(null,),
+        );
+    }
+
+    /**
+     * @dataProvider invalidMarkCodeInfoDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetInvalidMarkCodeInfo($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->setMarkCodeInfo($value);
+    }
+
+    /**
+     * @dataProvider invalidMarkCodeInfoDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetterInvalidMarkCodeInfo($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->mark_code_info = $value;
+    }
+
+    public function invalidMarkCodeInfoDataProvider()
+    {
+        return array(
+            array(1.0, 'InvalidPropertyValueTypeException'),
+            array(1, 'InvalidPropertyValueTypeException'),
+            array(true, 'InvalidPropertyValueTypeException'),
+            array(new \stdClass(), 'InvalidPropertyValueTypeException'),
+        );
+    }
+
+    /**
+     * @dataProvider validMarkQuantityDataProvider
+     *
+     * @param array|MarkQuantity $value
+     */
+    public function testGetSetMarkQuantity($value)
+    {
+        $instance = $this->getTestInstance();
+
+        self::assertNull($instance->getMarkQuantity());
+        self::assertNull($instance->mark_quantity);
+        $instance->setMarkQuantity($value);
+        if (is_array($value)) {
+            self::assertSame($value, $instance->getMarkQuantity()->toArray());
+            self::assertSame($value, $instance->mark_quantity->toArray());
+            self::assertSame($value, $instance->markQuantity->toArray());
+        } else {
+            self::assertSame($value, $instance->getMarkQuantity());
+            self::assertSame($value, $instance->mark_quantity);
+            self::assertSame($value, $instance->markQuantity);
+        }
+    }
+
+    /**
+     * @dataProvider validMarkQuantityDataProvider
+     *
+     * @param AmountInterface $value
+     */
+    public function testSetterMarkQuantity($value)
+    {
+        $instance = $this->getTestInstance();
+        $instance->mark_quantity = $value;
+        if (is_array($value)) {
+            self::assertSame($value, $instance->getMarkQuantity()->toArray());
+            self::assertSame($value, $instance->mark_quantity->toArray());
+            self::assertSame($value, $instance->markQuantity->toArray());
+        } else {
+            self::assertSame($value, $instance->getMarkQuantity());
+            self::assertSame($value, $instance->mark_quantity);
+            self::assertSame($value, $instance->markQuantity);
+        }
+    }
+
+    public function validMarkQuantityDataProvider()
+    {
+        return array(
+            array(
+                new MarkQuantity(array(
+                    'numerator' => 1,
+                    'denominator' => 1,
+                )),
+            ),
+            array(
+                array(
+                    'numerator' => 1,
+                    'denominator' => 10,
+                ),
+            ),
+            array(
+                new MarkQuantity(),
+            ),
+            array(null,),
+        );
+    }
+
+    /**
+     * @dataProvider invalidMarkQuantityDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetInvalidMarkQuantity($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->setMarkQuantity($value);
+    }
+
+    /**
+     * @dataProvider invalidMarkQuantityDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetterInvalidMarkQuantity($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->mark_quantity = $value;
+    }
+
+    public function invalidMarkQuantityDataProvider()
+    {
+        return array(
+            array(1.0, 'InvalidPropertyValueTypeException'),
+            array(1, 'InvalidPropertyValueTypeException'),
+            array(true, 'InvalidPropertyValueTypeException'),
+            array(new \stdClass(), 'InvalidPropertyValueTypeException'),
+        );
+    }
+
+    /**
+     * @dataProvider validIndustryDetailsDataProvider
+     *
+     * @param array|IndustryDetails $value
+     */
+    public function testGetSetPaymentSubjectIndustryDetails($value)
+    {
+        $instance = $this->getTestInstance();
+
+        self::assertNull($instance->getPaymentSubjectIndustryDetails());
+        self::assertNull($instance->payment_subject_industry_details);
+        $instance->setPaymentSubjectIndustryDetails($value);
+
+        if (is_array($value)) {
+            self::assertCount(count($value), $instance->getPaymentSubjectIndustryDetails());
+            self::assertCount(count($value), $instance->payment_subject_industry_details);
+            self::assertCount(count($value), $instance->paymentSubjectIndustryDetails);
+        } else {
+            self::assertSame($value, $instance->getPaymentSubjectIndustryDetails());
+            self::assertSame($value, $instance->payment_subject_industry_details);
+            self::assertSame($value, $instance->paymentSubjectIndustryDetails);
+        }
+    }
+
+    /**
+     * @dataProvider validIndustryDetailsDataProvider
+     *
+     * @param AmountInterface $value
+     */
+    public function testSetterPaymentSubjectIndustryDetails($value)
+    {
+        $instance = $this->getTestInstance();
+        $instance->payment_subject_industry_details = $value;
+
+        if (is_array($value)) {
+            self::assertCount(count($value), $instance->getPaymentSubjectIndustryDetails());
+            self::assertCount(count($value), $instance->payment_subject_industry_details);
+            self::assertCount(count($value), $instance->paymentSubjectIndustryDetails);
+        } else {
+            self::assertSame($value, $instance->getPaymentSubjectIndustryDetails());
+            self::assertSame($value, $instance->payment_subject_industry_details);
+            self::assertSame($value, $instance->paymentSubjectIndustryDetails);
+        }
+    }
+
+    public function validIndustryDetailsDataProvider()
+    {
+        return array(
+            array(
+                array(
+                    array(
+                        'federal_id' => '001',
+                        'document_date' => date('Y-m-d', Random::int(100000000, 200000000)),
+                        'document_number' => Random::str(1, IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH),
+                        'value' => Random::str(1, IndustryDetails::VALUE_MAX_LENGTH),
+                    ),
+                )
+            ),
+            array(
+                array(
+                    array(),
+                )
+            ),
+            array(null,),
+        );
+    }
+
+    /**
+     * @dataProvider invalidPaymentSubjectIndustryDetailsDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetInvalidPaymentSubjectIndustryDetails($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->setPaymentSubjectIndustryDetails($value);
+    }
+
+    /**
+     * @dataProvider invalidPaymentSubjectIndustryDetailsDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetterInvalidPaymentSubjectIndustryDetails($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->payment_subject_industry_details = $value;
+    }
+
+    public function invalidPaymentSubjectIndustryDetailsDataProvider()
+    {
+        return array(
+            array(1.0, 'InvalidPropertyValueTypeException'),
+            array(1, 'InvalidPropertyValueTypeException'),
+            array(true, 'InvalidPropertyValueTypeException'),
+            array(new \stdClass(), 'InvalidPropertyValueTypeException'),
+            array(array(new \stdClass()), 'InvalidPropertyValueTypeException'),
+        );
+    }
+
+    /**
+     * @dataProvider validMeasureDataProvider
+     *
+     * @param string $value
+     */
+    public function testGetSetMeasure($value)
+    {
+        $instance = $this->getTestInstance();
+
+        self::assertNull($instance->getMeasure());
+        self::assertNull($instance->measure);
+        $instance->setMeasure($value);
+
+        self::assertSame($value, $instance->getMeasure());
+        self::assertSame($value, $instance->measure);
+    }
+
+    /**
+     * @dataProvider validMeasureDataProvider
+     *
+     * @param string $value
+     */
+    public function testSetterMeasure($value)
+    {
+        $instance = $this->getTestInstance();
+        $instance->measure = $value;
+
+        self::assertSame($value, $instance->getMeasure());
+        self::assertSame($value, $instance->measure);
+    }
+
+    public function validMeasureDataProvider()
+    {
+        $test = array(
+            array(null,),
+        );
+
+        for ($i = 0; $i < 5; $i++) {
+            $test[] = array(Random::value(ReceiptItemMeasure::getValidValues()));
+        }
+
+        return $test;
+    }
+
+    /**
+     * @dataProvider invalidMeasureDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetInvalidMeasure($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->setMeasure($value);
+    }
+
+    /**
+     * @dataProvider invalidMeasureDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetterInvalidMeasure($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->measure = $value;
+    }
+
+    public function invalidMeasureDataProvider()
+    {
+        return array(
+            array(array(), 'InvalidPropertyValueTypeException'),
+            array(true, 'InvalidPropertyValueTypeException'),
+            array(new \stdClass(), 'InvalidPropertyValueTypeException'),
+            array(Random::str(10), 'InvalidPropertyValueException'),
+        );
+    }
+
+    /**
+     * @dataProvider validMarkModeDataProvider
+     *
+     * @param string $value
+     */
+    public function testGetSetMarkMode($value)
+    {
+        $instance = $this->getTestInstance();
+
+        self::assertNull($instance->getMarkMode());
+        self::assertNull($instance->mark_mode);
+        $instance->setMarkMode($value);
+
+        self::assertSame($value, $instance->getMarkMode());
+        self::assertSame($value, $instance->mark_mode);
+    }
+
+    /**
+     * @dataProvider validMarkModeDataProvider
+     *
+     * @param string $value
+     */
+    public function testSetterMarkMode($value)
+    {
+        $instance = $this->getTestInstance();
+        $instance->mark_mode = $value;
+
+        self::assertSame($value, $instance->getMarkMode());
+        self::assertSame($value, $instance->mark_mode);
+    }
+
+    public function validMarkModeDataProvider()
+    {
+        return array(
+            array(null,),
+            array(0,),
+            array(1,),
+            array('1',),
+        );
+    }
+
+    /**
+     * @dataProvider invalidMarkModeDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetInvalidMarkMode($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->setMarkMode($value);
+    }
+
+    /**
+     * @dataProvider invalidMarkModeDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetterInvalidMarkMode($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->mark_mode = $value;
+    }
+
+    public function invalidMarkModeDataProvider()
+    {
+        return array(
+            array(array(), 'InvalidPropertyValueTypeException'),
+            array(true, 'InvalidPropertyValueTypeException'),
+            array(new \stdClass(), 'InvalidPropertyValueTypeException'),
+        );
+    }
+
+    /**
+     * @dataProvider validAdditionalPaymentSubjectPropsDataProvider
+     *
+     * @param string $value
+     */
+    public function testGetSetAdditionalPaymentSubjectProps($value)
+    {
+        $instance = $this->getTestInstance();
+
+        self::assertNull($instance->getAdditionalPaymentSubjectProps());
+        self::assertNull($instance->additionalPaymentSubjectProps);
+        $instance->setAdditionalPaymentSubjectProps($value);
+
+        self::assertSame($value, $instance->getAdditionalPaymentSubjectProps());
+        self::assertSame($value, $instance->additional_payment_subject_props);
+        self::assertSame($value, $instance->additionalPaymentSubjectProps);
+    }
+
+    /**
+     * @dataProvider validAdditionalPaymentSubjectPropsDataProvider
+     *
+     * @param string $value
+     */
+    public function testSetterAdditionalPaymentSubjectProps($value)
+    {
+        $instance = $this->getTestInstance();
+        $instance->additionalPaymentSubjectProps = $value;
+
+        self::assertSame($value, $instance->getAdditionalPaymentSubjectProps());
+        self::assertSame($value, $instance->additional_payment_subject_props);
+        self::assertSame($value, $instance->additionalPaymentSubjectProps);
+    }
+
+    public function validAdditionalPaymentSubjectPropsDataProvider()
+    {
+        return array(
+            array(null,),
+            array('0',),
+            array(Random::str(1, ReceiptItem::ADD_PROPS_MAX_LENGTH),),
+        );
+    }
+
+    /**
+     * @dataProvider invalidAdditionalPaymentSubjectPropsDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetInvalidAdditionalPaymentSubjectProps($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->setAdditionalPaymentSubjectProps($value);
+    }
+
+    /**
+     * @dataProvider invalidAdditionalPaymentSubjectPropsDataProvider
+     *
+     * @param $value
+     * @param $exception
+     */
+    public function testSetterInvalidAdditionalPaymentSubjectProps($value, $exception)
+    {
+        self::setExpectedException('YooKassa\\Common\\Exceptions\\' . $exception);
+        $this->getTestInstance()->additionalPaymentSubjectProps = $value;
+    }
+
+    public function invalidAdditionalPaymentSubjectPropsDataProvider()
+    {
+        return array(
+            array(array(), 'InvalidPropertyValueTypeException'),
+            array(true, 'InvalidPropertyValueTypeException'),
+            array(new \stdClass(), 'InvalidPropertyValueTypeException'),
         );
     }
 }

@@ -210,7 +210,7 @@ public build(array|null $options = null) : \YooKassa\Request\Payments\Payment\Cr
 | \YooKassa\Common\Exceptions\InvalidRequestException | Выбрасывается если при валидации запроса произошла ошибка |
 | \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек |
 
-**Returns:** \YooKassa\Request\Payments\Payment\CreateCaptureRequestInterface|\YooKassa\Common\AbstractRequest - Иснатс объекта запроса к API
+**Returns:** \YooKassa\Request\Payments\Payment\CreateCaptureRequestInterface|\YooKassa\Common\AbstractRequest - Инстанс объекта запроса к API
 
 
 <a name="method_setAmount" class="anchor"></a>
@@ -465,6 +465,6 @@ protected initCurrentObject() : \YooKassa\Request\Payments\Payment\CreateCapture
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

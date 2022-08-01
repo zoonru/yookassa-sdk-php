@@ -91,6 +91,7 @@ var_dump($response);
 | public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать |
 | public | [addItem()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_addItem) |  | Добавляет товар в чек |
 | public | [build()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_build) |  | Строит и возвращает объект запроса для отправки в API ЮKassa |
+| public | [setAdditionalUserProps()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setAdditionalUserProps) |  | Устанавливает дополнительный реквизит пользователя |
 | public | [setAmount()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setAmount) |  | Устанавливает сумму |
 | public | [setCurrency()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setCurrency) |  | Устанавливает валюту в которой будет происходить подтверждение оплаты заказа |
 | public | [setCustomer()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setCustomer) |  | Устанавливает информацию о пользователе |
@@ -99,6 +100,8 @@ var_dump($response);
 | public | [setObjectType()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setObjectType) |  | Устанавливает тип объекта чека |
 | public | [setOnBehalfOf()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setOnBehalfOf) |  | Устанавливает идентификатор магазина, от имени которого нужно отправить чек. |
 | public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива |
+| public | [setReceiptIndustryDetails()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setReceiptIndustryDetails) |  | Устанавливает отраслевой реквизит чека |
+| public | [setReceiptOperationalDetails()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setReceiptOperationalDetails) |  | Устанавливает отраслевой реквизит чека |
 | public | [setSend()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setSend) |  | Устанавливает признак отложенной отправки чека. |
 | public | [setSettlements()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setSettlements) |  | Устанавливает массив оплат, обеспечивающих выдачу товара. |
 | public | [setTaxSystemCode()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md#method_setTaxSystemCode) |  | Устанавливает код системы налогообложения |
@@ -218,6 +221,28 @@ public build(array|null $options = null) : \YooKassa\Request\Receipts\CreatePost
 | \YooKassa\Common\Exceptions\InvalidRequestException | Выбрасывается если собрать объект запроса не удалось |
 
 **Returns:** \YooKassa\Request\Receipts\CreatePostReceiptRequest|\YooKassa\Common\AbstractRequest - Инстанс объекта запроса
+
+
+<a name="method_setAdditionalUserProps" class="anchor"></a>
+#### public setAdditionalUserProps() : \YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder
+
+```php
+public setAdditionalUserProps(\YooKassa\Model\Receipt\AdditionalUserProps|array $value) : \YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder
+```
+
+**Summary**
+
+Устанавливает дополнительный реквизит пользователя
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">\YooKassa\Model\Receipt\AdditionalUserProps OR array</code> | value  | Дополнительный реквизит пользователя |
+
+**Returns:** \YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder - Инстанс билдера запросов
 
 
 <a name="method_setAmount" class="anchor"></a>
@@ -408,6 +433,50 @@ public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractReques
 **Returns:** \YooKassa\Common\AbstractRequestBuilder - Инстанс текущего билдера запросов
 
 
+<a name="method_setReceiptIndustryDetails" class="anchor"></a>
+#### public setReceiptIndustryDetails() : mixed
+
+```php
+public setReceiptIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[] $value) : mixed
+```
+
+**Summary**
+
+Устанавливает отраслевой реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[]</code> | value  | Отраслевой реквизит чека CreatePostReceiptRequestBuilder |
+
+**Returns:** mixed - 
+
+
+<a name="method_setReceiptOperationalDetails" class="anchor"></a>
+#### public setReceiptOperationalDetails() : \YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder
+
+```php
+public setReceiptOperationalDetails(array|\YooKassa\Model\Receipt\IndustryDetails[] $value) : \YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder
+```
+
+**Summary**
+
+Устанавливает отраслевой реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequestBuilder.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[]</code> | value  | Отраслевой реквизит чека |
+
+**Returns:** \YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder - Инстанс билдера запросов
+
+
 <a name="method_setSend" class="anchor"></a>
 #### public setSend() : \YooKassa\Request\Receipts\CreatePostReceiptRequestBuilder
 
@@ -529,6 +598,6 @@ protected initCurrentObject() : \YooKassa\Request\Receipts\CreatePostReceiptRequ
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

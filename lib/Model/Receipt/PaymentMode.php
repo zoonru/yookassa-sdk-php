@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The MIT License
  *
@@ -25,17 +26,26 @@
 
 namespace YooKassa\Model\Receipt;
 
-
 use YooKassa\Common\AbstractEnum;
 
+/**
+ * Признак способа расчета передается в параметре `payment_mode`.
+ */
 class PaymentMode extends AbstractEnum
 {
+    /** @var string Полная предоплата */
     const FULL_PREPAYMENT = 'full_prepayment';
+    /** @var string Частичная предоплата */
     const PARTIAL_PREPAYMENT = 'partial_prepayment';
+    /** @var string Аванс */
     const ADVANCE = 'advance';
+    /** @var string Полный расчет */
     const FULL_PAYMENT = 'full_payment';
+    /** @var string Частичный расчет и кредит */
     const PARTIAL_PAYMENT = 'partial_payment';
+    /** @var string Кредит */
     const CREDIT = 'credit';
+    /** @var string Выплата по кредиту */
     const CREDIT_PAYMENT = 'credit_payment';
 
     protected static $validValues = array(

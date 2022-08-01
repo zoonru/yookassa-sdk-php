@@ -10,31 +10,47 @@
 
 ---
 ### Constants
-* No constants found
+| Visibility | Name | Flag | Summary |
+| ----------:| ---- | ---- | ------- |
+| public | [DESCRIPTION_MAX_LENGTH](../classes/YooKassa-Model-ReceiptItem.md#constant_DESCRIPTION_MAX_LENGTH) |  |  |
+| public | [ADD_PROPS_MAX_LENGTH](../classes/YooKassa-Model-ReceiptItem.md#constant_ADD_PROPS_MAX_LENGTH) |  |  |
 
 ---
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
+| public | [$additional_payment_subject_props](../classes/YooKassa-Model-ReceiptItem.md#property_additional_payment_subject_props) |  | Дополнительный реквизит предмета расчета (тег в 54 ФЗ — 1191) |
+| public | [$additionalPaymentSubjectProps](../classes/YooKassa-Model-ReceiptItem.md#property_additionalPaymentSubjectProps) |  | Дополнительный реквизит предмета расчета (тег в 54 ФЗ — 1191) |
+| public | [$agent_type](../classes/YooKassa-Model-ReceiptItem.md#property_agent_type) |  | Тип посредника, реализующего товар или услугу |
+| public | [$agentType](../classes/YooKassa-Model-ReceiptItem.md#property_agentType) |  | Тип посредника, реализующего товар или услугу |
 | public | [$amount](../classes/YooKassa-Model-ReceiptItem.md#property_amount) |  | Суммарная стоимость покупаемого товара в копейках/центах |
-| public | [$country_of_origin_code](../classes/YooKassa-Model-ReceiptItem.md#property_country_of_origin_code) |  | Код страны происхождения товара |
-| public | [$countryOfOriginCode](../classes/YooKassa-Model-ReceiptItem.md#property_countryOfOriginCode) |  | Код страны происхождения товара |
-| public | [$customs_declaration_number](../classes/YooKassa-Model-ReceiptItem.md#property_customs_declaration_number) |  | Номер таможенной декларации (от 1 до 32 символов) |
-| public | [$customsDeclarationNumber](../classes/YooKassa-Model-ReceiptItem.md#property_customsDeclarationNumber) |  | Номер таможенной декларации (от 1 до 32 символов) |
-| public | [$description](../classes/YooKassa-Model-ReceiptItem.md#property_description) |  | Наименование товара |
-| public | [$excise](../classes/YooKassa-Model-ReceiptItem.md#property_excise) |  | Сумма акциза товара с учетом копеек |
+| public | [$country_of_origin_code](../classes/YooKassa-Model-ReceiptItem.md#property_country_of_origin_code) |  | Код страны происхождения товара (тег в 54 ФЗ — 1230) |
+| public | [$countryOfOriginCode](../classes/YooKassa-Model-ReceiptItem.md#property_countryOfOriginCode) |  | Код страны происхождения товара (тег в 54 ФЗ — 1230) |
+| public | [$customs_declaration_number](../classes/YooKassa-Model-ReceiptItem.md#property_customs_declaration_number) |  | Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231 |
+| public | [$customsDeclarationNumber](../classes/YooKassa-Model-ReceiptItem.md#property_customsDeclarationNumber) |  | Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231 |
+| public | [$description](../classes/YooKassa-Model-ReceiptItem.md#property_description) |  | Наименование товара (тег в 54 ФЗ — 1030) |
+| public | [$excise](../classes/YooKassa-Model-ReceiptItem.md#property_excise) |  | Сумма акциза товара с учетом копеек (тег в 54 ФЗ — 1229) |
 | public | [$isShipping](../classes/YooKassa-Model-ReceiptItem.md#property_isShipping) |  | Флаг доставки |
-| public | [$payment_mode](../classes/YooKassa-Model-ReceiptItem.md#property_payment_mode) |  | Признак способа расчета |
-| public | [$payment_subject](../classes/YooKassa-Model-ReceiptItem.md#property_payment_subject) |  | Признак предмета расчета |
-| public | [$paymentMode](../classes/YooKassa-Model-ReceiptItem.md#property_paymentMode) |  | Признак способа расчета |
-| public | [$paymentSubject](../classes/YooKassa-Model-ReceiptItem.md#property_paymentSubject) |  | Признак предмета расчета |
-| public | [$price](../classes/YooKassa-Model-ReceiptItem.md#property_price) |  | Цена товара |
-| public | [$product_code](../classes/YooKassa-Model-ReceiptItem.md#property_product_code) |  | Код товара |
-| public | [$productCode](../classes/YooKassa-Model-ReceiptItem.md#property_productCode) |  | Код товара |
-| public | [$quantity](../classes/YooKassa-Model-ReceiptItem.md#property_quantity) |  | Количество |
-| public | [$supplier](../classes/YooKassa-Model-ReceiptItem.md#property_supplier) |  | Информация о поставщике товара или услуги |
-| public | [$vat_code](../classes/YooKassa-Model-ReceiptItem.md#property_vat_code) |  | Ставка НДС, число 1-6 |
-| public | [$vatCode](../classes/YooKassa-Model-ReceiptItem.md#property_vatCode) |  | Ставка НДС, число 1-6 |
+| public | [$mark_code_info](../classes/YooKassa-Model-ReceiptItem.md#property_mark_code_info) |  | Код товара (тег в 54 ФЗ — 1163) |
+| public | [$mark_mode](../classes/YooKassa-Model-ReceiptItem.md#property_mark_mode) |  | Режим обработки кода маркировки (тег в 54 ФЗ — 2102) |
+| public | [$mark_quantity](../classes/YooKassa-Model-ReceiptItem.md#property_mark_quantity) |  | Дробное количество маркированного товара (тег в 54 ФЗ — 1291) |
+| public | [$markCodeInfo](../classes/YooKassa-Model-ReceiptItem.md#property_markCodeInfo) |  | Код товара (тег в 54 ФЗ — 1163) |
+| public | [$markMode](../classes/YooKassa-Model-ReceiptItem.md#property_markMode) |  | Режим обработки кода маркировки (тег в 54 ФЗ — 2102) |
+| public | [$markQuantity](../classes/YooKassa-Model-ReceiptItem.md#property_markQuantity) |  | Дробное количество маркированного товара (тег в 54 ФЗ — 1291) |
+| public | [$measure](../classes/YooKassa-Model-ReceiptItem.md#property_measure) |  | Мера количества предмета расчета (тег в 54 ФЗ — 2108) |
+| public | [$payment_mode](../classes/YooKassa-Model-ReceiptItem.md#property_payment_mode) |  | Признак способа расчета (тег в 54 ФЗ — 1214) |
+| public | [$payment_subject](../classes/YooKassa-Model-ReceiptItem.md#property_payment_subject) |  | Признак предмета расчета (тег в 54 ФЗ — 1212) |
+| public | [$payment_subject_industry_details](../classes/YooKassa-Model-ReceiptItem.md#property_payment_subject_industry_details) |  | Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260) |
+| public | [$paymentMode](../classes/YooKassa-Model-ReceiptItem.md#property_paymentMode) |  | Признак способа расчета (тег в 54 ФЗ — 1214) |
+| public | [$paymentSubject](../classes/YooKassa-Model-ReceiptItem.md#property_paymentSubject) |  | Признак предмета расчета (тег в 54 ФЗ — 1212) |
+| public | [$paymentSubjectIndustryDetails](../classes/YooKassa-Model-ReceiptItem.md#property_paymentSubjectIndustryDetails) |  | Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260) |
+| public | [$price](../classes/YooKassa-Model-ReceiptItem.md#property_price) |  | Цена товара (тег в 54 ФЗ — 1079) |
+| public | [$product_code](../classes/YooKassa-Model-ReceiptItem.md#property_product_code) |  | Код товара (тег в 54 ФЗ — 1162) |
+| public | [$productCode](../classes/YooKassa-Model-ReceiptItem.md#property_productCode) |  | Код товара (тег в 54 ФЗ — 1162) |
+| public | [$quantity](../classes/YooKassa-Model-ReceiptItem.md#property_quantity) |  | Количество (тег в 54 ФЗ — 1023) |
+| public | [$supplier](../classes/YooKassa-Model-ReceiptItem.md#property_supplier) |  | Информация о поставщике товара или услуги (тег в 54 ФЗ — 1224) |
+| public | [$vat_code](../classes/YooKassa-Model-ReceiptItem.md#property_vat_code) |  | Ставка НДС (тег в 54 ФЗ — 1199), число 1-6 |
+| public | [$vatCode](../classes/YooKassa-Model-ReceiptItem.md#property_vatCode) |  | Ставка НДС (тег в 54 ФЗ — 1199), число 1-6 |
 
 ---
 ### Methods
@@ -48,14 +64,20 @@
 | public | [applyDiscountCoefficient()](../classes/YooKassa-Model-ReceiptItem.md#method_applyDiscountCoefficient) |  | Применяет для товара скидку |
 | public | [fetchItem()](../classes/YooKassa-Model-ReceiptItem.md#method_fetchItem) |  | Уменьшает количество покупаемого товара на указанное, возвращает объект позиции в чеке с уменьшаемым количеством |
 | public | [fromArray()](../classes/YooKassa-Model-ReceiptItem.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
+| public | [getAdditionalPaymentSubjectProps()](../classes/YooKassa-Model-ReceiptItem.md#method_getAdditionalPaymentSubjectProps) |  | Возвращает дополнительный реквизит предмета расчета |
 | public | [getAgentType()](../classes/YooKassa-Model-ReceiptItem.md#method_getAgentType) |  | Возвращает тип посредника, реализующего товар или услугу |
 | public | [getAmount()](../classes/YooKassa-Model-ReceiptItem.md#method_getAmount) |  | Возвращает общую стоимость покупаемого товара в копейках/центах |
 | public | [getCountryOfOriginCode()](../classes/YooKassa-Model-ReceiptItem.md#method_getCountryOfOriginCode) |  | Возвращает код страны происхождения товара по общероссийскому классификатору стран мира |
 | public | [getCustomsDeclarationNumber()](../classes/YooKassa-Model-ReceiptItem.md#method_getCustomsDeclarationNumber) |  | Возвращает номер таможенной декларации |
 | public | [getDescription()](../classes/YooKassa-Model-ReceiptItem.md#method_getDescription) |  | Возвращает наименование товара |
 | public | [getExcise()](../classes/YooKassa-Model-ReceiptItem.md#method_getExcise) |  | Возвращает сумму акциза товара с учетом копеек |
+| public | [getMarkCodeInfo()](../classes/YooKassa-Model-ReceiptItem.md#method_getMarkCodeInfo) |  | Возвращает код товара |
+| public | [getMarkMode()](../classes/YooKassa-Model-ReceiptItem.md#method_getMarkMode) |  | Возвращает режим обработки кода маркировки |
+| public | [getMarkQuantity()](../classes/YooKassa-Model-ReceiptItem.md#method_getMarkQuantity) |  | Возвращает дробное количество маркированного товара |
+| public | [getMeasure()](../classes/YooKassa-Model-ReceiptItem.md#method_getMeasure) |  | Возвращает меру количества предмета расчета |
 | public | [getPaymentMode()](../classes/YooKassa-Model-ReceiptItem.md#method_getPaymentMode) |  | Возвращает признак способа расчета |
 | public | [getPaymentSubject()](../classes/YooKassa-Model-ReceiptItem.md#method_getPaymentSubject) |  | Возвращает признак предмета расчета |
+| public | [getPaymentSubjectIndustryDetails()](../classes/YooKassa-Model-ReceiptItem.md#method_getPaymentSubjectIndustryDetails) |  | Возвращает отраслевой реквизит чека |
 | public | [getPrice()](../classes/YooKassa-Model-ReceiptItem.md#method_getPrice) |  | Возвращает цену товара |
 | public | [getProductCode()](../classes/YooKassa-Model-ReceiptItem.md#method_getProductCode) |  | Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке |
 | public | [getQuantity()](../classes/YooKassa-Model-ReceiptItem.md#method_getQuantity) |  | Возвращает количество товара |
@@ -68,14 +90,20 @@
 | public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
 | public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
 | public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
+| public | [setAdditionalPaymentSubjectProps()](../classes/YooKassa-Model-ReceiptItem.md#method_setAdditionalPaymentSubjectProps) |  | Устанавливает дополнительный реквизит предмета расчета |
 | public | [setAgentType()](../classes/YooKassa-Model-ReceiptItem.md#method_setAgentType) |  | Устанавливает тип посредника, реализующего товар или услугу |
 | public | [setCountryOfOriginCode()](../classes/YooKassa-Model-ReceiptItem.md#method_setCountryOfOriginCode) |  | Устанавливает код страны происхождения товара по общероссийскому классификатору стран мира |
 | public | [setCustomsDeclarationNumber()](../classes/YooKassa-Model-ReceiptItem.md#method_setCustomsDeclarationNumber) |  | Устанавливает номер таможенной декларации (от 1 до 32 символов) |
 | public | [setDescription()](../classes/YooKassa-Model-ReceiptItem.md#method_setDescription) |  | Устанавливает наименование товара |
 | public | [setExcise()](../classes/YooKassa-Model-ReceiptItem.md#method_setExcise) |  | Устанавливает сумму акциза товара с учетом копеек |
 | public | [setIsShipping()](../classes/YooKassa-Model-ReceiptItem.md#method_setIsShipping) |  | Устанавливает флаг доставки для текущего объекта айтема в чеке |
+| public | [setMarkCodeInfo()](../classes/YooKassa-Model-ReceiptItem.md#method_setMarkCodeInfo) |  | Устанавливает код товара |
+| public | [setMarkMode()](../classes/YooKassa-Model-ReceiptItem.md#method_setMarkMode) |  | Устанавливает режим обработки кода маркировки |
+| public | [setMarkQuantity()](../classes/YooKassa-Model-ReceiptItem.md#method_setMarkQuantity) |  | Устанавливает дробное количество маркированного товара |
+| public | [setMeasure()](../classes/YooKassa-Model-ReceiptItem.md#method_setMeasure) |  | Устанавливает меру количества предмета расчета |
 | public | [setPaymentMode()](../classes/YooKassa-Model-ReceiptItem.md#method_setPaymentMode) |  | Устанавливает признак способа расчета |
 | public | [setPaymentSubject()](../classes/YooKassa-Model-ReceiptItem.md#method_setPaymentSubject) |  | Устанавливает признак предмета расчета |
+| public | [setPaymentSubjectIndustryDetails()](../classes/YooKassa-Model-ReceiptItem.md#method_setPaymentSubjectIndustryDetails) |  | Устанавливает отраслевой реквизит чека |
 | public | [setPrice()](../classes/YooKassa-Model-ReceiptItem.md#method_setPrice) |  | Устанавливает цену товара |
 | public | [setProductCode()](../classes/YooKassa-Model-ReceiptItem.md#method_setProductCode) |  | Устанавливает код товара — уникальный номер, который присваивается экземпляру товара при маркировке |
 | public | [setQuantity()](../classes/YooKassa-Model-ReceiptItem.md#method_setQuantity) |  | Устанавливает количество покупаемого товара |
@@ -95,7 +123,72 @@
   * [\YooKassa\Model\ReceiptItemInterface](../classes/YooKassa-Model-ReceiptItemInterface.md)
 
 ---
+## Constants
+<a name="constant_DESCRIPTION_MAX_LENGTH" class="anchor"></a>
+###### DESCRIPTION_MAX_LENGTH
+```php
+DESCRIPTION_MAX_LENGTH = 128 : int
+```
+
+
+<a name="constant_ADD_PROPS_MAX_LENGTH" class="anchor"></a>
+###### ADD_PROPS_MAX_LENGTH
+```php
+ADD_PROPS_MAX_LENGTH = 64 : int
+```
+
+
+
+---
 ## Properties
+<a name="property_additional_payment_subject_props"></a>
+#### public $additional_payment_subject_props : string
+---
+***Description***
+
+Дополнительный реквизит предмета расчета (тег в 54 ФЗ — 1191)
+
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
+<a name="property_additionalPaymentSubjectProps"></a>
+#### public $additionalPaymentSubjectProps : string
+---
+***Description***
+
+Дополнительный реквизит предмета расчета (тег в 54 ФЗ — 1191)
+
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
+<a name="property_agent_type"></a>
+#### public $agent_type : string
+---
+***Description***
+
+Тип посредника, реализующего товар или услугу
+
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
+<a name="property_agentType"></a>
+#### public $agentType : string
+---
+***Description***
+
+Тип посредника, реализующего товар или услугу
+
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
 <a name="property_amount"></a>
 #### public $amount : float
 ---
@@ -113,7 +206,7 @@
 ---
 ***Description***
 
-Код страны происхождения товара
+Код страны происхождения товара (тег в 54 ФЗ — 1230)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -125,7 +218,7 @@
 ---
 ***Description***
 
-Код страны происхождения товара
+Код страны происхождения товара (тег в 54 ФЗ — 1230)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -137,7 +230,7 @@
 ---
 ***Description***
 
-Номер таможенной декларации (от 1 до 32 символов)
+Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -149,7 +242,7 @@
 ---
 ***Description***
 
-Номер таможенной декларации (от 1 до 32 символов)
+Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -161,7 +254,7 @@
 ---
 ***Description***
 
-Наименование товара
+Наименование товара (тег в 54 ФЗ — 1030)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -173,7 +266,7 @@
 ---
 ***Description***
 
-Сумма акциза товара с учетом копеек
+Сумма акциза товара с учетом копеек (тег в 54 ФЗ — 1229)
 
 **Type:** <a href="../float"><abbr title="float">float</abbr></a>
 
@@ -192,12 +285,96 @@
 **Details:**
 
 
+<a name="property_mark_code_info"></a>
+#### public $mark_code_info : \YooKassa\Model\Receipt\MarkCodeInfo
+---
+***Description***
+
+Код товара (тег в 54 ФЗ — 1163)
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-MarkCodeInfo.html"><abbr title="\YooKassa\Model\Receipt\MarkCodeInfo">MarkCodeInfo</abbr></a>
+
+**Details:**
+
+
+<a name="property_mark_mode"></a>
+#### public $mark_mode : string
+---
+***Description***
+
+Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
+
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
+<a name="property_mark_quantity"></a>
+#### public $mark_quantity : \YooKassa\Model\Receipt\MarkQuantity
+---
+***Description***
+
+Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-MarkQuantity.html"><abbr title="\YooKassa\Model\Receipt\MarkQuantity">MarkQuantity</abbr></a>
+
+**Details:**
+
+
+<a name="property_markCodeInfo"></a>
+#### public $markCodeInfo : \YooKassa\Model\Receipt\MarkCodeInfo
+---
+***Description***
+
+Код товара (тег в 54 ФЗ — 1163)
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-MarkCodeInfo.html"><abbr title="\YooKassa\Model\Receipt\MarkCodeInfo">MarkCodeInfo</abbr></a>
+
+**Details:**
+
+
+<a name="property_markMode"></a>
+#### public $markMode : string
+---
+***Description***
+
+Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
+
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
+<a name="property_markQuantity"></a>
+#### public $markQuantity : \YooKassa\Model\Receipt\MarkQuantity
+---
+***Description***
+
+Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-MarkQuantity.html"><abbr title="\YooKassa\Model\Receipt\MarkQuantity">MarkQuantity</abbr></a>
+
+**Details:**
+
+
+<a name="property_measure"></a>
+#### public $measure : string
+---
+***Description***
+
+Мера количества предмета расчета (тег в 54 ФЗ — 2108)
+
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
 <a name="property_payment_mode"></a>
 #### public $payment_mode : string
 ---
 ***Description***
 
-Признак способа расчета
+Признак способа расчета (тег в 54 ФЗ — 1214)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -209,9 +386,21 @@
 ---
 ***Description***
 
-Признак предмета расчета
+Признак предмета расчета (тег в 54 ФЗ — 1212)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
+<a name="property_payment_subject_industry_details"></a>
+#### public $payment_subject_industry_details : \YooKassa\Model\Receipt\IndustryDetails[]
+---
+***Description***
+
+Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
+
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 
@@ -221,7 +410,7 @@
 ---
 ***Description***
 
-Признак способа расчета
+Признак способа расчета (тег в 54 ФЗ — 1214)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -233,9 +422,21 @@
 ---
 ***Description***
 
-Признак предмета расчета
+Признак предмета расчета (тег в 54 ФЗ — 1212)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
+
+**Details:**
+
+
+<a name="property_paymentSubjectIndustryDetails"></a>
+#### public $paymentSubjectIndustryDetails : \YooKassa\Model\Receipt\IndustryDetails[]
+---
+***Description***
+
+Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
+
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 
@@ -245,7 +446,7 @@
 ---
 ***Description***
 
-Цена товара
+Цена товара (тег в 54 ФЗ — 1079)
 
 **Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
 
@@ -257,7 +458,7 @@
 ---
 ***Description***
 
-Код товара
+Код товара (тег в 54 ФЗ — 1162)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -269,7 +470,7 @@
 ---
 ***Description***
 
-Код товара
+Код товара (тег в 54 ФЗ — 1162)
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -281,7 +482,7 @@
 ---
 ***Description***
 
-Количество
+Количество (тег в 54 ФЗ — 1023)
 
 **Type:** <a href="../float"><abbr title="float">float</abbr></a>
 
@@ -293,7 +494,7 @@
 ---
 ***Description***
 
-Информация о поставщике товара или услуги
+Информация о поставщике товара или услуги (тег в 54 ФЗ — 1224)
 
 **Type:** <a href="../classes/YooKassa-Model-Supplier.html"><abbr title="\YooKassa\Model\Supplier">Supplier</abbr></a>
 
@@ -305,7 +506,7 @@
 ---
 ***Description***
 
-Ставка НДС, число 1-6
+Ставка НДС (тег в 54 ФЗ — 1199), число 1-6
 
 **Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
@@ -317,7 +518,7 @@
 ---
 ***Description***
 
-Ставка НДС, число 1-6
+Ставка НДС (тег в 54 ФЗ — 1199), число 1-6
 
 **Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
@@ -511,6 +712,23 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 **Returns:** mixed - 
 
 
+<a name="method_getAdditionalPaymentSubjectProps" class="anchor"></a>
+#### public getAdditionalPaymentSubjectProps() : string
+
+```php
+public getAdditionalPaymentSubjectProps() : string
+```
+
+**Summary**
+
+Возвращает дополнительный реквизит предмета расчета
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+**Returns:** string - Дополнительный реквизит предмета расчета
+
+
 <a name="method_getAgentType" class="anchor"></a>
 #### public getAgentType() : string
 
@@ -613,6 +831,74 @@ public getExcise() : float|null
 **Returns:** float|null - Сумма акциза товара с учетом копеек
 
 
+<a name="method_getMarkCodeInfo" class="anchor"></a>
+#### public getMarkCodeInfo() : \YooKassa\Model\Receipt\MarkCodeInfo
+
+```php
+public getMarkCodeInfo() : \YooKassa\Model\Receipt\MarkCodeInfo
+```
+
+**Summary**
+
+Возвращает код товара
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+**Returns:** \YooKassa\Model\Receipt\MarkCodeInfo - Код товара
+
+
+<a name="method_getMarkMode" class="anchor"></a>
+#### public getMarkMode() : string
+
+```php
+public getMarkMode() : string
+```
+
+**Summary**
+
+Возвращает режим обработки кода маркировки
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+**Returns:** string - Режим обработки кода маркировки
+
+
+<a name="method_getMarkQuantity" class="anchor"></a>
+#### public getMarkQuantity() : \YooKassa\Model\Receipt\MarkQuantity
+
+```php
+public getMarkQuantity() : \YooKassa\Model\Receipt\MarkQuantity
+```
+
+**Summary**
+
+Возвращает дробное количество маркированного товара
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+**Returns:** \YooKassa\Model\Receipt\MarkQuantity - Дробное количество маркированного товара
+
+
+<a name="method_getMeasure" class="anchor"></a>
+#### public getMeasure() : string
+
+```php
+public getMeasure() : string
+```
+
+**Summary**
+
+Возвращает меру количества предмета расчета
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+**Returns:** string - Мера количества предмета расчета
+
+
 <a name="method_getPaymentMode" class="anchor"></a>
 #### public getPaymentMode() : string|null
 
@@ -645,6 +931,23 @@ public getPaymentSubject() : string|null
 * Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
 
 **Returns:** string|null - Признак предмета расчета
+
+
+<a name="method_getPaymentSubjectIndustryDetails" class="anchor"></a>
+#### public getPaymentSubjectIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+
+```php
+public getPaymentSubjectIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+```
+
+**Summary**
+
+Возвращает отраслевой реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+**Returns:** \YooKassa\Model\Receipt\IndustryDetails[] - Отраслевой реквизит чека
 
 
 <a name="method_getPrice" class="anchor"></a>
@@ -881,6 +1184,28 @@ public offsetUnset(string $offset) : mixed
 **Returns:** mixed - 
 
 
+<a name="method_setAdditionalPaymentSubjectProps" class="anchor"></a>
+#### public setAdditionalPaymentSubjectProps() : mixed
+
+```php
+public setAdditionalPaymentSubjectProps(string $value) : mixed
+```
+
+**Summary**
+
+Устанавливает дополнительный реквизит предмета расчета
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | value  | Дополнительный реквизит предмета расчета |
+
+**Returns:** mixed - 
+
+
 <a name="method_setAgentType" class="anchor"></a>
 #### public setAgentType() : mixed
 
@@ -1039,6 +1364,94 @@ public setIsShipping(bool $value) : \YooKassa\Model\ReceiptItem
 **Returns:** \YooKassa\Model\ReceiptItem - 
 
 
+<a name="method_setMarkCodeInfo" class="anchor"></a>
+#### public setMarkCodeInfo() : mixed
+
+```php
+public setMarkCodeInfo(array|\YooKassa\Model\Receipt\MarkCodeInfo $value) : mixed
+```
+
+**Summary**
+
+Устанавливает код товара
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\MarkCodeInfo</code> | value  | Код товара |
+
+**Returns:** mixed - 
+
+
+<a name="method_setMarkMode" class="anchor"></a>
+#### public setMarkMode() : mixed
+
+```php
+public setMarkMode(string $value) : mixed
+```
+
+**Summary**
+
+Устанавливает режим обработки кода маркировки
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | value  | Режим обработки кода маркировки |
+
+**Returns:** mixed - 
+
+
+<a name="method_setMarkQuantity" class="anchor"></a>
+#### public setMarkQuantity() : mixed
+
+```php
+public setMarkQuantity(array|\YooKassa\Model\Receipt\MarkQuantity $value) : mixed
+```
+
+**Summary**
+
+Устанавливает дробное количество маркированного товара
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\MarkQuantity</code> | value  | Дробное количество маркированного товара |
+
+**Returns:** mixed - 
+
+
+<a name="method_setMeasure" class="anchor"></a>
+#### public setMeasure() : mixed
+
+```php
+public setMeasure(string $value) : mixed
+```
+
+**Summary**
+
+Устанавливает меру количества предмета расчета
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | value  | Мера количества предмета расчета |
+
+**Returns:** mixed - 
+
+
 <a name="method_setPaymentMode" class="anchor"></a>
 #### public setPaymentMode() : mixed
 
@@ -1089,6 +1502,28 @@ public setPaymentSubject(string $value) : mixed
 | Type | Description |
 | ---- | ----------- |
 | \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента была передана не строка |
+
+**Returns:** mixed - 
+
+
+<a name="method_setPaymentSubjectIndustryDetails" class="anchor"></a>
+#### public setPaymentSubjectIndustryDetails() : mixed
+
+```php
+public setPaymentSubjectIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[] $value) : mixed
+```
+
+**Summary**
+
+Устанавливает отраслевой реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[]</code> | value  | Отраслевой реквизит чека |
 
 **Returns:** mixed - 
 
@@ -1172,10 +1607,10 @@ public setQuantity(int $value) : mixed
 
 
 <a name="method_setSupplier" class="anchor"></a>
-#### public setSupplier() : mixed
+#### public setSupplier() : $this
 
 ```php
-public setSupplier(\YooKassa\Model\SupplierInterface|array $value) : mixed
+public setSupplier(\YooKassa\Model\SupplierInterface|array $value) : $this
 ```
 
 **Summary**
@@ -1188,9 +1623,9 @@ public setSupplier(\YooKassa\Model\SupplierInterface|array $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SupplierInterface OR array</code> | value  |  |
+| <code lang="php">\YooKassa\Model\SupplierInterface OR array</code> | value  | Информация о поставщике товара или услуги |
 
-**Returns:** mixed - 
+**Returns:** $this - 
 
 
 <a name="method_setVatCode" class="anchor"></a>
@@ -1272,6 +1707,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

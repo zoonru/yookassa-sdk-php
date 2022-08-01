@@ -16,8 +16,14 @@
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
+| public | [$additional_user_props](../classes/YooKassa-Model-Receipt.md#property_additional_user_props) |  | Дополнительный реквизит пользователя (тег в 54 ФЗ — 1084) |
+| public | [$additionalUserProps](../classes/YooKassa-Model-Receipt.md#property_additionalUserProps) |  | Дополнительный реквизит пользователя (тег в 54 ФЗ — 1084) |
 | public | [$customer](../classes/YooKassa-Model-Receipt.md#property_customer) |  | Информация о плательщике |
 | public | [$items](../classes/YooKassa-Model-Receipt.md#property_items) |  | Список товаров в заказе |
+| public | [$receipt_industry_details](../classes/YooKassa-Model-Receipt.md#property_receipt_industry_details) |  | Отраслевой реквизит чека (тег в 54 ФЗ — 1261) |
+| public | [$receipt_operational_details](../classes/YooKassa-Model-Receipt.md#property_receipt_operational_details) |  | Операционный реквизит чека (тег в 54 ФЗ — 1270) |
+| public | [$receiptIndustryDetails](../classes/YooKassa-Model-Receipt.md#property_receiptIndustryDetails) |  | Отраслевой реквизит чека (тег в 54 ФЗ — 1261) |
+| public | [$receiptOperationalDetails](../classes/YooKassa-Model-Receipt.md#property_receiptOperationalDetails) |  | Операционный реквизит чека (тег в 54 ФЗ — 1270) |
 | public | [$settlements](../classes/YooKassa-Model-Receipt.md#property_settlements) |  | Массив оплат, обеспечивающих выдачу товара |
 | public | [$tax_system_code](../classes/YooKassa-Model-Receipt.md#property_tax_system_code) |  | Код системы налогообложения. Число 1-6. |
 | public | [$taxSystemCode](../classes/YooKassa-Model-Receipt.md#property_taxSystemCode) |  | Код системы налогообложения. Число 1-6. |
@@ -34,12 +40,15 @@
 | public | [addItem()](../classes/YooKassa-Model-Receipt.md#method_addItem) |  | Добавляет товар в чек |
 | public | [addSettlement()](../classes/YooKassa-Model-Receipt.md#method_addSettlement) |  | Добавляет оплату в чек |
 | public | [fromArray()](../classes/YooKassa-Model-Receipt.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
+| public | [getAdditionalUserProps()](../classes/YooKassa-Model-Receipt.md#method_getAdditionalUserProps) |  | Возвращает дополнительный реквизит пользователя |
 | public | [getAmountValue()](../classes/YooKassa-Model-Receipt.md#method_getAmountValue) |  | Возвращает стоимость заказа исходя из состава чека |
 | public | [getCustomer()](../classes/YooKassa-Model-Receipt.md#method_getCustomer) |  | Возвращает информацию о плательщике |
 | public | [getEmail()](../classes/YooKassa-Model-Receipt.md#method_getEmail) | *deprecated* | Возвращает адрес электронной почты на который будет выслан чек |
 | public | [getItems()](../classes/YooKassa-Model-Receipt.md#method_getItems) |  | Возвращает список позиций в текущем чеке |
 | public | [getObjectId()](../classes/YooKassa-Model-Receipt.md#method_getObjectId) |  | Возвращает Id объекта чека |
 | public | [getPhone()](../classes/YooKassa-Model-Receipt.md#method_getPhone) | *deprecated* | Возвращает номер телефона плательщика в формате ITU-T E.164 на который будет выслан чек |
+| public | [getReceiptIndustryDetails()](../classes/YooKassa-Model-Receipt.md#method_getReceiptIndustryDetails) |  | Возвращает отраслевой реквизит чека |
+| public | [getReceiptOperationalDetails()](../classes/YooKassa-Model-Receipt.md#method_getReceiptOperationalDetails) |  | Возвращает операционный реквизит чека |
 | public | [getSettlements()](../classes/YooKassa-Model-Receipt.md#method_getSettlements) |  | Возвращает массив оплат, обеспечивающих выдачу товара |
 | public | [getShippingAmountValue()](../classes/YooKassa-Model-Receipt.md#method_getShippingAmountValue) |  | Возвращает стоимость доставки исходя из состава чека |
 | public | [getTaxSystemCode()](../classes/YooKassa-Model-Receipt.md#method_getTaxSystemCode) |  | Возвращает код системы налогообложения |
@@ -50,10 +59,13 @@
 | public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
 | public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
 | public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
+| public | [setAdditionalUserProps()](../classes/YooKassa-Model-Receipt.md#method_setAdditionalUserProps) |  | Устанавливает дополнительный реквизит пользователя |
 | public | [setCustomer()](../classes/YooKassa-Model-Receipt.md#method_setCustomer) |  | Устанавливает информацию о плательщике |
 | public | [setEmail()](../classes/YooKassa-Model-Receipt.md#method_setEmail) | *deprecated* | Устанавливает адрес электронной почты на который будет выслан чек |
 | public | [setItems()](../classes/YooKassa-Model-Receipt.md#method_setItems) |  | Устанавливает список позиций в чеке |
 | public | [setPhone()](../classes/YooKassa-Model-Receipt.md#method_setPhone) | *deprecated* | Устанавливает номер телефона плательщика в формате ITU-T E.164 на который будет выслан чек |
+| public | [setReceiptIndustryDetails()](../classes/YooKassa-Model-Receipt.md#method_setReceiptIndustryDetails) |  | Устанавливает отраслевой реквизит чека |
+| public | [setReceiptOperationalDetails()](../classes/YooKassa-Model-Receipt.md#method_setReceiptOperationalDetails) |  | Устанавливает операционный реквизит чека |
 | public | [setSettlements()](../classes/YooKassa-Model-Receipt.md#method_setSettlements) |  | Возвращает массив оплат, обеспечивающих выдачу товара |
 | public | [setTaxSystemCode()](../classes/YooKassa-Model-Receipt.md#method_setTaxSystemCode) |  | Устанавливает код системы налогообложения |
 | public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
@@ -71,6 +83,30 @@
 
 ---
 ## Properties
+<a name="property_additional_user_props"></a>
+#### public $additional_user_props : \YooKassa\Model\Receipt\AdditionalUserProps
+---
+***Description***
+
+Дополнительный реквизит пользователя (тег в 54 ФЗ — 1084)
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-AdditionalUserProps.html"><abbr title="\YooKassa\Model\Receipt\AdditionalUserProps">AdditionalUserProps</abbr></a>
+
+**Details:**
+
+
+<a name="property_additionalUserProps"></a>
+#### public $additionalUserProps : \YooKassa\Model\Receipt\AdditionalUserProps
+---
+***Description***
+
+Дополнительный реквизит пользователя (тег в 54 ФЗ — 1084)
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-AdditionalUserProps.html"><abbr title="\YooKassa\Model\Receipt\AdditionalUserProps">AdditionalUserProps</abbr></a>
+
+**Details:**
+
+
 <a name="property_customer"></a>
 #### public $customer : \YooKassa\Model\ReceiptCustomer
 ---
@@ -91,6 +127,54 @@
 Список товаров в заказе
 
 **Type:** <a href="../\YooKassa\Model\ReceiptItemInterface[]"><abbr title="\YooKassa\Model\ReceiptItemInterface[]">ReceiptItemInterface[]</abbr></a>
+
+**Details:**
+
+
+<a name="property_receipt_industry_details"></a>
+#### public $receipt_industry_details : \YooKassa\Model\Receipt\IndustryDetails[]
+---
+***Description***
+
+Отраслевой реквизит чека (тег в 54 ФЗ — 1261)
+
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+
+**Details:**
+
+
+<a name="property_receipt_operational_details"></a>
+#### public $receipt_operational_details : \YooKassa\Model\Receipt\OperationalDetails
+---
+***Description***
+
+Операционный реквизит чека (тег в 54 ФЗ — 1270)
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
+
+**Details:**
+
+
+<a name="property_receiptIndustryDetails"></a>
+#### public $receiptIndustryDetails : \YooKassa\Model\Receipt\IndustryDetails[]
+---
+***Description***
+
+Отраслевой реквизит чека (тег в 54 ФЗ — 1261)
+
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+
+**Details:**
+
+
+<a name="property_receiptOperationalDetails"></a>
+#### public $receiptOperationalDetails : \YooKassa\Model\Receipt\OperationalDetails
+---
+***Description***
+
+Операционный реквизит чека (тег в 54 ФЗ — 1270)
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
 
 **Details:**
 
@@ -311,6 +395,23 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 **Returns:** mixed - 
 
 
+<a name="method_getAdditionalUserProps" class="anchor"></a>
+#### public getAdditionalUserProps() : \YooKassa\Model\Receipt\AdditionalUserProps
+
+```php
+public getAdditionalUserProps() : \YooKassa\Model\Receipt\AdditionalUserProps
+```
+
+**Summary**
+
+Возвращает дополнительный реквизит пользователя
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Receipt](../classes/YooKassa-Model-Receipt.md)
+
+**Returns:** \YooKassa\Model\Receipt\AdditionalUserProps - Дополнительный реквизит пользователя
+
+
 <a name="method_getAmountValue" class="anchor"></a>
 #### public getAmountValue() : int
 
@@ -420,6 +521,40 @@ Deprecated since 1.3.0Устарел — данные рекомендуется
 * Inherited From: [\YooKassa\Model\Receipt](../classes/YooKassa-Model-Receipt.md)
 
 **Returns:** string - Номер телефона плательщика
+
+
+<a name="method_getReceiptIndustryDetails" class="anchor"></a>
+#### public getReceiptIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+
+```php
+public getReceiptIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+```
+
+**Summary**
+
+Возвращает отраслевой реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Receipt](../classes/YooKassa-Model-Receipt.md)
+
+**Returns:** \YooKassa\Model\Receipt\IndustryDetails[] - Отраслевой реквизит чека
+
+
+<a name="method_getReceiptOperationalDetails" class="anchor"></a>
+#### public getReceiptOperationalDetails() : \YooKassa\Model\Receipt\OperationalDetails
+
+```php
+public getReceiptOperationalDetails() : \YooKassa\Model\Receipt\OperationalDetails
+```
+
+**Summary**
+
+Возвращает операционный реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Receipt](../classes/YooKassa-Model-Receipt.md)
+
+**Returns:** \YooKassa\Model\Receipt\OperationalDetails - Операционный реквизит чека
 
 
 <a name="method_getSettlements" class="anchor"></a>
@@ -619,6 +754,28 @@ public offsetUnset(string $offset) : mixed
 **Returns:** mixed - 
 
 
+<a name="method_setAdditionalUserProps" class="anchor"></a>
+#### public setAdditionalUserProps() : mixed
+
+```php
+public setAdditionalUserProps(\YooKassa\Model\Receipt\AdditionalUserProps|array $value) : mixed
+```
+
+**Summary**
+
+Устанавливает дополнительный реквизит пользователя
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Receipt](../classes/YooKassa-Model-Receipt.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">\YooKassa\Model\Receipt\AdditionalUserProps OR array</code> | value  | Дополнительный реквизит пользователя |
+
+**Returns:** mixed - 
+
+
 <a name="method_setCustomer" class="anchor"></a>
 #### public setCustomer() : mixed
 
@@ -733,6 +890,60 @@ Deprecated since 1.3.0Устарел — данные рекомендуется
 **Returns:** mixed - 
 
 
+<a name="method_setReceiptIndustryDetails" class="anchor"></a>
+#### public setReceiptIndustryDetails() : mixed
+
+```php
+public setReceiptIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[] $value) : mixed
+```
+
+**Summary**
+
+Устанавливает отраслевой реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Receipt](../classes/YooKassa-Model-Receipt.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[]</code> | value  | Отраслевой реквизит чека |
+
+##### Throws:
+| Type | Description |
+| ---- | ----------- |
+| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент - не массив |
+
+**Returns:** mixed - 
+
+
+<a name="method_setReceiptOperationalDetails" class="anchor"></a>
+#### public setReceiptOperationalDetails() : mixed
+
+```php
+public setReceiptOperationalDetails(array|\YooKassa\Model\Receipt\OperationalDetails $value) : mixed
+```
+
+**Summary**
+
+Устанавливает операционный реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Receipt](../classes/YooKassa-Model-Receipt.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\OperationalDetails</code> | value  | Операционный реквизит чека |
+
+##### Throws:
+| Type | Description |
+| ---- | ----------- |
+| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент - не массив |
+
+**Returns:** mixed - 
+
+
 <a name="method_setSettlements" class="anchor"></a>
 #### public setSettlements() : mixed
 
@@ -834,6 +1045,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

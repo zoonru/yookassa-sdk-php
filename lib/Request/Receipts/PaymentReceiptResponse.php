@@ -81,7 +81,7 @@ class PaymentReceiptResponse extends AbstractReceiptResponse
             $this->_payment_id = null;
         } elseif (!TypeCast::canCastToString($value)) {
             throw new InvalidPropertyValueTypeException('Invalid payment_id value type', 0, 'Receipt.paymentId');
-        } elseif (strlen((string)$value) !== self::LENGTH_PAYMENT_ID) {
+        } elseif (mb_strlen((string)$value) !== self::LENGTH_PAYMENT_ID) {
             throw new InvalidPropertyValueException(
                 'Invalid payment_id value: "'.$value.'"', 0, 'Receipt.paymentId', $value
             );

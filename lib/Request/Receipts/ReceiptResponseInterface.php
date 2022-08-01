@@ -98,5 +98,5 @@ interface ReceiptResponseInterface
      * Проверяет есть ли в чеке хотя бы одна позиция
      * @return bool True если чек не пуст, false если в чеке нет ни одной позиции
      */
-    function notEmpty();
+    public function notEmpty();
 }

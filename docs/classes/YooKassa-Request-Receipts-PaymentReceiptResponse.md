@@ -28,13 +28,17 @@
 | public | [$fiscalProviderId](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_fiscalProviderId) |  | Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать. |
 | public | [$fiscalStorageNumber](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_fiscalStorageNumber) |  | Номер фискального накопителя в кассовом аппарате. |
 | public | [$id](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_id) |  | Идентификатор чека в ЮKassa. |
-| public | [$items](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_items) |  | Список товаров в заказе |
+| public | [$items](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_items) |  | Список товаров в заказе. |
 | public | [$object_id](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_object_id) |  | Идентификатор объекта чека. |
 | public | [$objectId](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_objectId) |  | Идентификатор объекта чека. |
-| public | [$on_behalf_of](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_on_behalf_of) |  | Идентификатор магазина |
-| public | [$onBehalfOf](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_onBehalfOf) |  | Идентификатор магазина |
+| public | [$on_behalf_of](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_on_behalf_of) |  | Идентификатор магазина. |
+| public | [$onBehalfOf](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_onBehalfOf) |  | Идентификатор магазина. |
 | public | [$payment_id](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#property_payment_id) |  | Идентификатор платежа в ЮKassa |
 | public | [$paymentId](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#property_paymentId) |  | Идентификатор платежа в ЮKassa |
+| public | [$receipt_industry_details](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_receipt_industry_details) |  | Отраслевой реквизит чека. |
+| public | [$receipt_operational_details](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_receipt_operational_details) |  | Операционный реквизит чека. |
+| public | [$receiptIndustryDetails](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_receiptIndustryDetails) |  | Отраслевой реквизит чека. |
+| public | [$receiptOperationalDetails](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_receiptOperationalDetails) |  | Операционный реквизит чека. |
 | public | [$registered_at](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_registered_at) |  | Дата и время формирования чека в фискальном накопителе. |
 | public | [$registeredAt](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_registeredAt) |  | Дата и время формирования чека в фискальном накопителе. |
 | public | [$settlements](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_settlements) |  | Перечень совершенных расчетов. |
@@ -64,6 +68,8 @@
 | public | [getObjectId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getObjectId) |  | Возвращает идентификатор платежа или возврата, для которого был сформирован чек. |
 | public | [getOnBehalfOf()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getOnBehalfOf) |  | Возвращает идентификатор магазин |
 | public | [getPaymentId()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_getPaymentId) |  | Возвращает идентификатор платежа |
+| public | [getReceiptIndustryDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getReceiptIndustryDetails) |  | Возвращает отраслевой реквизит чека |
+| public | [getReceiptOperationalDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getReceiptOperationalDetails) |  | Возвращает операционный реквизит чека |
 | public | [getRegisteredAt()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getRegisteredAt) |  | Возвращает дату и время формирования чека в фискальном накопителе |
 | public | [getSettlements()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getSettlements) |  | Возвращает Массив оплат, обеспечивающих выдачу товара |
 | public | [getStatus()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getStatus) |  | Возвращает статус доставки данных для чека в онлайн-кассу |
@@ -84,6 +90,8 @@
 | public | [setObjectId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setObjectId) |  | Устанавливает идентификатор платежа или возврата, для которого был сформирован чек |
 | public | [setOnBehalfOf()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setOnBehalfOf) |  | Возвращает идентификатор магазина, от имени которого нужно отправить чек |
 | public | [setPaymentId()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_setPaymentId) |  | Устанавливает идентификатор платежа в ЮKassa |
+| public | [setReceiptIndustryDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setReceiptIndustryDetails) |  | Устанавливает отраслевой реквизит чека |
+| public | [setReceiptOperationalDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setReceiptOperationalDetails) |  | Устанавливает операционный реквизит чека |
 | public | [setRegisteredAt()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setRegisteredAt) |  | Устанавливает дату и время формирования чека в фискальном накопителе |
 | public | [setSettlements()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setSettlements) |  | Устанавливает массив оплат, обеспечивающих выдачу товара |
 | public | [setSpecificProperties()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_setSpecificProperties) |  | Установка свойств, присущих конкретному объекту |
@@ -249,7 +257,7 @@ LENGTH_PAYMENT_ID = 36
 ---
 ***Description***
 
-Список товаров в заказе
+Список товаров в заказе.
 
 **Type:** <a href="../\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]"><abbr title="\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]">ReceiptResponseItemInterface[]</abbr></a>
 
@@ -288,7 +296,7 @@ LENGTH_PAYMENT_ID = 36
 ---
 ***Description***
 
-Идентификатор магазина
+Идентификатор магазина.
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -301,7 +309,7 @@ LENGTH_PAYMENT_ID = 36
 ---
 ***Description***
 
-Идентификатор магазина
+Идентификатор магазина.
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
@@ -331,6 +339,58 @@ LENGTH_PAYMENT_ID = 36
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
+
+
+<a name="property_receipt_industry_details"></a>
+#### public $receipt_industry_details : \YooKassa\Model\Receipt\IndustryDetails[]
+---
+***Description***
+
+Отраслевой реквизит чека.
+
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property_receipt_operational_details"></a>
+#### public $receipt_operational_details : \YooKassa\Model\Receipt\OperationalDetails
+---
+***Description***
+
+Операционный реквизит чека.
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property_receiptIndustryDetails"></a>
+#### public $receiptIndustryDetails : \YooKassa\Model\Receipt\IndustryDetails[]
+---
+***Description***
+
+Отраслевой реквизит чека.
+
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property_receiptOperationalDetails"></a>
+#### public $receiptOperationalDetails : \YooKassa\Model\Receipt\OperationalDetails
+---
+***Description***
+
+Операционный реквизит чека.
+
+**Type:** <a href="../classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
 
 <a name="property_registered_at"></a>
@@ -767,6 +827,40 @@ public getPaymentId() : string
 * Inherited From: [\YooKassa\Request\Receipts\PaymentReceiptResponse](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md)
 
 **Returns:** string - Идентификатор платежа
+
+
+<a name="method_getReceiptIndustryDetails" class="anchor"></a>
+#### public getReceiptIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+
+```php
+public getReceiptIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+```
+
+**Summary**
+
+Возвращает отраслевой реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+**Returns:** \YooKassa\Model\Receipt\IndustryDetails[] - Отраслевой реквизит чека
+
+
+<a name="method_getReceiptOperationalDetails" class="anchor"></a>
+#### public getReceiptOperationalDetails() : \YooKassa\Model\Receipt\OperationalDetails
+
+```php
+public getReceiptOperationalDetails() : \YooKassa\Model\Receipt\OperationalDetails
+```
+
+**Summary**
+
+Возвращает операционный реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+**Returns:** \YooKassa\Model\Receipt\OperationalDetails - Операционный реквизит чека
 
 
 <a name="method_getRegisteredAt" class="anchor"></a>
@@ -1216,6 +1310,60 @@ public setPaymentId(string $value) : mixed
 **Returns:** mixed - 
 
 
+<a name="method_setReceiptIndustryDetails" class="anchor"></a>
+#### public setReceiptIndustryDetails() : mixed
+
+```php
+public setReceiptIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[] $value) : mixed
+```
+
+**Summary**
+
+Устанавливает отраслевой реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[]</code> | value  | Отраслевой реквизит чека |
+
+##### Throws:
+| Type | Description |
+| ---- | ----------- |
+| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент - не массив |
+
+**Returns:** mixed - 
+
+
+<a name="method_setReceiptOperationalDetails" class="anchor"></a>
+#### public setReceiptOperationalDetails() : mixed
+
+```php
+public setReceiptOperationalDetails(array|\YooKassa\Model\Receipt\OperationalDetails $value) : mixed
+```
+
+**Summary**
+
+Устанавливает операционный реквизит чека
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Model\Receipt\OperationalDetails</code> | value  | Операционный реквизит чека |
+
+##### Throws:
+| Type | Description |
+| ---- | ----------- |
+| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент - не массив |
+
+**Returns:** mixed - 
+
+
 <a name="method_setRegisteredAt" class="anchor"></a>
 #### public setRegisteredAt() : mixed
 
@@ -1417,6 +1565,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

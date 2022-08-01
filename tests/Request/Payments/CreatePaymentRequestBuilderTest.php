@@ -14,6 +14,8 @@ use YooKassa\Model\MonetaryAmount;
 use YooKassa\Model\Payment;
 use YooKassa\Model\PaymentData\PaymentDataQiwi;
 use YooKassa\Model\PaymentMethodType;
+use YooKassa\Model\Receipt\IndustryDetails;
+use YooKassa\Model\Receipt\OperationalDetails;
 use YooKassa\Model\Receipt\PaymentMode;
 use YooKassa\Model\Receipt\PaymentSubject;
 use YooKassa\Model\ReceiptItem;
@@ -454,6 +456,76 @@ class CreatePaymentRequestBuilderTest extends TestCase
      * @param $options
      * @throws Exception
      */
+    public function testSetReceiptIndustryDetails($options)
+    {
+        $builder = new CreatePaymentRequestBuilder();
+
+        $builder->setReceiptItems($options['receiptItems']);
+        $builder->setReceiptEmail($options['receiptEmail']);
+        $builder->setReceiptIndustryDetails($options['receiptIndustryDetails']);
+        $instance = $builder->build($this->getRequiredData());
+
+        if (empty($options['receiptItems'])) {
+            self::assertNull($instance->getReceipt());
+        } else {
+            self::assertNotNull($instance->getReceipt());
+            self::assertEquals($options['receiptIndustryDetails'], $instance->getReceipt()->getReceiptIndustryDetails());
+        }
+    }
+
+    /**
+     * @dataProvider invalidReceiptIndustryDetailsDataProvider
+     * @expectedException InvalidArgumentException
+     *
+     * @param $value
+     */
+    public function testSetInvalidReceiptIndustryDetails($value)
+    {
+        $builder = new CreatePaymentRequestBuilder();
+        $builder->setReceiptIndustryDetails($value);
+    }
+
+    /**
+     * @dataProvider validDataProvider
+     *
+     * @param $options
+     * @throws Exception
+     */
+    public function testSetReceiptOperationalDetails($options)
+    {
+        $builder = new CreatePaymentRequestBuilder();
+
+        $builder->setReceiptItems($options['receiptItems']);
+        $builder->setReceiptEmail($options['receiptEmail']);
+        $builder->setReceiptOperationalDetails($options['receiptOperationalDetails']);
+        $instance = $builder->build($this->getRequiredData());
+
+        if (empty($options['receiptItems'])) {
+            self::assertNull($instance->getReceipt());
+        } else {
+            self::assertNotNull($instance->getReceipt());
+            self::assertEquals($options['receiptOperationalDetails'], $instance->getReceipt()->getReceiptOperationalDetails());
+        }
+    }
+
+    /**
+     * @dataProvider invalidReceiptOperationalDetailsDataProvider
+     * @expectedException InvalidArgumentException
+     *
+     * @param $value
+     */
+    public function testSetInvalidReceiptOperationalDetails($value)
+    {
+        $builder = new CreatePaymentRequestBuilder();
+        $builder->setReceiptOperationalDetails($value);
+    }
+
+    /**
+     * @dataProvider validDataProvider
+     *
+     * @param $options
+     * @throws Exception
+     */
     public function testSetPaymentToken($options)
     {
         $builder = new CreatePaymentRequestBuilder();
@@ -830,6 +902,8 @@ class CreatePaymentRequestBuilderTest extends TestCase
                     'receiptEmail'      => null,
                     'receiptPhone'      => null,
                     'taxSystemCode'     => null,
+                    'receiptIndustryDetails'    => null,
+                    'receiptOperationalDetails' => null,
                 ),
             ),
             array(
@@ -863,6 +937,8 @@ class CreatePaymentRequestBuilderTest extends TestCase
                     'receiptEmail'      => Random::str(10, 32),
                     'receiptPhone'      => '',
                     'taxSystemCode'     => '',
+                    'receiptIndustryDetails'    => '',
+                    'receiptOperationalDetails' => '',
                 ),
             ),
         );
@@ -906,6 +982,19 @@ class CreatePaymentRequestBuilderTest extends TestCase
                 'receiptEmail'      => Random::str(10),
                 'receiptPhone'      => Random::str(10, '0123456789'),
                 'taxSystemCode'     => Random::int(1, 6),
+                'receiptIndustryDetails' => array(
+                    array(
+                        'federal_id' => Random::str(1, 255),
+                        'document_date' => date(IndustryDetails::DOCUMENT_DATE_FORMAT),
+                        'document_number' => Random::str(1, IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH),
+                        'value' => Random::str(1, IndustryDetails::VALUE_MAX_LENGTH),
+                    ),
+                ),
+                'receiptOperationalDetails' => array(
+                    'operation_id' => Random::int(0, OperationalDetails::OPERATION_ID_MAX_LENGTH),
+                    'value' => Random::str(1, OperationalDetails::VALUE_MAX_LENGTH),
+                    'created_at' => date(OperationalDetails::DATE_FORMAT),
+                ),
             );
             $result[] = array($request);
         }
@@ -969,6 +1058,34 @@ class CreatePaymentRequestBuilderTest extends TestCase
             array(7),
             array(Random::int(-100, -1)),
             array(Random::int(7, 100)),
+        );
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function invalidReceiptIndustryDetailsDataProvider()
+    {
+        return array(
+            array(new \stdClass()),
+            array(
+                array(
+                    new \stdClass(),
+                    new \stdClass(),
+                )
+            ),
+            array(true),
+            array(Random::str(1, 100)),
+        );
+    }
+
+    public function invalidReceiptOperationalDetailsDataProvider()
+    {
+        return array(
+            array(new \stdClass()),
+            array(true),
+            array(Random::str(1, 100)),
         );
     }
 
