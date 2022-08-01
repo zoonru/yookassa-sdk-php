@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Базовый класс генерируемых enum'ов
+Признак предмета расчета передается в параметре `payment_subject`.
 
 
 ---
@@ -30,6 +30,21 @@
 | public | [RESORT_FEE](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_RESORT_FEE) |  |  |
 | public | [COMPOSITE](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_COMPOSITE) |  |  |
 | public | [ANOTHER](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_ANOTHER) |  |  |
+| public | [FINE](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_FINE) |  |  |
+| public | [TAX](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_TAX) |  |  |
+| public | [LIEN](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_LIEN) |  |  |
+| public | [COST](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_COST) |  |  |
+| public | [PENSION_INSURANCE_WITHOUT_PAYOUTS](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_PENSION_INSURANCE_WITHOUT_PAYOUTS) |  |  |
+| public | [PENSION_INSURANCE_WITH_PAYOUTS](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_PENSION_INSURANCE_WITH_PAYOUTS) |  |  |
+| public | [HEALTH_INSURANCE_WITHOUT_PAYOUTS](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_HEALTH_INSURANCE_WITHOUT_PAYOUTS) |  |  |
+| public | [HEALTH_INSURANCE_WITH_PAYOUTS](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_HEALTH_INSURANCE_WITH_PAYOUTS) |  |  |
+| public | [HEALTH_INSURANCE](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_HEALTH_INSURANCE) |  |  |
+| public | [CASINO](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_CASINO) |  |  |
+| public | [AGENT_WITHDRAWALS](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_AGENT_WITHDRAWALS) |  |  |
+| public | [NON_MARKED_EXCISE](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_NON_MARKED_EXCISE) |  |  |
+| public | [MARKED_EXCISE](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_MARKED_EXCISE) |  |  |
+| public | [MARKED](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_MARKED) |  |  |
+| public | [NON_MARKED](../classes/YooKassa-Model-Receipt-PaymentSubject.md#constant_NON_MARKED) |  |  |
 
 ---
 ### Properties
@@ -58,126 +73,231 @@
 <a name="constant_COMMODITY" class="anchor"></a>
 ###### COMMODITY
 ```php
-COMMODITY = 'commodity'
+COMMODITY = 'commodity' : string
 ```
 
 
 <a name="constant_EXCISE" class="anchor"></a>
 ###### EXCISE
 ```php
-EXCISE = 'excise'
+EXCISE = 'excise' : string
 ```
 
 
 <a name="constant_JOB" class="anchor"></a>
 ###### JOB
 ```php
-JOB = 'job'
+JOB = 'job' : string
 ```
 
 
 <a name="constant_SERVICE" class="anchor"></a>
 ###### SERVICE
 ```php
-SERVICE = 'service'
+SERVICE = 'service' : string
 ```
 
 
 <a name="constant_GAMBLING_BET" class="anchor"></a>
 ###### GAMBLING_BET
 ```php
-GAMBLING_BET = 'gambling_bet'
+GAMBLING_BET = 'gambling_bet' : string
 ```
 
 
 <a name="constant_GAMBLING_PRIZE" class="anchor"></a>
 ###### GAMBLING_PRIZE
 ```php
-GAMBLING_PRIZE = 'gambling_prize'
+GAMBLING_PRIZE = 'gambling_prize' : string
 ```
 
 
 <a name="constant_LOTTERY" class="anchor"></a>
 ###### LOTTERY
 ```php
-LOTTERY = 'lottery'
+LOTTERY = 'lottery' : string
 ```
 
 
 <a name="constant_LOTTERY_PRIZE" class="anchor"></a>
 ###### LOTTERY_PRIZE
 ```php
-LOTTERY_PRIZE = 'lottery_prize'
+LOTTERY_PRIZE = 'lottery_prize' : string
 ```
 
 
 <a name="constant_INTELLECTUAL_ACTIVITY" class="anchor"></a>
 ###### INTELLECTUAL_ACTIVITY
 ```php
-INTELLECTUAL_ACTIVITY = 'intellectual_activity'
+INTELLECTUAL_ACTIVITY = 'intellectual_activity' : string
 ```
 
 
 <a name="constant_PAYMENT" class="anchor"></a>
 ###### PAYMENT
 ```php
-PAYMENT = 'payment'
+PAYMENT = 'payment' : string
 ```
 
 
 <a name="constant_AGENT_COMMISSION" class="anchor"></a>
 ###### AGENT_COMMISSION
 ```php
-AGENT_COMMISSION = 'agent_commission'
+AGENT_COMMISSION = 'agent_commission' : string
 ```
 
 
 <a name="constant_PROPERTY_RIGHT" class="anchor"></a>
 ###### PROPERTY_RIGHT
 ```php
-PROPERTY_RIGHT = 'property_right'
+PROPERTY_RIGHT = 'property_right' : string
 ```
 
 
 <a name="constant_NON_OPERATING_GAIN" class="anchor"></a>
 ###### NON_OPERATING_GAIN
 ```php
-NON_OPERATING_GAIN = 'non_operating_gain'
+NON_OPERATING_GAIN = 'non_operating_gain' : string
 ```
 
 
 <a name="constant_INSURANCE_PREMIUM" class="anchor"></a>
 ###### INSURANCE_PREMIUM
 ```php
-INSURANCE_PREMIUM = 'insurance_premium'
+INSURANCE_PREMIUM = 'insurance_premium' : string
 ```
 
 
 <a name="constant_SALES_TAX" class="anchor"></a>
 ###### SALES_TAX
 ```php
-SALES_TAX = 'sales_tax'
+SALES_TAX = 'sales_tax' : string
 ```
 
 
 <a name="constant_RESORT_FEE" class="anchor"></a>
 ###### RESORT_FEE
 ```php
-RESORT_FEE = 'resort_fee'
+RESORT_FEE = 'resort_fee' : string
 ```
 
 
 <a name="constant_COMPOSITE" class="anchor"></a>
 ###### COMPOSITE
 ```php
-COMPOSITE = 'composite'
+COMPOSITE = 'composite' : string
 ```
 
 
 <a name="constant_ANOTHER" class="anchor"></a>
 ###### ANOTHER
 ```php
-ANOTHER = 'another'
+ANOTHER = 'another' : string
+```
+
+
+<a name="constant_FINE" class="anchor"></a>
+###### FINE
+```php
+FINE = 'fine' : string
+```
+
+
+<a name="constant_TAX" class="anchor"></a>
+###### TAX
+```php
+TAX = 'tax' : string
+```
+
+
+<a name="constant_LIEN" class="anchor"></a>
+###### LIEN
+```php
+LIEN = 'lien' : string
+```
+
+
+<a name="constant_COST" class="anchor"></a>
+###### COST
+```php
+COST = 'cost' : string
+```
+
+
+<a name="constant_PENSION_INSURANCE_WITHOUT_PAYOUTS" class="anchor"></a>
+###### PENSION_INSURANCE_WITHOUT_PAYOUTS
+```php
+PENSION_INSURANCE_WITHOUT_PAYOUTS = 'pension_insurance_without_payouts' : string
+```
+
+
+<a name="constant_PENSION_INSURANCE_WITH_PAYOUTS" class="anchor"></a>
+###### PENSION_INSURANCE_WITH_PAYOUTS
+```php
+PENSION_INSURANCE_WITH_PAYOUTS = 'pension_insurance_with_payouts' : string
+```
+
+
+<a name="constant_HEALTH_INSURANCE_WITHOUT_PAYOUTS" class="anchor"></a>
+###### HEALTH_INSURANCE_WITHOUT_PAYOUTS
+```php
+HEALTH_INSURANCE_WITHOUT_PAYOUTS = 'health_insurance_without_payouts' : string
+```
+
+
+<a name="constant_HEALTH_INSURANCE_WITH_PAYOUTS" class="anchor"></a>
+###### HEALTH_INSURANCE_WITH_PAYOUTS
+```php
+HEALTH_INSURANCE_WITH_PAYOUTS = 'health_insurance_with_payouts' : string
+```
+
+
+<a name="constant_HEALTH_INSURANCE" class="anchor"></a>
+###### HEALTH_INSURANCE
+```php
+HEALTH_INSURANCE = 'health_insurance' : string
+```
+
+
+<a name="constant_CASINO" class="anchor"></a>
+###### CASINO
+```php
+CASINO = 'casino' : string
+```
+
+
+<a name="constant_AGENT_WITHDRAWALS" class="anchor"></a>
+###### AGENT_WITHDRAWALS
+```php
+AGENT_WITHDRAWALS = 'agent_withdrawals' : string
+```
+
+
+<a name="constant_NON_MARKED_EXCISE" class="anchor"></a>
+###### NON_MARKED_EXCISE
+```php
+NON_MARKED_EXCISE = 'non_marked_excise' : string
+```
+
+
+<a name="constant_MARKED_EXCISE" class="anchor"></a>
+###### MARKED_EXCISE
+```php
+MARKED_EXCISE = 'marked_excise' : string
+```
+
+
+<a name="constant_MARKED" class="anchor"></a>
+###### MARKED
+```php
+MARKED = 'marked' : string
+```
+
+
+<a name="constant_NON_MARKED" class="anchor"></a>
+###### NON_MARKED
+```php
+NON_MARKED = 'non_marked' : string
 ```
 
 
@@ -267,6 +387,6 @@ Static public valueExists(mixed $value) : bool
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

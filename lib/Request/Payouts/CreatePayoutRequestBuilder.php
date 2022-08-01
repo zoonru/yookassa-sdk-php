@@ -40,7 +40,7 @@ use YooKassa\Model\Deal\PayoutDealInfo;
 /**
  * Класс билдера объектов запросов к API на создание платежа
  *
- * @todo: @example 02-builder.php 11 78 Пример использования билдера
+ * @example 02-builder.php 11 78 Пример использования билдера
  *
  * @package YooKassa
  */

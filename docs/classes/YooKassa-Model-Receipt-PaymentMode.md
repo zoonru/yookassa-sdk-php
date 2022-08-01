@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Базовый класс генерируемых enum'ов
+Признак способа расчета передается в параметре `payment_mode`.
 
 
 ---
@@ -47,49 +47,49 @@
 <a name="constant_FULL_PREPAYMENT" class="anchor"></a>
 ###### FULL_PREPAYMENT
 ```php
-FULL_PREPAYMENT = 'full_prepayment'
+FULL_PREPAYMENT = 'full_prepayment' : string
 ```
 
 
 <a name="constant_PARTIAL_PREPAYMENT" class="anchor"></a>
 ###### PARTIAL_PREPAYMENT
 ```php
-PARTIAL_PREPAYMENT = 'partial_prepayment'
+PARTIAL_PREPAYMENT = 'partial_prepayment' : string
 ```
 
 
 <a name="constant_ADVANCE" class="anchor"></a>
 ###### ADVANCE
 ```php
-ADVANCE = 'advance'
+ADVANCE = 'advance' : string
 ```
 
 
 <a name="constant_FULL_PAYMENT" class="anchor"></a>
 ###### FULL_PAYMENT
 ```php
-FULL_PAYMENT = 'full_payment'
+FULL_PAYMENT = 'full_payment' : string
 ```
 
 
 <a name="constant_PARTIAL_PAYMENT" class="anchor"></a>
 ###### PARTIAL_PAYMENT
 ```php
-PARTIAL_PAYMENT = 'partial_payment'
+PARTIAL_PAYMENT = 'partial_payment' : string
 ```
 
 
 <a name="constant_CREDIT" class="anchor"></a>
 ###### CREDIT
 ```php
-CREDIT = 'credit'
+CREDIT = 'credit' : string
 ```
 
 
 <a name="constant_CREDIT_PAYMENT" class="anchor"></a>
 ###### CREDIT_PAYMENT
 ```php
-CREDIT_PAYMENT = 'credit_payment'
+CREDIT_PAYMENT = 'credit_payment' : string
 ```
 
 
@@ -179,6 +179,6 @@ Static public valueExists(mixed $value) : bool
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

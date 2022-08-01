@@ -43,6 +43,8 @@ use YooKassa\Model\Metadata;
 use YooKassa\Model\Payment;
 use YooKassa\Model\PaymentData\AbstractPaymentData;
 use YooKassa\Model\PaymentData\PaymentDataFactory;
+use YooKassa\Model\Receipt\AdditionalUserProps;
+use YooKassa\Model\Receipt\IndustryDetails;
 use YooKassa\Model\Recipient;
 use YooKassa\Model\RecipientInterface;
 
@@ -327,6 +329,45 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
     public function setMerchantCustomerId($value)
     {
         $this->currentObject->setMerchantCustomerId($value);
+        return $this;
+    }
+
+    /**
+     * Устанавливает отраслевой реквизит чека
+     *
+     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     * @return self Инстанс билдера запросов
+     */
+    public function setReceiptAdditionalUserProps($value)
+    {
+        $this->receipt->setAdditionalUserProps($value);
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает отраслевой реквизит чека
+     *
+     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     * @return self Инстанс билдера запросов
+     */
+    public function setReceiptIndustryDetails($value)
+    {
+        $this->receipt->setReceiptIndustryDetails($value);
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает отраслевой реквизит чека
+     *
+     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     * @return self Инстанс билдера запросов
+     */
+    public function setReceiptOperationalDetails($value)
+    {
+        $this->receipt->setReceiptOperationalDetails($value);
+
         return $this;
     }
 

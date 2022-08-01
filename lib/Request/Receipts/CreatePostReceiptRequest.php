@@ -32,6 +32,9 @@ use YooKassa\Common\Exceptions\EmptyPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 use YooKassa\Helpers\TypeCast;
+use YooKassa\Model\Receipt\AdditionalUserProps;
+use YooKassa\Model\Receipt\IndustryDetails;
+use YooKassa\Model\Receipt\OperationalDetails;
 use YooKassa\Model\ReceiptCustomer;
 use YooKassa\Model\ReceiptCustomerInterface;
 use YooKassa\Model\ReceiptItem;
@@ -60,6 +63,15 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
 
     /** @var int Код системы налогообложения. Число 1-6. */
     private $_taxSystemCode;
+
+    /** @var AdditionalUserProps Дополнительный реквизит пользователя */
+    private $_additionalUserProps;
+
+    /** @var IndustryDetails[] Отраслевой реквизит предмета расчета */
+    private $_receiptIndustryDetails;
+
+    /** @var OperationalDetails Операционный реквизит чека */
+    private $_receiptOperationalDetails;
 
     /** @var ReceiptItemInterface[] Список товаров в заказе */
     private $_items = array();
@@ -148,13 +160,13 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
     /**
      * Устанавливает информацию о плательщике
      *
-     * @param ReceiptCustomerInterface $value
+     * @param ReceiptCustomerInterface|array $value Информация о плательщике
      */
     public function setCustomer($value)
     {
         if (is_array($value)) {
             $this->_customer = new ReceiptCustomer($value);
-        } elseif (is_object($value) && $value instanceof ReceiptCustomerInterface) {
+        } elseif ($value instanceof ReceiptCustomerInterface) {
             $this->_customer = $value;
         } else {
             throw new InvalidPropertyValueTypeException(
@@ -201,7 +213,7 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
         foreach ($value as $key => $item) {
             if (is_array($item)) {
                 $this->addItem(new ReceiptItem($item));
-            } elseif (is_object($item) && $item instanceof ReceiptItemInterface) {
+            } elseif ($item instanceof ReceiptItemInterface) {
                 $this->addItem($item);
             } else {
                 throw new InvalidPropertyValueTypeException(
@@ -261,6 +273,123 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
             }
             $this->_taxSystemCode = $castedValue;
         }
+    }
+
+    /**
+     * Возвращает дополнительный реквизит пользователя
+     *
+     * @return AdditionalUserProps Дополнительный реквизит пользователя
+     */
+    public function getAdditionalUserProps()
+    {
+        return $this->_additionalUserProps;
+    }
+
+    /**
+     * Устанавливает дополнительный реквизит пользователя
+     *
+     * @param AdditionalUserProps|array $value Дополнительный реквизит пользователя
+     */
+    public function setAdditionalUserProps($value)
+    {
+        if (empty($value)) {
+            $this->_additionalUserProps = null;
+            return;
+        }
+        if (is_array($value)) {
+            $this->_additionalUserProps = new AdditionalUserProps($value);
+        } elseif ($value instanceof AdditionalUserProps) {
+            $this->_additionalUserProps = $value;
+        } else {
+            throw new InvalidPropertyValueTypeException(
+                'Invalid additionalUserProps value type in receipt', 0, 'Receipt.additional_user_props', $value
+            );
+        }
+    }
+
+    /**
+     * Возвращает отраслевой реквизит чека
+     * @return IndustryDetails[] Отраслевой реквизит чека
+     */
+    public function getReceiptIndustryDetails()
+    {
+        return $this->_receiptIndustryDetails;
+    }
+
+    /**
+     * Устанавливает отраслевой реквизит чека
+     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     *
+     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент - не массив
+     */
+    public function setReceiptIndustryDetails($value)
+    {
+        if (empty($value)) {
+            $this->_receiptIndustryDetails = null;
+            return;
+        }
+        if (!is_array($value) && !($value instanceof \Traversable)) {
+            throw new InvalidPropertyValueTypeException(
+                'Invalid receiptIndustryDetails value type in Receipt',
+                0,
+                'Receipt.receipt_industry_details',
+                $value
+            );
+        }
+        $details = array();
+        foreach ($value as $key => $item) {
+            if (is_array($item)) {
+                $item = new IndustryDetails($item);
+            }
+            if ($item instanceof IndustryDetails) {
+                $details[] = $item;
+            } else {
+                throw new InvalidPropertyValueTypeException(
+                    'Invalid receiptIndustryDetails value type in Receipt',
+                    0,
+                    'Receipt.receipt_industry_details[' . $key . ']',
+                    $item
+                );
+            }
+        }
+        $this->_receiptIndustryDetails = $details;
+    }
+
+    /**
+     * Возвращает операционный реквизит чека
+     * @return OperationalDetails Операционный реквизит чека
+     */
+    public function getReceiptOperationalDetails()
+    {
+        return $this->_receiptOperationalDetails;
+    }
+
+    /**
+     * Устанавливает операционный реквизит чека
+     * @param array|OperationalDetails $value Операционный реквизит чека
+     *
+     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент - не массив
+     */
+    public function setReceiptOperationalDetails($value)
+    {
+        if (empty($value)) {
+            $this->_receiptOperationalDetails = null;
+            return;
+        }
+        if (!is_array($value) && !($value instanceof OperationalDetails)) {
+            throw new InvalidPropertyValueTypeException(
+                'Invalid receiptOperationalDetails value type in Receipt',
+                0,
+                'Receipt.receipt_operational_details',
+                $value
+            );
+        }
+
+        if (is_array($value)) {
+            $value = new OperationalDetails($value);
+        }
+
+        $this->_receiptOperationalDetails = $value;
     }
 
     /**
@@ -485,5 +614,4 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
 
         return true;
     }
-
 }

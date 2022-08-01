@@ -112,7 +112,7 @@ class Client extends BaseClient
     /**
      * Текущая версия библиотеки
      */
-    const SDK_VERSION = '2.4.2';
+    const SDK_VERSION = '2.5.0';
 
     /**
      * Получить список платежей магазина
@@ -267,7 +267,7 @@ class Client extends BaseClient
             throw new \InvalidArgumentException('Missing the required parameter $paymentId');
         } elseif (!TypeCast::canCastToString($paymentId)) {
             throw new \InvalidArgumentException('Invalid paymentId value: string required');
-        } elseif (strlen($paymentId) !== 36) {
+        } elseif (mb_strlen($paymentId) !== 36) {
             throw new \InvalidArgumentException('Invalid paymentId value');
         }
 
@@ -322,7 +322,7 @@ class Client extends BaseClient
             throw new \InvalidArgumentException('Missing the required parameter $paymentId');
         } elseif (!TypeCast::canCastToString($paymentId)) {
             throw new \InvalidArgumentException('Invalid paymentId value: string required');
-        } elseif (strlen($paymentId) !== 36) {
+        } elseif (mb_strlen($paymentId) !== 36) {
             throw new \InvalidArgumentException('Invalid paymentId value');
         }
 
@@ -388,7 +388,7 @@ class Client extends BaseClient
             throw new \InvalidArgumentException('Missing the required parameter $paymentId');
         } elseif (!TypeCast::canCastToString($paymentId)) {
             throw new \InvalidArgumentException('Invalid paymentId value: string required');
-        } elseif (strlen($paymentId) !== 36) {
+        } elseif (mb_strlen($paymentId) !== 36) {
             throw new \InvalidArgumentException('Invalid paymentId value');
         }
 
@@ -552,7 +552,7 @@ class Client extends BaseClient
             throw new \InvalidArgumentException('Missing the required parameter $refundId');
         } elseif (!TypeCast::canCastToString($refundId)) {
             throw new \InvalidArgumentException('Invalid refundId value: string required');
-        } elseif (strlen($refundId) !== 36) {
+        } elseif (mb_strlen($refundId) !== 36) {
             throw new \InvalidArgumentException('Invalid refundId value');
         }
         $path = self::REFUNDS_PATH.'/'.$refundId;
@@ -854,7 +854,7 @@ class Client extends BaseClient
             throw new \InvalidArgumentException('Missing the required parameter $receiptId');
         } elseif (!TypeCast::canCastToString($receiptId)) {
             throw new \InvalidArgumentException('Invalid receiptId value: string required');
-        } elseif (strlen($receiptId) !== 39) {
+        } elseif (mb_strlen($receiptId) !== 39) {
             throw new \InvalidArgumentException('Invalid receiptId value');
         }
 
@@ -968,7 +968,7 @@ class Client extends BaseClient
             throw new \InvalidArgumentException('Missing the required parameter dealId');
         } elseif (!TypeCast::canCastToString($dealId)) {
             throw new \InvalidArgumentException('Invalid dealId value: string required');
-        } elseif (strlen($dealId) < 36 || strlen($dealId) > 50) {
+        } elseif (mb_strlen($dealId) < 36 || mb_strlen($dealId) > 50) {
             throw new \InvalidArgumentException('Invalid dealId value');
         }
 

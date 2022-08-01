@@ -52,7 +52,7 @@ class CreateCaptureRequestBuilder extends AbstractPaymentRequestBuilder
     /**
      * Осуществляет сборку объекта запроса к API
      * @param array|null $options Массив дополнительных настроек объекта
-     * @return CreateCaptureRequestInterface|AbstractRequest Иснатс объекта запроса к API
+     * @return CreateCaptureRequestInterface|AbstractRequest Инстанс объекта запроса к API
      *
      * @throws InvalidRequestException Выбрасывается если при валидации запроса произошла ошибка
      * @throws InvalidPropertyException Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек

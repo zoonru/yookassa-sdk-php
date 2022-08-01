@@ -36,10 +36,10 @@
 #### [lib/Model/Receipt.php](../../lib/Model/Receipt.php)
 | Line | Element | Description |
 | ---- | ------- | ----------- |
-| 379 | \YooKassa\Model\Receipt::getPhone() | Устарел — данные рекомендуется брать в параметре receipt.customer.phone. |
-| 393 | \YooKassa\Model\Receipt::setPhone() | Устарел — данные рекомендуется передавать в параметре receipt.customer.phone. |
-| 408 | \YooKassa\Model\Receipt::getEmail() | Устарел — данные рекомендуется брать в параметре receipt.customer.email. |
-| 422 | \YooKassa\Model\Receipt::setEmail() | Устарел — данные рекомендуется передавать в параметре receipt.customer.email. |
+| 514 | \YooKassa\Model\Receipt::getPhone() | Устарел — данные рекомендуется брать в параметре receipt.customer.phone. |
+| 528 | \YooKassa\Model\Receipt::setPhone() | Устарел — данные рекомендуется передавать в параметре receipt.customer.phone. |
+| 543 | \YooKassa\Model\Receipt::getEmail() | Устарел — данные рекомендуется брать в параметре receipt.customer.email. |
+| 557 | \YooKassa\Model\Receipt::setEmail() | Устарел — данные рекомендуется передавать в параметре receipt.customer.email. |
 <a id="lib/Model/Refund.php"></a>
 #### [lib/Model/Refund.php](../../lib/Model/Refund.php)
 | Line | Element | Description |
@@ -72,6 +72,6 @@
 
 ---
 
-This document was automatically generated from source code comments on 2022-04-22 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2022 YooMoney

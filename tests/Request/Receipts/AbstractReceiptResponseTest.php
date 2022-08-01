@@ -6,6 +6,10 @@ use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\ProductCode;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Airline;
+use YooKassa\Model\Receipt\AdditionalUserProps;
+use YooKassa\Model\Receipt\IndustryDetails;
+use YooKassa\Model\Receipt\OperationalDetails;
+use YooKassa\Model\Receipt\ReceiptItemMeasure;
 use YooKassa\Model\Receipt\SettlementType;
 use YooKassa\Model\ReceiptType;
 use YooKassa\Request\Receipts\ReceiptResponseInterface;
@@ -88,6 +92,40 @@ abstract class AbstractReceiptResponseTest extends TestCase
      * @dataProvider validDataProvider
      * @param array $options
      */
+    public function testGetReceiptOperationalDetails($options)
+    {
+        $instance = $this->getTestInstance($options);
+        if (empty($options['receipt_operational_details'])) {
+            self::assertNull($instance->getReceiptOperationalDetails());
+        } else {
+            self::assertEquals($options['receipt_operational_details'], $instance->getReceiptOperationalDetails()->toArray());
+        }
+    }
+
+    /**
+     * @dataProvider validDataProvider
+     * @param array $options
+     */
+    public function testReceiptIndustryDetails($options)
+    {
+        $instance = $this->getTestInstance($options);
+
+        self::assertCount(count($options['receipt_industry_details']), $instance->getReceiptIndustryDetails());
+
+        foreach ($instance->getReceiptIndustryDetails() as $index => $item) { /** @var IndustryDetails $item */
+            self::assertTrue($item instanceof IndustryDetails);
+            self::assertArrayHasKey($index, $options['receipt_industry_details']);
+            self::assertEquals($options['receipt_industry_details'][$index]['federal_id'], $item->getFederalId());
+            self::assertEquals($options['receipt_industry_details'][$index]['document_date'], $item->getDocumentDate()->format(IndustryDetails::DOCUMENT_DATE_FORMAT));
+            self::assertEquals($options['receipt_industry_details'][$index]['document_number'], $item->getDocumentNumber());
+            self::assertEquals($options['receipt_industry_details'][$index]['value'], $item->getValue());
+        }
+    }
+
+    /**
+     * @dataProvider validDataProvider
+     * @param array $options
+     */
     public function testGetItems($options)
     {
         $instance = $this->getTestInstance($options);
@@ -109,7 +147,7 @@ abstract class AbstractReceiptResponseTest extends TestCase
     {
         $this->valid = true;
         $receipts = array();
-        for ($i=0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $receipts[] = $this->generateReceipts($this->type, true);
         }
         return $receipts;
@@ -119,7 +157,7 @@ abstract class AbstractReceiptResponseTest extends TestCase
     {
         $this->valid = false;
         $receipts = array();
-        for ($i=0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $receipts[] = $this->generateReceipts($this->type, false);
         }
         return $receipts;
@@ -131,14 +169,14 @@ abstract class AbstractReceiptResponseTest extends TestCase
         $return = array();
         $count = Random::int(1, 10);
 
-        for ($i=0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $return[] = $this->generateReceipt($type, $i);
         }
 
         return $return;
     }
 
-    private function generateReceipt($type, $i)
+    private function generateReceipt($type, $index)
     {
         $receipt = array(
             'id' => Random::str(39),
@@ -152,10 +190,23 @@ abstract class AbstractReceiptResponseTest extends TestCase
             'items' => $this->generateItems(),
             'settlements' => $this->generateSettlements(),
             'tax_system_code' => Random::int(1, 6),
+            'receipt_industry_details' => array(
+                array(
+                    'federal_id' => Random::str(1, 255),
+                    'document_date' => date(IndustryDetails::DOCUMENT_DATE_FORMAT),
+                    'document_number' => Random::str(1, IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH),
+                    'value' => Random::str(1, IndustryDetails::VALUE_MAX_LENGTH),
+                ),
+            ),
+            'receipt_operational_details' => array(
+                'operation_id' => Random::int(0, OperationalDetails::OPERATION_ID_MAX_LENGTH),
+                'value' => Random::str(1, OperationalDetails::VALUE_MAX_LENGTH),
+                'created_at' => date(OperationalDetails::DATE_FORMAT),
+            ),
             'on_behalf_of' => Random::int(6)
         );
 
-        return $this->addSpecificProperties($receipt, $i);
+        return $this->addSpecificProperties($receipt, $index);
     }
 
     private function generateItems()
@@ -163,7 +214,7 @@ abstract class AbstractReceiptResponseTest extends TestCase
         $return = array();
         $count = Random::int(1, 10);
 
-        for ($i=0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $return[] = $this->generateItem();
         }
 
@@ -172,15 +223,37 @@ abstract class AbstractReceiptResponseTest extends TestCase
 
     private function generateItem()
     {
-        return array(
+        $item = array(
             'description' => Random::str(1, 128),
             'amount' => array(
                 'value' => round(Random::float(1.00, 100.00), 2),
                 'currency' => 'RUB',
             ),
             'quantity' => round(Random::float(0.001, 99.999), 3),
-            'vat_code' => Random::int(1 ,6),
+            'measure' => Random::value(ReceiptItemMeasure::getValidValues()),
+            'vat_code' => Random::int(1, 6),
+            'country_of_origin_code' => Random::value(array('RU', 'US', 'CN')),
+            'customs_declaration_number' => Random::str(1, 32),
+            'mark_code_info' => array(
+                'mark_code_raw' => '010460406000590021N4N57RTCBUZTQ\u001d2403054002410161218\u001d1424010191ffd0\u001g92tIAF/YVpU4roQS3M/m4z78yFq0nc/WsSmLeX6QkF/YVWwy5IMYAeiQ91Xa2m/fFSJcOkb2N+uUUtfr4n0mOX0Q==',
+            ),
+            'mark_mode' => 0,
+            'payment_subject_industry_details' => array(
+                array(
+                    'federal_id' => '001',
+                    'document_date' => date('Y-m-d', Random::int(100000000, 200000000)),
+                    'document_number' => Random::str(1, IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH),
+                    'value' => Random::str(1, IndustryDetails::VALUE_MAX_LENGTH),
+                )
+            ),
         );
+        if ($item['measure'] === ReceiptItemMeasure::PIECE) {
+            $item['mark_quantity'] = array(
+                'numerator' => Random::int(1,100),
+                'denominator' => 100,
+            );
+        }
+        return $item;
     }
 
     private function generateSettlements()
@@ -188,7 +261,7 @@ abstract class AbstractReceiptResponseTest extends TestCase
         $return = array();
         $count = Random::int(1, 10);
 
-        for ($i=0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $return[] = $this->generateSettlement();
         }
 
@@ -204,7 +277,7 @@ abstract class AbstractReceiptResponseTest extends TestCase
                 'currency' => 'RUB',
             ),
             'quantity' => round(Random::float(0.001, 99.999), 3),
-            'vat_code' => Random::int(1 ,6),
+            'vat_code' => Random::int(1, 6),
         );
     }
 

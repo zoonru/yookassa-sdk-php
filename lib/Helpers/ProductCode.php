@@ -292,7 +292,7 @@ class ProductCode
         $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
         $toString = substr($chars, 0, $toBase);
 
-        $length = strlen($numString);
+        $length = mb_strlen($numString);
         $result = '';
         $number = array();
 
@@ -327,7 +327,8 @@ class ProductCode
     private function strToHex($string)
     {
         $hex = '';
-        for ($i = 0; $i < strlen($string); $i++) {
+        $length = mb_strlen($string);
+        for ($i = 0; $i < $length; $i++) {
             $ord = ord($string[$i]);
             $hexCode = dechex($ord);
             $hex .= substr('0' . $hexCode, -2);

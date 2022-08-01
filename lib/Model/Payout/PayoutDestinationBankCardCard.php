@@ -189,7 +189,7 @@ class PayoutDestinationBankCardCard extends AbstractObject
             throw new InvalidPropertyValueTypeException(
                 'Invalid issuerCountry value type', 0, 'PaymentMethodBankCard.issuerCountry', $value
             );
-        } elseif (strlen($value) !== self::ISO_3166_CODE_LENGTH) {
+        } elseif (mb_strlen($value) !== self::ISO_3166_CODE_LENGTH) {
             throw new InvalidPropertyValueException(
                 'Invalid issuerCountry value', 0, 'PaymentMethodBankCard.issuerCountry', $value
             );

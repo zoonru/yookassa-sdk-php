@@ -340,5 +340,4 @@ abstract class AbstractPaymentRequestBuilder extends AbstractRequestBuilder
 
         return $this;
     }
-
 }

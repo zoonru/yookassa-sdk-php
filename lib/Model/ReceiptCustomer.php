@@ -84,7 +84,7 @@ class ReceiptCustomer extends AbstractObject implements ReceiptCustomerInterface
             $this->_fullName = null;
         } elseif (!TypeCast::canCastToString($value)) {
             throw new InvalidPropertyValueTypeException('Invalid full_name value type', 0, 'receipt.customer.full_name');
-        } elseif (strlen((string)$value) > 256) {
+        } elseif (mb_strlen((string)$value) > 256) {
             throw new InvalidPropertyValueException(
                 'Invalid full_name value: "'.$value.'"', 0, 'receipt.customer.full_name', $value
             );
