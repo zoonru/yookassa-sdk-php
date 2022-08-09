@@ -29,7 +29,7 @@ abstract class AbstractConfirmationTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     *
+
 	 * @param $value
      */
     public function testInvalidType($value)
