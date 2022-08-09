@@ -62,11 +62,11 @@ class ConfirmationEmbeddedTest extends AbstractConfirmationTest
 
     /**
      * @dataProvider invalidConfirmationTokenDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testIvalidSetConfirmationToken($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->setConfirmationToken($value);
     }

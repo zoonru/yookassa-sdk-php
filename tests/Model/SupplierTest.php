@@ -25,10 +25,10 @@ class SupplierTest extends TestCase
     /**
      * @dataProvider invalidInnDataTest
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidInn($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Supplier();
         $instance->setInn($value);
     }
@@ -49,10 +49,10 @@ class SupplierTest extends TestCase
     /**
      * @dataProvider invalidDataTest
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidName($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Supplier();
         $instance->setName($value);
     }
@@ -73,10 +73,10 @@ class SupplierTest extends TestCase
     /**
      * @dataProvider invalidDataTest
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidPhone($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Supplier();
         $instance->setPhone($value);
     }

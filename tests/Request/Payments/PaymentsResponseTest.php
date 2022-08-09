@@ -69,10 +69,10 @@ class PaymentsResponseTest extends TestCase
     /**
      * @dataProvider invalidDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         new PaymentsResponse($options);
     }
 

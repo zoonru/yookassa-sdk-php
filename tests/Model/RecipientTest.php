@@ -41,33 +41,33 @@ class RecipientTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidAccountId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Recipient();
         $instance->setAccountId($value);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidAccountId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Recipient();
         $instance->accountId = $value;
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidAccount_id($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Recipient();
         $instance->account_id = $value;
     }
@@ -104,33 +104,33 @@ class RecipientTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidGatewayId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Recipient();
         $instance->setGatewayId($value);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidGatewayId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Recipient();
         $instance->gatewayId = $value;
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidGateway_id($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new Recipient();
         $instance->gateway_id = $value;
     }

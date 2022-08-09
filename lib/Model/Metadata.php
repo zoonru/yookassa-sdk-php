@@ -50,7 +50,7 @@ class Metadata extends AbstractObject implements \IteratorAggregate, \Countable
      * Возвращает объект ArrayIterator для метаданных
      * @return \Iterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->getUnknownProperties());
     }
@@ -59,7 +59,7 @@ class Metadata extends AbstractObject implements \IteratorAggregate, \Countable
      * Возвращает количество метаданных
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->getUnknownProperties());
     }

@@ -56,33 +56,33 @@ class PaymentMethodYooMoneyTest extends AbstractPaymentMethodTest
 
     /**
      * @dataProvider invalidAccountNumberDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidAccountNumber($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->setAccountNumber($value);
     }
 
     /**
      * @dataProvider invalidAccountNumberDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidAccountNumber($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->accountNumber = $value;
     }
 
     /**
      * @dataProvider invalidAccountNumberDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidAccount_number($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->account_number = $value;
     }

@@ -48,11 +48,11 @@ abstract class AbstractPaymentDataGooglePayTest extends AbstractPaymentDataTest
 
     /**
      * @dataProvider invalidPaymentDataDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $data
      */
     public function testSetPaymentMethodToken($data)
     {
+        self::expectException(\InvalidArgumentException::class);
         /** @var PaymentDataGooglePay $instance */
         $instance = $this->getTestInstance();
         $instance->setPaymentMethodToken($data);
@@ -61,11 +61,11 @@ abstract class AbstractPaymentDataGooglePayTest extends AbstractPaymentDataTest
 
     /**
      * @dataProvider invalidPaymentDataDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $data
      */
     public function testSetGoogleTransactionId($data)
     {
+        self::expectException(\InvalidArgumentException::class);
         /** @var PaymentDataGooglePay $instance */
         $instance = $this->getTestInstance();
         $instance->setGoogleTransactionId($data);

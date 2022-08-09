@@ -38,7 +38,7 @@
   * \YooKassa\Common\AbstractObject
 * Implements:
   * [](\ArrayAccess)
-  * [\JsonSerializable](../classes/JsonSerializable.md)
+  * [](\JsonSerializable)
 
 ---
 ## Methods

@@ -106,24 +106,24 @@ class SourceTest extends TestCase
     /**
      * @dataProvider invalidAccountIdProvider
      *
-     * @expectedException \InvalidArgumentException
      *
      * @param mixed $value
      */
     public function testGetSetInvalidAccountId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setAccountId($value);
     }
 
     /**
      * @dataProvider invalidAccountIdProvider
      *
-     * @expectedException \InvalidArgumentException
      *
      * @param $value
      */
     public function testSetterInvalidAccountId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->accountId = $value;
     }
 
@@ -220,48 +220,48 @@ class SourceTest extends TestCase
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
      * @param $value
      */
     public function testSetInvalidAmount($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setAmount($value);
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
      * @param $value
      */
     public function testSetterInvalidAmount($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->amount = $value;
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
      * @param $value
      */
     public function testSetInvalidPlatformFeeAmount($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setPlatformFeeAmount($value);
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
      * @param $value
      */
     public function testSetterInvalidPlatformFeeAmount($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->platform_fee_amount = $value;
     }
 

@@ -47,22 +47,22 @@ class PaymentDataAlfabankTest extends AbstractPaymentDataTest
 
     /**
      * @dataProvider invalidLoginDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidLogin($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->setLogin($value);
     }
 
     /**
      * @dataProvider invalidLoginDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidLogin($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->login = $value;
     }

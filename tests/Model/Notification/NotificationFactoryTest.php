@@ -38,11 +38,11 @@ class NotificationFactoryTest extends TestCase
 
     /**
      * @dataProvider invalidDataArrayDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $options
      */
     public function testInvalidFactory($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->factory($options);
     }

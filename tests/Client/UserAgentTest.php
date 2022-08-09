@@ -18,13 +18,10 @@ class UserAgentTest extends TestCase
         $agent = new UserAgent();
         $reflector = new ReflectionClass('\YooKassa\Client\UserAgent');
         $method    = $reflector->getMethod('setOs');
-        $method->setAccessible(true);
         $method->invokeArgs($agent, array('name' => 'CentOS', 'version' => '6.7'));
         $method    = $reflector->getMethod('setPhp');
-        $method->setAccessible(true);
         $method->invokeArgs($agent, array('name' => 'PHP', 'version' => '5.4.45'));
         $method    = $reflector->getMethod('setSdk');
-        $method->setAccessible(true);
         $method->invokeArgs($agent, array('name' => 'YooKassa.PHP', 'version' => '1.4.1'));
         $agent->setCms('Wordpress','2.0.4');
         $agent->setModule('Woocommerce','1.2.3');
@@ -39,7 +36,6 @@ class UserAgentTest extends TestCase
         $agent = new UserAgent();
         $reflector = new ReflectionClass('\YooKassa\Client\UserAgent');
         $method    = $reflector->getMethod('setOs');
-        $method->setAccessible(true);
         $method->invokeArgs($agent, array('name' => 'CentOS', 'version' => '6.7'));
         $this->assertEquals('CentOS/6.7', $agent->getOs());
     }
@@ -52,7 +48,6 @@ class UserAgentTest extends TestCase
         $agent = new UserAgent();
         $reflector = new ReflectionClass('\YooKassa\Client\UserAgent');
         $method    = $reflector->getMethod('setPhp');
-        $method->setAccessible(true);
         $method->invokeArgs($agent, array('name' => 'PHP', 'version' => '5.4.45'));
         $this->assertEquals('PHP/5.4.45', $agent->getPhp());
     }
@@ -86,7 +81,6 @@ class UserAgentTest extends TestCase
         $agent     = new UserAgent();
         $reflector = new ReflectionClass('\YooKassa\Client\UserAgent');
         $method    = $reflector->getMethod('setSdk');
-        $method->setAccessible(true);
         $method->invokeArgs($agent, array('name' => 'YooKassa.PHP', 'version' => '1.4.1'));
         $this->assertEquals('YooKassa.PHP/1.4.1', $agent->getSdk());
     }

@@ -79,7 +79,7 @@ class AirlineTest extends TestCase
     {
         $airline = new Airline();
 
-        $this->setExpectedException($data['exception']);
+        $this->expectException($data['exception']);
 
         $airline->setPassengers($data['value']);
     }
@@ -91,7 +91,7 @@ class AirlineTest extends TestCase
     {
         $airline = new Airline();
 
-        $this->setExpectedException($data['exception']);
+        $this->expectException($data['exception']);
 
         $airline->setLegs($data['value']);
     }
@@ -103,7 +103,7 @@ class AirlineTest extends TestCase
     {
         $airline = new Airline();
 
-        $this->setExpectedException($data['exception']);
+        $this->expectException($data['exception']);
 
         $airline->setBookingReference($data['value']);
     }
@@ -115,7 +115,7 @@ class AirlineTest extends TestCase
     {
         $airline = new Airline();
 
-        $this->setExpectedException($data['exception']);
+        $this->expectException($data['exception']);
 
         $airline->setTicketNumber($data['value']);
     }

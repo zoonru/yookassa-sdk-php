@@ -143,7 +143,7 @@ class TypeCastTest extends TestCase
         $result[] = array($time, $time, true);
         $result[] = array(date(YOOKASSA_DATE, $time), $time, true);
         $result[] = array(new \DateTime(date(YOOKASSA_DATE, $time)), $time, true);
-        $result[] = array('3234-234-23', $time, false);
+        $result[] = array('3234-380-23', $time, false);
         $result[] = array(array(), $time, false);
 
         return $result;

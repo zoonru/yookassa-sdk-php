@@ -53,22 +53,22 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPaymentIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetInvalidPaymentId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setPaymentId($value);
     }
 
     /**
      * @dataProvider invalidPaymentIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetterInvalidPaymentId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->paymentId = $value;
     }
@@ -128,22 +128,22 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetInvalidCreatedGte($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCreatedAtGte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetterInvalidCreatedGte($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->createdAtGte = $value;
     }
@@ -190,22 +190,22 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetInvalidCreatedGt($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCreatedAtGt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetterInvalidCreatedGt($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->createdAtGt = $value;
     }
@@ -252,22 +252,22 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetInvalidCreatedLte($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCreatedAtLte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetterInvalidCreatedLte($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->createdAtLte = $value;
     }
@@ -314,22 +314,22 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetInvalidCreatedLt($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCreatedAtLt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetterInvalidCreatedLt($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->createdAtLt = $value;
     }
@@ -376,22 +376,22 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidStatusDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidStatus($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setStatus($value);
     }
 
     /**
      * @dataProvider invalidStatusDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidStatus($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->status = $value;
         self::assertEquals($value, $instance->status);
@@ -410,11 +410,11 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidLimitDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidLimit($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setLimit($value);
     }
@@ -462,22 +462,22 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidNextCursorDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidCursor($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCursor($value);
     }
 
     /**
      * @dataProvider invalidNextCursorDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidCursor($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->cursor = $value;
     }

@@ -45,11 +45,11 @@ class VatDataTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetInvalidType($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setType($value);
     }
 
@@ -115,11 +115,11 @@ class VatDataTest extends TestCase
 
     /**
      * @dataProvider invalidRateDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetInvalidRate($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setRate($value);
     }
 
@@ -191,12 +191,12 @@ class VatDataTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidAmount($value)
     {
-        self::setExpectedException('InvalidArgumentException');
+        self::expectException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->setAmount($value);
     }

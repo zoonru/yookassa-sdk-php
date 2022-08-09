@@ -6,12 +6,6 @@
 
 * [\YooKassa](../namespaces/yookassa.md)
 
-### Interfaces
-
-| Name | Summary |
-| ---- | ------- |
-| [\JsonSerializable](../classes/JsonSerializable.md) |  |
-
 ### Functions
 
 <a name="method_yookassaSdkLoadClass" class="anchor"></a>

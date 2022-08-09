@@ -65,11 +65,11 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidRecipientDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidRecipient($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setRecipient($value);
     }
@@ -155,33 +155,33 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPaymentTokenDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidPaymentToken($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setPaymentToken($value);
     }
 
     /**
      * @dataProvider invalidPaymentTokenDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidPaymentToken($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->paymentToken = $value;
     }
 
     /**
      * @dataProvider invalidPaymentTokenDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidPayment_token($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->payment_token = $value;
     }
@@ -251,33 +251,33 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPaymentMethodIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidPaymentMethodId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setPaymentMethodId($value);
     }
 
     /**
      * @dataProvider invalidPaymentMethodIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidPaymentMethodId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->paymentMethodId = $value;
     }
 
     /**
      * @dataProvider invalidPaymentMethodIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidPayment_method_id($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->payment_method_id = $value;
     }
@@ -324,11 +324,11 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPaymentDataDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidPaymentData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setPaymentMethodData($value);
     }
@@ -385,11 +385,11 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidConfirmationAttributesDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidConfirmationAttributes($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setConfirmation($value);
     }
@@ -436,11 +436,11 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidBooleanDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidCreateRecurring($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setSavePaymentMethod($value);
     }
@@ -487,11 +487,11 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidBooleanDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidCapture($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setCapture($value);
     }
@@ -538,11 +538,11 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidClientIpDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidClientIp($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setClientIp($value);
     }
@@ -605,11 +605,11 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidMerchantCustomerIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidMerchantCustomerId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setMerchantCustomerId($value);
     }
@@ -817,22 +817,22 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidMetadata($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setMetadata($value);
     }
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidDeal($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setDeal($value);
     }

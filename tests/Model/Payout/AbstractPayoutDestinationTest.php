@@ -29,11 +29,11 @@ abstract class AbstractPayoutDestinationTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testInvalidType($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         new TestPaymentData($value);
     }
 

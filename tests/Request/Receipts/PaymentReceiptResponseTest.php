@@ -135,10 +135,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidAllDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidIdData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setId($options);
     }
@@ -146,10 +146,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidAllDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidTypeData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setType($options);
     }
@@ -157,10 +157,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidBoolDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidObjectIdData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setObjectId($options);
     }
@@ -168,10 +168,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidAllDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidStatusIdData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setStatus($options);
     }
@@ -179,10 +179,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidBoolDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidFiscalDocumentNumberData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setFiscalDocumentNumber($options);
     }
@@ -190,10 +190,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidItemsSettlementsDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidItemsData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setItems($options);
     }
@@ -201,10 +201,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidItemsSettlementsDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidSettlementsData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setSettlements($options);
     }
@@ -212,10 +212,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidAllDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidTaxSystemCodeData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setTaxSystemCode($options);
     }
@@ -223,10 +223,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidBoolNullDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidOnBehalfOfData($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance(null);
         $instance->setOnBehalfOf($options);
     }
@@ -234,10 +234,10 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidFromArray
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidFromArray($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance($options);
     }
 }

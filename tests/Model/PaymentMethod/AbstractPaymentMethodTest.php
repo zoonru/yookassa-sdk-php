@@ -29,11 +29,11 @@ abstract class AbstractPaymentMethodTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testInvalidType($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         new TestPaymentData($value);
     }
 
@@ -70,21 +70,21 @@ abstract class AbstractPaymentMethodTest extends TestCase
 
     /**
      * @dataProvider invalidSavedDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidSaved($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setSaved($value);
     }
 
     /**
      * @dataProvider invalidSavedDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidSaved($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->saved = $value;
     }
 
@@ -121,21 +121,21 @@ abstract class AbstractPaymentMethodTest extends TestCase
 
     /**
      * @dataProvider invalidIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setId($value);
     }
 
     /**
      * @dataProvider invalidIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidId($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->id = $value;
     }
 
@@ -172,21 +172,21 @@ abstract class AbstractPaymentMethodTest extends TestCase
 
     /**
      * @dataProvider invalidTitleDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidTitle($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setTitle($value);
     }
 
     /**
      * @dataProvider invalidIdDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidTitle($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->title = $value;
     }
 

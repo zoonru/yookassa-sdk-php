@@ -3,7 +3,6 @@
 namespace Tests\YooKassa\Model;
 
 use PHPUnit\Framework\TestCase;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\CurrencyCode;
@@ -60,14 +59,11 @@ class SettlementTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     *
      * @param $value
      */
     public function testSetInvalidType($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setType($value);
     }
 
@@ -136,27 +132,21 @@ class SettlementTest extends TestCase
 
     /**
      * @dataProvider invalidAmountDataProvider
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     *
      * @param $value
      */
     public function testSetInvalidAmount($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setAmount($value);
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     *
      * @param $value
      */
     public function testSetterInvalidAmount($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->amount = $value;
     }
 

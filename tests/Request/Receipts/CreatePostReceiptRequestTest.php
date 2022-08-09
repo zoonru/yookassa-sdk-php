@@ -62,11 +62,11 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidCustomerDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidCustomer($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setCustomer($value);
     }
@@ -90,11 +90,11 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidType($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setType($value);
     }
@@ -220,12 +220,11 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidSetsDataProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
      * @param $value
      */
     public function testSetInvalidItems($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setItems($value);
     }
@@ -239,11 +238,11 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidTaxSystemCodeDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidTaxSystemCode($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setTaxSystemCode($value);
     }
@@ -257,12 +256,11 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidSetsDataProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
      * @param $value
      */
     public function testSetInvalidSettlements($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setSettlements($value);
     }
@@ -287,12 +285,11 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidSetOnBehalfOfDataProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
      * @param $value
      */
     public function testSetInvalidOnBehalfOf($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setOnBehalfOf($value);
     }
@@ -323,11 +320,11 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidBooleanDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidSend($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setSend($value);
     }

@@ -2,9 +2,10 @@
 
 namespace Tests\YooKassa\Helpers;
 
+use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\ProductCode;
 
-class ProductCodeTest extends \PHPUnit_Framework_TestCase
+class ProductCodeTest extends TestCase
 {
 
     /**
@@ -113,12 +114,10 @@ class ProductCodeTest extends \PHPUnit_Framework_TestCase
         $reflection = new \ReflectionClass(get_class($instance));
 
         $method = $reflection->getMethod('strToHex');
-        $method->setAccessible(true);
         $result1 = $method->invokeArgs($instance, array('string' => $data));
 
         $method = $reflection->getMethod('hexToStr');
-        $method->setAccessible(true);
-        $result2 = $method->invokeArgs($instance, array('string' => $result1));
+        $result2 = $method->invokeArgs($instance, array('hex' => $result1));
 
         self::assertEquals($data, $result2);
     }
@@ -134,14 +133,12 @@ class ProductCodeTest extends \PHPUnit_Framework_TestCase
         $reflection = new \ReflectionClass(get_class($instance));
 
         $method = $reflection->getMethod('base_convert');
-        $method->setAccessible(true);
         $result1 = $method->invokeArgs($instance, array('numString' => $data));
 
         $method = $reflection->getMethod('base_convert');
-        $method->setAccessible(true);
         $result2 = $method->invokeArgs($instance, array('numString' => $result1, 'fromBase' => 16, 'toBase' => 10));
 
-        self::assertEquals($data, $result2);
+        self::assertSame((int)$data, (int)$result2);
     }
 
     /**

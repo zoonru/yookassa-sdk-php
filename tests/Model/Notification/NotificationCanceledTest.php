@@ -15,7 +15,7 @@ use YooKassa\Model\PaymentStatus;
 use YooKassa\Model\Receipt\SettlementType;
 use YooKassa\Model\ReceiptRegistrationStatus;
 
-class NotificationCanceledTest extends \PHPUnit_Framework_TestCase
+class NotificationCanceledTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @param array $source
@@ -56,10 +56,10 @@ class NotificationCanceledTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidFromArray($options)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance($options);
     }
 

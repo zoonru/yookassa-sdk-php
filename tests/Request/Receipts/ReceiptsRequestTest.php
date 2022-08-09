@@ -167,10 +167,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidLimitDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidLimitData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setLimit($value);
     }
@@ -178,10 +178,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidCursorDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidCursorData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setCursor($value);
     }
@@ -189,10 +189,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidStatusDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidStatusData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setStatus($value);
     }
@@ -200,10 +200,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidDateDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidCreatedAtLtData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setCreatedAtLt($value);
     }
@@ -212,10 +212,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidDateDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidCreatedAtLteData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setCreatedAtLte($value);
     }
@@ -223,10 +223,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidDateDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidCreatedAtGtData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setCreatedAtGt($value);
     }
@@ -234,10 +234,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidDateDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidCreatedAtGteData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setCreatedAtGte($value);
     }
@@ -245,10 +245,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidIdDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidPaymentIdData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setPaymentId($value);
     }
@@ -256,10 +256,10 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidIdDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidRefundIdData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new ReceiptsRequest();
         $instance->setRefundId($value);
     }

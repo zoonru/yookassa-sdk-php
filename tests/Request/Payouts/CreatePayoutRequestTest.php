@@ -34,11 +34,11 @@ class CreatePayoutRequestTest extends TestCase
 
     /**
      * @dataProvider invalidAmountDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidAmountToken($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePayoutRequest();
         $instance->setAmount($value);
     }
@@ -108,33 +108,33 @@ class CreatePayoutRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPayoutTokenDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidPayoutToken($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePayoutRequest();
         $instance->setPayoutToken($value);
     }
 
     /**
      * @dataProvider invalidPayoutTokenDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidPayoutToken($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePayoutRequest();
         $instance->payoutToken = $value;
     }
 
     /**
      * @dataProvider invalidPayoutTokenDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetterInvalidPayout_token($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePayoutRequest();
         $instance->payout_token = $value;
     }
@@ -187,11 +187,11 @@ class CreatePayoutRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPayoutDestinationDataDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidPayoutDestinationData($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePayoutRequest();
         $instance->setPayoutDestinationData($value);
     }
@@ -240,11 +240,11 @@ class CreatePayoutRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDescriptionDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidDescription($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePayoutRequest();
         $instance->setDescription($value);
     }
@@ -296,11 +296,11 @@ class CreatePayoutRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDealDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidDeal($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePayoutRequest();
         $instance->setDeal($value);
     }
@@ -352,11 +352,11 @@ class CreatePayoutRequestTest extends TestCase
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
      * @param $value
      */
     public function testSetInvalidMetadata($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $instance = new CreatePayoutRequest();
         $instance->setMetadata($value);
     }

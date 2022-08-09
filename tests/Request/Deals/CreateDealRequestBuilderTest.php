@@ -57,12 +57,11 @@ class CreateDealRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException InvalidArgumentException
-     *
      * @param $options
      */
     public function testSetInvalidTypeType($options)
     {
+        self::expectException(InvalidArgumentException::class);
         $builder = new CreateDealRequestBuilder();
         $builder->setType($options);
     }
@@ -90,12 +89,11 @@ class CreateDealRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException InvalidArgumentException
-     *
      * @param $options
      */
     public function testSetInvalidTypeFeeMoment($options)
     {
+        self::expectException(InvalidArgumentException::class);
         $builder = new CreateDealRequestBuilder();
         $builder->setFeeMoment($options);
     }
@@ -125,12 +123,12 @@ class CreateDealRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException InvalidArgumentException
      *
      * @param $options
      */
     public function testSetInvalidTypeMetadata($options)
     {
+        self::expectException(InvalidArgumentException::class);
         $builder = new CreateDealRequestBuilder();
         $builder->setMetadata($options);
     }
@@ -157,21 +155,19 @@ class CreateDealRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException InvalidArgumentException
      *
      * @param $options
      */
     public function testSetInvalidTypeDescription($options)
     {
+        self::expectException(InvalidArgumentException::class);
         $builder = new CreateDealRequestBuilder();
         $builder->setDescription($options);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testSetInvalidLengthDescription()
     {
+        self::expectException(InvalidArgumentException::class);
         $builder     = new CreateDealRequestBuilder();
         $description = Random::str(SafeDeal::MAX_LENGTH_DESCRIPTION + 1);
         $builder->setDescription($description);

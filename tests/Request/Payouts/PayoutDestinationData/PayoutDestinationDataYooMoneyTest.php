@@ -64,22 +64,22 @@ class PayoutDestinationDataYooMoneyTest extends AbstractPayoutDestinationDataTes
 
     /**
      * @dataProvider invalidAccountNumberDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetInvalidAccountNumber($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setAccountNumber($value);
 
     }
 
     /**
      * @dataProvider invalidAccountNumberDataProvider
-     * @expectedException \InvalidArgumentException
      * @param mixed $value
      */
     public function testSetterInvalidAccountNumber($value)
     {
+        self::expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->account_number = $value;
     }
 
