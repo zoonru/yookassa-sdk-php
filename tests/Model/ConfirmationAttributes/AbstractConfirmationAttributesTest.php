@@ -84,7 +84,6 @@ abstract class AbstractConfirmationAttributesTest extends TestCase
 
     /**
      * @dataProvider invalidLocaleDataProvider
-     *
 	 *
      * @param $value
      */
