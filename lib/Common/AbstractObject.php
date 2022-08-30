@@ -34,6 +34,7 @@ if (!defined('YOOKASSA_DATE')) {
     }
 }
 
+
 /**
  * Базовый класс генерируемых объектов
  *
@@ -102,7 +103,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
      * @param mixed $value Значение свойства
      * @return void
      */
-    public function offsetSet($offset, mixed $value): void
+    public function offsetSet($offset, $value): void
     {
         $method = 'set' . ucfirst($offset);
         if (method_exists($this, $method)) {
