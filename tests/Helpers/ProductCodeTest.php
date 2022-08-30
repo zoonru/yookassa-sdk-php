@@ -2,9 +2,10 @@
 
 namespace Tests\YooKassa\Helpers;
 
+use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\ProductCode;
 
-class ProductCodeTest extends \PHPUnit_Framework_TestCase
+class ProductCodeTest extends TestCase
 {
 
     /**

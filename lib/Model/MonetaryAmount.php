@@ -220,7 +220,7 @@ class MonetaryAmount extends AbstractObject implements AmountInterface
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array(
             'value' => number_format($this->_value / 100.0, 2, '.', ''),

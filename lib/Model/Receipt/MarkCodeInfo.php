@@ -434,7 +434,7 @@ class MarkCodeInfo extends AbstractObject
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $fields = array(
             'mark_code_raw', 'unknown', 'ean_8', 'ean_13', 'itf_14', 'gs_10', 'gs_1m', 'short', 'fur', 'egais_20', 'egais_30'

@@ -3,6 +3,7 @@
 
 namespace Tests\YooKassa\Model\Notification;
 
+use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\ConfirmationType;
 use YooKassa\Model\CurrencyCode;
@@ -15,7 +16,7 @@ use YooKassa\Model\PaymentStatus;
 use YooKassa\Model\Receipt\SettlementType;
 use YooKassa\Model\ReceiptRegistrationStatus;
 
-class NotificationCanceledTest extends \PHPUnit_Framework_TestCase
+class NotificationCanceledTest extends TestCase
 {
     /**
      * @param array $source

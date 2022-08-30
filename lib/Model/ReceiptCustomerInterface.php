@@ -72,5 +72,5 @@ interface ReceiptCustomerInterface
      *
      * @return array
      */
-    function jsonSerialize();
+    function jsonSerialize(): array;
 }

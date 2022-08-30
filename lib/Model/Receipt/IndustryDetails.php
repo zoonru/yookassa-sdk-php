@@ -200,7 +200,7 @@ class IndustryDetails extends AbstractObject
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $result = parent::jsonSerialize();
         $result['document_date'] = $this->getDocumentDate()->format(self::DOCUMENT_DATE_FORMAT);
