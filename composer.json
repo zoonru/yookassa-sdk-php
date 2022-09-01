@@ -1,5 +1,5 @@
 {
-    "name": "yoomoney/yookassa-sdk-php",
+    "name": "zoonru/yookassa-sdk-php",
     "description": "This is a developer tool for integration with YooMoney.",
     "type": "library",
     "license": "MIT",
@@ -23,11 +23,11 @@
     },
     "version": "2.5.0",
     "require": {
-        "php": ">=8.0",
+        "php": "^8.1",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "psr/log": "^1.0"
+        "psr/log": "^3.0"
     },
     "require-dev": {
         "ext-xml": "*",
