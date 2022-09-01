@@ -29,12 +29,13 @@ abstract class AbstractConfirmationTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @param $value
+     *
+	 * @param $value
      */
     public function testInvalidType($value)
     {
-        $this->expectException(\InvalidArgumentException::class);
-        new TestConfirmation($value);
+		$this->expectException(\InvalidArgumentException::class);
+		new TestConfirmation($value);
     }
 
     /**
