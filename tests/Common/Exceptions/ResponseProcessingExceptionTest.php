@@ -23,7 +23,7 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
     public function testDescription($body)
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         if (empty($tmp['description'])) {
             self::assertEquals('', $instance->getMessage());
         } else {
@@ -47,7 +47,7 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
     public function testRetryAfter($body)
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         if (empty($tmp['retry_after'])) {
             self::assertNull($instance->retryAfter);
         } else {
@@ -71,7 +71,7 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
     public function testType($body)
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         if (empty($tmp['type'])) {
             self::assertNull($instance->type);
         } else {
@@ -96,7 +96,7 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
 
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         $message = '';
         if (!empty($tmp['description'])) {
             $message = $tmp['description'].'.';

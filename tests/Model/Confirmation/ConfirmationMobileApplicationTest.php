@@ -76,34 +76,37 @@ class ConfirmationMobileApplicationTest extends AbstractConfirmationTest
 
     /**
      * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidReturnUrl($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->setReturnUrl($value);
     }
 
     /**
      * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidReturnUrl($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->returnUrl = $value;
     }
 
     /**
      * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidReturn_url($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->return_url = $value;
     }
 
@@ -160,34 +163,37 @@ class ConfirmationMobileApplicationTest extends AbstractConfirmationTest
 
     /**
      * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidConfirmationUrl($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->setConfirmationUrl($value);
     }
 
     /**
      * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidConfirmationUrl($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->confirmationUrl = $value;
     }
 
     /**
      * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidConfirmation_url($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->confirmation_url = $value;
     }
 

@@ -41,23 +41,25 @@ class PayoutTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidId($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->setId($value['id']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidId($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->id = $value['id'];
     }
 
@@ -84,23 +86,25 @@ class PayoutTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidStatus($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->setStatus($value['status']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidStatus($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->status = $value['status'];
     }
 
@@ -132,7 +136,7 @@ class PayoutTest extends TestCase
     public function testSetInvalidAmount($value)
     {
         if (class_exists('InvalidPropertyValueTypeException')) {
-            self::setExpectedException('InvalidPropertyValueTypeException');
+            $this->expectException('InvalidPropertyValueTypeException');
             $instance = new Payout();
             $instance->setAmount($value['amount']);
         }
@@ -145,7 +149,7 @@ class PayoutTest extends TestCase
     public function testSetterInvalidAmount($value)
     {
         if (class_exists('InvalidPropertyValueTypeException')) {
-            self::setExpectedException('InvalidPropertyValueTypeException');
+            $this->expectException('InvalidPropertyValueTypeException');
             $instance = new Payout();
             $instance->amount = $value['amount'];
         }
@@ -174,23 +178,25 @@ class PayoutTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidPayoutDestination($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->setPayoutDestination($value['payout_destination']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidPayoutDestination($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->payout_destination = $value['payout_destination'];
     }
 
@@ -226,34 +232,37 @@ class PayoutTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidCreatedAt($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->setCreatedAt($value['created_at']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidCreatedAt($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->createdAt = $value['created_at'];
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidCreated_at($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->created_at = $value['created_at'];
     }
 
@@ -280,23 +289,25 @@ class PayoutTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidTest($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->setTest($value['test']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidTest($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->test = $value['test'];
     }
 
@@ -324,23 +335,25 @@ class PayoutTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidDeal($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->setDeal($value['deal']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidDeal($value)
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->deal = $value['deal'];
     }
 
@@ -360,21 +373,17 @@ class PayoutTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetInvalidTypeDescription()
+	public function testSetInvalidTypeDescription()
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $instance->setDescription(true);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetInvalidLengthDescription()
+	public function testSetInvalidLengthDescription()
     {
-        $instance = new Payout();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Payout();
         $description = Random::str(Payout::MAX_LENGTH_DESCRIPTION + 1);
         $instance->setDescription($description);
     }

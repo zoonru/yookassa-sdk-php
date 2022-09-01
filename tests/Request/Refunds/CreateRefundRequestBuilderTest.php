@@ -236,13 +236,14 @@ class CreateRefundRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidItemsDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $items
      */
     public function testSetInvalidReceiptItems($items)
     {
-        $builder = new CreateRefundRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateRefundRequestBuilder();
         $builder->setReceiptItems($items);
     }
 
@@ -295,13 +296,14 @@ class CreateRefundRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidReceiptDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param mixed $value
      */
     public function testSetInvalidReceipt($value)
     {
-        $builder = new CreateRefundRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateRefundRequestBuilder();
         $builder->setReceipt($value);
     }
 
@@ -409,13 +411,14 @@ class CreateRefundRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidEmailDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidEmail($value)
     {
-        $builder = new CreateRefundRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateRefundRequestBuilder();
         $builder->setReceiptEmail($value);
     }
 
@@ -444,13 +447,14 @@ class CreateRefundRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidPhone($value)
     {
-        $builder = new CreateRefundRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateRefundRequestBuilder();
         $builder->setReceiptPhone($value);
     }
 
@@ -479,13 +483,14 @@ class CreateRefundRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidVatIdDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidTaxSystemId($value)
     {
-        $builder = new CreateRefundRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateRefundRequestBuilder();
         $builder->setTaxSystemCode($value);
     }
 

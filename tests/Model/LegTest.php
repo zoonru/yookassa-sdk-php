@@ -36,7 +36,7 @@ class LegTest extends TestCase
     {
         $leg = new Leg();
 
-        $this->setExpectedException($data['exception']);
+        $this->expectException($data['exception']);
 
         $leg->setDepartureAirport($data['value']);
     }
@@ -50,7 +50,7 @@ class LegTest extends TestCase
     {
         $leg = new Leg();
 
-        $this->setExpectedException($data['exception']);
+        $this->expectException($data['exception']);
 
         $leg->setDestinationAirport($data['value']);
     }
@@ -64,7 +64,7 @@ class LegTest extends TestCase
     {
         $leg = new Leg();
 
-        $this->setExpectedException($data['exception']);
+        $this->expectException($data['exception']);
 
         $leg->setDepartureDate($data['value']);
     }

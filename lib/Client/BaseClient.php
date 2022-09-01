@@ -366,7 +366,7 @@ class BaseClient
      */
     protected function decodeData(ResponseObject $response)
     {
-        $resultArray = json_decode($response->getBody(), true);
+        $resultArray = json_decode((string)$response->getBody(), true);
         if ($resultArray === null) {
             throw new JsonException('Failed to decode response', json_last_error());
         }

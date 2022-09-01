@@ -38,7 +38,7 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
             $data = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "configuration.json");
         }
 
-        $paramsArray = json_decode($data, true);
+        $paramsArray = json_decode((string)$data, true);
 
         $this->configParams = $paramsArray;
 

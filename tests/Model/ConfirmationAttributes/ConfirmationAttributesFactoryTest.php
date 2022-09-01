@@ -33,12 +33,13 @@ class ConfirmationAttributesFactoryTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $type
+     *
+	 * @param $type
      */
     public function testInvalidFactory($type)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->factory($type);
     }
 
@@ -71,12 +72,13 @@ class ConfirmationAttributesFactoryTest extends TestCase
 
     /**
      * @dataProvider invalidDataArrayDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $options
+     *
+	 * @param $options
      */
     public function testInvalidFactoryFromArray($options)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->factoryFromArray($options);
     }
 

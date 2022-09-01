@@ -1,63 +1,69 @@
 {
-  "name": "yoomoney/yookassa-sdk-php",
-  "description": "This is a developer tool for integration with YooMoney.",
-  "type": "library",
-  "license": "MIT",
-  "homepage": "https://yookassa.ru/developers/api",
-  "keywords": ["yoomoney", "yookassa", "payments", "api", "sdk"],
-  "authors": [
-    {
-      "name": "YooMoney",
-      "email": "cms@yoomoney.ru"
-    }
-  ],
-  "dist": {
-    "type": "zip",
-    "url": "https://git.yoomoney.ru/rest/api/latest/projects/SDK/repos/yookassa-sdk-php/archive?at=refs%2Ftags%2F2.5.0&format=zip"
-  },
-  "version": "2.5.0",
-  "require": {
-    "php": ">=8.0",
-    "ext-curl": "*",
-    "ext-json": "*",
-    "ext-mbstring": "*",
-    "psr/log": "^1.0"
-  },
-  "require-dev": {
-    "ext-xml": "*",
-    "phpunit/phpunit": "^9.0",
-    "mockery/mockery": "^0.9.9",
-    "squizlabs/php_codesniffer": "^3.7",
-    "phpcompatibility/php-compatibility": "^9.3"
-  },
-  "scripts": {
-    "test": [
-      "@phpunit",
-      "@phpcbf",
-      "@phpcs",
-      "@phpmd"
+    "name": "yoomoney/yookassa-sdk-php",
+    "description": "This is a developer tool for integration with YooMoney.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://yookassa.ru/developers/api",
+    "keywords": [
+        "yoomoney",
+        "yookassa",
+        "payments",
+        "api",
+        "sdk"
     ],
-    "ci": [
-      "@phplint",
-      "@phpunit",
-      "@phpcs",
-      "@phpmd"
+    "authors": [
+        {
+            "name": "YooMoney",
+            "email": "cms@yoomoney.ru"
+        }
     ],
-    "phplint": "vendor/bin/parallel-lint --exclude vendor/ --exclude .idea/ -e php,module,inc,install,profile,theme .",
-    "phpunit": "vendor/bin/phpunit --configuration=phpunit.xml.dist",
-    "phpcs": "vendor/bin/phpcs --ignore=vendor/,.idea/ --standard=phpcs.xml --extensions=php,module,inc,install,profile,theme,css,info,txt,md,yml --report=full .",
-    "phpcbf": "vendor/bin/phpcbf --ignore=vendor/,.idea/ --standard=phpcs.xml --extensions=php,module,inc,install,profile,theme,css,info,txt,md,yml .",
-    "phpmd": "vendor/bin/phpmd --exclude vendor/,.idea/ --suffixes php,module,inc,install,profile,theme . text phpmd.xml",
-    "sniffer:php8": "phpcs -p ./lib --standard=vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion 8.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "YooKassa\\": "lib/"
+    "dist": {
+        "type": "zip",
+        "url": "https://git.yoomoney.ru/rest/api/latest/projects/SDK/repos/yookassa-sdk-php/archive?at=refs%2Ftags%2F2.5.0&format=zip"
+    },
+    "version": "2.5.0",
+    "require": {
+        "php": ">=8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "psr/log": "^1.0"
+    },
+    "require-dev": {
+        "ext-xml": "*",
+        "phpunit/phpunit": "^9.5.24",
+        "mockery/mockery": "^0.9.9",
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpcompatibility/php-compatibility": "^9.3"
+    },
+    "scripts": {
+        "test": [
+            "@phpunit",
+            "@phpcbf",
+            "@phpcs",
+            "@phpmd"
+        ],
+        "ci": [
+            "@phplint",
+            "@phpunit",
+            "@phpcs",
+            "@phpmd"
+        ],
+        "phplint": "vendor/bin/parallel-lint --exclude vendor/ --exclude .idea/ -e php,module,inc,install,profile,theme .",
+        "phpunit": "vendor/bin/phpunit --configuration=phpunit.xml.dist",
+        "phpcs": "vendor/bin/phpcs --ignore=vendor/,.idea/ --standard=phpcs.xml --extensions=php,module,inc,install,profile,theme,css,info,txt,md,yml --report=full .",
+        "phpcbf": "vendor/bin/phpcbf --ignore=vendor/,.idea/ --standard=phpcs.xml --extensions=php,module,inc,install,profile,theme,css,info,txt,md,yml .",
+        "phpmd": "vendor/bin/phpmd --exclude vendor/,.idea/ --suffixes php,module,inc,install,profile,theme . text phpmd.xml",
+        "sniffer:php8": "phpcs -p ./lib --standard=vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion 8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "YooKassa\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\YooKassa\\": "tests/"
+        }
     }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\YooKassa\\": "tests/"
-    }
-  }
 }

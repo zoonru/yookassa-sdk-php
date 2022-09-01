@@ -135,109 +135,119 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
     /**
      * @dataProvider invalidAllDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidIdData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setId($options);
     }
 
     /**
      * @dataProvider invalidAllDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidTypeData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setType($options);
     }
 
     /**
      * @dataProvider invalidBoolDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidObjectIdData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setObjectId($options);
     }
 
     /**
      * @dataProvider invalidAllDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidStatusIdData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setStatus($options);
     }
 
     /**
      * @dataProvider invalidBoolDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidFiscalDocumentNumberData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setFiscalDocumentNumber($options);
     }
 
     /**
      * @dataProvider invalidItemsSettlementsDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidItemsData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setItems($options);
     }
 
     /**
      * @dataProvider invalidItemsSettlementsDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidSettlementsData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setSettlements($options);
     }
 
     /**
      * @dataProvider invalidAllDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidTaxSystemCodeData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setTaxSystemCode($options);
     }
 
     /**
      * @dataProvider invalidBoolNullDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidOnBehalfOfData($options)
     {
-        $instance = $this->getTestInstance(null);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance(null);
         $instance->setOnBehalfOf($options);
     }
 
     /**
      * @dataProvider invalidFromArray
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidFromArray($options)
     {
-        $this->getTestInstance($options);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance($options);
     }
 }

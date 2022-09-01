@@ -167,44 +167,48 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidLimitDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidLimitData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setLimit($value);
     }
 
     /**
      * @dataProvider invalidCursorDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidCursorData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setCursor($value);
     }
 
     /**
      * @dataProvider invalidStatusDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidStatusData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setStatus($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidCreatedAtLtData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setCreatedAtLt($value);
     }
 
@@ -212,55 +216,60 @@ class ReceiptsRequestTest extends TestCase
     /**
      * @dataProvider invalidDateDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidCreatedAtLteData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setCreatedAtLte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidCreatedAtGtData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setCreatedAtGt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidCreatedAtGteData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setCreatedAtGte($value);
     }
 
     /**
      * @dataProvider invalidIdDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidPaymentIdData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setPaymentId($value);
     }
 
     /**
      * @dataProvider invalidIdDataProvider
      * @param $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidRefundIdData($value)
     {
-        $instance = new ReceiptsRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptsRequest();
         $instance->setRefundId($value);
     }
 

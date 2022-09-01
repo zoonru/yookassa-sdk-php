@@ -30,24 +30,26 @@ abstract class AbstractPaymentDataPhoneTest extends AbstractPaymentDataTest
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidPhone($value)
     {
-        /** @var PaymentDataMobileBalance $instance */
+		$this->expectException(\InvalidArgumentException::class);
+		/** @var PaymentDataMobileBalance $instance */
         $instance = $this->getTestInstance();
         $instance->setPhone($value);
     }
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidPhone($value)
     {
-        /** @var PaymentDataMobileBalance $instance */
+		$this->expectException(\InvalidArgumentException::class);
+		/** @var PaymentDataMobileBalance $instance */
         $instance = $this->getTestInstance();
         $instance->phone = $value;
     }

@@ -57,11 +57,12 @@ class NotificationCanceledTest extends TestCase
     /**
      * @dataProvider invalidDataProvider
      * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testInvalidFromArray($options)
     {
-        $this->getTestInstance($options);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance($options);
     }
 
     /**

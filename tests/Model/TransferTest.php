@@ -135,37 +135,40 @@ class TransferTest extends TestCase
     /**
      * @dataProvider invalidAccountIdProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param mixed $value
      */
     public function testGetSetInvalidAccountId($value)
     {
-        $this->getTestInstance()->setAccountId($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setAccountId($value);
     }
 
     /**
      * @dataProvider invalidAccountIdProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetterInvalidAccountId($value)
     {
-        $this->getTestInstance()->accountId = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->accountId = $value;
     }
 
     /**
      * @dataProvider invalidMetadataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testInvalidMetadata($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->setMetadata($value);
     }
 
@@ -262,49 +265,53 @@ class TransferTest extends TestCase
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidAmount($value)
     {
-        $this->getTestInstance()->setAmount($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setAmount($value);
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetterInvalidAmount($value)
     {
-        $this->getTestInstance()->amount = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->amount = $value;
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidPlatformFeeAmount($value)
     {
-        $this->getTestInstance()->setPlatformFeeAmount($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setPlatformFeeAmount($value);
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetterInvalidPlatformFeeAmount($value)
     {
-        $this->getTestInstance()->platform_fee_amount = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->platform_fee_amount = $value;
     }
 
     /**
@@ -366,25 +373,27 @@ class TransferTest extends TestCase
     /**
      * @dataProvider invalidStatusProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param mixed $value
      */
     public function testGetSetInvalidStatus($value)
     {
-        $this->getTestInstance()->setStatus($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setStatus($value);
     }
 
     /**
      * @dataProvider invalidStatusProvider
      *
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetterInvalidStatus($value)
     {
-        $this->getTestInstance()->status = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->status = $value;
     }
 
     /**

@@ -48,12 +48,13 @@ class PaymentDataB2bSberbankTest extends AbstractPaymentDataTest
 
     /**
      * @dataProvider invalidPaymentPurposeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidPaymentPurpose($value)
     {
-        $this->getTestInstance()->setPaymentPurpose($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setPaymentPurpose($value);
     }
 
     /**
@@ -120,12 +121,13 @@ class PaymentDataB2bSberbankTest extends AbstractPaymentDataTest
 
     /**
      * @dataProvider invalidVatDataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidVatData($value)
     {
-        $this->getTestInstance()->setVatData($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setVatData($value);
     }
 
     /**

@@ -19,7 +19,7 @@ class ConfigurationLoaderTest extends TestCase
             $fileName = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR . "configuration.json";
         }
         $data = file_get_contents($fileName);
-        self::assertEquals(json_decode($data, true), $loader->getConfig());
+        self::assertEquals(json_decode((string)$data, true), $loader->getConfig());
     }
 
     public function validDataProvider()

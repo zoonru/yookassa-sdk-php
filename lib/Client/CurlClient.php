@@ -449,7 +449,7 @@ class CurlClient implements ApiClientInterface
                 $context['_params'] = $queryParams;
             }
             if (!empty($httpBody)) {
-                $data = json_decode($httpBody, true);
+                $data = json_decode((string)$httpBody, true);
                 if (JSON_ERROR_NONE !== json_last_error()) {
                     $data = $httpBody;
                 }
@@ -490,7 +490,7 @@ class CurlClient implements ApiClientInterface
             $message = 'Response with code ' . $responseInfo['http_code'] . ' received.';
             $context = array();
             if (!empty($httpBody)) {
-                $data = json_decode($httpBody, true);
+                $data = json_decode((string)$httpBody, true);
                 if (JSON_ERROR_NONE !== json_last_error()) {
                     $data = $httpBody;
                 }

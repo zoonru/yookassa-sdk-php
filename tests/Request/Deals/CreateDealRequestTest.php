@@ -156,34 +156,37 @@ class CreateDealRequestTest extends TestCase
 
     /**
      * @dataProvider invalidFeeMomentDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidFeeMoment($value)
     {
-        $instance = new CreateDealRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateDealRequest();
         $instance->setFeeMoment($value);
     }
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidMetadata($value)
     {
-        $instance = new CreateDealRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateDealRequest();
         $instance->setMetadata($value);
     }
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidType($value)
     {
-        $instance = new CreateDealRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateDealRequest();
         $instance->setType($value);
     }
 

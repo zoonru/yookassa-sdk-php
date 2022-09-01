@@ -31,12 +31,13 @@ class DealsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPageDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidCursor($value)
     {
-        $this->getTestInstance()->setCursor($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setCursor($value);
     }
 
     /**
@@ -50,12 +51,13 @@ class DealsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidFullTextSearchDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidFullTextSearch($value)
     {
-        $this->getTestInstance()->setFullTextSearch($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setFullTextSearch($value);
     }
 
     /**
@@ -89,82 +91,90 @@ class DealsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidCreatedAtGte($value)
     {
-        $this->getTestInstance()->setCreatedAtGte($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setCreatedAtGte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidCreatedAtGt($value)
     {
-        $this->getTestInstance()->setCreatedAtGt($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setCreatedAtGt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidCreatedAtLte($value)
     {
-        $this->getTestInstance()->setCreatedAtLte($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setCreatedAtLte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidCreatedAtLt($value)
     {
-        $this->getTestInstance()->setCreatedAtLt($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setCreatedAtLt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidExpiresAtGte($value)
     {
-        $this->getTestInstance()->setExpiresAtGte($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setExpiresAtGte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidExpiresAtGt($value)
     {
-        $this->getTestInstance()->setExpiresAtGt($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setExpiresAtGt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidExpiresAtLte($value)
     {
-        $this->getTestInstance()->setExpiresAtLte($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setExpiresAtLte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidExpiresAtLt($value)
     {
-        $this->getTestInstance()->setExpiresAtLt($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setExpiresAtLt($value);
     }
 
 
@@ -179,12 +189,13 @@ class DealsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidLimit($value)
     {
-        $this->getTestInstance()->setLimit($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setLimit($value);
     }
 
     /**
@@ -198,12 +209,13 @@ class DealsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidStatus($value)
     {
-        $this->getTestInstance()->setStatus($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setStatus($value);
     }
 
     public function testValidate()

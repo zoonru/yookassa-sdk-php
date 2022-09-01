@@ -290,12 +290,14 @@ class ReceiptResponseItemTest extends TestCase
      * @dataProvider invalidCountryOfOriginCodeDataProvider
      * @param array $options
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetCountryOfOriginCodeInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setCountryOfOriginCode($options);
     }
 
@@ -387,178 +389,204 @@ class ReceiptResponseItemTest extends TestCase
     /**
      * @dataProvider invalidDescriptionDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetDescriptionInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setDescription($options);
     }
 
     /**
      * @dataProvider invalidQuantityDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetQuantityInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setQuantity($options);
     }
 
     /**
      * @dataProvider invalidMeasureDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetMeasureInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setMeasure($options);
     }
 
     /**
      * @dataProvider invalidVatCodeDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetVatCodeInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setVatCode($options);
     }
 
     /**
      * @dataProvider invalidExciseDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testSetExciseInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setExcise($options);
     }
 
     /**
      * @dataProvider invalidProductCodeDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testSetProductCodeInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setProductCode($options);
     }
 
     /**
      * @dataProvider invalidPaymentDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetPaymentSubjectInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setPaymentSubject($options);
     }
 
     /**
      * @dataProvider invalidPaymentDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetPaymentModeInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setPaymentMode($options);
     }
 
     /**
      * @dataProvider invalidSupplierDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetSupplierInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setSupplier($options);
     }
 
     /**
      * @dataProvider invalidAgentTypeDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetAgentTypeInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setAgentType($options);
     }
 
     /**
      * @dataProvider invalidMarkCodeInfoDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetMarkCodeInfoInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setMarkCodeInfo($options);
     }
 
     /**
      * @dataProvider invalidMarkModeDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetMarkModeInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setMarkMode($options);
     }
 
     /**
      * @dataProvider invalidMarkQuantityDataProvider
      * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
+     *
+	 *
+	 */
     public function testSetMarkQuantityInvalidData($options)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setMarkQuantity($options);
     }
 
     /**
      * @dataProvider invalidCustomsDeclarationNumberDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidCustomsDeclarationNumber($value)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->customsDeclarationNumber = $value;
     }
 
     /**
      * @dataProvider invalidCustomsDeclarationNumberDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetterInvalidCustomsDeclarationNumber($value)
     {
-        $instance = new ReceiptResponseItem();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptResponseItem();
         $instance->setCustomsDeclarationNumber($value);
     }
 

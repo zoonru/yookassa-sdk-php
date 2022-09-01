@@ -13,10 +13,10 @@ class ReceiptResponseFactoryTest extends TestCase
     /**
      * @dataProvider invalidFactoryDataProvider
      * @param array $value
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidFactory($value)
     {
+		$this->expectException('\InvalidArgumentException');
         $instance = new ReceiptResponseFactory();
         $instance->factory($value);
     }

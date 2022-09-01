@@ -41,34 +41,37 @@ class RecipientTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidAccountId($value)
     {
-        $instance = new Recipient();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Recipient();
         $instance->setAccountId($value);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidAccountId($value)
     {
-        $instance = new Recipient();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Recipient();
         $instance->accountId = $value;
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidAccount_id($value)
     {
-        $instance = new Recipient();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Recipient();
         $instance->account_id = $value;
     }
 
@@ -104,34 +107,37 @@ class RecipientTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidGatewayId($value)
     {
-        $instance = new Recipient();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Recipient();
         $instance->setGatewayId($value);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidGatewayId($value)
     {
-        $instance = new Recipient();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Recipient();
         $instance->gatewayId = $value;
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidGateway_id($value)
     {
-        $instance = new Recipient();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Recipient();
         $instance->gateway_id = $value;
     }
 

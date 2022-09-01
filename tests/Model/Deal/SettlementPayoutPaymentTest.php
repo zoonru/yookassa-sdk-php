@@ -61,14 +61,16 @@ class SettlementPayoutPaymentTest extends TestCase
     /**
      * @dataProvider invalidTypeDataProvider
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
      *
+	 *
+	 *
      * @param $value
      */
     public function testSetInvalidType($value)
     {
-        $this->getTestInstance()->setType($value);
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setType($value);
     }
 
     /**
@@ -137,27 +139,31 @@ class SettlementPayoutPaymentTest extends TestCase
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
      *
+	 *
+	 *
      * @param $value
      */
     public function testSetInvalidAmount($value)
     {
-        $this->getTestInstance()->setAmount($value);
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setAmount($value);
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
      *
+	 *
+	 *
      * @param $value
      */
     public function testSetterInvalidAmount($value)
     {
-        $this->getTestInstance()->amount = $value;
+		$this->expectException(EmptyPropertyValueException::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->amount = $value;
     }
 
     public function invalidAmountDataProvider()

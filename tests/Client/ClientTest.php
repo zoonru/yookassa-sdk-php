@@ -290,7 +290,7 @@ class ClientTest extends TestCase
         $apiClient = new Client();
 
         if ($exceptionClassName !== null) {
-            $this->setExpectedException($exceptionClassName);
+            $this->expectException($exceptionClassName);
         }
 
         $response = $apiClient
@@ -481,7 +481,7 @@ class ClientTest extends TestCase
         );
 
         if ($exceptionClassName !== null) {
-            $this->setExpectedException($exceptionClassName);
+            $this->expectException($exceptionClassName);
         }
 
         $apiClient = new Client();
@@ -512,7 +512,7 @@ class ClientTest extends TestCase
             ));
 
         if ($invalid) {
-            $this->setExpectedException($exceptionClassName);
+            $this->expectException($exceptionClassName);
         }
 
         $apiClient = new Client();
@@ -751,7 +751,7 @@ class ClientTest extends TestCase
             ));
 
         if ($exceptionClassName !== null) {
-            $this->setExpectedException($exceptionClassName);
+            $this->expectException($exceptionClassName);
         }
 
         $apiClient = new Client();
@@ -817,7 +817,7 @@ class ClientTest extends TestCase
                 'unknown response here',
                 array('http_code' => 444)
             ));
-        $this->setExpectedException('YooKassa\Common\Exceptions\ApiException');
+        $this->expectException('YooKassa\Common\Exceptions\ApiException');
 
         $apiClient = new Client();
         $apiClient
@@ -842,7 +842,7 @@ class ClientTest extends TestCase
                 '{"description": "error_msg", "code": "error_code", "parameter_name": "parameter_name"}',
                 array('http_code' => 400)
             ));
-        $this->setExpectedException('YooKassa\Common\Exceptions\BadApiRequestException');
+        $this->expectException('YooKassa\Common\Exceptions\BadApiRequestException');
 
         $apiClient = new Client();
         $response = $apiClient
@@ -867,7 +867,7 @@ class ClientTest extends TestCase
                 '{"description": "error_msg", "code": "error_code"}',
                 array('http_code' => 500)
             ));
-        $this->setExpectedException('YooKassa\Common\Exceptions\InternalServerError');
+        $this->expectException('YooKassa\Common\Exceptions\InternalServerError');
 
         $apiClient = new Client();
         $response = $apiClient
@@ -892,7 +892,7 @@ class ClientTest extends TestCase
                 '{"description": "error_msg"}',
                 array('http_code' => 401)
             ));
-        $this->setExpectedException('YooKassa\Common\Exceptions\UnauthorizedException');
+        $this->expectException('YooKassa\Common\Exceptions\UnauthorizedException');
 
         $apiClient = new Client();
         $response = $apiClient
@@ -917,7 +917,7 @@ class ClientTest extends TestCase
                 '{"description": "error_msg","error_code": "error_code", "parameter_name": "parameter_name", "operation_name": "operation_name"}',
                 array('http_code' => 403)
             ));
-        $this->setExpectedException('YooKassa\Common\Exceptions\ForbiddenException');
+        $this->expectException('YooKassa\Common\Exceptions\ForbiddenException');
 
         $apiClient = new Client();
         $response = $apiClient
@@ -937,7 +937,7 @@ class ClientTest extends TestCase
                 '{"description": "error_msg","error_code": "error_code", "parameter_name": "parameter_name", "operation_name": "operation_name"}',
                 array('http_code' => 404)
             ));
-        $this->setExpectedException('YooKassa\Common\Exceptions\NotFoundException');
+        $this->expectException('YooKassa\Common\Exceptions\NotFoundException');
 
         $apiClient = new Client();
         $response = $apiClient
@@ -957,7 +957,7 @@ class ClientTest extends TestCase
                 '{"description": "error_msg","error_code": "error_code", "parameter_name": "parameter_name", "operation_name": "operation_name"}',
                 array('http_code' => 429)
             ));
-        $this->setExpectedException('YooKassa\Common\Exceptions\TooManyRequestsException');
+        $this->expectException('YooKassa\Common\Exceptions\TooManyRequestsException');
 
         $apiClient = new Client();
         $response = $apiClient
@@ -998,7 +998,7 @@ class ClientTest extends TestCase
 
         $apiClient = new Client();
 
-        $this->setExpectedException('YooKassa\Common\Exceptions\ApiException');
+        $this->expectException('YooKassa\Common\Exceptions\ApiException');
 
         $apiClient
             ->setApiClient($curlClientStub)
@@ -1055,7 +1055,7 @@ class ClientTest extends TestCase
                 '{"invalid":"json"',
                 array('http_code' => 200)
             ));
-        $this->setExpectedException('YooKassa\Common\Exceptions\JsonException');
+        $this->expectException('YooKassa\Common\Exceptions\JsonException');
 
         $apiClient = new Client();
         $response = $apiClient
@@ -1101,7 +1101,7 @@ class ClientTest extends TestCase
             }
         } else {
             $value = array('test' => iconv('utf-8', 'windows-1251', 'абвгдеёжз'));
-            $decoded = json_decode(json_encode($value), true);
+            $decoded = json_decode((string)json_encode($value), true);
             self::assertNotSame($decoded, $value);
         }
     }
@@ -1446,7 +1446,7 @@ class ClientTest extends TestCase
         $apiClient = new Client();
 
         if ($exceptionClassName !== null) {
-            $this->setExpectedException($exceptionClassName);
+            $this->expectException($exceptionClassName);
         }
 
         $response = $apiClient
@@ -1697,7 +1697,7 @@ class ClientTest extends TestCase
         $apiClient = new Client();
 
         if ($exceptionClassName !== null) {
-            $this->setExpectedException($exceptionClassName);
+            $this->expectException($exceptionClassName);
         }
 
         $response = $apiClient

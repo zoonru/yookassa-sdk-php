@@ -24,22 +24,24 @@ class PaymentDataBankCardCardTest extends TestCase
 
     /**
      * @dataProvider invalidNumberDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidNumber($value)
     {
-        $this->getTestInstance()->setNumber($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setNumber($value);
     }
 
     /**
      * @dataProvider invalidNumberDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetterInvalidNumber($value)
     {
-        $this->getTestInstance()->number = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->number = $value;
     }
 
     /**
@@ -53,52 +55,57 @@ class PaymentDataBankCardCardTest extends TestCase
 
     /**
      * @dataProvider invalidYearDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidYear($value)
     {
-        $this->getTestInstance()->setExpiryYear($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setExpiryYear($value);
     }
 
     /**
      * @dataProvider invalidYearDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetterInvalidYear($value)
     {
-        $this->getTestInstance()->expiryYear = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->expiryYear = $value;
     }
 
     /**
      * @dataProvider invalidYearDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetterInvalid_year($value)
     {
-        $this->getTestInstance()->expiry_year = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->expiry_year = $value;
     }
 
     /**
      * @dataProvider invalidMonthDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetterInvalidMonth($value)
     {
-        $this->getTestInstance()->expiryMonth = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->expiryMonth = $value;
     }
 
     /**
      * @dataProvider invalidMonthDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetterInvalid_month($value)
     {
-        $this->getTestInstance()->expiry_month = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->expiry_month = $value;
     }
 
     /**
@@ -112,12 +119,13 @@ class PaymentDataBankCardCardTest extends TestCase
 
     /**
      * @dataProvider invalidMonthDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidMonth($value)
     {
-        $this->getTestInstance()->setExpiryMonth($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setExpiryMonth($value);
     }
 
     /**
@@ -131,22 +139,24 @@ class PaymentDataBankCardCardTest extends TestCase
 
     /**
      * @dataProvider invalidCscDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidCsc($value)
     {
-        $this->getTestInstance()->setCsc($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setCsc($value);
     }
 
     /**
      * @dataProvider invalidCscDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetterInvalidCsc($value)
     {
-        $this->getTestInstance()->csc = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->csc = $value;
     }
 
     /**
@@ -160,22 +170,24 @@ class PaymentDataBankCardCardTest extends TestCase
 
     /**
      * @dataProvider invalidCardholderDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidCardholder($value)
     {
-        $this->getTestInstance()->setCardholder($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setCardholder($value);
     }
 
     /**
      * @dataProvider invalidCardholderDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetterInvalidCardholder($value)
     {
-        $this->getTestInstance()->cardholder = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->cardholder = $value;
     }
 
     /**

@@ -43,23 +43,25 @@ class CreateRefundRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPaymentIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidPaymentId($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->setPaymentId($value);
     }
 
     /**
      * @dataProvider invalidPaymentIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidPaymentId($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->paymentId = $value;
     }
 
@@ -72,7 +74,7 @@ class CreateRefundRequestTest extends TestCase
         $instance = new CreateRefundRequest();
 
         self::assertNull($instance->getAmount());
-        self::assertNull($instance->amount, $instance->getAmount());
+        self::assertNull($instance->amount);
 
         $instance->setAmount($options['amount']);
 
@@ -133,23 +135,25 @@ class CreateRefundRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDescriptionDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidDescription($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->setDescription($value);
     }
 
     /**
      * @dataProvider invalidDescriptionDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidDescription($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->description = $value;
     }
 
@@ -205,23 +209,25 @@ class CreateRefundRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDealDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidDeal($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->setDeal($value);
     }
 
     /**
      * @dataProvider invalidDealDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidDeal($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->deal = $value;
     }
 
@@ -266,23 +272,25 @@ class CreateRefundRequestTest extends TestCase
 
     /**
      * @dataProvider invalidReceiptDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidReceipt($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->setReceipt($value);
     }
 
     /**
      * @dataProvider invalidReceiptDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidReceipt($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->receipt = $value;
     }
 
@@ -294,12 +302,13 @@ class CreateRefundRequestTest extends TestCase
 
     /**
      * @dataProvider invalidSourceDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testInvalidSetSources($value)
     {
-        $instance = new CreateRefundRequest();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new CreateRefundRequest();
         $instance->setSources($value);
     }
 
