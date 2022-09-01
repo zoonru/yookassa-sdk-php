@@ -58,36 +58,39 @@ abstract class AbstractPaymentDataApplePayTest extends AbstractPaymentDataTest
 
     /**
      * @dataProvider invalidPaymentDataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidPaymentData($value)
     {
-        /** @var PaymentDataApplePay $instance */
+		$this->expectException(\InvalidArgumentException::class);
+		/** @var PaymentDataApplePay $instance */
         $instance = $this->getTestInstance();
         $instance->setPaymentData($value);
     }
 
     /**
      * @dataProvider invalidPaymentDataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidPaymentData($value)
     {
-        /** @var PaymentDataApplePay $instance */
+		$this->expectException(\InvalidArgumentException::class);
+		/** @var PaymentDataApplePay $instance */
         $instance = $this->getTestInstance();
         $instance->paymentData = $value;
     }
 
     /**
      * @dataProvider invalidPaymentDataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidPayment_data($value)
     {
-        /** @var PaymentDataApplePay $instance */
+		$this->expectException(\InvalidArgumentException::class);
+		/** @var PaymentDataApplePay $instance */
         $instance = $this->getTestInstance();
         $instance->payment_data = $value;
     }

@@ -29,12 +29,13 @@ abstract class AbstractPaymentMethodTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testInvalidType($value)
     {
-        new TestPaymentData($value);
+		$this->expectException(\InvalidArgumentException::class);
+		new TestPaymentData($value);
     }
 
     /**
@@ -70,22 +71,24 @@ abstract class AbstractPaymentMethodTest extends TestCase
 
     /**
      * @dataProvider invalidSavedDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidSaved($value)
     {
-        $this->getTestInstance()->setSaved($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setSaved($value);
     }
 
     /**
      * @dataProvider invalidSavedDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidSaved($value)
     {
-        $this->getTestInstance()->saved = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->saved = $value;
     }
 
     /**
@@ -121,22 +124,24 @@ abstract class AbstractPaymentMethodTest extends TestCase
 
     /**
      * @dataProvider invalidIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidId($value)
     {
-        $this->getTestInstance()->setId($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setId($value);
     }
 
     /**
      * @dataProvider invalidIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidId($value)
     {
-        $this->getTestInstance()->id = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->id = $value;
     }
 
     /**
@@ -172,22 +177,24 @@ abstract class AbstractPaymentMethodTest extends TestCase
 
     /**
      * @dataProvider invalidTitleDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidTitle($value)
     {
-        $this->getTestInstance()->setTitle($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setTitle($value);
     }
 
     /**
      * @dataProvider invalidIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidTitle($value)
     {
-        $this->getTestInstance()->title = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->title = $value;
     }
 
     public function invalidTypeDataProvider()

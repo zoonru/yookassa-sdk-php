@@ -80,13 +80,14 @@ class CreatePostReceiptRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidCustomerDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidCustomer($value)
     {
-        $builder = new CreatePostReceiptRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreatePostReceiptRequestBuilder();
         $builder->setCustomer($value);
     }
 
@@ -137,13 +138,14 @@ class CreatePostReceiptRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidVatIdDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidType($value)
     {
-        $builder = new CreatePostReceiptRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreatePostReceiptRequestBuilder();
         $builder->setType($value);
     }
 
@@ -168,13 +170,14 @@ class CreatePostReceiptRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidBooleanDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidSend($value)
     {
-        $builder = new CreatePostReceiptRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreatePostReceiptRequestBuilder();
         $builder->setType($value);
     }
 
@@ -199,13 +202,14 @@ class CreatePostReceiptRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidVatIdDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidTaxSystemId($value)
     {
-        $builder = new CreatePostReceiptRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreatePostReceiptRequestBuilder();
         $builder->setTaxSystemCode($value);
     }
 
@@ -234,13 +238,14 @@ class CreatePostReceiptRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidAdditionalUserPropsDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidAdditionalProps($value)
     {
-        $builder = new CreatePostReceiptRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreatePostReceiptRequestBuilder();
         $builder->setAdditionalUserProps($value);
     }
 
@@ -265,13 +270,14 @@ class CreatePostReceiptRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidReceiptIndustryDetailsDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidReceiptIndustryDetails($value)
     {
-        $builder = new CreatePostReceiptRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreatePostReceiptRequestBuilder();
         $builder->setReceiptIndustryDetails($value);
     }
 
@@ -300,13 +306,14 @@ class CreatePostReceiptRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidReceiptOperationalDetailsDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidReceiptOperationalDetails($value)
     {
-        $builder = new CreatePostReceiptRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreatePostReceiptRequestBuilder();
         $builder->setReceiptOperationalDetails($value);
     }
 

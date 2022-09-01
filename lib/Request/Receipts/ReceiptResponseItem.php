@@ -839,7 +839,7 @@ class ReceiptResponseItem extends AbstractObject implements ReceiptResponseItemI
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $result = parent::jsonSerialize();
 

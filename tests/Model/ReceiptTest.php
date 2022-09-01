@@ -50,12 +50,13 @@ class ReceiptTest extends TestCase
 
     /**
      * @dataProvider invalidItemsProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidItems($value)
     {
-        $instance = new Receipt();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Receipt();
         $instance->setItems($value);
     }
 
@@ -115,12 +116,13 @@ class ReceiptTest extends TestCase
 
     /**
      * @dataProvider invalidTaxSystemIdProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidTaxSystemCode($value)
     {
-        $instance = new Receipt();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Receipt();
         $instance->setTaxSystemCode($value);
     }
 
@@ -150,12 +152,13 @@ class ReceiptTest extends TestCase
 
     /**
      * @dataProvider invalidSettlementsDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testInvalidSetSettlements($value)
     {
-        $instance = new Receipt();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new Receipt();
         $instance->setSettlements($value);
     }
 

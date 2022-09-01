@@ -58,11 +58,12 @@ class PaymentMethodB2bSberbankTest extends TestCase
     /**
      * @dataProvider invalidVatDataProvider
      * @param string $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testSetGetInvalidVatData($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->setVatData($value);
     }
 
@@ -81,11 +82,12 @@ class PaymentMethodB2bSberbankTest extends TestCase
     /**
      * @dataProvider invalidPayerBankDetailsDataProvider
      * @param string $value
-     * @expectedException \InvalidArgumentException
-     */
+     *
+	 */
     public function testSetGetInvalidPayerBankDetails($value)
     {
-        $instance = $this->getTestInstance();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = $this->getTestInstance();
         $instance->setPayerBankDetails($value);
     }
 

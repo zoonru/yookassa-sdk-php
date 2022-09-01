@@ -2,9 +2,10 @@
 
 namespace Tests\YooKassa\Model;
 
+use PHPUnit\Framework\TestCase;
 use YooKassa\Model\ThreeDSecure;
 
-class ThreeDSecureTest extends \PHPUnit_Framework_TestCase
+class ThreeDSecureTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider

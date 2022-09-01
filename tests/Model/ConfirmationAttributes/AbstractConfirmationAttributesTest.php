@@ -29,12 +29,13 @@ abstract class AbstractConfirmationAttributesTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testInvalidType($value)
     {
-        new TestConfirmation($value);
+		$this->expectException(\InvalidArgumentException::class);
+		new TestConfirmation($value);
     }
 
     public function invalidTypeDataProvider()
@@ -83,13 +84,14 @@ abstract class AbstractConfirmationAttributesTest extends TestCase
 
     /**
      * @dataProvider invalidLocaleDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidLocale($value)
     {
-        $this->getTestInstance()->setLocale($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setLocale($value);
     }
 
     /**

@@ -2,9 +2,10 @@
 
 namespace Tests\YooKassa\Helpers;
 
+use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\ProductCode;
 
-class ProductCodeTest extends \PHPUnit_Framework_TestCase
+class ProductCodeTest extends TestCase
 {
 
     /**
@@ -111,7 +112,7 @@ class ProductCodeTest extends \PHPUnit_Framework_TestCase
     {
         $instance = new ProductCode();
         $reflection = new \ReflectionClass(get_class($instance));
-
+		$this->expectException('\ReflectionException');
         $method = $reflection->getMethod('strToHex');
         $method->setAccessible(true);
         $result1 = $method->invokeArgs($instance, array('string' => $data));
@@ -141,7 +142,7 @@ class ProductCodeTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
         $result2 = $method->invokeArgs($instance, array('numString' => $result1, 'fromBase' => 16, 'toBase' => 10));
 
-        self::assertEquals($data, $result2);
+        self::assertEquals((int)$data, $result2);
     }
 
     /**

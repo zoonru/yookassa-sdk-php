@@ -61,12 +61,13 @@ class ReceiptCustomerTest extends TestCase
 
     /**
      * @dataProvider invalidPhoneProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidPhone($value)
     {
-        $instance = new ReceiptCustomer();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptCustomer();
         $instance->setPhone($value);
     }
 
@@ -215,12 +216,13 @@ class ReceiptCustomerTest extends TestCase
 
     /**
      * @dataProvider invalidFullNameProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidFullName($value)
     {
-        $instance = new ReceiptCustomer();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptCustomer();
         $instance->setFullName($value);
     }
 
@@ -291,12 +293,13 @@ class ReceiptCustomerTest extends TestCase
 
     /**
      * @dataProvider invalidInnProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidInn($value)
     {
-        $instance = new ReceiptCustomer();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new ReceiptCustomer();
         $instance->setInn($value);
     }
 

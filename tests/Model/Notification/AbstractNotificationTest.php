@@ -41,12 +41,13 @@ abstract class AbstractNotificationTest extends TestCase
 
     /**
      * @dataProvider invalidConstructorTypeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param array $source
+     *
+	 * @param array $source
      */
     public function testInvalidTypeInConstructor(array $source)
     {
-        $this->getTestInstance($source);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance($source);
     }
 
     /**
@@ -61,32 +62,35 @@ abstract class AbstractNotificationTest extends TestCase
 
     /**
      * @dataProvider invalidConstructorEventDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param array $source
+     *
+	 * @param array $source
      */
     public function testInvalidEventInConstructor(array $source)
     {
-        $this->getTestInstance($source);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance($source);
     }
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testInvalidType($value)
     {
-        new TestNotification($value, $this->getExpectedEvent());
+		$this->expectException(\InvalidArgumentException::class);
+		new TestNotification($value, $this->getExpectedEvent());
     }
 
     /**
      * @dataProvider invalidEventDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testInvalidEvent($value)
     {
-        new TestNotification($this->getExpectedType(), $value);
+		$this->expectException(\InvalidArgumentException::class);
+		new TestNotification($this->getExpectedType(), $value);
     }
 
     public function invalidConstructorTypeDataProvider()

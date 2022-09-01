@@ -270,13 +270,14 @@ class MonetaryAmountTest extends TestCase
 
     /**
      * @dataProvider invalidMultiplyDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $source
+     *
+	 * @param $source
      * @param $coefficient
      */
     public function testInvalidMultiply($source, $coefficient)
     {
-        $instance = new MonetaryAmount($source);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new MonetaryAmount($source);
         $instance->multiply($coefficient);
     }
 
@@ -322,13 +323,14 @@ class MonetaryAmountTest extends TestCase
 
     /**
      * @dataProvider invalidIncreaseDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $source
+     *
+	 * @param $source
      * @param $amount
      */
     public function testInvalidIncrease($source, $amount)
     {
-        $instance = new MonetaryAmount($source);
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new MonetaryAmount($source);
         $instance->increase($amount);
     }
 

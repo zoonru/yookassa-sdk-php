@@ -19,11 +19,11 @@ class LoggerWrapperTest extends TestCase
 
     /**
      * @dataProvider invalidLoggerDataProvider
-     * @expectedException \Psr\Log\InvalidArgumentException
      * @param mixed $source
      */
     public function testInvalidConstruct($source)
     {
+		$this->expectException('\Psr\Log\InvalidArgumentException');
         new LoggerWrapper($source);
     }
 

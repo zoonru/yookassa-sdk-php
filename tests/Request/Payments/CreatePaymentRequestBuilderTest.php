@@ -145,14 +145,15 @@ class CreatePaymentRequestBuilderTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
-     * @dataProvider invalidAmountDataProvider
+     *
+	 * @dataProvider invalidAmountDataProvider
      *
      * @param $value
      */
     public function testSetInvalidAmount($value)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setAmount($value);
     }
 
@@ -275,13 +276,14 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidItemsDataProvider
-     * @expectedException InvalidArgumentException
      *
+	 *
      * @param $items
      */
     public function testSetInvalidReceiptItems($items)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setReceiptItems($items);
     }
 
@@ -370,13 +372,14 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidEmailDataProvider
-     * @expectedException InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidEmail($value)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setReceiptEmail($value);
     }
 
@@ -405,13 +408,14 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidPhone($value)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setReceiptPhone($value);
     }
 
@@ -440,13 +444,14 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidVatIdDataProvider
-     * @expectedException InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidTaxSystemId($value)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setTaxSystemCode($value);
     }
 
@@ -475,13 +480,14 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidReceiptIndustryDetailsDataProvider
-     * @expectedException InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidReceiptIndustryDetails($value)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setReceiptIndustryDetails($value);
     }
 
@@ -510,13 +516,14 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidReceiptOperationalDetailsDataProvider
-     * @expectedException InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidReceiptOperationalDetails($value)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setReceiptOperationalDetails($value);
     }
 
@@ -775,13 +782,14 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidRecipientDataProvider
-     * @expectedException InvalidArgumentException
      *
+	 *
      * @param mixed $value
      */
     public function testSetInvalidRecipient($value)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setRecipient($value);
     }
 
@@ -847,13 +855,14 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidReceiptDataProvider
-     * @expectedException InvalidArgumentException
      *
+	 *
      * @param mixed $value
      */
     public function testSetInvalidReceipt($value)
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setReceipt($value);
     }
 
@@ -1109,34 +1118,31 @@ class CreatePaymentRequestBuilderTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetInvalidTypeDescription()
+	public function testSetInvalidTypeDescription()
     {
-        $builder = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder = new CreatePaymentRequestBuilder();
         $builder->setDescription(true);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetInvalidLengthDescription()
+	public function testSetInvalidLengthDescription()
     {
-        $builder     = new CreatePaymentRequestBuilder();
+		$this->expectException(InvalidArgumentException::class);
+		$builder     = new CreatePaymentRequestBuilder();
         $description = Random::str(Payment::MAX_LENGTH_DESCRIPTION + 1);
         $builder->setDescription($description);
     }
 
     /**
      * @dataProvider invalidVatIdDataProvider
-     * @expectedException InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidAirline($value)
     {
-        if (is_array($value)) {
+		$this->expectException(InvalidArgumentException::class);
+		if (is_array($value)) {
             throw new \InvalidArgumentException();
         }
         $builder = new CreatePaymentRequestBuilder();

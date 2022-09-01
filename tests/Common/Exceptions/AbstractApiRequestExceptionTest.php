@@ -11,7 +11,7 @@ abstract class AbstractApiRequestExceptionTest extends ApiExceptionTest
     public function testDescription($body)
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         if (empty($tmp['description'])) {
             self::assertEquals('', $instance->getMessage());
         } else {
@@ -35,7 +35,7 @@ abstract class AbstractApiRequestExceptionTest extends ApiExceptionTest
     public function testCode($body)
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         if (empty($tmp['code'])) {
             self::assertEquals('', $instance->getMessage());
         } else {
@@ -59,7 +59,7 @@ abstract class AbstractApiRequestExceptionTest extends ApiExceptionTest
     public function testParameter($body)
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         if (empty($tmp['parameter'])) {
             self::assertEquals('', $instance->getMessage());
         } else {
@@ -83,7 +83,7 @@ abstract class AbstractApiRequestExceptionTest extends ApiExceptionTest
     public function testRetryAfter($body)
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         if (empty($tmp['retry_after'])) {
             self::assertNull($instance->retryAfter);
         } else {
@@ -107,7 +107,7 @@ abstract class AbstractApiRequestExceptionTest extends ApiExceptionTest
     public function testType($body)
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         if (empty($tmp['type'])) {
             self::assertNull($instance->type);
         } else {
@@ -132,7 +132,7 @@ abstract class AbstractApiRequestExceptionTest extends ApiExceptionTest
     {
         $instance = $this->getTestInstance('', 0, array(), $body);
 
-        $tmp = json_decode($body, true);
+        $tmp = json_decode((string)$body, true);
         $message = '';
         if (!empty($tmp['description'])) {
             $message = $tmp['description'] . '. ';

@@ -31,13 +31,15 @@ class CurlClientTest extends TestCase
 
     /**
      * @dataProvider curlErrorCodeProvider
-     * @expectedException \YooKassa\Common\Exceptions\ApiConnectionException
-     */
+     *
+	 */
     public function testHandleCurlError($error, $errn)
     {
-        $client    = new CurlClient();
+		$this->expectException(\YooKassa\Common\Exceptions\ApiConnectionException::class);
+		$client    = new CurlClient();
         $reflector = new \ReflectionClass('\YooKassa\Client\CurlClient');
         $method    = $reflector->getMethod('handleCurlError');
+		$this->expectException('YooKassa\Common\Exceptions\ApiConnectionException');
         $method->setAccessible(true);
         $method->invokeArgs($client, array($error, $errn));
     }
@@ -74,7 +76,7 @@ class CurlClientTest extends TestCase
 
     public function testAuthorizeException()
     {
-        $this->setExpectedException('YooKassa\Common\Exceptions\AuthorizeException');
+        $this->expectException('YooKassa\Common\Exceptions\AuthorizeException');
         $client = new CurlClient();
         $client->call('', HttpVerb::HEAD, array('queryParam' => 'value'), array('httpBody' => 'testValue'),
             array('testHeader' => 'testValue'));

@@ -102,11 +102,11 @@ class SafeDealTest extends TestCase
     public function testSetInvalidBalance($value)
     {
         if (empty($value['balance'])) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\EmptyPropertyValueException');
+			$this->expectException('YooKassa\\Common\\Exceptions\\EmptyPropertyValueException');
             $instance = new SafeDeal();
             $instance->setBalance($value['balance']);
         } elseif (!is_array($value['balance']) && !($value['balance'] instanceof DealBalanceAmount)) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
+			$this->expectException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
             $instance = new SafeDeal();
             $instance->setBalance($value['balance']);
         }
@@ -119,11 +119,11 @@ class SafeDealTest extends TestCase
     public function testSetterInvalidBalance($value)
     {
         if (empty($value['balance'])) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\EmptyPropertyValueException');
+			$this->expectException('YooKassa\\Common\\Exceptions\\EmptyPropertyValueException');
             $instance = new SafeDeal();
             $instance->balance = $value['balance'];
         } elseif (!is_array($value['balance']) && !($value['balance'] instanceof DealBalanceAmount)) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
+			$this->expectException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
             $instance = new SafeDeal();
             $instance->balance = $value['balance'];
         }
@@ -166,11 +166,11 @@ class SafeDealTest extends TestCase
     public function testSetInvalidPayoutBalance($value)
     {
         if (empty($value['payout_balance'])) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\EmptyPropertyValueException');
+			$this->expectException('YooKassa\\Common\\Exceptions\\EmptyPropertyValueException');
             $instance = new SafeDeal();
             $instance->setPayoutBalance($value['payout_balance']);
         } elseif (!is_array($value['payout_balance']) && !($value['payout_balance'] instanceof DealBalanceAmount)) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
+			$this->expectException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
             $instance = new SafeDeal();
             $instance->setPayoutBalance($value['payout_balance']);
         }
@@ -183,11 +183,11 @@ class SafeDealTest extends TestCase
     public function testSetterInvalidPayoutBalance($value)
     {
         if (empty($value['payout_balance'])) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\EmptyPropertyValueException');
+			$this->expectException('YooKassa\\Common\\Exceptions\\EmptyPropertyValueException');
             $instance = new SafeDeal();
             $instance->payout_balance = $value['payout_balance'];
         } elseif (!is_array($value['payout_balance']) && !($value['payout_balance'] instanceof DealBalanceAmount)) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
+			$this->expectException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
             $instance = new SafeDeal();
             $instance->payout_balance = $value['payout_balance'];
         }
@@ -200,7 +200,7 @@ class SafeDealTest extends TestCase
     public function testSetInvalidMetadata($value)
     {
         if (!is_array($value) && !($value instanceof Metadata)) {
-            self::setExpectedException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
+            $this->expectException('YooKassa\\Common\\Exceptions\\InvalidPropertyValueTypeException');
             $instance = new SafeDeal();
             $instance->setMetadata($value);
         }
@@ -222,21 +222,17 @@ class SafeDealTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetInvalidTypeDescription()
+	public function testSetInvalidTypeDescription()
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->setDescription(true);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetInvalidLengthDescription()
+	public function testSetInvalidLengthDescription()
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $description = Random::str(SafeDeal::MAX_LENGTH_DESCRIPTION + 1);
         $instance->setDescription($description);
     }
@@ -303,34 +299,37 @@ class SafeDealTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidCreatedAt($value)
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->setCreatedAt($value['created_at']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidCreatedAt($value)
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->createdAt = $value['created_at'];
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidCreated_at($value)
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->created_at = $value['created_at'];
     }
 
@@ -384,34 +383,37 @@ class SafeDealTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidExpiresAt($value)
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->setExpiresAt($value['expires_at']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidExpiresAt($value)
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->expiresAt = $value['expires_at'];
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidExpires_at($value)
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->expires_at = $value['expires_at'];
     }
 
@@ -438,23 +440,25 @@ class SafeDealTest extends TestCase
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetInvalidTest($value)
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->setTest($value['test']);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+	 * @param $value
      */
     public function testSetterInvalidTest($value)
     {
-        $instance = new SafeDeal();
+		$this->expectException(\InvalidArgumentException::class);
+		$instance = new SafeDeal();
         $instance->test = $value['test'];
     }
 

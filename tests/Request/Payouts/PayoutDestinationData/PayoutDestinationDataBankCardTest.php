@@ -74,23 +74,25 @@ class PayoutDestinationDataBankCardTest extends AbstractPayoutDestinationDataTes
 
     /**
      * @dataProvider invalidCardDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetInvalidCard($value)
     {
-        $this->getTestInstance()->setCard($value);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->setCard($value);
 
     }
 
     /**
      * @dataProvider invalidCardDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
+     *
+	 * @param mixed $value
      */
     public function testSetterInvalidCard($value)
     {
-        $this->getTestInstance()->card = $value;
+		$this->expectException(\InvalidArgumentException::class);
+		$this->getTestInstance()->card = $value;
     }
 
     public function validCardDataProvider()

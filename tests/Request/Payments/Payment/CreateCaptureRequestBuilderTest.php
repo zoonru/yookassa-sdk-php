@@ -64,12 +64,12 @@ class CreateCaptureRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidAmountDataProvider
-     * @expectedException \InvalidArgumentException
      *
      * @param $value
      */
     public function testSetInvalidAmount($value)
     {
+		$this->expectException('\InvalidArgumentException');
         $builder = new CreateCaptureRequestBuilder();
         $builder->setAmount($value);
     }
@@ -92,13 +92,14 @@ class CreateCaptureRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidCurrencyDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidCurrency($value)
     {
-        $builder = new CreateCaptureRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateCaptureRequestBuilder();
         $builder->setCurrency($value);
     }
 
@@ -189,13 +190,14 @@ class CreateCaptureRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidItemsDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $items
      */
     public function testSetInvalidReceiptItems($items)
     {
-        $builder = new CreateCaptureRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateCaptureRequestBuilder();
         $builder->setReceiptItems($items);
     }
 
@@ -274,13 +276,14 @@ class CreateCaptureRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidEmailDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidEmail($value)
     {
-        $builder = new CreateCaptureRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateCaptureRequestBuilder();
         $builder->setReceiptEmail($value);
     }
 
@@ -308,13 +311,14 @@ class CreateCaptureRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidPhone($value)
     {
-        $builder = new CreateCaptureRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateCaptureRequestBuilder();
         $builder->setReceiptPhone($value);
     }
 
@@ -342,13 +346,14 @@ class CreateCaptureRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidVatIdDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param $value
      */
     public function testSetInvalidTaxSystemId($value)
     {
-        $builder = new CreateCaptureRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateCaptureRequestBuilder();
         $builder->setTaxSystemCode($value);
     }
 
@@ -398,13 +403,14 @@ class CreateCaptureRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidReceiptDataProvider
-     * @expectedException \InvalidArgumentException
      *
+	 *
      * @param mixed $value
      */
     public function testSetInvalidReceipt($value)
     {
-        $builder = new CreateCaptureRequestBuilder();
+		$this->expectException(\InvalidArgumentException::class);
+		$builder = new CreateCaptureRequestBuilder();
         $builder->setReceipt($value);
     }
 

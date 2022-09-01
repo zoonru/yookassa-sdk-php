@@ -168,7 +168,7 @@ class OperationalDetails extends AbstractObject
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $result = parent::jsonSerialize();
         $result['created_at'] = $this->getCreatedAt()
