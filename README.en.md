@@ -12,7 +12,7 @@ This product is used for managing payments under [The YooKassa API](https://yook
 For usage by those who implemented YooKassa using the API method.
 
 ## Requirements
-PHP 5.3.2 (or later version) with the libcurl library
+PHP 8.1 (or later version) with the libcurl library
 
 ## Installation
 ### Under console using Composer
@@ -20,16 +20,16 @@ PHP 5.3.2 (or later version) with the libcurl library
 1. Install Composer, a package manager.
 2. In the console, run the following command:
 ```bash
-composer require yoomoney/yookassa-sdk-php
+composer require zoonru/yookassa-sdk-php
 ```
 
 ### Do the following for the composer.json file of your project:
-1. Add a string `"yoomoney/yookassa-sdk-php": "^2.4"` to the list of dependencies of your project in the composer.json file
+1. Add a string `"zoonru/yookassa-sdk-php": "^2.6.3"` to the list of dependencies of your project in the composer.json file
 ```
 ...
    "require": {
-        "php": ">=5.3.2",
-        "yoomoney/yookassa-sdk-php": "^2.4"
+        "php": "^8.1",
+        "zoonru/yookassa-sdk-php": "^2.6.3"
 ...
 ```
 2. Refresh the project's dependencies. In the console, navigate to the catalog with composer.json and run the following command:
