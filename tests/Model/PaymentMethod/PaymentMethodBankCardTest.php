@@ -37,11 +37,12 @@ class PaymentMethodBankCardTest extends AbstractPaymentMethodTest
 
     /**
      * @dataProvider invalidCardDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetInvalidCard($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setCard($value);
     }
 

@@ -401,21 +401,20 @@ class TransferTest extends TestCase
 		$this->getTestInstance()->status = $value;
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testSetInvalidTypeDescription()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $instance = new Transfer();
         $instance->setDescription(true);
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     *
      * @throws \Exception
      */
     public function testSetInvalidLengthDescription()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $instance = new Transfer();
         $description = Random::str(Transfer::MAX_LENGTH_DESCRIPTION + 1);
         $instance->setDescription($description);

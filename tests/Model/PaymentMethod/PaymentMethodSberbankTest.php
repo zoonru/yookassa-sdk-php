@@ -46,22 +46,24 @@ class PaymentMethodSberbankTest extends PaymentMethodBankCardTest
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param $value
      */
     public function testSetInvalidPhone($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->setPhone($value);
     }
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param $value
      */
     public function testSetterInvalidPhone($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->phone = $value;
     }

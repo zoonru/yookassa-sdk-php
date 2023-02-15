@@ -1221,11 +1221,12 @@ class CreatePaymentRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider invalidDealDataProvider
-     * @expectedException InvalidArgumentException
+     *
      * @param $value
      */
     public function testSetInvalidDeal($value)
     {
+        $this->expectException(InvalidArgumentException::class);
         $builder = new CreatePaymentRequestBuilder();
         $builder->setDeal($value);
     }

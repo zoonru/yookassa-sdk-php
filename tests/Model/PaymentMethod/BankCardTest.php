@@ -28,21 +28,23 @@ class BankCardTest extends TestCase
 
     /**
      * @dataProvider invalidLast4DataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetInvalidNumber($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setLast4($value);
     }
 
     /**
      * @dataProvider invalidLast4DataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidNumber($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->last4 = $value;
     }
 
@@ -57,21 +59,23 @@ class BankCardTest extends TestCase
 
     /**
      * @dataProvider invalidFirst6DataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetFirst6InvalidNumber($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setFirst6($value);
     }
 
     /**
      * @dataProvider invalidFirst6DataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterFirst6InvalidNumber($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->first6 = $value;
     }
 
@@ -86,51 +90,56 @@ class BankCardTest extends TestCase
 
     /**
      * @dataProvider invalidYearDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetInvalidYear($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setExpiryYear($value);
     }
 
     /**
      * @dataProvider invalidYearDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidYear($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->expiryYear = $value;
     }
 
     /**
      * @dataProvider invalidYearDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalid_year($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->expiry_year = $value;
     }
 
     /**
      * @dataProvider invalidMonthDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidMonth($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->expiryMonth = $value;
     }
 
     /**
      * @dataProvider invalidMonthDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalid_month($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->expiry_month = $value;
     }
 
@@ -145,11 +154,12 @@ class BankCardTest extends TestCase
 
     /**
      * @dataProvider invalidMonthDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetInvalidMonth($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setExpiryMonth($value);
     }
 
@@ -191,111 +201,122 @@ class BankCardTest extends TestCase
 
     /**
      * @dataProvider invalidCardTypeDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetInvalidCardType($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setCardType($value);
     }
 
     /**
      * @dataProvider invalidCardTypeDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidCardType($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->cardType = $value;
     }
 
     /**
      * @dataProvider invalidCardTypeDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidCard_type($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->card_type = $value;
     }
 
     /**
      * @dataProvider invalidIssuerCountryDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetInvalidIssuerCountry($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setIssuerCountry($value);
     }
 
     /**
      * @dataProvider invalidIssuerCountryDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidIssuerCountry($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->issuerCountry = $value;
     }
 
     /**
      * @dataProvider invalidIssuerCountryDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidIssuer_country($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->issuer_country = $value;
     }
 
     /**
      * @dataProvider invalidIssuerNameDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetInvalidIssuerName($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setIssuerName($value);
     }
 
     /**
      * @dataProvider invalidIssuerNameDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidIssuerName($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->issuerName = $value;
     }
 
     /**
      * @dataProvider invalidIssuerNameDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidIssuer_name($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->issuer_name = $value;
     }
 
     /**
      * @dataProvider invalidSourceDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetInvalidSource($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->setSource($value);
     }
 
     /**
      * @dataProvider invalidSourceDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
     public function testSetterInvalidSource($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->getTestInstance()->source = $value;
     }
 
