@@ -14,7 +14,9 @@
 
 ---
 ### Constants
-* No constants found
+| Visibility | Name | Flag | Summary |
+| ----------:| ---- | ---- | ------- |
+| public | [MAX_LENGTH_DESCRIPTION](../classes/YooKassa-Model-Transfer.md#constant_MAX_LENGTH_DESCRIPTION) |  | Максимальная длина строки описания транзакции |
 
 ---
 ### Properties
@@ -22,6 +24,7 @@
 | ----------:| ---- | ---- | ------- |
 | public | [$accountId](../classes/YooKassa-Model-Transfer.md#property_accountId) |  | Идентификатор магазина, в пользу которого вы принимаете оплату |
 | public | [$amount](../classes/YooKassa-Model-Transfer.md#property_amount) |  | Сумма, которую необходимо перечислить магазину |
+| public | [$description](../classes/YooKassa-Model-Transfer.md#property_description) |  | Описание транзакции, которое продавец увидит в личном кабинете ЮKassa. (например: «Заказ маркетплейса №72») |
 | public | [$metadata](../classes/YooKassa-Model-Transfer.md#property_metadata) |  | Любые дополнительные данные, которые нужны вам для работы с платежами (например, номер заказа) |
 | public | [$platform_fee_amount](../classes/YooKassa-Model-Transfer.md#property_platform_fee_amount) |  | Комиссия за проданные товары и услуги, которая удерживается с магазина в вашу пользу |
 | public | [$status](../classes/YooKassa-Model-Transfer.md#property_status) |  | Статус распределения денег между магазинами. Возможные значения: `pending`, `waiting_for_capture`, `succeeded`, `canceled` |
@@ -38,10 +41,12 @@
 | public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
 | public | [getAccountId()](../classes/YooKassa-Model-Transfer.md#method_getAccountId) |  | Возвращает идентификатор магазина-получателя средств |
 | public | [getAmount()](../classes/YooKassa-Model-Transfer.md#method_getAmount) |  | Возвращает сумму оплаты |
+| public | [getDescription()](../classes/YooKassa-Model-Transfer.md#method_getDescription) |  | Возвращает описание транзакции |
 | public | [getMetadata()](../classes/YooKassa-Model-Transfer.md#method_getMetadata) |  | Возвращает метаданные |
 | public | [getPlatformFeeAmount()](../classes/YooKassa-Model-Transfer.md#method_getPlatformFeeAmount) |  | Возвращает комиссию за проданные товары и услуги, которая удерживается с магазина в вашу пользу |
 | public | [getStatus()](../classes/YooKassa-Model-Transfer.md#method_getStatus) |  | Возвращает статус операции распределения средств конечному получателю |
 | public | [hasAmount()](../classes/YooKassa-Model-Transfer.md#method_hasAmount) |  | Проверяет, была ли установлена сумма оплаты |
+| public | [hasDescription()](../classes/YooKassa-Model-Transfer.md#method_hasDescription) |  | Проверяет, было ли установлено описание транзакции |
 | public | [hasMetadata()](../classes/YooKassa-Model-Transfer.md#method_hasMetadata) |  | Проверяет, были ли установлены метаданные |
 | public | [hasPlatformFeeAmount()](../classes/YooKassa-Model-Transfer.md#method_hasPlatformFeeAmount) |  | Проверяет, была ли установлена комиссия за проданные товары и услуги, которая удерживается с магазина в вашу пользу |
 | public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
@@ -51,6 +56,7 @@
 | public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [setAccountId()](../classes/YooKassa-Model-Transfer.md#method_setAccountId) |  | Устанавливает идентификатор магазина-получателя средств |
 | public | [setAmount()](../classes/YooKassa-Model-Transfer.md#method_setAmount) |  | Устанавливает сумму оплаты |
+| public | [setDescription()](../classes/YooKassa-Model-Transfer.md#method_setDescription) |  | Устанавливает описание транзакции |
 | public | [setMetadata()](../classes/YooKassa-Model-Transfer.md#method_setMetadata) |  | Устанавливает метаданные |
 | public | [setPlatformFeeAmount()](../classes/YooKassa-Model-Transfer.md#method_setPlatformFeeAmount) |  | Устанавливает комиссию за проданные товары и услуги, которая удерживается с магазина в вашу пользу |
 | public | [setStatus()](../classes/YooKassa-Model-Transfer.md#method_setStatus) |  | Устанавливает статус операции распределения средств конечному получателю |
@@ -66,6 +72,18 @@
   * \YooKassa\Model\Transfer
 * Implements:
   * [\YooKassa\Model\TransferInterface](../classes/YooKassa-Model-TransferInterface.md)
+
+---
+## Constants
+<a name="constant_MAX_LENGTH_DESCRIPTION" class="anchor"></a>
+###### MAX_LENGTH_DESCRIPTION
+Максимальная длина строки описания транзакции
+
+```php
+MAX_LENGTH_DESCRIPTION = 128
+```
+
+
 
 ---
 ## Properties
@@ -89,6 +107,18 @@
 Сумма, которую необходимо перечислить магазину
 
 **Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
+
+**Details:**
+
+
+<a name="property_description"></a>
+#### public $description : string
+---
+***Description***
+
+Описание транзакции, которое продавец увидит в личном кабинете ЮKassa. (например: «Заказ маркетплейса №72»)
+
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -307,6 +337,27 @@ public getAmount() : \YooKassa\Model\AmountInterface
 | --- | ------- | ----------- |
 | inheritDoc |  |  |
 
+<a name="method_getDescription" class="anchor"></a>
+#### public getDescription() : string|null
+
+```php
+public getDescription() : string|null
+```
+
+**Summary**
+
+Возвращает описание транзакции
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Transfer](../classes/YooKassa-Model-Transfer.md)
+
+**Returns:** string|null - Описание транзакции
+
+##### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| inheritDoc |  |  |
+
 <a name="method_getMetadata" class="anchor"></a>
 #### public getMetadata() : \YooKassa\Model\Metadata|null
 
@@ -385,6 +436,27 @@ public hasAmount() : bool
 * Inherited From: [\YooKassa\Model\Transfer](../classes/YooKassa-Model-Transfer.md)
 
 **Returns:** bool - True если сумма оплаты была установлена, false если нет
+
+##### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| inheritDoc |  |  |
+
+<a name="method_hasDescription" class="anchor"></a>
+#### public hasDescription() : bool
+
+```php
+public hasDescription() : bool
+```
+
+**Summary**
+
+Проверяет, было ли установлено описание транзакции
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Transfer](../classes/YooKassa-Model-Transfer.md)
+
+**Returns:** bool - True если описание транзакции было установлено, false если нет
 
 ##### Tags
 | Tag | Version | Description |
@@ -495,10 +567,10 @@ public offsetGet(string $offset) : mixed
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(string $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
 
 **Summary**
@@ -514,14 +586,14 @@ public offsetSet(string $offset, mixed $value) : mixed
 | <code lang="php">string</code> | offset  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(string $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
 
 **Summary**
@@ -536,7 +608,7 @@ public offsetUnset(string $offset) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setAccountId" class="anchor"></a>
@@ -583,6 +655,32 @@ public setAmount(mixed $value) : mixed
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">mixed</code> | value  | Сумма оплаты |
+
+**Returns:** mixed - 
+
+##### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| inheritDoc |  |  |
+
+<a name="method_setDescription" class="anchor"></a>
+#### public setDescription() : mixed
+
+```php
+public setDescription(mixed $value) : mixed
+```
+
+**Summary**
+
+Устанавливает описание транзакции
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Transfer](../classes/YooKassa-Model-Transfer.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">mixed</code> | value  | Описание транзакции |
 
 **Returns:** mixed - 
 
@@ -712,10 +810,10 @@ protected getUnknownProperties() : array
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 13](../reports/deprecated.md)
+* [Deprecated - 23](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-02-13 using [phpDocumentor](http://www.phpdoc.org/)
 
-&copy; 2022 YooMoney
+&copy; 2023 YooMoney

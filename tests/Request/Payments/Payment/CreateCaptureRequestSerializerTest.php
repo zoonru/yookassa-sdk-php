@@ -5,6 +5,8 @@ namespace Tests\YooKassa\Request\Payments\Payment;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\CurrencyCode;
+use YooKassa\Model\Deal\SettlementPayoutPayment;
+use YooKassa\Model\Deal\SettlementPayoutPaymentType;
 use YooKassa\Model\MonetaryAmount;
 use YooKassa\Model\Receipt\PaymentMode;
 use YooKassa\Model\Receipt\PaymentSubject;
@@ -88,6 +90,9 @@ class CreateCaptureRequestSerializerTest extends TestCase
                                     : CurrencyCode::RUB
                         );
                     }
+                    if (!empty($transfers['description'])) {
+                        $transferData['description'] = $transfers['description'];
+                    }
                     $expected['transfers'][] = $transferData;
                 }
             }
@@ -101,6 +106,9 @@ class CreateCaptureRequestSerializerTest extends TestCase
                 $expected['receipt']['customer']['email'] = $expected['receipt']['email'];
                 unset($expected['receipt']['email']);
             }
+        }
+        if (isset($options['deal'])) {
+            $expected['deal'] = $options['deal'];
         }
         self::assertEquals($expected, $data);
     }
@@ -136,8 +144,21 @@ class CreateCaptureRequestSerializerTest extends TestCase
                             'account_id' => Random::str(36),
                             'amount' => new MonetaryAmount(Random::int(1, 1000), 'RUB'),
                             'platform_fee_amount' => new MonetaryAmount(Random::int(1, 1000), 'RUB'),
+                            'description' => Random::str(1, Transfer::MAX_LENGTH_DESCRIPTION),
                         )),
-                    )
+                    ),
+                    'deal' => array(
+                        'id' => Random::str(36, 50),
+                        'settlements' => array(
+                            array(
+                                'type' => SettlementPayoutPaymentType::PAYOUT,
+                                'amount' => array(
+                                    'value' => round(Random::float(10.00, 100.00), 2),
+                                    'currency' => $currencies[mt_rand(0, count($currencies) - 1)],
+                                ),
+                            )
+                        )
+                    ),
                 )
             ),
             array(
@@ -170,6 +191,10 @@ class CreateCaptureRequestSerializerTest extends TestCase
                             'inn'    => Random::str(12, 12, '1234567890')
                         ),
                         'tax_system_code' => Random::int(1, 6),
+                    ),
+                    'deal' => array(
+                        'id' => Random::str(36, 50),
+                        'settlements' => array(),
                     ),
                 ),
             ),

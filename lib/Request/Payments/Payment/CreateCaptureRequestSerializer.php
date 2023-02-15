@@ -123,6 +123,9 @@ class CreateCaptureRequestSerializer
                 }
             }
         }
+        if ($request->hasDeal()) {
+            $result['deal'] = $request->getDeal()->toArray();
+        }
 
         return $result;
     }
@@ -151,6 +154,10 @@ class CreateCaptureRequestSerializer
 
             if ($transfer->hasPlatformFeeAmount()) {
                 $item['platform_fee_amount'] = $this->serializeAmount($transfer->getPlatformFeeAmount());
+            }
+
+            if ($transfer->hasDescription()) {
+                $item['description'] = $transfer->getDescription();
             }
 
             $result[] = $item;

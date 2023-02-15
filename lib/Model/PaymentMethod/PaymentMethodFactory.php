@@ -35,7 +35,11 @@ use YooKassa\Model\PaymentMethodType;
  */
 class PaymentMethodFactory
 {
+    /** @deprecated Для поддержки старых платежей */
+    const YANDEX_MONEY = 'yandex_money';
+
     private $typeClassMap = array(
+        self::YANDEX_MONEY                => 'PaymentMethodYooMoney',
         PaymentMethodType::YOO_MONEY      => 'PaymentMethodYooMoney',
         PaymentMethodType::BANK_CARD      => 'PaymentMethodBankCard',
         PaymentMethodType::SBERBANK       => 'PaymentMethodSberbank',
@@ -52,13 +56,6 @@ class PaymentMethodFactory
         PaymentMethodType::PSB            => 'PaymentMethodPsb',
         PaymentMethodType::WECHAT         => 'PaymentMethodWechat',
         PaymentMethodType::SBP            => 'PaymentMethodSbp',
-    );
-
-    private $optionsMap = array(
-        'card_type'      => 'cardType',
-        'expiry_month'   => 'expiryMonth',
-        'expiry_year'    => 'expiryYear',
-        'account_number' => 'accountNumber',
     );
 
     /**
@@ -111,9 +108,6 @@ class PaymentMethodFactory
     private function fillModel(AbstractPaymentMethod $paymentData, array $data)
     {
         foreach ($data as $key => $value) {
-            if (array_key_exists($key, $this->optionsMap)) {
-                $key = $this->optionsMap[$key];
-            }
             if ($paymentData->offsetExists($key)) {
                 $paymentData->offsetSet($key, $value);
             } else if (is_array($value)) {

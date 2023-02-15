@@ -57,6 +57,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
         }
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * Проверяет наличие свойства
      * @param string $offset Имя проверяемого свойства
@@ -75,6 +76,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
         return array_key_exists($offset, $this->unknownProperties);
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * Возвращает значение свойства
      * @param string $offset Имя свойства
@@ -93,10 +95,12 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
         return array_key_exists($offset, $this->unknownProperties) ? $this->unknownProperties[$offset] : null;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * Устанавливает значение свойства
      * @param string $offset Имя свойства
      * @param mixed $value Значение свойства
+     * @return void
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -113,9 +117,11 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
         }
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * Удаляет свойство
      * @param string $offset Имя удаляемого свойства
+     * @return void
      */
     public function offsetUnset($offset): void
     {
@@ -192,6 +198,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
         return $this->jsonSerialize();
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
      * @return array Ассоциативный массив со свойствами текущего объекта

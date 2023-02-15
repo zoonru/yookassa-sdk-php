@@ -17,7 +17,6 @@ Class OperationalDetails
 | ----------:| ---- | ---- | ------- |
 | public | [OPERATION_ID_MAX_LENGTH](../classes/YooKassa-Model-Receipt-OperationalDetails.md#constant_OPERATION_ID_MAX_LENGTH) |  |  |
 | public | [VALUE_MAX_LENGTH](../classes/YooKassa-Model-Receipt-OperationalDetails.md#constant_VALUE_MAX_LENGTH) |  |  |
-| public | [DATE_FORMAT](../classes/YooKassa-Model-Receipt-OperationalDetails.md#constant_DATE_FORMAT) |  |  |
 
 ---
 ### Properties
@@ -74,13 +73,6 @@ OPERATION_ID_MAX_LENGTH = 256 : int
 ###### VALUE_MAX_LENGTH
 ```php
 VALUE_MAX_LENGTH = 64 : int
-```
-
-
-<a name="constant_DATE_FORMAT" class="anchor"></a>
-###### DATE_FORMAT
-```php
-DATE_FORMAT = "Y-m-d\TH:i:s.uO" : string
 ```
 
 
@@ -400,10 +392,10 @@ public offsetGet(string $offset) : mixed
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(string $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
 
 **Summary**
@@ -419,14 +411,14 @@ public offsetSet(string $offset, mixed $value) : mixed
 | <code lang="php">string</code> | offset  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(string $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
 
 **Summary**
@@ -441,7 +433,7 @@ public offsetUnset(string $offset) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setCreatedAt" class="anchor"></a>
@@ -562,10 +554,10 @@ protected getUnknownProperties() : array
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 13](../reports/deprecated.md)
+* [Deprecated - 23](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2022-08-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-02-13 using [phpDocumentor](http://www.phpdoc.org/)
 
-&copy; 2022 YooMoney
+&copy; 2023 YooMoney

@@ -183,6 +183,9 @@ class CreatePaymentRequestSerializer
             }
             $result['return_url'] = $confirmation->getReturnUrl();
         }
+        if ($confirmation->getType() === ConfirmationType::MOBILE_APPLICATION) {
+            $result['return_url'] = $confirmation->getReturnUrl();
+        }
 
         return $result;
     }
@@ -365,6 +368,9 @@ class CreatePaymentRequestSerializer
             );
             if ($transfer->hasPlatformFeeAmount()) {
                 $item['platform_fee_amount'] = $this->serializeAmount($transfer->getPlatformFeeAmount());
+            }
+            if ($transfer->hasDescription()) {
+                $item['description'] = $transfer->getDescription();
             }
             if ($transfer->hasMetadata()) {
                 $item['metadata'] = $transfer->getMetadata()->toArray();
