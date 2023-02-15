@@ -169,7 +169,7 @@ class PaymentMethodBankCard extends AbstractPaymentMethod
     /**
      * @inheritdoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $return = parent::jsonSerialize();
         foreach (array('first6','last4','expiry_year','expiry_month','card_type','issuer_country','issuer_name','source') as $key) {
