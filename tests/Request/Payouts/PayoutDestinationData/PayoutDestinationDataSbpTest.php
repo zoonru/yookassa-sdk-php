@@ -151,7 +151,7 @@ class PayoutDestinationDataSbpTest extends AbstractPayoutDestinationDataTest
             array(''),
             array(true),
             array(new \stdClass()),
-            array(new \Datetime()),
+            array(new \DateTime()),
         );
     }
 
@@ -171,7 +171,7 @@ class PayoutDestinationDataSbpTest extends AbstractPayoutDestinationDataTest
             array(''),
             array(true),
             array(new \stdClass()),
-            array(new \Datetime()),
+            array(new \DateTime()),
             array(Random::str(13)),
         );
     }

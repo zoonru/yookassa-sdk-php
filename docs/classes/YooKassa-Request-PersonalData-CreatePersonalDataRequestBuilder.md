@@ -10,9 +10,87 @@
 
 ---
 ### Examples
-02-builder.php 11 78 Пример использования билдера
+Пример использования билдера
 
 ```php
+try {
+    $builder = \YooKassa\Request\Payments\CreatePaymentRequest::builder();
+    $builder->setAmount(100)
+            ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
+            ->setCapture(true)
+            ->setDescription('Оплата заказа 112233')
+            ->setMetadata(array(
+                'cms_name'       => 'yoo_api_test',
+                'order_id'       => '112233',
+                'language'       => 'ru',
+                'transaction_id' => '123-456-789',
+            ));
+
+    // Устанавливаем страницу для редиректа после оплаты
+    $builder->setConfirmation(array(
+        'type'      => \YooKassa\Model\ConfirmationType::REDIRECT,
+        'returnUrl' => 'https://merchant-site.ru/payment-return-page',
+    ));
+
+    // Можем установить конкретный способ оплаты
+    $builder->setPaymentMethodData(\YooKassa\Model\PaymentMethodType::BANK_CARD);
+
+    // Составляем чек
+    $builder->setReceiptEmail('john.doe@merchant.com');
+    $builder->setReceiptPhone('71111111111');
+    // Добавим товар
+    $builder->addReceiptItem(
+        'Платок Gucci',
+        3000,
+        1.0,
+        2,
+        'full_payment',
+        'commodity'
+    );
+    // Добавим доставку
+    $builder->addReceiptShipping(
+        'Delivery/Shipping/Доставка',
+        100,
+        1,
+        \YooKassa\Model\Receipt\PaymentMode::FULL_PAYMENT,
+        \YooKassa\Model\Receipt\PaymentSubject::SERVICE
+    );
+
+    // Можно добавить распределение денег по магазинам
+    $builder->setTransfers(array(
+        array(
+            'account_id' => 123456,
+            'amount' => array(
+                array(
+                    'value' => 1000,
+                    'currency' => \YooKassa\Model\CurrencyCode::RUB
+                )
+            ),
+        ),
+        array(
+            'account_id' => 654321,
+            'amount' => array(
+                array(
+                    'value' => 2000,
+                    'currency' => \YooKassa\Model\CurrencyCode::RUB
+                )
+            ),
+        )
+    ));
+
+    // Создаем объект запроса
+    $request = $builder->build();
+
+    // Можно изменить данные, если нужно
+    $request->setDescription($request->getDescription() . ' - merchant comment');
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createPayment($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -57,7 +135,7 @@
 
 Собираемый объект запроса
 
-**Type:** <a href="classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.html"><abbr title="\YooKassa\Request\PersonalData\CreatePersonalDataRequest">CreatePersonalDataRequest</abbr></a>
+**Type:** <a href="../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.html"><abbr title="\YooKassa\Request\PersonalData\CreatePersonalDataRequest">CreatePersonalDataRequest</abbr></a>
 
 **Details:**
 
@@ -285,6 +363,6 @@ protected initCurrentObject() : \YooKassa\Request\PersonalData\CreatePersonalDat
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

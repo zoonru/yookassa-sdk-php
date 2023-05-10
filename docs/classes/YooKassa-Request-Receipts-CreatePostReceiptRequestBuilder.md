@@ -10,9 +10,65 @@
 
 ---
 ### Examples
-02-builder.php 91 56 Пример использования билдера
+Пример использования билдера
 
 ```php
+try {
+    $receiptBuilder = \YooKassa\Request\Receipts\CreatePostReceiptRequest::builder();
+    $receiptBuilder->setType(\YooKassa\Model\ReceiptType::PAYMENT)
+        ->setObjectId('24b94598-000f-5000-9000-1b68e7b15f3f', \YooKassa\Model\ReceiptType::PAYMENT) // payment_id
+        ->setCustomer(array(
+            'email' => 'john.doe@merchant.com',
+            'phone' => '71111111111',
+        ))
+        ->setItems(array(
+            array(
+                'description' => 'Платок Gucci',
+                'quantity' => '1.00',
+                'amount' => array(
+                    'value' => '3000.00',
+                    'currency' => 'RUB',
+                ),
+                'vat_code' => 2,
+                'payment_mode' => 'full_payment',
+                'payment_subject' => 'commodity',
+            ),
+        ))
+        ->setSettlements(array(
+            array(
+                'type' => 'prepayment',
+                'amount' => array(
+                    'value' => 100.00,
+                    'currency' => 'RUB',
+                ),
+            ),
+        ))
+        ->setSend(true);
+
+    // Создаем объект запроса
+    $request = $receiptBuilder->build();
+
+    // Можно изменить данные, если нужно
+    $request->setOnBehalfOf('159753');
+    $request->addItem(new \YooKassa\Model\ReceiptItem(array(
+        'description' => 'Платок Gucci Новый',
+        'quantity' => '1.00',
+        'amount' => array(
+            'value' => '3500.00',
+            'currency' => 'RUB',
+        ),
+        'vat_code' => 2,
+        'payment_mode' => 'full_payment',
+        'payment_subject' => 'commodity',
+    )));
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createReceipt($request, $idempotenceKey);
+} catch (Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -69,7 +125,7 @@
 
 Сумма чека
 
-**Type:** <a href="classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
 
 **Details:**
 
@@ -81,7 +137,7 @@
 
 Собираемый объект запроса
 
-**Type:** <a href="classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.html"><abbr title="\YooKassa\Request\Receipts\CreatePostReceiptRequest">CreatePostReceiptRequest</abbr></a>
+**Type:** <a href="../classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.html"><abbr title="\YooKassa\Request\Receipts\CreatePostReceiptRequest">CreatePostReceiptRequest</abbr></a>
 
 **Details:**
 
@@ -93,7 +149,7 @@
 
 Информация о плательщике
 
-**Type:** <a href="classes/YooKassa-Model-ReceiptCustomer.html"><abbr title="\YooKassa\Model\ReceiptCustomer">ReceiptCustomer</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-ReceiptCustomer.html"><abbr title="\YooKassa\Model\ReceiptCustomer">ReceiptCustomer</abbr></a>
 
 **Details:**
 
@@ -542,6 +598,6 @@ protected initCurrentObject() : \YooKassa\Request\Receipts\CreatePostReceiptRequ
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -53,75 +53,11 @@ class CreateCaptureRequestSerializer
         if ($request->hasTransfers()) {
             $result['transfers'] = $this->serializeTransfers($request->getTransfers());
         }
-        if ($request->hasReceipt()) {
-            $receipt = $request->getReceipt();
-            if ($receipt->notEmpty()) {
-                $result['receipt'] = array();
-                /** @var ReceiptItem $item */
-                foreach ($receipt->getItems() as $item) {
-                    $itemArray = array(
-                        'description'     => $item->getDescription(),
-                        'amount'          => array(
-                            'value'    => $item->getPrice()->getValue(),
-                            'currency' => $item->getPrice()->getCurrency(),
-                        ),
-                        'quantity'        => $item->getQuantity(),
-                        'vat_code'        => $item->getVatCode(),
-                    );
-
-                    if ($value = $item->getPaymentSubject()) {
-                        $itemArray['payment_subject'] = $value;
-                    }
-
-                    if ($value = $item->getPaymentMode()) {
-                        $itemArray['payment_mode'] = $value;
-                    }
-
-                    if ($value = $item->getProductCode()) {
-                        $itemArray['product_code'] = $value;
-                    }
-
-                    if ($value = $item->getCountryOfOriginCode()) {
-                        $itemArray['country_of_origin_code'] = $value;
-                    }
-
-                    if ($value = $item->getCustomsDeclarationNumber()) {
-                        $itemArray['customs_declaration_number'] = $value;
-                    }
-
-                    if ($value = $item->getExcise()) {
-                        $itemArray['excise'] = $value;
-                    }
-
-                    $result['receipt']['items'][] = $itemArray;
-                }
-
-                if ($customer = $receipt->getCustomer()) {
-                    $customerArray = array();
-
-                    if ($value = $customer->getEmail()) {
-                        $customerArray['email'] = $value;
-                    }
-
-                    if ($value = $customer->getPhone()) {
-                        $customerArray['phone'] = $value;
-                    }
-
-                    if ($value = $customer->getFullName()) {
-                        $customerArray['full_name'] = $value;
-                    }
-
-                    if ($value = $customer->getInn()) {
-                        $customerArray['inn'] = $value;
-                    }
-
-                    $result['receipt']['customer'] = $customerArray;
-                }
-
-                if ($value = $receipt->getTaxSystemCode()) {
-                    $result['receipt']['tax_system_code'] = $value;
-                }
-            }
+        if ($request->hasReceipt() && $request->getReceipt()->notEmpty()) {
+            $result['receipt'] = $request->getReceipt()->toArray();
+        }
+        if ($request->hasAirline()) {
+            $result['airline'] = $request->getAirline()->toArray();
         }
         if ($request->hasDeal()) {
             $result['deal'] = $request->getDeal()->toArray();

@@ -39,7 +39,7 @@ RefundStatus - Состояние возврата платежа
 ---
 ### Details
 * File: [lib/Model/RefundStatus.php](../../lib/Model/RefundStatus.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
   * \YooKassa\Model\RefundStatus
@@ -73,7 +73,7 @@ CANCELED = 'canceled'
 <a name="property_validValues"></a>
 #### protected $validValues : array
 ---
-**Type:** <a href="array"><abbr title="array">array</abbr></a>
+**Type:** <a href="../array"><abbr title="array">array</abbr></a>
 Массив принимаемых enum&#039;ом значений
 **Details:**
 
@@ -153,6 +153,6 @@ Static public valueExists(mixed $value) : bool
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

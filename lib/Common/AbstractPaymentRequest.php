@@ -27,8 +27,10 @@
 namespace YooKassa\Common;
 
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
+use YooKassa\Model\Airline;
+use YooKassa\Model\AirlineInterface;
 use YooKassa\Model\AmountInterface;
-use YooKassa\Model\Deal\PaymentDealInfo;
+use YooKassa\Model\MonetaryAmount;
 use YooKassa\Model\Receipt;
 use YooKassa\Model\ReceiptInterface;
 use YooKassa\Model\Transfer;
@@ -40,6 +42,7 @@ use YooKassa\Model\TransferInterface;
  * @property AmountInterface $amount Сумма
  * @property ReceiptInterface $receipt Данные фискального чека 54-ФЗ
  * @property TransferInterface[] $transfers Данные о распределении платежа между магазинами
+ * @property AirlineInterface $airline Данные фискального чека 54-ФЗ
  *
  * @since 1.0.18
  */
@@ -61,6 +64,11 @@ class AbstractPaymentRequest extends AbstractRequest
     private $_transfers = array();
 
     /**
+     * @var AirlineInterface Объект с данными для продажи авиабилетов
+     */
+    private $_airline;
+
+    /**
      * Возвращает сумму оплаты
      * @return AmountInterface Сумма оплаты
      */
@@ -79,12 +87,28 @@ class AbstractPaymentRequest extends AbstractRequest
     }
 
     /**
-     * Устанавливает сумму оплаты
-     * @param AmountInterface $value Сумма оплаты
+     * Устанавливает сумму
+     *
+     * @param AmountInterface|array|string $value Сумма оплаты
+     *
+     * @return AbstractPaymentRequest Инстанс билдера запросов
      */
-    public function setAmount(AmountInterface $value)
+    public function setAmount($value)
     {
-        $this->_amount = $value;
+        $this->_amount = new MonetaryAmount();
+        if ($value === null || $value === '') {
+            return $this;
+        }
+
+        if ($value instanceof AmountInterface) {
+            $this->_amount = $value;
+        } elseif (is_array($value)) {
+            $this->_amount->fromArray($value);
+        } else {
+            $this->_amount->setValue($value);
+        }
+
+        return $this;
     }
 
     /**
@@ -98,15 +122,19 @@ class AbstractPaymentRequest extends AbstractRequest
 
     /**
      * Устанавливает чек
-     * @param ReceiptInterface|null $value Инстанс чека или null для удаления информации о чеке
+     * @param ReceiptInterface|array|null $value Инстанс чека или null для удаления информации о чеке
      * @throws InvalidPropertyValueTypeException Выбрасывается если передан не инстанс класса чека и не null
      */
     public function setReceipt($value)
     {
-        if ($value === null || $value instanceof ReceiptInterface) {
+        if ($value === null) {
+            $this->_receipt = null;
+        } elseif (is_array($value)) {
+            $this->_receipt = new Receipt($value);
+        } elseif ($value instanceof ReceiptInterface) {
             $this->_receipt = $value;
         } else {
-            throw new InvalidPropertyValueTypeException('Invalid receipt in Refund', 0, 'Refund.receipt', $value);
+            throw new InvalidPropertyValueTypeException('Invalid receipt in Payment', 0, 'Payment.receipt', $value);
         }
     }
 
@@ -176,6 +204,45 @@ class AbstractPaymentRequest extends AbstractRequest
             $message = 'Transfers must be an array of TransferInterface';
             throw new InvalidPropertyValueTypeException($message, 0, 'Payment.transfers', $value);
         }
+    }
+
+    /**
+     * Возвращает данные авиабилетов
+     * @return AirlineInterface Данные авиабилетов
+     */
+    public function getAirline()
+    {
+        return $this->_airline;
+    }
+
+    /**
+     * Проверяет, были ли установлены данные авиабилетов
+     * @return bool
+     */
+    public function hasAirline()
+    {
+        return $this->_airline !== null;
+    }
+
+    /**
+     * Устанавливает информацию об авиабилетах
+     * @param AirlineInterface|array|null $value Объект данных длинной записи или ассоциативный массив с данными
+     *
+     * @return AbstractPaymentRequest
+     */
+    public function setAirline($value)
+    {
+        if ($value === null) {
+            $this->_airline = null;
+        } elseif (is_array($value)) {
+            $this->_airline = new Airline($value);
+        } elseif ($value instanceof AirlineInterface) {
+            $this->_airline = $value;
+        } else {
+            throw new InvalidPropertyValueTypeException('Invalid airline value type', 0, 'airline', $value);
+        }
+
+        return $this;
     }
 
     /**

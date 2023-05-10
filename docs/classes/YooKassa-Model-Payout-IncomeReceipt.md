@@ -42,11 +42,11 @@
 | public | [getNpdReceiptId()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_getNpdReceiptId) |  | Возвращает npd_receipt_id. |
 | public | [getServiceName()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_getServiceName) |  | Возвращает service_name. |
 | public | [getUrl()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_getUrl) |  | Возвращает Ссылка на зарегистрированный чек. |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  |  |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [setAmount()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_setAmount) |  | Устанавливает amount. |
 | public | [setNpdReceiptId()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_setNpdReceiptId) |  | Устанавливает npd_receipt_id. |
 | public | [setServiceName()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_setServiceName) |  | Устанавливает service_name. |
@@ -87,7 +87,7 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 
 Сумма, указанная в чеке. Присутствует, если в запросе передавалась сумма для печати в чеке.
 
-**Type:** <a href="\YooKassa\Model\AmountInterface|null"><abbr title="\YooKassa\Model\AmountInterface|null">AmountInterface|null</abbr></a>
+**Type:** <a href="../\YooKassa\Model\AmountInterface|null"><abbr title="\YooKassa\Model\AmountInterface|null">AmountInterface|null</abbr></a>
 
 **Details:**
 
@@ -99,7 +99,7 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 
 Идентификатор чека в сервисе.
 
-**Type:** <a href="string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
 
 **Details:**
 
@@ -111,7 +111,7 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 
 Идентификатор чека в сервисе.
 
-**Type:** <a href="string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
 
 **Details:**
 
@@ -123,7 +123,7 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 
 Описание услуги, оказанной получателем выплаты. Не более 50 символов.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -135,7 +135,7 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 
 Описание услуги, оказанной получателем выплаты. Не более 50 символов.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -147,7 +147,7 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 
 Ссылка на зарегистрированный чек.
 
-**Type:** <a href="string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
 
 **Details:**
 
@@ -357,24 +357,32 @@ public getUrl() : string|null
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
-#### public jsonSerialize() : mixed
+#### public jsonSerialize() : array
 
 ```php
-public jsonSerialize() : mixed
+public jsonSerialize() : array
 ```
+
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
-**Returns:** mixed - 
+**Returns:** array - Ассоциативный массив со свойствами текущего объекта
 
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -382,17 +390,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -400,17 +412,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -418,18 +434,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -437,9 +457,9 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setAmount" class="anchor"></a>
@@ -581,6 +601,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

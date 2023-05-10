@@ -30,6 +30,7 @@
 | public | [addReceiptItem()](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md#method_addReceiptItem) |  | Добавляет в чек товар |
 | public | [addReceiptShipping()](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md#method_addReceiptShipping) |  | Добавляет в чек доставку товара |
 | public | [build()](../classes/YooKassa-Request-Payments-Payment-CreateCaptureRequestBuilder.md#method_build) |  | Осуществляет сборку объекта запроса к API |
+| public | [setAirline()](../classes/YooKassa-Request-Payments-Payment-CreateCaptureRequestBuilder.md#method_setAirline) |  | Устанавливает информацию об авиабилетах |
 | public | [setAmount()](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md#method_setAmount) |  | Устанавливает сумму |
 | public | [setCurrency()](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md#method_setCurrency) |  | Устанавливает валюту в которой будет происходить подтверждение оплаты заказа |
 | public | [setDeal()](../classes/YooKassa-Request-Payments-Payment-CreateCaptureRequestBuilder.md#method_setDeal) |  | Устанавливает сделку |
@@ -45,7 +46,7 @@
 ---
 ### Details
 * File: [lib/Request/Payments/Payment/CreateCaptureRequestBuilder.php](../../lib/Request/Payments/Payment/CreateCaptureRequestBuilder.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy:  
   * [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
   * [\YooKassa\Common\AbstractPaymentRequestBuilder](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md)
@@ -60,7 +61,7 @@
 
 Сумма
 
-**Type:** <a href="classes/YooKassa-Model-MonetaryAmount.html"><abbr title="\YooKassa\Model\MonetaryAmount">MonetaryAmount</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-MonetaryAmount.html"><abbr title="\YooKassa\Model\MonetaryAmount">MonetaryAmount</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequestBuilder](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md)
@@ -73,7 +74,7 @@
 
 Собираемый объект запроса
 
-**Type:** <a href="classes/YooKassa-Request-Payments-Payment-CreateCaptureRequest.html"><abbr title="\YooKassa\Request\Payments\Payment\CreateCaptureRequest">CreateCaptureRequest</abbr></a>
+**Type:** <a href="../classes/YooKassa-Request-Payments-Payment-CreateCaptureRequest.html"><abbr title="\YooKassa\Request\Payments\Payment\CreateCaptureRequest">CreateCaptureRequest</abbr></a>
 
 **Details:**
 
@@ -85,7 +86,7 @@
 
 Объект с информацией о сделке, в составе которой проходит подтверждение платежа.
 
-**Type:** <a href="classes/YooKassa-Model-Deal-CaptureDealData.html"><abbr title="\YooKassa\Model\Deal\CaptureDealData">CaptureDealData</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Deal-CaptureDealData.html"><abbr title="\YooKassa\Model\Deal\CaptureDealData">CaptureDealData</abbr></a>
 
 **Details:**
 
@@ -97,7 +98,7 @@
 
 Объект с информацией о чеке
 
-**Type:** <a href="classes/YooKassa-Model-Receipt.html"><abbr title="\YooKassa\Model\Receipt">Receipt</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt.html"><abbr title="\YooKassa\Model\Receipt">Receipt</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequestBuilder](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md)
@@ -110,7 +111,7 @@
 
 Массив платежей в пользу разных мерчантов
 
-**Type:** <a href="\YooKassa\Model\TransferInterface[]"><abbr title="\YooKassa\Model\TransferInterface[]">TransferInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\TransferInterface[]"><abbr title="\YooKassa\Model\TransferInterface[]">TransferInterface[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequestBuilder](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md)
@@ -225,6 +226,28 @@ public build(array|null $options = null) : \YooKassa\Request\Payments\Payment\Cr
 | \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек |
 
 **Returns:** \YooKassa\Request\Payments\Payment\CreateCaptureRequestInterface|\YooKassa\Common\AbstractRequest - Инстанс объекта запроса к API
+
+
+<a name="method_setAirline" class="anchor"></a>
+#### public setAirline() : \YooKassa\Request\Payments\Payment\CreateCaptureRequestBuilder
+
+```php
+public setAirline(\YooKassa\Model\AirlineInterface|array $value) : \YooKassa\Request\Payments\Payment\CreateCaptureRequestBuilder
+```
+
+**Summary**
+
+Устанавливает информацию об авиабилетах
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Payments\Payment\CreateCaptureRequestBuilder](../classes/YooKassa-Request-Payments-Payment-CreateCaptureRequestBuilder.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">\YooKassa\Model\AirlineInterface OR array</code> | value  | Объект данных длинной записи или ассоциативный массив с данными |
+
+**Returns:** \YooKassa\Request\Payments\Payment\CreateCaptureRequestBuilder - 
 
 
 <a name="method_setAmount" class="anchor"></a>
@@ -506,6 +529,6 @@ protected initCurrentObject() : \YooKassa\Request\Payments\Payment\CreateCapture
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

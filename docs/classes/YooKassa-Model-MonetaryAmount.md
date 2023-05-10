@@ -33,12 +33,12 @@ MonetaryAmount - Сумма определенная в валюте
 | public | [getIntegerValue()](../classes/YooKassa-Model-MonetaryAmount.md#method_getIntegerValue) |  | Возвращает сумму в копейках в виде целого числа |
 | public | [getValue()](../classes/YooKassa-Model-MonetaryAmount.md#method_getValue) |  | Возвращает значение суммы |
 | public | [increase()](../classes/YooKassa-Model-MonetaryAmount.md#method_increase) |  | Увеличивает сумму на указанное значение |
-| public | [jsonSerialize()](../classes/YooKassa-Model-MonetaryAmount.md#method_jsonSerialize) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Model-MonetaryAmount.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
 | public | [multiply()](../classes/YooKassa-Model-MonetaryAmount.md#method_multiply) |  | Умножает текущую сумму на указанный коэффициент |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [setCurrency()](../classes/YooKassa-Model-MonetaryAmount.md#method_setCurrency) |  | Устанавливает код валюты |
 | public | [setValue()](../classes/YooKassa-Model-MonetaryAmount.md#method_setValue) |  | Устанавливает сумму |
 | public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
@@ -63,7 +63,7 @@ MonetaryAmount - Сумма определенная в валюте
 
 Код валюты
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -75,7 +75,7 @@ MonetaryAmount - Сумма определенная в валюте
 
 Сумма
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 
@@ -87,7 +87,7 @@ MonetaryAmount - Сумма определенная в валюте
 #### public __construct() : mixed
 
 ```php
-public __construct(array|numeric-string|int|float|null $value = null, string|null $currency = null) : mixed
+public __construct(array|\YooKassa\Model\numeric|null $value = null, string|null $currency = null) : mixed
 ```
 
 **Summary**
@@ -100,7 +100,7 @@ MonetaryAmount constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR numeric-string OR int OR float OR null</code> | value  | Сумма |
+| <code lang="php">array OR \YooKassa\Model\numeric OR null</code> | value  | Сумма |
 | <code lang="php">string OR null</code> | currency  | Код валюты |
 
 **Returns:** mixed - 
@@ -304,6 +304,10 @@ public increase(int $value) : mixed
 public jsonSerialize() : array
 ```
 
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+
 **Details:**
 * Inherited From: [\YooKassa\Model\MonetaryAmount](../classes/YooKassa-Model-MonetaryAmount.md)
 
@@ -340,11 +344,15 @@ public multiply(float $coefficient) : mixed
 
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -352,17 +360,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -370,17 +382,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -388,18 +404,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -407,9 +427,9 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setCurrency" class="anchor"></a>
@@ -521,6 +541,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

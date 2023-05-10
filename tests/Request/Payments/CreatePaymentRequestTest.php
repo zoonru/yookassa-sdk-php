@@ -88,8 +88,31 @@ class CreatePaymentRequestTest extends TestCase
 
         $instance->setAmount($options['amount']);
 
-        self::assertSame($options['amount'], $instance->getAmount());
-        self::assertSame($options['amount'], $instance->amount);
+        self::assertEquals($options['amount'], $instance->getAmount());
+        self::assertEquals($options['amount'], $instance->amount);
+    }
+
+    /**
+     * @dataProvider validDataProvider
+     * @param $options
+     */
+    public function testAirline($options)
+    {
+        $instance = new CreatePaymentRequest();
+
+        self::assertNull($instance->getAirline());
+        self::assertNull($instance->airline);
+
+        if (!empty($options['airline'])) {
+            $instance->setAirline($options['airline']);
+            if (is_array($options['airline'])) {
+                self::assertSame($options['airline'], $instance->getAirline()->toArray());
+                self::assertSame($options['airline'], $instance->airline->toArray());
+            } else {
+                self::assertSame($options['airline'], $instance->getAirline());
+                self::assertSame($options['airline'], $instance->airline);
+            }
+        }
     }
 
     /**
@@ -836,7 +859,7 @@ class CreatePaymentRequestTest extends TestCase
         $receipt = new Receipt();
         $instance->setReceipt($receipt);
         $item = new ReceiptItem();
-        $item->setPrice(new MonetaryAmount(10));
+        $item->setPrice(new MonetaryAmount(10, CurrencyCode::RUB));
         $item->setDescription('test');
         $receipt->addItem($item);
         self::assertFalse($instance->validate());
@@ -970,6 +993,23 @@ class CreatePaymentRequestTest extends TestCase
                         'description' => Random::str(1, Transfer::MAX_LENGTH_DESCRIPTION),
                         'metadata' => $i == 0 ? $metadata : array('test' => 'test'),
                     )
+                ),
+                'airline' => array(
+                    'booking_reference' => 'IIIKRV',
+                    'ticket_number'     => '12342123413',
+                    'passengers'        => array(
+                        array(
+                            'first_name' => 'SERGEI',
+                            'last_name'  => 'IVANOV',
+                        ),
+                    ),
+                    'legs'              => array(
+                        array(
+                            'departure_airport'   => 'LED',
+                            'destination_airport' => 'AMS',
+                            'departure_date'      => '2018-06-20',
+                        ),
+                    ),
                 ),
                 'deal' => array(
                     'id' => Random::str(36, 50),

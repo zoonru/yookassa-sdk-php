@@ -2,6 +2,7 @@
 
 namespace Tests\YooKassa\Request\Payments\Payment;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\AmountInterface;
@@ -52,6 +53,27 @@ class CreateCaptureRequestBuilderTest extends TestCase
         } else {
             self::assertNotNull($instance->getDeal());
             self::assertEquals($options['deal'], $instance->getDeal()->toArray());
+        }
+    }
+
+    /**
+     * @dataProvider validDataProvider
+     *
+     * @param $options
+     */
+    public function testSetAirline($options)
+    {
+        $builder = new CreateCaptureRequestBuilder();
+        if (!empty($options['airline'])) {
+            $builder->setAirline($options['airline']);
+        }
+        $instance = $builder->build();
+
+        if (empty($options['airline'])) {
+            self::assertNull($instance->getAirline());
+        } else {
+            self::assertNotNull($instance->getAirline());
+            self::assertEquals($options['airline'], $instance->getAirline()->toArray());
         }
     }
 

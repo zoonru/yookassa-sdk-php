@@ -57,9 +57,9 @@ interface CreateCaptureRequestInterface
 
     /**
      * Устанавливает сумму оплаты
-     * @param AmountInterface $value Сумма оплаты
+     * @param AmountInterface|array|string $value Сумма оплаты
      */
-    public function setAmount(AmountInterface $value);
+    public function setAmount($value);
 
     /**
      * Возвращает чек, если он есть

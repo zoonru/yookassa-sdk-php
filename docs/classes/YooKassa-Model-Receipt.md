@@ -52,13 +52,13 @@
 | public | [getSettlements()](../classes/YooKassa-Model-Receipt.md#method_getSettlements) |  | Возвращает массив оплат, обеспечивающих выдачу товара |
 | public | [getShippingAmountValue()](../classes/YooKassa-Model-Receipt.md#method_getShippingAmountValue) |  | Возвращает стоимость доставки исходя из состава чека |
 | public | [getTaxSystemCode()](../classes/YooKassa-Model-Receipt.md#method_getTaxSystemCode) |  | Возвращает код системы налогообложения |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Model-Receipt.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
 | public | [normalize()](../classes/YooKassa-Model-Receipt.md#method_normalize) |  | Подгоняет стоимость товаров в чеке к общей цене заказа |
 | public | [notEmpty()](../classes/YooKassa-Model-Receipt.md#method_notEmpty) |  | Проверяет есть ли в чеке хотя бы одна позиция |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [setAdditionalUserProps()](../classes/YooKassa-Model-Receipt.md#method_setAdditionalUserProps) |  | Устанавливает дополнительный реквизит пользователя |
 | public | [setCustomer()](../classes/YooKassa-Model-Receipt.md#method_setCustomer) |  | Устанавливает информацию о плательщике |
 | public | [setEmail()](../classes/YooKassa-Model-Receipt.md#method_setEmail) | *deprecated* | Устанавливает адрес электронной почты на который будет выслан чек |
@@ -74,7 +74,7 @@
 ---
 ### Details
 * File: [lib/Model/Receipt.php](../../lib/Model/Receipt.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * \YooKassa\Model\Receipt
@@ -90,7 +90,7 @@
 
 Дополнительный реквизит пользователя (тег в 54 ФЗ — 1084)
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-AdditionalUserProps.html"><abbr title="\YooKassa\Model\Receipt\AdditionalUserProps">AdditionalUserProps</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-AdditionalUserProps.html"><abbr title="\YooKassa\Model\Receipt\AdditionalUserProps">AdditionalUserProps</abbr></a>
 
 **Details:**
 
@@ -102,7 +102,7 @@
 
 Дополнительный реквизит пользователя (тег в 54 ФЗ — 1084)
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-AdditionalUserProps.html"><abbr title="\YooKassa\Model\Receipt\AdditionalUserProps">AdditionalUserProps</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-AdditionalUserProps.html"><abbr title="\YooKassa\Model\Receipt\AdditionalUserProps">AdditionalUserProps</abbr></a>
 
 **Details:**
 
@@ -114,7 +114,7 @@
 
 Информация о плательщике
 
-**Type:** <a href="classes/YooKassa-Model-ReceiptCustomer.html"><abbr title="\YooKassa\Model\ReceiptCustomer">ReceiptCustomer</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-ReceiptCustomer.html"><abbr title="\YooKassa\Model\ReceiptCustomer">ReceiptCustomer</abbr></a>
 
 **Details:**
 
@@ -126,7 +126,7 @@
 
 Список товаров в заказе
 
-**Type:** <a href="\YooKassa\Model\ReceiptItemInterface[]"><abbr title="\YooKassa\Model\ReceiptItemInterface[]">ReceiptItemInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\ReceiptItemInterface[]"><abbr title="\YooKassa\Model\ReceiptItemInterface[]">ReceiptItemInterface[]</abbr></a>
 
 **Details:**
 
@@ -138,7 +138,7 @@
 
 Отраслевой реквизит чека (тег в 54 ФЗ — 1261)
 
-**Type:** <a href="\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 
@@ -150,7 +150,7 @@
 
 Операционный реквизит чека (тег в 54 ФЗ — 1270)
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
 
 **Details:**
 
@@ -162,7 +162,7 @@
 
 Отраслевой реквизит чека (тег в 54 ФЗ — 1261)
 
-**Type:** <a href="\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 
@@ -174,7 +174,7 @@
 
 Операционный реквизит чека (тег в 54 ФЗ — 1270)
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
 
 **Details:**
 
@@ -186,7 +186,7 @@
 
 Массив оплат, обеспечивающих выдачу товара
 
-**Type:** <a href="\YooKassa\Model\SettlementInterface[]"><abbr title="\YooKassa\Model\SettlementInterface[]">SettlementInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\SettlementInterface[]"><abbr title="\YooKassa\Model\SettlementInterface[]">SettlementInterface[]</abbr></a>
 
 **Details:**
 
@@ -198,7 +198,7 @@
 
 Код системы налогообложения. Число 1-6.
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 
@@ -210,7 +210,7 @@
 
 Код системы налогообложения. Число 1-6.
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 
@@ -609,17 +609,25 @@ public getTaxSystemCode() : int
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
-#### public jsonSerialize() : mixed
+#### public jsonSerialize() : array
 
 ```php
-public jsonSerialize() : mixed
+public jsonSerialize() : array
 ```
 
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+
 **Details:**
-* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+* Inherited From: [\YooKassa\Model\Receipt](../classes/YooKassa-Model-Receipt.md)
 
-**Returns:** mixed - 
+**Returns:** array - 
 
+##### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| inheritdoc |  |  |
 
 <a name="method_normalize" class="anchor"></a>
 #### public normalize() : mixed
@@ -662,11 +670,15 @@ public notEmpty() : bool
 
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -674,17 +686,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -692,17 +708,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -710,18 +730,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -729,9 +753,9 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setAdditionalUserProps" class="anchor"></a>
@@ -1025,6 +1049,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

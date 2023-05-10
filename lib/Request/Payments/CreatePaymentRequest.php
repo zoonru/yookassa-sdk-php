@@ -122,11 +122,6 @@ class CreatePaymentRequest extends AbstractPaymentRequest implements CreatePayme
     private $_clientIp;
 
     /**
-     * @var AirlineInterface Объект с данными для продажи авиабилетов
-     */
-    private $_airline;
-
-    /**
      * @var Metadata Метаданные привязанные к платежу
      */
     private $_metadata;
@@ -522,33 +517,6 @@ class CreatePaymentRequest extends AbstractPaymentRequest implements CreatePayme
                 $value
             );
         }
-    }
-
-    /**
-     * Возвращает данные авиабилетов
-     * @return AirlineInterface Данные авиабилетов
-     */
-    public function getAirline()
-    {
-        return $this->_airline;
-    }
-
-    /**
-     * Проверяет, были ли установлены данные авиабилетов
-     * @return bool
-     */
-    public function hasAirline()
-    {
-        return $this->_airline !== null;
-    }
-
-    /**
-     * Устанавливает данные авиабилетов
-     * @param AirlineInterface $value Данные авиабилетов
-     */
-    public function setAirline($value)
-    {
-        $this->_airline = $value;
     }
 
     /**

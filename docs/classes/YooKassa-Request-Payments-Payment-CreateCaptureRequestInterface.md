@@ -80,7 +80,7 @@ public hasAmount() : bool
 #### public setAmount() : mixed
 
 ```php
-public setAmount(\YooKassa\Model\AmountInterface $value) : mixed
+public setAmount(\YooKassa\Model\AmountInterface|array|string $value) : mixed
 ```
 
 **Summary**
@@ -93,7 +93,7 @@ public setAmount(\YooKassa\Model\AmountInterface $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\AmountInterface</code> | value  | Сумма оплаты |
+| <code lang="php">\YooKassa\Model\AmountInterface OR array OR string</code> | value  | Сумма оплаты |
 
 **Returns:** mixed - 
 
@@ -296,6 +296,6 @@ public setDeal(\YooKassa\Model\Deal\PaymentDealInfo|array|null $value) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

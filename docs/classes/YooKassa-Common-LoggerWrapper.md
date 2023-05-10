@@ -26,7 +26,7 @@
 ---
 ### Details
 * File: [lib/Common/LoggerWrapper.php](../../lib/Common/LoggerWrapper.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy:
   * \YooKassa\Common\LoggerWrapper
 * Implements:
@@ -299,6 +299,6 @@ that are not necessarily wrong.
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

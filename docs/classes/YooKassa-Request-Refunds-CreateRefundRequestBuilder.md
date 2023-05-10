@@ -10,9 +10,44 @@
 
 ---
 ### Examples
-02-builder.php 148 35 Пример использования билдера
+Пример использования билдера
 
 ```php
+// Создание запроса возврата через билдер
+try {
+    $refundBuilder = \YooKassa\Request\Refunds\CreateRefundRequest::builder();
+    $refundBuilder
+                ->setPaymentId('24b94598-000f-5000-9000-1b68e7b15f3f')
+                ->setAmount(3500.00)
+                ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
+                ->setDescription('Не подошел цвет')
+                ->setReceiptItems(array(
+                    array(
+                        'description' => 'Платок Gucci',
+                        'quantity' => '1.00',
+                        'amount' => array(
+                            'value' => '3000.00',
+                            'currency' => 'RUB',
+                        ),
+                        'vat_code' => 2,
+                        'payment_mode' => 'full_payment',
+                        'payment_subject' => 'commodity',
+                    ),
+                ))
+                ->setReceiptEmail('john.doe@merchant.com')
+                ->setTaxSystemCode(1);
+
+    // Создаем объект запроса
+    $request = $refundBuilder->build();
+
+    // Можно изменить данные, если нужно
+    $request->setDescription('Не подошел цвет и размер');
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createRefund($request, $idempotenceKey);
+} catch (Exception $e) {
+    $response = $e;
+}
 
 ```
 
@@ -71,7 +106,7 @@
 
 Сумма
 
-**Type:** <a href="classes/YooKassa-Model-MonetaryAmount.html"><abbr title="\YooKassa\Model\MonetaryAmount">MonetaryAmount</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-MonetaryAmount.html"><abbr title="\YooKassa\Model\MonetaryAmount">MonetaryAmount</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequestBuilder](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md)
@@ -84,7 +119,7 @@
 
 Собираемый объект запроса к API
 
-**Type:** <a href="classes/YooKassa-Request-Refunds-CreateRefundRequest.html"><abbr title="\YooKassa\Request\Refunds\CreateRefundRequest">CreateRefundRequest</abbr></a>
+**Type:** <a href="../classes/YooKassa-Request-Refunds-CreateRefundRequest.html"><abbr title="\YooKassa\Request\Refunds\CreateRefundRequest">CreateRefundRequest</abbr></a>
 
 **Details:**
 
@@ -96,7 +131,7 @@
 
 Объект с информацией о сделке, в составе которой проходит возврат.
 
-**Type:** <a href="classes/YooKassa-Model-Deal-RefundDealData.html"><abbr title="\YooKassa\Model\Deal\RefundDealData">RefundDealData</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Deal-RefundDealData.html"><abbr title="\YooKassa\Model\Deal\RefundDealData">RefundDealData</abbr></a>
 
 **Details:**
 
@@ -108,7 +143,7 @@
 
 Объект с информацией о чеке
 
-**Type:** <a href="classes/YooKassa-Model-Receipt.html"><abbr title="\YooKassa\Model\Receipt">Receipt</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt.html"><abbr title="\YooKassa\Model\Receipt">Receipt</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequestBuilder](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md)
@@ -121,7 +156,7 @@
 
 Массив платежей в пользу разных мерчантов
 
-**Type:** <a href="\YooKassa\Model\TransferInterface[]"><abbr title="\YooKassa\Model\TransferInterface[]">TransferInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\TransferInterface[]"><abbr title="\YooKassa\Model\TransferInterface[]">TransferInterface[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequestBuilder](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md)
@@ -589,6 +624,6 @@ protected initCurrentObject() : \YooKassa\Request\Refunds\CreateRefundRequest
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney
