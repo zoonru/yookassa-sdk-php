@@ -43,7 +43,7 @@
 
 Инстанс собираемого запроса
 
-**Type:** <a href="classes/YooKassa-Common-AbstractRequest.html"><abbr title="\YooKassa\Common\AbstractRequest">AbstractRequest</abbr></a>
+**Type:** <a href="../classes/YooKassa-Common-AbstractRequest.html"><abbr title="\YooKassa\Common\AbstractRequest">AbstractRequest</abbr></a>
 
 **Details:**
 
@@ -157,6 +157,6 @@ Abstract protected initCurrentObject() : \YooKassa\Common\AbstractRequest
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

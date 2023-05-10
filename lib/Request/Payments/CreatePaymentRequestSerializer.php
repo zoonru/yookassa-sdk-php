@@ -90,23 +90,17 @@ class CreatePaymentRequestSerializer
         if ($request->getAmount()->getValue() > 0) {
             $result['amount'] = $this->serializeAmount($request->getAmount());
         }
-
         if ($request->hasTransfers()) {
             $result['transfers'] = $this->serializeTransfers($request->getTransfers());
         }
-
         if ($request->hasDescription()) {
             $result['description'] = $request->getDescription();
         }
-        if ($request->hasReceipt()) {
-            $receipt = $request->getReceipt();
-            if ($receipt->notEmpty()) {
-                $result['receipt'] = $this->serializeReceipt($receipt);
-            }
+        if ($request->hasReceipt() && $request->getReceipt()->notEmpty()) {
+            $result['receipt'] = $request->getReceipt()->toArray();
         }
         if ($request->hasRecipient()) {
-            $result['recipient']['account_id'] = $request->getRecipient()->getAccountId();
-            $result['recipient']['gateway_id'] = $request->getRecipient()->getGatewayId();
+            $result['recipient'] = $request->getRecipient()->toArray();
         }
         if ($request->hasPaymentMethodData()) {
             $method                        = self::$paymentDataSerializerMap[$request->getPaymentMethodData()->getType()];
@@ -126,34 +120,8 @@ class CreatePaymentRequestSerializer
             $result['save_payment_method'] = $request->getSavePaymentMethod();
         }
         if ($request->hasAirline()) {
-            $airline           = $request->getAirline();
-            $result['airline'] = array();
-
-            $ticketNumber = $airline->getTicketNumber();
-            if (!empty($ticketNumber)) {
-                $result['airline']['ticket_number'] = $ticketNumber;
-            }
-            $bookingReference = $airline->getBookingReference();
-            if (!empty($bookingReference)) {
-                $result['airline']['booking_reference'] = $bookingReference;
-            }
-
-            foreach ($airline->getPassengers() as $passenger) {
-                $result['airline']['passengers'][] = array(
-                    'first_name' => $passenger->getFirstName(),
-                    'last_name'  => $passenger->getLastName(),
-                );
-            }
-
-            foreach ($airline->getLegs() as $leg) {
-                $result['airline']['legs'][] = array(
-                    'departure_airport'   => $leg->getDepartureAirport(),
-                    'destination_airport' => $leg->getDestinationAirport(),
-                    'departure_date'      => $leg->getDepartureDate(),
-                );
-            }
+            $result['airline'] = $request->getAirline()->toArray();
         }
-
         if ($request->hasDeal()) {
             $result['deal'] = $request->getDeal()->toArray();
         }
@@ -185,28 +153,6 @@ class CreatePaymentRequestSerializer
         }
         if ($confirmation->getType() === ConfirmationType::MOBILE_APPLICATION) {
             $result['return_url'] = $confirmation->getReturnUrl();
-        }
-
-        return $result;
-    }
-
-    private function serializeReceipt(ReceiptInterface $receipt)
-    {
-        $result = array();
-
-        /** @var ReceiptItem $item */
-        foreach ($receipt->getItems() as $item) {
-            $result['items'][] = $item->jsonSerialize();
-        }
-
-        $customer = $receipt->getCustomer();
-        if ($customer !== null) {
-            $result['customer'] = $customer->jsonSerialize();
-        }
-
-        $value = $receipt->getTaxSystemCode();
-        if (!empty($value)) {
-            $result['tax_system_code'] = $value;
         }
 
         return $result;

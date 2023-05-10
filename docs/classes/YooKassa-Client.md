@@ -10,9 +10,16 @@
 
 ---
 ### Examples
-01-client.php 3 7 Создание клиента
+Создание клиента
 
 ```php
+require_once '../vendor/autoload.php';
+
+$client = new \YooKassa\Client();
+// по логин/паролю
+$client->setAuth('xxxxxx', 'test_XXXXXXX');
+// или по oauth токену
+$client->setAuthToken('token_XXXXXXX');
 
 ```
 
@@ -269,7 +276,7 @@ DEFAULT_ATTEMPTS_COUNT = 3
 Текущая версия библиотеки
 
 ```php
-SDK_VERSION = '2.8.0'
+SDK_VERSION = '2.8.1'
 ```
 
 
@@ -283,7 +290,7 @@ SDK_VERSION = '2.8.0'
 
 CURL клиент
 
-**Type:** <a href="null|\YooKassa\Client\ApiClientInterface"><abbr title="null|\YooKassa\Client\ApiClientInterface">ApiClientInterface</abbr></a>
+**Type:** <a href="../null|\YooKassa\Client\ApiClientInterface"><abbr title="null|\YooKassa\Client\ApiClientInterface">ApiClientInterface</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -300,7 +307,7 @@ CURL клиент
 
 Значение по умолчанию 3
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -313,7 +320,7 @@ CURL клиент
 
 Настройки для CURL клиента
 
-**Type:** <a href="array"><abbr title="array">array</abbr></a>
+**Type:** <a href="../array"><abbr title="array">array</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -326,7 +333,7 @@ CURL клиент
 
 Объект для логирования работы SDK
 
-**Type:** <a href="\Psr\Log\LoggerInterface|null"><abbr title="\Psr\Log\LoggerInterface|null">LoggerInterface|null</abbr></a>
+**Type:** <a href="../\Psr\Log\LoggerInterface|null"><abbr title="\Psr\Log\LoggerInterface|null">LoggerInterface|null</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -339,7 +346,7 @@ CURL клиент
 
 shopId магазина
 
-**Type:** <a href="string|int"><abbr title="string|int">string|int</abbr></a>
+**Type:** <a href="../string|int"><abbr title="string|int">string|int</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -352,7 +359,7 @@ shopId магазина
 
 Секретный ключ магазина
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -369,7 +376,7 @@ shopId магазина
 
 Значение по умолчанию - 1800 миллисекунд.
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 Значение в миллисекундах
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -441,9 +448,42 @@ public addWebhook(\YooKassa\Model\Webhook\Webhook|array $request, string|null $i
 
 **Returns:** \YooKassa\Model\Webhook\Webhook|null - 
 ##### Examples:
-01-client.php 192 33 Создание Webhook:
+Создание Webhook:
 
 ```php
+// В данном примере мы устанавливаем вебхуки для succeeded и canceled уведомлений.
+// А так же проверяем, не установлены ли уже вебхуки. И если установлены на неверный адрес, удаляем.
+$client->setAuthToken('token_XXXXXXX');
+try {
+    $webHookUrl = 'https://merchant-site.ru/payment-notification';
+    $needWebHookList = array(
+        \YooKassa\Model\NotificationEventType::PAYMENT_SUCCEEDED,
+        \YooKassa\Model\NotificationEventType::PAYMENT_CANCELED
+    );
+    $currentWebHookList = $client->getWebhooks()->getItems();
+    foreach ($needWebHookList as $event) {
+        $hookIsSet = false;
+        foreach ($currentWebHookList as $webHook) {
+            if ($webHook->getEvent() !== $event) {
+                continue;
+            }
+            if ($webHook->getUrl() !== $webHookUrl) {
+                $client->removeWebhook($webHook->getId());
+            } else {
+                $hookIsSet = true;
+            }
+            break;
+        }
+        if (!$hookIsSet) {
+            $client->addWebhook(array('event' => $event, 'url' => $webHookUrl));
+        }
+    }
+    $response = 'SUCCESS';
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -491,9 +531,18 @@ public cancelPayment(string $paymentId, string|null $idempotencyKey = null) : \Y
 
 **Returns:** \YooKassa\Request\Payments\Payment\CancelResponse|null - 
 ##### Examples:
-01-client.php 87 9 Отменить незавершенную оплату заказа:
+Отменить незавершенную оплату заказа:
 
 ```php
+$paymentId = '24e89cb0-000f-5000-9000-1de77fa0d6df';
+try {
+    $response = $client->cancelPayment($paymentId, uniqid('', true));
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -545,9 +594,43 @@ public capturePayment(\YooKassa\Request\Payments\Payment\CreateCaptureRequestInt
 
 **Returns:** \YooKassa\Request\Payments\Payment\CreateCaptureResponse|null - 
 ##### Examples:
-01-client.php 51 34 Подтверждение платежа:
+Подтверждение платежа:
 
 ```php
+$paymentId = '24e89cb0-000f-5000-9000-1de77fa0d6df';
+try {
+    $response = $client->capturePayment(
+        array(
+            'amount' => array(
+                'value' => '1500.00',
+                'currency' => 'RUB',
+            ),
+            'transfers' => array(
+                array(
+                    'account_id' => '123',
+                    'amount' => array(
+                        'value' => '1000.00',
+                        'currency' => 'RUB',
+                    ),
+                ),
+                array(
+                    'account_id' => '456',
+                    'amount' => array(
+                        'value' => '500.00',
+                        'currency' => 'RUB',
+                    ),
+                ),
+            ),
+        ),
+        $paymentId,
+        uniqid('', true)
+    );
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -604,9 +687,27 @@ public createDeal(\YooKassa\Request\Deals\CreateDealRequestInterface|array $deal
 
 **Returns:** \YooKassa\Request\Deals\CreateDealResponse|null - 
 ##### Examples:
-01-client.php 300 18 Запрос на создание сделки:
+Запрос на создание сделки:
 
 ```php
+try {
+    $response = $client->createDeal(
+        array(
+            'type' => \YooKassa\Model\Deal\DealType::SAFE_DEAL,
+            'fee_moment' => \YooKassa\Model\Deal\FeeMoment::PAYMENT_SUCCEEDED,
+            'metadata' => array(
+                'order_id' => '37',
+            ),
+            'description' => 'SAFE_DEAL 123554642-2432FF344R',
+        ),
+        uniqid('', true)
+    );
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -668,9 +769,37 @@ public createPayment(\YooKassa\Request\Payments\CreatePaymentRequestInterface|ar
 
 **Returns:** \YooKassa\Request\Payments\CreatePaymentResponse|null - 
 ##### Examples:
-01-client.php 21 28 Запрос на создание платежа:
+Запрос на создание платежа:
 
 ```php
+try {
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createPayment(
+        array(
+            'amount' => array(
+                'value' => '1.00',
+                'currency' => 'RUB',
+            ),
+            'confirmation' => array(
+                'type' => 'redirect',
+                'return_url' => 'https://merchant-site.ru/payment-notification',
+            ),
+            'description' => 'Оплата заказа на сумму 1 руб',
+            'metadata' => array(
+                'orderNumber' => 1001
+            ),
+            'capture' => true,
+        ),
+        $idempotenceKey
+    );
+    $confirmation = $response->getConfirmation();
+    $redirectUrl = $confirmation->getConfirmationUrl();
+    // Далее производим редирект на полученный URL
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -733,9 +862,36 @@ public createPayout(\YooKassa\Request\Payouts\CreatePayoutRequestInterface|array
 
 **Returns:** \YooKassa\Request\Payouts\CreatePayoutResponse|null - 
 ##### Examples:
-01-client.php 358 27 Запрос на создание выплаты:
+Запрос на создание выплаты:
 
 ```php
+// Создание выплаты
+$request = array(
+    'amount' => array(
+        'value' => '80.00',
+        'currency' => 'RUB',
+    ),
+    'payout_destination_data' => array(
+        'type' => \YooKassa\Model\PaymentMethodType::YOO_MONEY,
+        'accountNumber' => '4100116075156746',
+    ),
+    'description' => 'Выплата по заказу №37',
+    'metadata' => array(
+        'order_id' => '37'
+    ),
+    'deal' => array(
+        'id' => 'dl-2909e77d-0022-5000-8000-0c37205b3208',
+    ),
+);
+$idempotenceKey = uniqid('', true);
+try {
+    $idempotenceKey = uniqid('', true);
+    $result = $client->createPayout($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $result = $e;
+}
+
+var_dump($result);
 
 ```
 
@@ -783,9 +939,25 @@ public createPersonalData(\YooKassa\Request\PersonalData\CreatePersonalDataReque
 
 **Returns:** \YooKassa\Request\PersonalData\PersonalDataResponse|null - Объект персональных данных
 ##### Examples:
-01-client.php 397 16 Запрос на создание персональных данных:
+Запрос на создание персональных данных:
 
 ```php
+$request = array(
+    'type' => 'sbp_payout_recipient',
+    'last_name' => 'Иванов',
+    'first_name' => 'Иван',
+    'middle_name' => 'Иванович',
+    'metadata' => array('recipient_id' => '37'),
+);
+$idempotenceKey = uniqid('', true);
+try {
+    $idempotenceKey = uniqid('', true);
+    $result = $client->createPersonalData($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $result = $e;
+}
+
+var_dump($result);
 
 ```
 
@@ -832,9 +1004,43 @@ public createReceipt(\YooKassa\Request\Receipts\CreatePostReceiptRequestInterfac
 
 **Returns:** \YooKassa\Request\Receipts\AbstractReceiptResponse|null - 
 ##### Examples:
-01-client.php 98 34 Запрос на создание чека:
+Запрос на создание чека:
 
 ```php
+try {
+    $response = $client->createReceipt(
+        array(
+            'customer' => array(
+                'email' => 'johndoe@yoomoney.ru',
+                'phone' => '79000000000',
+            ),
+            'type' => 'payment',
+            'payment_id' => '24e89cb0-000f-5000-9000-1de77fa0d6df',
+            'on_behalf_of' => '123',
+            'send' => true,
+            'items' => array(
+                array(
+                    'description' => 'Платок Gucci',
+                    'quantity' => '1.00',
+                    'amount' => array(
+                        'value' => '3000.00',
+                        'currency' => 'RUB',
+                    ),
+                    'vat_code' => 2,
+                    'payment_mode' => 'full_payment',
+                    'payment_subject' => 'commodity',
+                ),
+            ),
+            'tax_system_code' => 1,
+        ),
+        uniqid('', true)
+    );
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -881,9 +1087,35 @@ public createRefund(\YooKassa\Request\Refunds\CreateRefundRequestInterface|array
 
 **Returns:** \YooKassa\Request\Refunds\CreateRefundResponse|null - 
 ##### Examples:
-01-client.php 134 26 Запрос на создание возврата:
+Запрос на создание возврата:
 
 ```php
+try {
+    $response = $client->createRefund(
+        array(
+            'payment_id' => '24e89cb0-000f-5000-9000-1de77fa0d6df',
+            'amount' => array(
+                'value' => '1000.00',
+                'currency' => 'RUB',
+            ),
+            'sources' => array(
+                array(
+                    'account_id' => '456',
+                    'amount' => array(
+                        'value' => '1000.00',
+                        'currency' => 'RUB',
+                    )
+                ),
+            ),
+        ),
+        uniqid('', true)
+    );
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -932,9 +1164,23 @@ public createSelfEmployed(\YooKassa\Request\SelfEmployed\SelfEmployedRequest|arr
 
 **Returns:** \YooKassa\Request\SelfEmployed\SelfEmployedResponse|null - 
 ##### Examples:
-01-client.php 425 14 Запрос на создание самозанятого:
+Запрос на создание самозанятого:
 
 ```php
+$request = array(
+    'itn' => '123456789012',
+    'phone' => '79001002030',
+    'confirmation' => array('type' => 'redirect'),
+);
+$idempotenceKey = uniqid('', true);
+try {
+    $idempotenceKey = uniqid('', true);
+    $result = $client->createSelfEmployed($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $result = $e;
+}
+
+var_dump($result);
 
 ```
 
@@ -1012,9 +1258,17 @@ public getDealInfo(string $dealId) : \YooKassa\Model\DealInterface|null
 
 **Returns:** \YooKassa\Model\DealInterface|null - 
 ##### Examples:
-01-client.php 320 8 Получить информацию о сделке:
+Получить информацию о сделке:
 
 ```php
+try {
+    $response = $client->getDealInfo('dl-2909e77d-1022-5003-8004-0c37205b3208');
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1062,9 +1316,36 @@ public getDeals(\YooKassa\Request\Deals\DealsRequestInterface|array|null $filter
 
 **Returns:** \YooKassa\Request\Deals\DealsResponse|null - 
 ##### Examples:
-01-client.php 330 27 Получить список сделок с фильтрацией:
+Получить список сделок с фильтрацией:
 
 ```php
+$cursor = null;
+$params = array(
+    'limit' => 30,
+    'status' => \YooKassa\Model\Deal\DealStatus::OPENED,
+    'full_text_search' => 'DEAL',
+    'created_at_gte' => '2021-10-01T00:00:00.000Z',
+    'created_at_lt' => '2021-11-01T23:59:59.999Z',
+);
+try {
+    do {
+        $params['cursor'] = $cursor;
+        $deals = $client->getDeals($params);
+        foreach ($deals->getItems() as $deal) {
+            $res = array(
+                $deal->getCreatedAt()->format('Y-m-d H:i:s'),
+                $deal->getBalance()->getValue() . ' ' . $deal->getBalance()->getCurrency(),
+                $deal->getPayoutBalance()->getValue() . ' ' . $deal->getBalance()->getCurrency(),
+                $deal->getStatus(),
+                $deal->getId(),
+            );
+            echo implode(' - ', $res) . "\n";
+        }
+    } while ($cursor = $deals->getNextCursor());
+} catch (\Exception $e) {
+    $response = $e;
+    var_dump($response);
+}
 
 ```
 
@@ -1108,9 +1389,17 @@ public getPaymentInfo(string $paymentId) : \YooKassa\Model\PaymentInterface|null
 
 **Returns:** \YooKassa\Model\PaymentInterface|null - Объект платежа
 ##### Examples:
-01-client.php 162 8 Получить информацию о платеже:
+Получить информацию о платеже:
 
 ```php
+try {
+    $response = $client->getPaymentInfo('24e89cb0-000f-5000-9000-1de77fa0d6df');
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1158,9 +1447,32 @@ public getPayments(\YooKassa\Request\Payments\PaymentsRequestInterface|array|nul
 
 **Returns:** \YooKassa\Request\Payments\PaymentsResponse|null - 
 ##### Examples:
-01-client.php 227 23 Получить список платежей магазина с фильтрацией:
+Получить список платежей магазина с фильтрацией:
 
 ```php
+$cursor = null;
+$params = array(
+    'limit' => 30,
+    'status' => \YooKassa\Model\PaymentStatus::CANCELED,
+    'payment_method' => \YooKassa\Model\PaymentMethodType::BANK_CARD,
+    'created_at_gte' => '2021-01-01T00:00:00.000Z',
+    'created_at_lt' => '2021-03-30T23:59:59.999Z',
+);
+try {
+    do {
+        $params['cursor'] = $cursor;
+        $payments = $client->getPayments($params);
+        foreach ($payments->getItems() as $payment) {
+            echo $payment->getCreatedAt()->format('Y-m-d H:i:s') . ' - ' .
+                 $payment->getStatus() . ' - ' .
+                 $payment->getId() . "\n";
+        }
+    } while ($cursor = $payments->getNextCursor());
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1204,9 +1516,17 @@ public getPayoutInfo(string $payoutId) : \YooKassa\Model\PayoutInterface|null
 
 **Returns:** \YooKassa\Model\PayoutInterface|null - Объект выплаты
 ##### Examples:
-01-client.php 387 8 Получить информацию о выплате:
+Получить информацию о выплате:
 
 ```php
+$payoutId = 'po-285c0ab7-0003-5000-9000-0e1166498fda';
+try {
+    $response = $client->getPayoutInfo($payoutId);
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1250,9 +1570,17 @@ public getPersonalDataInfo(string $personalDataId) : \YooKassa\Model\PersonalDat
 
 **Returns:** \YooKassa\Model\PersonalData\PersonalDataInterface|null - Объект персональных данных
 ##### Examples:
-01-client.php 415 8 Получить информацию о персональных данных:
+Получить информацию о персональных данных:
 
 ```php
+$payoutId = 'pd-285c0ab7-0003-5000-9000-0e1166498fda';
+try {
+    $response = $client->getPersonalDataInfo($payoutId);
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1296,9 +1624,17 @@ public getReceiptInfo(string $receiptId) : \YooKassa\Request\Receipts\ReceiptRes
 
 **Returns:** \YooKassa\Request\Receipts\ReceiptResponseInterface|null - 
 ##### Examples:
-01-client.php 172 8 Получить информацию о чеке:
+Получить информацию о чеке:
 
 ```php
+try {
+    $response = $client->getReceiptInfo('ra-27ed1660-0001-0050-7a5e-10f80e0f0f29');
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1347,9 +1683,30 @@ public getReceipts(\YooKassa\Model\PaymentInterface|\YooKassa\Model\RefundInterf
 
 **Returns:** \YooKassa\Request\Receipts\ReceiptsResponse - 
 ##### Examples:
-01-client.php 252 21 Получить список чеков магазина с фильтрацией:
+Получить список чеков магазина с фильтрацией:
 
 ```php
+$cursor = null;
+$params = array(
+    'limit' => 30,
+    'status' => \YooKassa\Model\ReceiptRegistrationStatus::SUCCEEDED,
+    'payment_id' => '1da5c87d-0984-50e8-a7f3-8de646dd9ec9',
+    'created_at_gte' => '2021-01-01T00:00:00.000Z',
+    'created_at_lt' => '2021-03-30T23:59:59.999Z',
+);
+try {
+    do {
+        $params['cursor'] = $cursor;
+        $receipts = $client->getReceipts($params);
+        foreach ($receipts->getItems() as $receipt) {
+            echo $receipt->getStatus() . ' - ' . $receipt->getId() . "\n";
+        }
+    } while ($cursor = $receipts->getNextCursor());
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1394,9 +1751,17 @@ public getRefundInfo(string $refundId) : \YooKassa\Request\Refunds\RefundRespons
 
 **Returns:** \YooKassa\Request\Refunds\RefundResponse|null - 
 ##### Examples:
-01-client.php 182 8 Получить информацию о возврате:
+Получить информацию о возврате:
 
 ```php
+try {
+    $response = $client->getRefundInfo('216749f7-0016-50be-b000-078d43a63ae4');
+    echo $response->getStatus();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1444,9 +1809,32 @@ public getRefunds(\YooKassa\Request\Refunds\RefundsRequestInterface|array|null $
 
 **Returns:** \YooKassa\Request\Refunds\RefundsResponse|null - 
 ##### Examples:
-01-client.php 275 23 Получить список возвратов платежей магазина с фильтрацией:
+Получить список возвратов платежей магазина с фильтрацией:
 
 ```php
+$cursor = null;
+$params = array(
+    'limit' => 30,
+    'status' => \YooKassa\Model\RefundStatus::SUCCEEDED,
+    'payment_id' => '1da5c87d-0984-50e8-a7f3-8de646dd9ec9',
+    'created_at_gte' => '2021-01-01T00:00:00.000Z',
+    'created_at_lt' => '2021-03-30T23:59:59.999Z',
+);
+try {
+    do {
+        $params['cursor'] = $cursor;
+        $refunds = $client->getRefunds($params);
+        foreach ($refunds->getItems() as $refund) {
+            echo $refund->getCreatedAt()->format('Y-m-d H:i:s') . ' - ' .
+                 $refund->getStatus() . ' - ' .
+                 $refund->getId() . "\n";
+        }
+    } while ($cursor = $refunds->getNextCursor());
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1486,9 +1874,16 @@ public getSbpBanks() : \YooKassa\Request\Payouts\SbpBanksResponse|null
 
 **Returns:** \YooKassa\Request\Payouts\SbpBanksResponse|null - 
 ##### Examples:
-01-client.php 415 7 Получить информацию о персональных данных:
+Получить информацию о персональных данных:
 
 ```php
+$payoutId = 'pd-285c0ab7-0003-5000-9000-0e1166498fda';
+try {
+    $response = $client->getPersonalDataInfo($payoutId);
+} catch (\Exception $e) {
+    $response = $e;
+}
+
 
 ```
 
@@ -1531,9 +1926,17 @@ public getSelfEmployedInfo(string $selfEmployedId) : \YooKassa\Model\SelfEmploye
 
 **Returns:** \YooKassa\Model\SelfEmployed\SelfEmployedInterface|null - Объект информации о самозанятом
 ##### Examples:
-01-client.php 441 8 Получить информацию о самозанятом:
+Получить информацию о самозанятом:
 
 ```php
+$payoutId = 'se-285c0ab7-0003-5000-9000-0e1166498fda';
+try {
+    $response = $client->getSelfEmployedInfo($payoutId);
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1572,9 +1975,42 @@ public getWebhooks() : \YooKassa\Request\Webhook\WebhookListResponse|null
 
 **Returns:** \YooKassa\Request\Webhook\WebhookListResponse|null - 
 ##### Examples:
-01-client.php 192 33 Список созданных Webhook:
+Список созданных Webhook:
 
 ```php
+// В данном примере мы устанавливаем вебхуки для succeeded и canceled уведомлений.
+// А так же проверяем, не установлены ли уже вебхуки. И если установлены на неверный адрес, удаляем.
+$client->setAuthToken('token_XXXXXXX');
+try {
+    $webHookUrl = 'https://merchant-site.ru/payment-notification';
+    $needWebHookList = array(
+        \YooKassa\Model\NotificationEventType::PAYMENT_SUCCEEDED,
+        \YooKassa\Model\NotificationEventType::PAYMENT_CANCELED
+    );
+    $currentWebHookList = $client->getWebhooks()->getItems();
+    foreach ($needWebHookList as $event) {
+        $hookIsSet = false;
+        foreach ($currentWebHookList as $webHook) {
+            if ($webHook->getEvent() !== $event) {
+                continue;
+            }
+            if ($webHook->getUrl() !== $webHookUrl) {
+                $client->removeWebhook($webHook->getId());
+            } else {
+                $hookIsSet = true;
+            }
+            break;
+        }
+        if (!$hookIsSet) {
+            $client->addWebhook(array('event' => $event, 'url' => $webHookUrl));
+        }
+    }
+    $response = 'SUCCESS';
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1645,9 +2081,16 @@ public me(array|string|int|null $filter = null) : array|null
 
 **Returns:** array|null - Массив с информацией о магазине
 ##### Examples:
-01-client.php 12 7 Информация о магазине:
+Информация о магазине:
 
 ```php
+try {
+    $response = $client->me();
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1693,9 +2136,42 @@ public removeWebhook(string $webhookId, string|null $idempotencyKey = null) : \Y
 
 **Returns:** \YooKassa\Model\Webhook\Webhook|null - 
 ##### Examples:
-01-client.php 192 33 Удаление Webhook:
+Удаление Webhook:
 
 ```php
+// В данном примере мы устанавливаем вебхуки для succeeded и canceled уведомлений.
+// А так же проверяем, не установлены ли уже вебхуки. И если установлены на неверный адрес, удаляем.
+$client->setAuthToken('token_XXXXXXX');
+try {
+    $webHookUrl = 'https://merchant-site.ru/payment-notification';
+    $needWebHookList = array(
+        \YooKassa\Model\NotificationEventType::PAYMENT_SUCCEEDED,
+        \YooKassa\Model\NotificationEventType::PAYMENT_CANCELED
+    );
+    $currentWebHookList = $client->getWebhooks()->getItems();
+    foreach ($needWebHookList as $event) {
+        $hookIsSet = false;
+        foreach ($currentWebHookList as $webHook) {
+            if ($webHook->getEvent() !== $event) {
+                continue;
+            }
+            if ($webHook->getUrl() !== $webHookUrl) {
+                $client->removeWebhook($webHook->getId());
+            } else {
+                $hookIsSet = true;
+            }
+            break;
+        }
+        if (!$hookIsSet) {
+            $client->addWebhook(array('event' => $event, 'url' => $webHookUrl));
+        }
+    }
+    $response = 'SUCCESS';
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -1744,9 +2220,10 @@ public setAuth(string $login, string $password) : $this
 
 **Returns:** $this - 
 ##### Examples:
-01-client.php 7 1 Пример авторизации:
+Пример авторизации:
 
 ```php
+$client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 ```
 
@@ -1772,9 +2249,10 @@ public setAuthToken(string $token) : $this
 
 **Returns:** $this - 
 ##### Examples:
-01-client.php 9 1 Пример авторизации:
+Пример авторизации:
 
 ```php
+$client->setAuthToken('token_XXXXXXX');
 
 ```
 
@@ -2023,6 +2501,6 @@ protected handleError(\YooKassa\Common\ResponseObject $response) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -26,12 +26,12 @@ composer require yoomoney/yookassa-sdk-php
 ```
 
 ### В файле composer.json своего проекта
-1. Добавьте строку `"yoomoney/yookassa-sdk-php": "^2.1"` в список зависимостей вашего проекта в файле composer.json
+1. Добавьте строку `"yoomoney/yookassa-sdk-php": "^2.8"` в список зависимостей вашего проекта в файле composer.json
 ```
 ...
     "require": {
         "php": ">=5.3.2",
-        "yoomoney/yookassa-sdk-php": "^2.1"
+        "yoomoney/yookassa-sdk-php": "^2.8"
 ...
 ```
 2. Обновите зависимости проекта. В консоли перейдите в каталог, где лежит composer.json, и выполните команду:
@@ -107,7 +107,16 @@ $client->setAuth('shopId', 'secretKey');
 
 #### [Работа с выплатами](docs/examples/06-payouts.md)
 * [Запрос на выплату продавцу](docs/examples/06-payouts.md#Запрос-на-выплату-продавцу)
+  * [Проведение выплаты на банковскую карту](docs/examples/06-payouts.md#проведение-выплаты-на-банковскую-карту)
+  * [Проведение выплаты на кошелек ЮMoney](docs/examples/06-payouts.md#проведение-выплаты-на-кошелек-юmoney)
+  * [Проведение выплаты через СБП](docs/examples/06-payouts.md#проведение-выплаты-через-сбп)
+  * [Выплаты самозанятым](docs/examples/06-payouts.md#выплаты-самозанятым)
+  * [Проведение выплаты по безопасной сделке](docs/examples/06-payouts.md#проведение-выплаты-по-безопасной-сделке)
 * [Получить информацию о выплате](docs/examples/06-payouts.md#Получить-информацию-о-выплате)
+
+#### [Работа с самозанятыми](docs/examples/07-self-employed.md)
+* [Запрос на создание самозанятого](docs/examples/07-self-employed.md#Запрос-на-создание-самозанятого)
+* [Получить информацию о самозанятом](docs/examples/07-self-employed.md#Получить-информацию-о-самозанятом)
 
 #### [Работа с персональными данными](docs/examples/08-personal-data.md)
 * [Создание персональных данных](docs/examples/08-personal-data.md#Создание-персональных-данных)

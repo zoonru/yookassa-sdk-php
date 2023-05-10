@@ -10,9 +10,65 @@
 
 ---
 ### Examples
-02-builder.php 91 56 Пример использования билдера
+Пример использования билдера
 
 ```php
+try {
+    $receiptBuilder = \YooKassa\Request\Receipts\CreatePostReceiptRequest::builder();
+    $receiptBuilder->setType(\YooKassa\Model\ReceiptType::PAYMENT)
+        ->setObjectId('24b94598-000f-5000-9000-1b68e7b15f3f', \YooKassa\Model\ReceiptType::PAYMENT) // payment_id
+        ->setCustomer(array(
+            'email' => 'john.doe@merchant.com',
+            'phone' => '71111111111',
+        ))
+        ->setItems(array(
+            array(
+                'description' => 'Платок Gucci',
+                'quantity' => '1.00',
+                'amount' => array(
+                    'value' => '3000.00',
+                    'currency' => 'RUB',
+                ),
+                'vat_code' => 2,
+                'payment_mode' => 'full_payment',
+                'payment_subject' => 'commodity',
+            ),
+        ))
+        ->setSettlements(array(
+            array(
+                'type' => 'prepayment',
+                'amount' => array(
+                    'value' => 100.00,
+                    'currency' => 'RUB',
+                ),
+            ),
+        ))
+        ->setSend(true);
+
+    // Создаем объект запроса
+    $request = $receiptBuilder->build();
+
+    // Можно изменить данные, если нужно
+    $request->setOnBehalfOf('159753');
+    $request->addItem(new \YooKassa\Model\ReceiptItem(array(
+        'description' => 'Платок Gucci Новый',
+        'quantity' => '1.00',
+        'amount' => array(
+            'value' => '3500.00',
+            'currency' => 'RUB',
+        ),
+        'vat_code' => 2,
+        'payment_mode' => 'full_payment',
+        'payment_subject' => 'commodity',
+    )));
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createReceipt($request, $idempotenceKey);
+} catch (Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -48,12 +104,12 @@
 | public | [getTaxSystemCode()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.md#method_getTaxSystemCode) |  | Возвращает код системы налогообложения |
 | public | [getType()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.md#method_getType) |  | Возвращает тип чека в онлайн-кассе |
 | public | [hasCustomer()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.md#method_hasCustomer) |  | Проверяет наличие данных о плательщике |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
 | public | [notEmpty()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.md#method_notEmpty) |  | Проверяет есть ли в чеке хотя бы одна позиция товаров и оплат |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [setAdditionalUserProps()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.md#method_setAdditionalUserProps) |  | Устанавливает дополнительный реквизит пользователя |
 | public | [setCustomer()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.md#method_setCustomer) |  | Устанавливает информацию о плательщике |
 | public | [setItems()](../classes/YooKassa-Request-Receipts-CreatePostReceiptRequest.md#method_setItems) |  | Устанавливает список позиций в чеке |
@@ -539,16 +595,20 @@ public hasCustomer() : bool
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
-#### public jsonSerialize() : mixed
+#### public jsonSerialize() : array
 
 ```php
-public jsonSerialize() : mixed
+public jsonSerialize() : array
 ```
+
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
-**Returns:** mixed - 
+**Returns:** array - Ассоциативный массив со свойствами текущего объекта
 
 
 <a name="method_notEmpty" class="anchor"></a>
@@ -569,11 +629,15 @@ public notEmpty() : bool
 
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -581,17 +645,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -599,17 +667,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -617,18 +689,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -636,9 +712,9 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setAdditionalUserProps" class="anchor"></a>
@@ -1018,6 +1094,6 @@ protected setValidationError(string $value) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

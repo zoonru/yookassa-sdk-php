@@ -604,7 +604,34 @@ class Receipt extends AbstractObject implements ReceiptInterface
             }
         }
 
+        if (!empty($sourceArray['receipt_industry_details'])) {
+            foreach ($sourceArray['receipt_industry_details'] as $i => $itemArray) {
+                if (is_array($itemArray)) {
+                    $sourceArray['receipt_industry_details'][$i] = new IndustryDetails($itemArray);
+                }
+            }
+        }
+
+        if (!empty($sourceArray['receipt_operational_details'])) {
+            $sourceArray['receipt_operational_details'] = new OperationalDetails($sourceArray['receipt_operational_details']);
+        }
+
         parent::fromArray($sourceArray);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $result = parent::jsonSerialize();
+        unset($result['email'], $result['phone'], $result['amount_value'], $result['shipping_amount_value']);
+        if (empty($result['settlements'])) {
+            unset($result['settlements']);
+        }
+        return $result;
     }
 
     /**

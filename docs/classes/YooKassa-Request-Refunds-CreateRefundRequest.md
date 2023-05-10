@@ -10,9 +10,44 @@
 
 ---
 ### Examples
-02-builder.php 148 35 Пример использования билдера
+Пример использования билдера
 
 ```php
+// Создание запроса возврата через билдер
+try {
+    $refundBuilder = \YooKassa\Request\Refunds\CreateRefundRequest::builder();
+    $refundBuilder
+                ->setPaymentId('24b94598-000f-5000-9000-1b68e7b15f3f')
+                ->setAmount(3500.00)
+                ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
+                ->setDescription('Не подошел цвет')
+                ->setReceiptItems(array(
+                    array(
+                        'description' => 'Платок Gucci',
+                        'quantity' => '1.00',
+                        'amount' => array(
+                            'value' => '3000.00',
+                            'currency' => 'RUB',
+                        ),
+                        'vat_code' => 2,
+                        'payment_mode' => 'full_payment',
+                        'payment_subject' => 'commodity',
+                    ),
+                ))
+                ->setReceiptEmail('john.doe@merchant.com')
+                ->setTaxSystemCode(1);
+
+    // Создаем объект запроса
+    $request = $refundBuilder->build();
+
+    // Можно изменить данные, если нужно
+    $request->setDescription('Не подошел цвет и размер');
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createRefund($request, $idempotenceKey);
+} catch (Exception $e) {
+    $response = $e;
+}
 
 ```
 
@@ -58,11 +93,11 @@
 | public | [hasPaymentId()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_hasPaymentId) |  | Проверяет, был ли установлена идентификатор платежа |
 | public | [hasReceipt()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_hasReceipt) |  | Проверяет наличие чека |
 | public | [hasSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasSources) |  | Проверяет наличие информации о распределении денег |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  |  |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [removeReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_removeReceipt) |  | Удаляет чек из запроса |
 | public | [setAmount()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_setAmount) |  | Устанавливает сумму |
 | public | [setDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setDeal) |  | Устанавливает данные о сделке, в составе которой проходит возврат |
@@ -78,7 +113,7 @@
 ---
 ### Details
 * File: [lib/Request/Refunds/CreateRefundRequest.php](../../lib/Request/Refunds/CreateRefundRequest.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy:   
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
@@ -96,7 +131,7 @@
 
 Сумма возврата
 
-**Type:** <a href="classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
 
 **Details:**
 
@@ -108,7 +143,7 @@
 
 Сумма возврата
 
-**Type:** <a href="classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
@@ -121,7 +156,7 @@
 
 Информация о сделке
 
-**Type:** <a href="\YooKassa\Model\Deal\RefundDealData|null"><abbr title="\YooKassa\Model\Deal\RefundDealData|null">RefundDealData|null</abbr></a>
+**Type:** <a href="../\YooKassa\Model\Deal\RefundDealData|null"><abbr title="\YooKassa\Model\Deal\RefundDealData|null">RefundDealData|null</abbr></a>
 
 **Details:**
 
@@ -133,7 +168,7 @@
 
 Комментарий к операции возврата, основание для возврата средств покупателю.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -145,7 +180,7 @@
 
 Айди платежа для которого создаётся возврат
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -157,7 +192,7 @@
 
 Идентификатор платежа для которого создаётся возврат
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
@@ -170,7 +205,7 @@
 
 Инстанс чека или null
 
-**Type:** <a href="\YooKassa\Model\ReceiptInterface|null"><abbr title="\YooKassa\Model\ReceiptInterface|null">ReceiptInterface|null</abbr></a>
+**Type:** <a href="../\YooKassa\Model\ReceiptInterface|null"><abbr title="\YooKassa\Model\ReceiptInterface|null">ReceiptInterface|null</abbr></a>
 
 **Details:**
 
@@ -182,7 +217,7 @@
 
 Информация о распределении денег — сколько и в какой магазин нужно перевести
 
-**Type:** <a href="\YooKassa\Model\SourceInterface[]|null"><abbr title="\YooKassa\Model\SourceInterface[]|null">SourceInterface[]|null</abbr></a>
+**Type:** <a href="../\YooKassa\Model\SourceInterface[]|null"><abbr title="\YooKassa\Model\SourceInterface[]|null">SourceInterface[]|null</abbr></a>
 
 **Details:**
 
@@ -579,24 +614,32 @@ public hasSources() : bool
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
-#### public jsonSerialize() : mixed
+#### public jsonSerialize() : array
 
 ```php
-public jsonSerialize() : mixed
+public jsonSerialize() : array
 ```
+
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
-**Returns:** mixed - 
+**Returns:** array - Ассоциативный массив со свойствами текущего объекта
 
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -604,17 +647,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -622,17 +669,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -640,18 +691,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -659,9 +714,9 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_removeReceipt" class="anchor"></a>
@@ -925,6 +980,6 @@ protected setValidationError(string $value) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

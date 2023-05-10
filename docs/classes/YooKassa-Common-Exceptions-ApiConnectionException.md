@@ -30,7 +30,7 @@
 ---
 ### Details
 * File: [lib/Common/Exceptions/ApiConnectionException.php](../../lib/Common/Exceptions/ApiConnectionException.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy:  
   * [\Exception](\Exception)
   * [\YooKassa\Common\Exceptions\ApiException](../classes/YooKassa-Common-Exceptions-ApiException.md)
@@ -41,7 +41,7 @@
 <a name="property_responseBody"></a>
 #### protected $responseBody : mixed
 ---
-**Type:** <a href="mixed"><abbr title="mixed">mixed</abbr></a>
+**Type:** <a href="../mixed"><abbr title="mixed">mixed</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\Exceptions\ApiException](../classes/YooKassa-Common-Exceptions-ApiException.md)
@@ -50,7 +50,7 @@
 <a name="property_responseHeaders"></a>
 #### protected $responseHeaders : string[]
 ---
-**Type:** <a href="string[]"><abbr title="string[]">string[]</abbr></a>
+**Type:** <a href="../string[]"><abbr title="string[]">string[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\Exceptions\ApiException](../classes/YooKassa-Common-Exceptions-ApiException.md)
@@ -126,6 +126,6 @@ public getResponseHeaders() : string[]
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

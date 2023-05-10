@@ -45,11 +45,11 @@ Class IndustryDetails
 | public | [getDocumentNumber()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getDocumentNumber) |  | Возвращает номер нормативного акта федерального органа исполнительной власти |
 | public | [getFederalId()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getFederalId) |  | Возвращает идентификатор федерального органа исполнительной власти |
 | public | [getValue()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getValue) |  | Возвращает значение отраслевого реквизита |
-| public | [jsonSerialize()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_jsonSerialize) |  |  |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [setDocumentDate()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setDocumentDate) |  | Устанавливает дату документа основания |
 | public | [setDocumentNumber()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setDocumentNumber) |  | Устанавливает номер нормативного акта федерального органа исполнительной власти |
 | public | [setFederalId()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setFederalId) |  | Устанавливает идентификатор федерального органа исполнительной власти |
@@ -92,13 +92,13 @@ DOCUMENT_DATE_FORMAT = 'Y-m-d' : string
 ---
 ## Properties
 <a name="property_document_date"></a>
-#### public $document_date : \YooKassa\Model\Receipt\Datetime
+#### public $document_date : \DateTime
 ---
 ***Description***
 
 Дата документа основания (тег в 54 ФЗ — 1263)
 
-**Type:** \YooKassa\Model\Receipt\Datetime
+**Type:** \DateTime
 
 **Details:**
 
@@ -110,19 +110,19 @@ DOCUMENT_DATE_FORMAT = 'Y-m-d' : string
 
 Номер нормативного акта федерального органа исполнительной власти (тег в 54 ФЗ — 1264)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
 
 <a name="property_documentDate"></a>
-#### public $documentDate : \YooKassa\Model\Receipt\Datetime
+#### public $documentDate : \DateTime
 ---
 ***Description***
 
 Дата документа основания (тег в 54 ФЗ — 1263)
 
-**Type:** \YooKassa\Model\Receipt\Datetime
+**Type:** \DateTime
 
 **Details:**
 
@@ -134,7 +134,7 @@ DOCUMENT_DATE_FORMAT = 'Y-m-d' : string
 
 Номер нормативного акта федерального органа исполнительной власти (тег в 54 ФЗ — 1264)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -146,7 +146,7 @@ DOCUMENT_DATE_FORMAT = 'Y-m-d' : string
 
 Идентификатор федерального органа исполнительной власти (тег в 54 ФЗ — 1262)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -158,7 +158,7 @@ DOCUMENT_DATE_FORMAT = 'Y-m-d' : string
 
 Идентификатор федерального органа исполнительной власти (тег в 54 ФЗ — 1262)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -170,7 +170,7 @@ DOCUMENT_DATE_FORMAT = 'Y-m-d' : string
 
 Значение отраслевого реквизита (тег в 54 ФЗ — 1265)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -312,10 +312,10 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 
 
 <a name="method_getDocumentDate" class="anchor"></a>
-#### public getDocumentDate() : \YooKassa\Model\Receipt\Datetime
+#### public getDocumentDate() : \DateTime
 
 ```php
-public getDocumentDate() : \YooKassa\Model\Receipt\Datetime
+public getDocumentDate() : \DateTime
 ```
 
 **Summary**
@@ -325,7 +325,7 @@ public getDocumentDate() : \YooKassa\Model\Receipt\Datetime
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
 
-**Returns:** \YooKassa\Model\Receipt\Datetime - Дата документа основания
+**Returns:** \DateTime - Дата документа основания
 
 
 <a name="method_getDocumentNumber" class="anchor"></a>
@@ -386,6 +386,10 @@ public getValue() : string
 public jsonSerialize() : array
 ```
 
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
 
@@ -397,11 +401,15 @@ public jsonSerialize() : array
 | inheritdoc |  |  |
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -409,17 +417,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -427,17 +439,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -445,18 +461,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -464,16 +484,16 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setDocumentDate" class="anchor"></a>
 #### public setDocumentDate() : mixed
 
 ```php
-public setDocumentDate(string|\YooKassa\Model\Receipt\Datetime $value) : mixed
+public setDocumentDate(string|\DateTime $value) : mixed
 ```
 
 **Summary**
@@ -486,7 +506,7 @@ public setDocumentDate(string|\YooKassa\Model\Receipt\Datetime $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR \YooKassa\Model\Receipt\Datetime</code> | value  | Дата документа основания |
+| <code lang="php">string OR \DateTime</code> | value  | Дата документа основания |
 
 ##### Throws:
 | Type | Description |
@@ -613,6 +633,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

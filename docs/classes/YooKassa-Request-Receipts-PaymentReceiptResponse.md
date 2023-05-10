@@ -75,12 +75,12 @@
 | public | [getStatus()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getStatus) |  | Возвращает статус доставки данных для чека в онлайн-кассу |
 | public | [getTaxSystemCode()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getTaxSystemCode) |  | Возвращает код системы налогообложения |
 | public | [getType()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getType) |  | Возвращает тип чека в онлайн-кассе |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
 | public | [notEmpty()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_notEmpty) |  | Проверяет есть ли в чеке хотя бы одна позиция |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [setFiscalAttribute()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalAttribute) |  | Устанавливает фискальный признак чека |
 | public | [setFiscalDocumentNumber()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalDocumentNumber) |  | Устанавливает номер фискального документа |
 | public | [setFiscalProviderId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalProviderId) |  | Устанавливает идентификатор чека в онлайн-кассе |
@@ -142,7 +142,7 @@ LENGTH_PAYMENT_ID = 36
 
 Фискальный признак чека. Формируется фискальным накопителем на основе данных, переданных для регистрации чека.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -155,7 +155,7 @@ LENGTH_PAYMENT_ID = 36
 
 Номер фискального документа.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -168,7 +168,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -181,7 +181,7 @@ LENGTH_PAYMENT_ID = 36
 
 Номер фискального накопителя в кассовом аппарате.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -194,7 +194,7 @@ LENGTH_PAYMENT_ID = 36
 
 Фискальный признак чека. Формируется фискальным накопителем на основе данных, переданных для регистрации чека.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -207,7 +207,7 @@ LENGTH_PAYMENT_ID = 36
 
 Номер фискального документа.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -220,7 +220,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -233,7 +233,7 @@ LENGTH_PAYMENT_ID = 36
 
 Номер фискального накопителя в кассовом аппарате.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -246,7 +246,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор чека в ЮKassa.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -259,7 +259,7 @@ LENGTH_PAYMENT_ID = 36
 
 Список товаров в заказе.
 
-**Type:** <a href="\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]"><abbr title="\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]">ReceiptResponseItemInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]"><abbr title="\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]">ReceiptResponseItemInterface[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -272,7 +272,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор объекта чека.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -285,7 +285,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор объекта чека.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -298,7 +298,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор магазина.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -311,7 +311,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор магазина.
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -324,7 +324,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор платежа в ЮKassa
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -336,7 +336,7 @@ LENGTH_PAYMENT_ID = 36
 
 Идентификатор платежа в ЮKassa
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -348,7 +348,7 @@ LENGTH_PAYMENT_ID = 36
 
 Отраслевой реквизит чека.
 
-**Type:** <a href="\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -361,7 +361,7 @@ LENGTH_PAYMENT_ID = 36
 
 Операционный реквизит чека.
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -374,7 +374,7 @@ LENGTH_PAYMENT_ID = 36
 
 Отраслевой реквизит чека.
 
-**Type:** <a href="\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -387,7 +387,7 @@ LENGTH_PAYMENT_ID = 36
 
 Операционный реквизит чека.
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-OperationalDetails.html"><abbr title="\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -426,7 +426,7 @@ LENGTH_PAYMENT_ID = 36
 
 Перечень совершенных расчетов.
 
-**Type:** <a href="\YooKassa\Model\SettlementInterface[]"><abbr title="\YooKassa\Model\SettlementInterface[]">SettlementInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\SettlementInterface[]"><abbr title="\YooKassa\Model\SettlementInterface[]">SettlementInterface[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -439,7 +439,7 @@ LENGTH_PAYMENT_ID = 36
 
 Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled").
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -452,7 +452,7 @@ LENGTH_PAYMENT_ID = 36
 
 Код системы налогообложения. Число 1-6.
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -465,7 +465,7 @@ LENGTH_PAYMENT_ID = 36
 
 Код системы налогообложения. Число 1-6.
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -478,7 +478,7 @@ LENGTH_PAYMENT_ID = 36
 
 Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -961,16 +961,20 @@ public getType() : string
 | inheritdoc |  |  |
 
 <a name="method_jsonSerialize" class="anchor"></a>
-#### public jsonSerialize() : mixed
+#### public jsonSerialize() : array
 
 ```php
-public jsonSerialize() : mixed
+public jsonSerialize() : array
 ```
+
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
-**Returns:** mixed - 
+**Returns:** array - Ассоциативный массив со свойствами текущего объекта
 
 
 <a name="method_notEmpty" class="anchor"></a>
@@ -991,11 +995,15 @@ public notEmpty() : bool
 
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1003,17 +1011,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1021,17 +1033,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1039,18 +1055,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1058,9 +1078,9 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setFiscalAttribute" class="anchor"></a>
@@ -1545,6 +1565,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

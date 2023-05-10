@@ -56,7 +56,7 @@
 
 Инстанс собираемого запроса
 
-**Type:** <a href="classes/YooKassa-Request-Payments-PaymentsRequest.html"><abbr title="\YooKassa\Request\Payments\PaymentsRequest">PaymentsRequest</abbr></a>
+**Type:** <a href="../classes/YooKassa-Request-Payments-PaymentsRequest.html"><abbr title="\YooKassa\Request\Payments\PaymentsRequest">PaymentsRequest</abbr></a>
 Собираемый объект запроса списка платежей магазина
 **Details:**
 
@@ -498,6 +498,6 @@ protected initCurrentObject() : \YooKassa\Request\Payments\PaymentsRequest
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

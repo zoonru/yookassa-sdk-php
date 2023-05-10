@@ -8,6 +8,7 @@ use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\MonetaryAmount;
 use YooKassa\Model\Payment;
 use YooKassa\Model\Receipt;
+use YooKassa\Model\Receipt\OperationalDetails;
 use YooKassa\Model\Receipt\ReceiptItemAmount;
 use YooKassa\Model\Receipt\SettlementType;
 use YooKassa\Model\ReceiptCustomer;
@@ -758,6 +759,11 @@ class ReceiptTest extends TestCase
                             )
                         )
                     ),
+                    'receipt_operational_details' => array(
+                        'operation_id' => '456',
+                        'value' => '00-tr-589',
+                        'created_at' => '2012-11-03T11:52:31.827Z',
+                    ),
                 ),
                 array(
                     'taxSystemCode' => 3,
@@ -775,7 +781,12 @@ class ReceiptTest extends TestCase
                         $settlement,
                         new Settlement(),
                         $settlement
-                    )
+                    ),
+                    'receipt_operational_details' => new OperationalDetails(array(
+                        'operation_id' => '456',
+                        'value' => '00-tr-589',
+                        'created_at' => '2012-11-03T11:52:31.827Z',
+                    )),
                 ),
             ),
         );

@@ -24,12 +24,12 @@ composer require yoomoney/yookassa-sdk-php
 ```
 
 ### Do the following for the composer.json file of your project:
-1. Add a string `"yoomoney/yookassa-sdk-php": "^2.4"` to the list of dependencies of your project in the composer.json file
+1. Add a string `"yoomoney/yookassa-sdk-php": "^2.8"` to the list of dependencies of your project in the composer.json file
 ```
 ...
    "require": {
         "php": ">=5.3.2",
-        "yoomoney/yookassa-sdk-php": "^2.4"
+        "yoomoney/yookassa-sdk-php": "^2.8"
 ...
 ```
 2. Refresh the project's dependencies. In the console, navigate to the catalog with composer.json and run the following command:
@@ -105,11 +105,20 @@ $client->setAuth('shopId', 'secretKey');
 
 #### [Working with payouts](docs/examples/06-payouts.md)
 * [Request to create a payout](docs/examples/06-payouts.md#Запрос-на-выплату-продавцу)
+  * [Payouts to bank card](docs/examples/06-payouts.md#проведение-выплаты-на-банковскую-карту)
+  * [Payouts to YooMoney wallets](docs/examples/06-payouts.md#проведение-выплаты-на-кошелек-юmoney)
+  * [Payouts via Fast Payment Service](docs/examples/06-payouts.md#проведение-выплаты-через-сбп)
+  * [Payouts to self-employed](docs/examples/06-payouts.md#выплаты-самозанятым)
+  * [Payouts by safe deal](docs/examples/06-payouts.md#проведение-выплаты-по-безопасной-сделке)
 * [Get payout information](docs/examples/06-payouts.md#Получить-информацию-о-выплате)
+
+#### [Working with self-employed](docs/examples/07-self-employed.md)
+* [Creation of self-employed](docs/examples/07-self-employed.md#Запрос-на-создание-самозанятого)
+* [Get information about self-employed](docs/examples/07-self-employed.md#Получить-информацию-о-самозанятом)
 
 #### [Working with personal data](docs/examples/08-personal-data.md)
 * [Creation of personal data](docs/examples/08-personal-data.md#Создание-персональных-данных)
 * [Get information about personal data](docs/examples/08-personal-data.md#Получить-информацию-о-персональных-данных)
 
-#### [Working with the list of SBP participants](docs/examples/09-sbp-banks.md)
-* [Get a list of SBP participants](docs/examples/09-sbp-banks.md#Получить-список-участников-СБП)
+#### [Working with the list of Fast Payment Service participants](docs/examples/09-sbp-banks.md)
+* [Get a list of Fast Payment Service participants](docs/examples/09-sbp-banks.md#Получить-список-участников-СБП)

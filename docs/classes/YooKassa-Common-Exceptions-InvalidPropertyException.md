@@ -18,7 +18,7 @@
 ---
 ### Details
 * File: [lib/Common/Exceptions/InvalidPropertyException.php](../../lib/Common/Exceptions/InvalidPropertyException.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy: 
   * [\InvalidArgumentException](\InvalidArgumentException)
   * \YooKassa\Common\Exceptions\InvalidPropertyException
@@ -78,6 +78,6 @@ public getProperty() : string
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

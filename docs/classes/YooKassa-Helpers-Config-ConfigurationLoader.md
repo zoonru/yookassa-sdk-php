@@ -18,7 +18,7 @@
 ---
 ### Details
 * File: [lib/Helpers/Config/ConfigurationLoader.php](../../lib/Helpers/Config/ConfigurationLoader.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy:
   * \YooKassa\Helpers\Config\ConfigurationLoader
 * Implements:
@@ -73,6 +73,6 @@ public load(mixed $filePath = null) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

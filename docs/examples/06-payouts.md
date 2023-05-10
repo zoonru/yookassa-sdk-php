@@ -14,6 +14,11 @@ SDK позволяет проводить выплаты, а также полу
 Набор возвращаемых параметров зависит от статуса объекта (значение параметра status) и того, какие параметры вы передали в запросе на создание выплаты.
 
 * [Запрос на выплату продавцу](#Запрос-на-выплату-продавцу)
+  * [Проведение выплаты на банковскую карту](#проведение-выплаты-на-банковскую-карту)
+  * [Проведение выплаты на кошелек ЮMoney](#проведение-выплаты-на-кошелек-юmoney)
+  * [Проведение выплаты через СБП](#проведение-выплаты-через-сбп)
+  * [Выплаты самозанятым](#выплаты-самозанятым)
+  * [Проведение выплаты по безопасной сделке](#проведение-выплаты-по-безопасной-сделке)
 * [Получить информацию о выплате](#Получить-информацию-о-выплате)
 
 ---
@@ -27,6 +32,10 @@ SDK позволяет проводить выплаты, а также полу
 
 В ответ на запрос придет объект выплаты - `PayoutResponse` в актуальном статусе.
 
+[Подробнее о проведении выплат](https://yookassa.ru/developers/solutions-for-platforms/safe-deal/integration/payouts)
+
+#### Проведение выплаты на банковскую карту <a name="проведение-выплаты-на-банковскую-карту"></a>
+
 ```php
 require_once 'vendor/autoload.php';
 
@@ -39,27 +48,14 @@ $request = array(
         'currency' => 'RUB',
     ),
     'payout_destination_data' => array(
-        'type' => PaymentMethodType::SBP,
-        'bank_id' => '100000000111',
-        'phone' => '79001002030',
+        'type' => 'bank_card',
+        'card' => array(
+            'number' => '5555555555554477',
+        ),
     ),
     'description' => 'Выплата по заказу №37',
     'metadata' => array(
         'order_id' => '37',
-    ),
-    'payment_method_id' => '2a217a2d-000f-5000-9000-1bd6f124af9c',
-    'self_employed' => array('id' => 'se-285c0ab7-0003-5000-9000-0e1166498fda'),
-    'receipt_data' => array(
-        'service_name' => 'Оказание услуг по доставке товара', 
-        'amount' => array(
-            'value' => '10.00', 
-            'currency' => 'RUB',
-        ),
-    ),
-    'personal_data' => array(
-        array(
-            'id' => 'pd-285c0ab7-0003-5000-9000-0e1166498fda',
-        ),
     ),
 );
 $idempotenceKey = uniqid('', true);
@@ -71,7 +67,139 @@ try {
 
 var_dump($result);
 ```
-[Подробнее о проведении выплат](https://yookassa.ru/developers/solutions-for-platforms/safe-deal/integration/payouts)
+
+#### Проведение выплаты на кошелек ЮMoney <a name="проведение-выплаты-на-кошелек-юmoney"></a>
+
+```php
+require_once 'vendor/autoload.php';
+
+$client = new \YooKassa\Client();
+$client->setAuth('xxxxxx', 'test_XXXXXXX');
+
+$request = array(
+    'amount' => array(
+        'value' => '80.00',
+        'currency' => 'RUB',
+    ),
+    'payout_destination_data' => array(
+        'type' => 'yoo_money',
+        'account_number' => '4100116075156746',
+    ),
+    'description' => 'Выплата по заказу №37',
+    'metadata' => array(
+        'order_id' => '37',
+    ),
+);
+$idempotenceKey = uniqid('', true);
+try {
+    $result = $client->createPayout($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $result = $e;
+}
+
+var_dump($result);
+```
+
+#### Проведение выплаты через СБП <a name="проведение-выплаты-через-сбп"></a>
+
+```php
+require_once 'vendor/autoload.php';
+
+$client = new \YooKassa\Client();
+$client->setAuth('xxxxxx', 'test_XXXXXXX');
+
+$request = array(
+    'amount' => array(
+        'value' => '80.00',
+        'currency' => 'RUB',
+    ),
+    'payout_destination_data' => array(
+        'type' => 'sbp',
+        'phone' => '79000000000',
+        'bank_id' => '100000000111',
+    ),
+    'description' => 'Выплата по заказу №37',
+    'metadata' => array(
+        'order_id' => '37',
+    ),
+);
+$idempotenceKey = uniqid('', true);
+try {
+    $result = $client->createPayout($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $result = $e;
+}
+
+var_dump($result);
+```
+
+#### Выплаты самозанятым <a name="выплаты-самозанятым"></a>
+
+```php
+require_once 'vendor/autoload.php';
+
+$client = new \YooKassa\Client();
+$client->setAuth('xxxxxx', 'test_XXXXXXX');
+
+$request = array(
+    'amount' => array(
+        'value' => '80.00',
+        'currency' => 'RUB',
+    ),
+    'payout_token' => '<Синоним банковской карты>',
+    'self_employed' => array(
+        'id' => 'se-d6b9b3fa-0cb8-4aa8-b3c0-254bf0358d4c',
+    ),
+    'receipt_data' => array(
+        'service_name' => 'Доставка документов'
+    ),
+    'description' => 'Выплата по заказу №37',
+    'metadata' => array(
+        'order_id' => '37',
+        'courier_id' => '001',
+    ),
+);
+$idempotenceKey = uniqid('', true);
+try {
+    $result = $client->createPayout($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $result = $e;
+}
+
+var_dump($result);
+```
+
+#### Проведение выплаты по безопасной сделке <a name="проведение-выплаты-по-безопасной-сделке"></a>
+
+```php
+require_once 'vendor/autoload.php';
+
+$client = new \YooKassa\Client();
+$client->setAuth('xxxxxx', 'test_XXXXXXX');
+
+$request = array(
+    'amount' => array(
+        'value' => '800.00',
+        'currency' => 'RUB',
+    ),
+    'payout_token' => '<Синоним банковской карты>',
+    'description' => 'Выплата по заказу №37',
+    'metadata' => array(
+        'order_id' => '37'
+    ),
+    'deal' => array(
+        'id' => 'dl-285e5ee7-0022-5000-8000-01516a44b147',
+    ),
+);
+$idempotenceKey = uniqid('', true);
+try {
+    $result = $client->createPayout($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $result = $e;
+}
+
+var_dump($result);
+```
 
 ---
 

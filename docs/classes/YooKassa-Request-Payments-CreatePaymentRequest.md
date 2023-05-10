@@ -10,9 +10,87 @@
 
 ---
 ### Examples
-02-builder.php 11 78 Пример использования билдера
+Пример использования билдера
 
 ```php
+try {
+    $builder = \YooKassa\Request\Payments\CreatePaymentRequest::builder();
+    $builder->setAmount(100)
+            ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
+            ->setCapture(true)
+            ->setDescription('Оплата заказа 112233')
+            ->setMetadata(array(
+                'cms_name'       => 'yoo_api_test',
+                'order_id'       => '112233',
+                'language'       => 'ru',
+                'transaction_id' => '123-456-789',
+            ));
+
+    // Устанавливаем страницу для редиректа после оплаты
+    $builder->setConfirmation(array(
+        'type'      => \YooKassa\Model\ConfirmationType::REDIRECT,
+        'returnUrl' => 'https://merchant-site.ru/payment-return-page',
+    ));
+
+    // Можем установить конкретный способ оплаты
+    $builder->setPaymentMethodData(\YooKassa\Model\PaymentMethodType::BANK_CARD);
+
+    // Составляем чек
+    $builder->setReceiptEmail('john.doe@merchant.com');
+    $builder->setReceiptPhone('71111111111');
+    // Добавим товар
+    $builder->addReceiptItem(
+        'Платок Gucci',
+        3000,
+        1.0,
+        2,
+        'full_payment',
+        'commodity'
+    );
+    // Добавим доставку
+    $builder->addReceiptShipping(
+        'Delivery/Shipping/Доставка',
+        100,
+        1,
+        \YooKassa\Model\Receipt\PaymentMode::FULL_PAYMENT,
+        \YooKassa\Model\Receipt\PaymentSubject::SERVICE
+    );
+
+    // Можно добавить распределение денег по магазинам
+    $builder->setTransfers(array(
+        array(
+            'account_id' => 123456,
+            'amount' => array(
+                array(
+                    'value' => 1000,
+                    'currency' => \YooKassa\Model\CurrencyCode::RUB
+                )
+            ),
+        ),
+        array(
+            'account_id' => 654321,
+            'amount' => array(
+                array(
+                    'value' => 2000,
+                    'currency' => \YooKassa\Model\CurrencyCode::RUB
+                )
+            ),
+        )
+    ));
+
+    // Создаем объект запроса
+    $request = $builder->build();
+
+    // Можно изменить данные, если нужно
+    $request->setDescription($request->getDescription() . ' - merchant comment');
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createPayment($request, $idempotenceKey);
+} catch (\Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
 
 ```
 
@@ -26,6 +104,7 @@
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
+| public | [$airline](../classes/YooKassa-Common-AbstractPaymentRequest.md#property_airline) |  | Данные фискального чека 54-ФЗ |
 | public | [$amount](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#property_amount) |  | Сумма создаваемого платежа |
 | public | [$amount](../classes/YooKassa-Common-AbstractPaymentRequest.md#property_amount) |  | Сумма |
 | public | [$capture](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#property_capture) |  | Автоматически принять поступившую оплату |
@@ -64,7 +143,7 @@
 | public | [builder()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_builder) |  | Возвращает билдер объектов запросов создания платежа |
 | public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса |
 | public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getAirline()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_getAirline) |  | Возвращает данные авиабилетов |
+| public | [getAirline()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_getAirline) |  | Возвращает данные авиабилетов |
 | public | [getAmount()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_getAmount) |  | Возвращает сумму оплаты |
 | public | [getCapture()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_getCapture) |  | Возвращает флаг автоматического принятия поступившей оплаты |
 | public | [getClientIp()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_getClientIp) |  | Возвращает IPv4 или IPv6-адрес покупателя |
@@ -82,7 +161,7 @@
 | public | [getRecipient()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_getRecipient) |  | Возвращает объект получателя платежа |
 | public | [getSavePaymentMethod()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_getSavePaymentMethod) |  | Возвращает флаг сохранения платёжных данных |
 | public | [getTransfers()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_getTransfers) |  | Возвращает данные о распределении денег — сколько и в какой магазин нужно перевести. |
-| public | [hasAirline()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_hasAirline) |  | Проверяет, были ли установлены данные авиабилетов |
+| public | [hasAirline()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_hasAirline) |  | Проверяет, были ли установлены данные авиабилетов |
 | public | [hasAmount()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_hasAmount) |  | Проверяет, была ли установлена сумма оплаты |
 | public | [hasCapture()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_hasCapture) |  | Проверяет, был ли установлен флаг автоматического принятия поступившей оплаты |
 | public | [hasClientIp()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_hasClientIp) |  | Проверяет, был ли установлен IPv4 или IPv6-адрес покупателя |
@@ -99,14 +178,14 @@
 | public | [hasRecipient()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_hasRecipient) |  | Проверяет наличие получателя платежа в запросе |
 | public | [hasSavePaymentMethod()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_hasSavePaymentMethod) |  | Проверяет, был ли установлен флаг сохранения платёжных данных |
 | public | [hasTransfers()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_hasTransfers) |  | Проверяет наличие данных о распределении денег |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  |  |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [removeReceipt()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_removeReceipt) |  | Удаляет чек из запроса |
-| public | [setAirline()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_setAirline) |  | Устанавливает данные авиабилетов |
-| public | [setAmount()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_setAmount) |  | Устанавливает сумму оплаты |
+| public | [setAirline()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_setAirline) |  | Устанавливает информацию об авиабилетах |
+| public | [setAmount()](../classes/YooKassa-Common-AbstractPaymentRequest.md#method_setAmount) |  | Устанавливает сумму |
 | public | [setCapture()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_setCapture) |  | Устанавливает флаг автоматического принятия поступившей оплаты |
 | public | [setClientIp()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_setClientIp) |  | Устанавливает IP адрес покупателя |
 | public | [setConfirmation()](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md#method_setConfirmation) |  | Устанавливает способ подтверждения платежа |
@@ -151,6 +230,19 @@ MAX_LENGTH_PAYMENT_TOKEN = 10240
 
 ---
 ## Properties
+<a name="property_airline"></a>
+#### public $airline : \YooKassa\Model\AirlineInterface
+---
+***Description***
+
+Данные фискального чека 54-ФЗ
+
+**Type:** <a href="../classes/YooKassa-Model-AirlineInterface.html"><abbr title="\YooKassa\Model\AirlineInterface">AirlineInterface</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md)
+
+
 <a name="property_amount"></a>
 #### public $amount : \YooKassa\Model\AmountInterface
 ---
@@ -158,7 +250,7 @@ MAX_LENGTH_PAYMENT_TOKEN = 10240
 
 Сумма создаваемого платежа
 
-**Type:** <a href="classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
 
 **Details:**
 
@@ -170,7 +262,7 @@ MAX_LENGTH_PAYMENT_TOKEN = 10240
 
 Сумма
 
-**Type:** <a href="classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md)
@@ -183,7 +275,7 @@ MAX_LENGTH_PAYMENT_TOKEN = 10240
 
 Автоматически принять поступившую оплату
 
-**Type:** <a href="bool"><abbr title="bool">bool</abbr></a>
+**Type:** <a href="../bool"><abbr title="bool">bool</abbr></a>
 
 **Details:**
 
@@ -195,7 +287,7 @@ MAX_LENGTH_PAYMENT_TOKEN = 10240
 
 IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -207,7 +299,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -219,7 +311,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Способ подтверждения платежа
 
-**Type:** <a href="classes/YooKassa-Model-ConfirmationAttributes-AbstractConfirmationAttributes.html"><abbr title="\YooKassa\Model\ConfirmationAttributes\AbstractConfirmationAttributes">AbstractConfirmationAttributes</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-ConfirmationAttributes-AbstractConfirmationAttributes.html"><abbr title="\YooKassa\Model\ConfirmationAttributes\AbstractConfirmationAttributes">AbstractConfirmationAttributes</abbr></a>
 
 **Details:**
 
@@ -231,7 +323,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Данные о сделке, в составе которой проходит платеж
 
-**Type:** <a href="classes/YooKassa-Model-Deal-PaymentDealInfo.html"><abbr title="\YooKassa\Model\Deal\PaymentDealInfo">PaymentDealInfo</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Deal-PaymentDealInfo.html"><abbr title="\YooKassa\Model\Deal\PaymentDealInfo">PaymentDealInfo</abbr></a>
 
 **Details:**
 
@@ -243,7 +335,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Описание транзакции
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -255,7 +347,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Информация для проверки операции на мошенничество
 
-**Type:** <a href="classes/YooKassa-Model-FraudData.html"><abbr title="\YooKassa\Model\FraudData">FraudData</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-FraudData.html"><abbr title="\YooKassa\Model\FraudData">FraudData</abbr></a>
 
 **Details:**
 
@@ -267,7 +359,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Информация для проверки операции на мошенничество
 
-**Type:** <a href="classes/YooKassa-Model-FraudData.html"><abbr title="\YooKassa\Model\FraudData">FraudData</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-FraudData.html"><abbr title="\YooKassa\Model\FraudData">FraudData</abbr></a>
 
 **Details:**
 
@@ -279,7 +371,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Идентификатор покупателя в вашей системе, например электронная почта или номер телефона
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -291,7 +383,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Идентификатор покупателя в вашей системе, например электронная почта или номер телефона
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -303,7 +395,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Метаданные привязанные к платежу
 
-**Type:** <a href="classes/YooKassa-Model-Metadata.html"><abbr title="\YooKassa\Model\Metadata">Metadata</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Metadata.html"><abbr title="\YooKassa\Model\Metadata">Metadata</abbr></a>
 
 **Details:**
 
@@ -315,7 +407,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Данные используемые для создания метода оплаты
 
-**Type:** <a href="classes/YooKassa-Model-PaymentData-AbstractPaymentData.html"><abbr title="\YooKassa\Model\PaymentData\AbstractPaymentData">AbstractPaymentData</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-PaymentData-AbstractPaymentData.html"><abbr title="\YooKassa\Model\PaymentData\AbstractPaymentData">AbstractPaymentData</abbr></a>
 
 **Details:**
 
@@ -327,7 +419,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Идентификатор записи о сохраненных платежных данных покупателя
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -339,7 +431,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -351,7 +443,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Данные используемые для создания метода оплаты
 
-**Type:** <a href="classes/YooKassa-Model-PaymentData-AbstractPaymentData.html"><abbr title="\YooKassa\Model\PaymentData\AbstractPaymentData">AbstractPaymentData</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-PaymentData-AbstractPaymentData.html"><abbr title="\YooKassa\Model\PaymentData\AbstractPaymentData">AbstractPaymentData</abbr></a>
 
 **Details:**
 
@@ -363,7 +455,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Идентификатор записи о сохраненных платежных данных покупателя
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -375,7 +467,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -387,7 +479,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Данные фискального чека 54-ФЗ
 
-**Type:** <a href="classes/YooKassa-Model-ReceiptInterface.html"><abbr title="\YooKassa\Model\ReceiptInterface">ReceiptInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-ReceiptInterface.html"><abbr title="\YooKassa\Model\ReceiptInterface">ReceiptInterface</abbr></a>
 
 **Details:**
 
@@ -399,7 +491,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Данные фискального чека 54-ФЗ
 
-**Type:** <a href="classes/YooKassa-Model-ReceiptInterface.html"><abbr title="\YooKassa\Model\ReceiptInterface">ReceiptInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-ReceiptInterface.html"><abbr title="\YooKassa\Model\ReceiptInterface">ReceiptInterface</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md)
@@ -412,7 +504,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Получатель платежа, если задан
 
-**Type:** <a href="classes/YooKassa-Model-RecipientInterface.html"><abbr title="\YooKassa\Model\RecipientInterface">RecipientInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-RecipientInterface.html"><abbr title="\YooKassa\Model\RecipientInterface">RecipientInterface</abbr></a>
 
 **Details:**
 
@@ -424,7 +516,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
 
-**Type:** <a href="bool"><abbr title="bool">bool</abbr></a>
+**Type:** <a href="../bool"><abbr title="bool">bool</abbr></a>
 
 **Details:**
 
@@ -436,7 +528,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
 
-**Type:** <a href="bool"><abbr title="bool">bool</abbr></a>
+**Type:** <a href="../bool"><abbr title="bool">bool</abbr></a>
 
 **Details:**
 
@@ -448,7 +540,7 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 Данные о распределении платежа между магазинами
 
-**Type:** <a href="\YooKassa\Model\TransferInterface[]"><abbr title="\YooKassa\Model\TransferInterface[]">TransferInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\TransferInterface[]"><abbr title="\YooKassa\Model\TransferInterface[]">TransferInterface[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md)
@@ -636,7 +728,7 @@ public getAirline() : \YooKassa\Model\AirlineInterface
 Возвращает данные авиабилетов
 
 **Details:**
-* Inherited From: [\YooKassa\Request\Payments\CreatePaymentRequest](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md)
+* Inherited From: [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md)
 
 **Returns:** \YooKassa\Model\AirlineInterface - Данные авиабилетов
 
@@ -947,7 +1039,7 @@ public hasAirline() : bool
 Проверяет, были ли установлены данные авиабилетов
 
 **Details:**
-* Inherited From: [\YooKassa\Request\Payments\CreatePaymentRequest](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md)
+* Inherited From: [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md)
 
 **Returns:** bool - 
 
@@ -1225,24 +1317,32 @@ public hasTransfers() : bool
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
-#### public jsonSerialize() : mixed
+#### public jsonSerialize() : array
 
 ```php
-public jsonSerialize() : mixed
+public jsonSerialize() : array
 ```
+
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
-**Returns:** mixed - 
+**Returns:** array - Ассоциативный массив со свойствами текущего объекта
 
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1250,17 +1350,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1268,17 +1372,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1286,18 +1394,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1305,9 +1417,9 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_removeReceipt" class="anchor"></a>
@@ -1328,37 +1440,15 @@ public removeReceipt() : mixed
 
 
 <a name="method_setAirline" class="anchor"></a>
-#### public setAirline() : mixed
+#### public setAirline() : \YooKassa\Common\AbstractPaymentRequest
 
 ```php
-public setAirline(\YooKassa\Model\AirlineInterface $value) : mixed
+public setAirline(\YooKassa\Model\AirlineInterface|array|null $value) : \YooKassa\Common\AbstractPaymentRequest
 ```
 
 **Summary**
 
-Устанавливает данные авиабилетов
-
-**Details:**
-* Inherited From: [\YooKassa\Request\Payments\CreatePaymentRequest](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md)
-
-##### Parameters:
-| Type | Name | Description |
-| ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\AirlineInterface</code> | value  | Данные авиабилетов |
-
-**Returns:** mixed - 
-
-
-<a name="method_setAmount" class="anchor"></a>
-#### public setAmount() : mixed
-
-```php
-public setAmount(\YooKassa\Model\AmountInterface $value) : mixed
-```
-
-**Summary**
-
-Устанавливает сумму оплаты
+Устанавливает информацию об авиабилетах
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md)
@@ -1366,9 +1456,31 @@ public setAmount(\YooKassa\Model\AmountInterface $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\AmountInterface</code> | value  | Сумма оплаты |
+| <code lang="php">\YooKassa\Model\AirlineInterface OR array OR null</code> | value  | Объект данных длинной записи или ассоциативный массив с данными |
 
-**Returns:** mixed - 
+**Returns:** \YooKassa\Common\AbstractPaymentRequest - 
+
+
+<a name="method_setAmount" class="anchor"></a>
+#### public setAmount() : \YooKassa\Common\AbstractPaymentRequest
+
+```php
+public setAmount(\YooKassa\Model\AmountInterface|array|string $value) : \YooKassa\Common\AbstractPaymentRequest
+```
+
+**Summary**
+
+Устанавливает сумму
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">\YooKassa\Model\AmountInterface OR array OR string</code> | value  | Сумма оплаты |
+
+**Returns:** \YooKassa\Common\AbstractPaymentRequest - Инстанс билдера запросов
 
 
 <a name="method_setCapture" class="anchor"></a>
@@ -1669,7 +1781,7 @@ public setPaymentToken(string $value) : mixed
 #### public setReceipt() : mixed
 
 ```php
-public setReceipt(\YooKassa\Model\ReceiptInterface|null $value) : mixed
+public setReceipt(\YooKassa\Model\ReceiptInterface|array|null $value) : mixed
 ```
 
 **Summary**
@@ -1682,7 +1794,7 @@ public setReceipt(\YooKassa\Model\ReceiptInterface|null $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\ReceiptInterface OR null</code> | value  | Инстанс чека или null для удаления информации о чеке |
+| <code lang="php">\YooKassa\Model\ReceiptInterface OR array OR null</code> | value  | Инстанс чека или null для удаления информации о чеке |
 
 ##### Throws:
 | Type | Description |
@@ -1853,6 +1965,6 @@ protected setValidationError(string $value) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

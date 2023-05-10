@@ -63,7 +63,7 @@
 
 Сумма
 
-**Type:** <a href="classes/YooKassa-Model-MonetaryAmount.html"><abbr title="\YooKassa\Model\MonetaryAmount">MonetaryAmount</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-MonetaryAmount.html"><abbr title="\YooKassa\Model\MonetaryAmount">MonetaryAmount</abbr></a>
 
 **Details:**
 
@@ -75,7 +75,7 @@
 
 Инстанс собираемого запроса
 
-**Type:** <a href="classes/YooKassa-Common-AbstractRequest.html"><abbr title="\YooKassa\Common\AbstractRequest">AbstractRequest</abbr></a>
+**Type:** <a href="../classes/YooKassa-Common-AbstractRequest.html"><abbr title="\YooKassa\Common\AbstractRequest">AbstractRequest</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -88,7 +88,7 @@
 
 Объект с информацией о чеке
 
-**Type:** <a href="classes/YooKassa-Model-Receipt.html"><abbr title="\YooKassa\Model\Receipt">Receipt</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt.html"><abbr title="\YooKassa\Model\Receipt">Receipt</abbr></a>
 
 **Details:**
 
@@ -100,7 +100,7 @@
 
 Массив платежей в пользу разных мерчантов
 
-**Type:** <a href="\YooKassa\Model\TransferInterface[]"><abbr title="\YooKassa\Model\TransferInterface[]">TransferInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\TransferInterface[]"><abbr title="\YooKassa\Model\TransferInterface[]">TransferInterface[]</abbr></a>
 
 **Details:**
 
@@ -462,6 +462,6 @@ protected initCurrentObject() : self
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

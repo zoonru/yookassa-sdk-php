@@ -80,7 +80,7 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
     private $confirmationFactory;
 
     /**
-     * @var Airline Длинная запись
+     * @var AirlineInterface Объект с данными для продажи авиабилетов
      */
     private $airline;
 
@@ -172,9 +172,8 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
         } elseif ($value instanceof AirlineInterface) {
             $this->airline = clone $value;
         } else {
-            throw new InvalidPropertyValueTypeException('Invalid receipt value type', 0, 'receipt', $value);
+            throw new InvalidPropertyValueTypeException('Invalid airline value type', 0, 'airline', $value);
         }
-
 
         return $this;
     }

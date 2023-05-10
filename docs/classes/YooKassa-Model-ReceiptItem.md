@@ -85,11 +85,11 @@
 | public | [getVatCode()](../classes/YooKassa-Model-ReceiptItem.md#method_getVatCode) |  | Возвращает ставку НДС |
 | public | [increasePrice()](../classes/YooKassa-Model-ReceiptItem.md#method_increasePrice) |  | Увеличивает цену товара на указанную величину |
 | public | [isShipping()](../classes/YooKassa-Model-ReceiptItem.md#method_isShipping) |  | Проверяет, является ли текущий элемент чека доставкой |
-| public | [jsonSerialize()](../classes/YooKassa-Model-ReceiptItem.md#method_jsonSerialize) |  |  |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  |  |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  |  |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  |  |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Model-ReceiptItem.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
 | public | [setAdditionalPaymentSubjectProps()](../classes/YooKassa-Model-ReceiptItem.md#method_setAdditionalPaymentSubjectProps) |  | Устанавливает дополнительный реквизит предмета расчета |
 | public | [setAgentType()](../classes/YooKassa-Model-ReceiptItem.md#method_setAgentType) |  | Устанавливает тип посредника, реализующего товар или услугу |
 | public | [setCountryOfOriginCode()](../classes/YooKassa-Model-ReceiptItem.md#method_setCountryOfOriginCode) |  | Устанавливает код страны происхождения товара по общероссийскому классификатору стран мира |
@@ -115,7 +115,7 @@
 ---
 ### Details
 * File: [lib/Model/ReceiptItem.php](../../lib/Model/ReceiptItem.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * \YooKassa\Model\ReceiptItem
@@ -148,7 +148,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Дополнительный реквизит предмета расчета (тег в 54 ФЗ — 1191)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -160,7 +160,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Дополнительный реквизит предмета расчета (тег в 54 ФЗ — 1191)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -172,7 +172,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Тип посредника, реализующего товар или услугу
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -184,7 +184,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Тип посредника, реализующего товар или услугу
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -196,7 +196,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Суммарная стоимость покупаемого товара в копейках/центах
 
-**Type:** <a href="float"><abbr title="float">float</abbr></a>
+**Type:** <a href="../float"><abbr title="float">float</abbr></a>
 
 **Details:**
 
@@ -208,7 +208,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Код страны происхождения товара (тег в 54 ФЗ — 1230)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -220,7 +220,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Код страны происхождения товара (тег в 54 ФЗ — 1230)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -232,7 +232,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -244,7 +244,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -256,7 +256,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Наименование товара (тег в 54 ФЗ — 1030)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -268,7 +268,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Сумма акциза товара с учетом копеек (тег в 54 ФЗ — 1229)
 
-**Type:** <a href="float"><abbr title="float">float</abbr></a>
+**Type:** <a href="../float"><abbr title="float">float</abbr></a>
 
 **Details:**
 
@@ -280,7 +280,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Флаг доставки
 
-**Type:** <a href="bool"><abbr title="bool">bool</abbr></a>
+**Type:** <a href="../bool"><abbr title="bool">bool</abbr></a>
 
 **Details:**
 
@@ -292,7 +292,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Код товара (тег в 54 ФЗ — 1163)
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-MarkCodeInfo.html"><abbr title="\YooKassa\Model\Receipt\MarkCodeInfo">MarkCodeInfo</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-MarkCodeInfo.html"><abbr title="\YooKassa\Model\Receipt\MarkCodeInfo">MarkCodeInfo</abbr></a>
 
 **Details:**
 
@@ -304,7 +304,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -316,7 +316,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-MarkQuantity.html"><abbr title="\YooKassa\Model\Receipt\MarkQuantity">MarkQuantity</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-MarkQuantity.html"><abbr title="\YooKassa\Model\Receipt\MarkQuantity">MarkQuantity</abbr></a>
 
 **Details:**
 
@@ -328,7 +328,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Код товара (тег в 54 ФЗ — 1163)
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-MarkCodeInfo.html"><abbr title="\YooKassa\Model\Receipt\MarkCodeInfo">MarkCodeInfo</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-MarkCodeInfo.html"><abbr title="\YooKassa\Model\Receipt\MarkCodeInfo">MarkCodeInfo</abbr></a>
 
 **Details:**
 
@@ -340,7 +340,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -352,7 +352,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
 
-**Type:** <a href="classes/YooKassa-Model-Receipt-MarkQuantity.html"><abbr title="\YooKassa\Model\Receipt\MarkQuantity">MarkQuantity</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-MarkQuantity.html"><abbr title="\YooKassa\Model\Receipt\MarkQuantity">MarkQuantity</abbr></a>
 
 **Details:**
 
@@ -364,7 +364,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Мера количества предмета расчета (тег в 54 ФЗ — 2108)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -376,7 +376,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Признак способа расчета (тег в 54 ФЗ — 1214)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -388,7 +388,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Признак предмета расчета (тег в 54 ФЗ — 1212)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -400,7 +400,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
 
-**Type:** <a href="\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 
@@ -412,7 +412,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Признак способа расчета (тег в 54 ФЗ — 1214)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -424,7 +424,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Признак предмета расчета (тег в 54 ФЗ — 1212)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -436,7 +436,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
 
-**Type:** <a href="\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 
@@ -448,7 +448,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Цена товара (тег в 54 ФЗ — 1079)
 
-**Type:** <a href="classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
 
 **Details:**
 
@@ -460,7 +460,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Код товара (тег в 54 ФЗ — 1162)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -472,7 +472,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Код товара (тег в 54 ФЗ — 1162)
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -484,7 +484,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Количество (тег в 54 ФЗ — 1023)
 
-**Type:** <a href="float"><abbr title="float">float</abbr></a>
+**Type:** <a href="../float"><abbr title="float">float</abbr></a>
 
 **Details:**
 
@@ -496,7 +496,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Информация о поставщике товара или услуги (тег в 54 ФЗ — 1224)
 
-**Type:** <a href="classes/YooKassa-Model-Supplier.html"><abbr title="\YooKassa\Model\Supplier">Supplier</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Supplier.html"><abbr title="\YooKassa\Model\Supplier">Supplier</abbr></a>
 
 **Details:**
 
@@ -508,7 +508,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Ставка НДС (тег в 54 ФЗ — 1199), число 1-6
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 
@@ -520,7 +520,7 @@ ADD_PROPS_MAX_LENGTH = 64 : int
 
 Ставка НДС (тег в 54 ФЗ — 1199), число 1-6
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 
@@ -1081,6 +1081,10 @@ public isShipping() : bool
 public jsonSerialize() : array
 ```
 
+**Summary**
+
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+
 **Details:**
 * Inherited From: [\YooKassa\Model\ReceiptItem](../classes/YooKassa-Model-ReceiptItem.md)
 
@@ -1092,11 +1096,15 @@ public jsonSerialize() : array
 | inheritdoc |  |  |
 
 <a name="method_offsetExists" class="anchor"></a>
-#### public offsetExists() : mixed
+#### public offsetExists() : bool
 
 ```php
-public offsetExists(mixed $offset) : mixed
+public offsetExists(string $offset) : bool
 ```
+
+**Summary**
+
+Проверяет наличие свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1104,17 +1112,21 @@ public offsetExists(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя проверяемого свойства |
 
-**Returns:** mixed - 
+**Returns:** bool - True если свойство имеется, false если нет
 
 
 <a name="method_offsetGet" class="anchor"></a>
 #### public offsetGet() : mixed
 
 ```php
-public offsetGet(mixed $offset) : mixed
+public offsetGet(string $offset) : mixed
 ```
+
+**Summary**
+
+Возвращает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1122,17 +1134,21 @@ public offsetGet(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
 
-**Returns:** mixed - 
+**Returns:** mixed - Значение свойства
 
 
 <a name="method_offsetSet" class="anchor"></a>
-#### public offsetSet() : mixed
+#### public offsetSet() : void
 
 ```php
-public offsetSet(mixed $offset, mixed $value) : mixed
+public offsetSet(string $offset, mixed $value) : void
 ```
+
+**Summary**
+
+Устанавливает значение свойства
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1140,18 +1156,22 @@ public offsetSet(mixed $offset, mixed $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
-| <code lang="php">mixed</code> | value  |  |
+| <code lang="php">string</code> | offset  | Имя свойства |
+| <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_offsetUnset" class="anchor"></a>
-#### public offsetUnset() : mixed
+#### public offsetUnset() : void
 
 ```php
-public offsetUnset(mixed $offset) : mixed
+public offsetUnset(string $offset) : void
 ```
+
+**Summary**
+
+Удаляет свойство
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1159,9 +1179,9 @@ public offsetUnset(mixed $offset) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">mixed</code> | offset  |  |
+| <code lang="php">string</code> | offset  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setAdditionalPaymentSubjectProps" class="anchor"></a>
@@ -1687,6 +1707,6 @@ protected getUnknownProperties() : array
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -209,7 +209,7 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
             array(''),
             array(true),
             array(new \stdClass()),
-            array(new \Datetime()),
+            array(new \DateTime()),
         );
     }
 
@@ -229,7 +229,7 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
             array(''),
             array(true),
             array(new \stdClass()),
-            array(new \Datetime()),
+            array(new \DateTime()),
             array(Random::str(13)),
         );
     }
@@ -249,7 +249,7 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
             array(null),
             array(''),
             array(new \stdClass()),
-            array(new \Datetime()),
+            array(new \DateTime()),
         );
     }
 

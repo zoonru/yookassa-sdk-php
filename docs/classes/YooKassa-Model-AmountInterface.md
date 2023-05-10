@@ -57,7 +57,7 @@ public getValue() : string
 #### public setValue() : mixed
 
 ```php
-public setValue(numeric $value) : mixed
+public setValue(\YooKassa\Model\numeric $value) : mixed
 ```
 
 **Summary**
@@ -70,7 +70,7 @@ public setValue(numeric $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">numeric</code> | value  | Сумма |
+| <code lang="php">\YooKassa\Model\numeric</code> | value  | Сумма |
 
 **Returns:** mixed - 
 
@@ -165,6 +165,6 @@ public toArray() : array
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -65,6 +65,6 @@ public factory(array $data) : \YooKassa\Request\Receipts\AbstractReceiptResponse
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

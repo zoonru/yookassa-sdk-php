@@ -59,7 +59,7 @@
 ---
 ### Details
 * File: [lib/Client/BaseClient.php](../../lib/Client/BaseClient.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy:
   * \YooKassa\Client\BaseClient
 
@@ -201,7 +201,7 @@ DEFAULT_ATTEMPTS_COUNT = 3
 
 CURL клиент
 
-**Type:** <a href="null|\YooKassa\Client\ApiClientInterface"><abbr title="null|\YooKassa\Client\ApiClientInterface">ApiClientInterface</abbr></a>
+**Type:** <a href="../null|\YooKassa\Client\ApiClientInterface"><abbr title="null|\YooKassa\Client\ApiClientInterface">ApiClientInterface</abbr></a>
 
 **Details:**
 
@@ -217,7 +217,7 @@ CURL клиент
 
 Значение по умолчанию 3
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 
@@ -229,7 +229,7 @@ CURL клиент
 
 Настройки для CURL клиента
 
-**Type:** <a href="array"><abbr title="array">array</abbr></a>
+**Type:** <a href="../array"><abbr title="array">array</abbr></a>
 
 **Details:**
 
@@ -241,7 +241,7 @@ CURL клиент
 
 Объект для логирования работы SDK
 
-**Type:** <a href="\Psr\Log\LoggerInterface|null"><abbr title="\Psr\Log\LoggerInterface|null">LoggerInterface|null</abbr></a>
+**Type:** <a href="../\Psr\Log\LoggerInterface|null"><abbr title="\Psr\Log\LoggerInterface|null">LoggerInterface|null</abbr></a>
 
 **Details:**
 
@@ -253,7 +253,7 @@ CURL клиент
 
 shopId магазина
 
-**Type:** <a href="string|int"><abbr title="string|int">string|int</abbr></a>
+**Type:** <a href="../string|int"><abbr title="string|int">string|int</abbr></a>
 
 **Details:**
 
@@ -265,7 +265,7 @@ shopId магазина
 
 Секретный ключ магазина
 
-**Type:** <a href="string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -281,7 +281,7 @@ shopId магазина
 
 Значение по умолчанию - 1800 миллисекунд.
 
-**Type:** <a href="int"><abbr title="int">int</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 Значение в миллисекундах
 **Details:**
 
@@ -417,9 +417,10 @@ public setAuth(string $login, string $password) : $this
 
 **Returns:** $this - 
 ##### Examples:
-01-client.php 7 1 Пример авторизации:
+Пример авторизации:
 
 ```php
+$client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 ```
 
@@ -445,9 +446,10 @@ public setAuthToken(string $token) : $this
 
 **Returns:** $this - 
 ##### Examples:
-01-client.php 9 1 Пример авторизации:
+Пример авторизации:
 
 ```php
+$client->setAuthToken('token_XXXXXXX');
 
 ```
 
@@ -696,6 +698,6 @@ protected handleError(\YooKassa\Common\ResponseObject $response) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2023-04-06 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney
