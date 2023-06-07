@@ -3,17 +3,22 @@
 namespace Tests\YooKassa\Request\Refunds;
 
 use PHPUnit\Framework\TestCase;
-use YooKassa\Model\RefundStatus;
+use YooKassa\Helpers\Random;
+use YooKassa\Model\Refund\RefundStatus;
 use YooKassa\Request\Refunds\RefundsRequest;
 use YooKassa\Request\Refunds\RefundsRequestBuilder;
 
+/**
+ * @internal
+ */
 class RefundsRequestBuilderTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetPaymentId($options)
+    public function testSetPaymentId($options): void
     {
         $builder = new RefundsRequestBuilder();
 
@@ -31,9 +36,10 @@ class RefundsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCreateAtGte($options)
+    public function testSetCreateAtGte($options): void
     {
         $builder = new RefundsRequestBuilder();
 
@@ -51,9 +57,10 @@ class RefundsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCreateAtGt($options)
+    public function testSetCreateAtGt($options): void
     {
         $builder = new RefundsRequestBuilder();
 
@@ -71,9 +78,10 @@ class RefundsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCreateAtLte($options)
+    public function testSetCreateAtLte($options): void
     {
         $builder = new RefundsRequestBuilder();
 
@@ -91,9 +99,10 @@ class RefundsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCreateAtLt($options)
+    public function testSetCreateAtLt($options): void
     {
         $builder = new RefundsRequestBuilder();
 
@@ -111,9 +120,10 @@ class RefundsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetStatus($options)
+    public function testSetStatus($options): void
     {
         $builder = new RefundsRequestBuilder();
 
@@ -131,9 +141,10 @@ class RefundsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCursor($options)
+    public function testSetCursor($options): void
     {
         $builder = new RefundsRequestBuilder();
 
@@ -151,9 +162,10 @@ class RefundsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetLimit($options)
+    public function testSetLimit($options): void
     {
         $builder = new RefundsRequestBuilder();
 
@@ -171,21 +183,21 @@ class RefundsRequestBuilderTest extends TestCase
 
     public function validDataProvider()
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'paymentId' => null,
                     'createAtGte' => null,
                     'createAtGt' => null,
                     'createAtLte' => null,
                     'createAtLt' => null,
-                    'status' => null,
+                    'status' => '',
                     'cursor' => null,
                     'limit' => 1,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'paymentId' => '',
                     'createAtGte' => '',
                     'createAtGt' => '',
@@ -194,23 +206,24 @@ class RefundsRequestBuilderTest extends TestCase
                     'status' => '',
                     'cursor' => '',
                     'limit' => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $statuses = RefundStatus::getValidValues();
         for ($i = 0; $i < 10; $i++) {
-            $request = array(
+            $request = [
                 'paymentId' => $this->randomString(36),
-                'createAtGte' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createAtGt' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createAtLte' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createAtLt' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'status' => $statuses[mt_rand(0, count($statuses) - 1)],
-                'cursor' => uniqid(),
-                'limit' => mt_rand(1, RefundsRequest::MAX_LIMIT_VALUE),
-            );
-            $result[] = array($request);
+                'createAtGte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createAtGt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createAtLte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createAtLt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'status' => $statuses[Random::int(0, count($statuses) - 1)],
+                'cursor' => uniqid('', true),
+                'limit' => Random::int(1, RefundsRequest::MAX_LIMIT_VALUE),
+            ];
+            $result[] = [$request];
         }
+
         return $result;
     }
 
@@ -221,13 +234,14 @@ class RefundsRequestBuilderTest extends TestCase
         $result = '';
         for ($i = 0; $i < $length; $i++) {
             if ($any) {
-                $char = chr(mt_rand(32, 126));
+                $char = chr(Random::int(32, 126));
             } else {
-                $rnd = mt_rand(0, strlen($chars) - 1);
-                $char = substr($chars, $rnd, 1);
+                $rnd = Random::int(0, strlen($chars) - 1);
+                $char = $chars[$rnd];
             }
             $result .= $char;
         }
+
         return $result;
     }
 }

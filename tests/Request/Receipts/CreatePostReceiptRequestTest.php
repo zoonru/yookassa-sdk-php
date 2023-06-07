@@ -2,34 +2,39 @@
 
 namespace Tests\YooKassa\Request\Receipts;
 
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
+use stdClass;
+use TypeError;
 use YooKassa\Helpers\Random;
-use YooKassa\Model\Airline;
 use YooKassa\Model\CurrencyCode;
-use YooKassa\Model\Metadata;
 use YooKassa\Model\MonetaryAmount;
-use YooKassa\Model\PaymentData\PaymentDataQiwi;
-use YooKassa\Model\Receipt;
 use YooKassa\Model\Receipt\PaymentMode;
 use YooKassa\Model\Receipt\PaymentSubject;
+use YooKassa\Model\Receipt\ReceiptCustomer;
+use YooKassa\Model\Receipt\ReceiptItem;
 use YooKassa\Model\Receipt\ReceiptItemAmount;
+use YooKassa\Model\Receipt\ReceiptType;
+use YooKassa\Model\Receipt\Settlement;
 use YooKassa\Model\Receipt\SettlementType;
-use YooKassa\Model\ReceiptCustomer;
-use YooKassa\Model\ReceiptItem;
-use YooKassa\Model\ReceiptType;
-use YooKassa\Model\Settlement;
+use YooKassa\Request\Payments\Airline;
 use YooKassa\Request\Payments\CreatePaymentRequest;
 use YooKassa\Request\Payments\CreatePaymentRequestBuilder;
 use YooKassa\Request\Receipts\CreatePostReceiptRequest;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
 
+/**
+ * @internal
+ */
 class CreatePostReceiptRequestTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testCustomer($options)
+    public function testCustomer($options): void
     {
         $instance = new CreatePostReceiptRequest();
 
@@ -62,25 +67,24 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidCustomerDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidCustomer($value)
+    public function testSetInvalidCustomer($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setCustomer($value);
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testType($options)
+    public function testType($options): void
     {
         $instance = new CreatePostReceiptRequest();
-
-        self::assertNull($instance->getType());
-        self::assertNull($instance->type);
 
         $instance->setType($options['type']);
 
@@ -90,16 +94,17 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidType($value)
+    public function testSetInvalidType($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setType($value);
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $instance = new CreatePostReceiptRequest();
 
@@ -108,7 +113,7 @@ class CreatePostReceiptRequestTest extends TestCase
         $instance->setCustomer(new ReceiptCustomer());
         self::assertFalse($instance->validate());
 
-        $instance->setCustomer(new ReceiptCustomer(array('email' => 'johndoe@email.com')));
+        $instance->setCustomer(new ReceiptCustomer(['email' => 'johndoe@email.com']));
         self::assertFalse($instance->validate());
 
         $instance->setType(ReceiptType::REFUND);
@@ -117,72 +122,43 @@ class CreatePostReceiptRequestTest extends TestCase
         $instance->setType(ReceiptType::PAYMENT);
         self::assertFalse($instance->validate());
 
-        $instance->setSend(false);
-        self::assertFalse($instance->validate());
-
         $instance->setSend(true);
         self::assertFalse($instance->validate());
 
-        $instance->setObjectId(uniqid());
+        $instance->setObjectId(uniqid('', true));
         self::assertFalse($instance->validate());
 
-        $instance->setSettlements(array());
+        $instance->setSettlements([
+            new Settlement([
+                'type' => SettlementType::PREPAYMENT,
+                'amount' => new ReceiptItemAmount(10, 'RUB')]),
+        ]);
         self::assertFalse($instance->validate());
 
-        $instance->setSettlements(array(
-                new Settlement(array(
-                    'type' => SettlementType::PREPAYMENT,
-                    'amount' => new ReceiptItemAmount(10, 'RUB')))
-            ));
-        self::assertFalse($instance->validate());
-
-        $instance->setItems(array());
-        self::assertFalse($instance->validate());
-
-        $instance->setItems(array(
-            new ReceiptItem(array(
+        $instance->setItems([
+            new ReceiptItem([
                 'description' => 'description',
-                'amount' => array(
+                'amount' => [
                     'value' => 10,
                     'currency' => 'RUB',
-                ),
+                ],
                 'quantity' => 1,
-                'vat_code' => 1
-            ))
-        ));
+                'vat_code' => 1,
+            ]),
+        ]);
         self::assertTrue($instance->validate());
     }
 
-    public function testBuilder()
+    public function testBuilder(): void
     {
         $builder = CreatePaymentRequest::builder();
-        self::assertTrue($builder instanceof CreatePaymentRequestBuilder);
-    }
-
-    /**
-     * @dataProvider fromArrayDataProvider
-     * @param array $source
-     * @param array $expected
-     */
-    public function testFromArray($source, $expected)
-    {
-        $receipt = new CreatePostReceiptRequest($source);
-
-        if (!empty($expected)) {
-            foreach ($expected as $property => $value) {
-                self::assertEquals($value, $receipt->offsetGet($property));
-            }
-        } else {
-            self::assertEquals(array(), $receipt->getItems());
-        }
+        self::assertInstanceOf(CreatePaymentRequestBuilder::class, $builder);
     }
 
     /**
      * @dataProvider fromArrayCustomerDataProvider
-     * @param array $source
-     * @param array $expected
      */
-    public function testCustomerFromArray($source, $expected)
+    public function testCustomerFromArray(array $source, array $expected): void
     {
         $receiptPost = new CreatePostReceiptRequest();
         $receiptPost->fromArray($source);
@@ -198,10 +174,10 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider fromArraySettlementDataProvider
-     * @param array $options
-     * @throws \Exception
+     *
+     * @throws Exception
      */
-    public function testSettlementFromArray($options)
+    public function testSettlementFromArray(array $options): void
     {
         $receiptPost = new CreatePostReceiptRequest();
         $receiptPost->fromArray($options);
@@ -210,7 +186,7 @@ class CreatePostReceiptRequestTest extends TestCase
         self::assertFalse($receiptPost->notEmpty());
 
         foreach ($receiptPost->getSettlements() as $index => $item) {
-            self::assertTrue($item instanceof Settlement);
+            self::assertInstanceOf(Settlement::class, $item);
             self::assertArrayHasKey($index, $options['settlements']);
             self::assertEquals($options['settlements'][$index]['type'], $item->getType());
             self::assertEquals($options['settlements'][$index]['amount'], $item->getAmount());
@@ -219,17 +195,17 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidSetsDataProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidItems($value)
+    public function testSetInvalidItems($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setItems($value);
     }
 
-    public function testGetObjectId()
+    public function testGetObjectId(): void
     {
         $instance = new CreatePostReceiptRequest();
         $instance->setObjectId('test');
@@ -238,16 +214,17 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidTaxSystemCodeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidTaxSystemCode($value)
+    public function testSetInvalidTaxSystemCode($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setTaxSystemCode($value);
     }
 
-    public function testSetTaxSystemCode()
+    public function testSetTaxSystemCode(): void
     {
         $instance = new CreatePostReceiptRequest();
         $instance->setTaxSystemCode(3);
@@ -256,47 +233,56 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider invalidSetsDataProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidSettlements($value)
+    public function testSetInvalidSettlements($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setSettlements($value);
     }
 
-    public function testSetItems()
+    public function testSetItems(): void
     {
         $instance = new CreatePostReceiptRequest();
-        $instance->setItems(array(
-            array(
-                array(
+        $instance->setItems(
+            [
+                [
                     'description' => 'description',
-                    'amount' => array(
+                    'amount' => [
                         'value' => 10,
                         'currency' => 'RUB',
-                    ),
+                    ],
                     'quantity' => 1,
-                    'vat_code' => 1
-                )
-            )
-        ));
+                    'vat_code' => 1,
+                ],
+            ]
+        );
+        self::assertSame([
+            'description' => 'description',
+            'quantity' => 1.0,
+            'amount' => [
+                'value' => '10.00',
+                'currency' => 'RUB',
+            ],
+            'vat_code' => 1,
+        ], $instance->getItems()[0]->toArray());
     }
 
     /**
      * @dataProvider invalidSetOnBehalfOfDataProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidOnBehalfOf($value)
+    public function testSetInvalidOnBehalfOf($value): void
     {
+        $this->expectException(TypeError::class);
         $instance = new CreatePostReceiptRequest();
         $instance->setOnBehalfOf($value);
     }
 
-    public function testsetOnBehalfOf()
+    public function testsetOnBehalfOf(): void
     {
         $instance = new CreatePostReceiptRequest();
         $instance->setOnBehalfOf('test');
@@ -305,9 +291,10 @@ class CreatePostReceiptRequestTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSend($options)
+    public function testSend($options): void
     {
         $instance = new CreatePostReceiptRequest();
 
@@ -320,21 +307,7 @@ class CreatePostReceiptRequestTest extends TestCase
         self::assertSame($options['send'], $instance->send);
     }
 
-    /**
-     * @dataProvider invalidBooleanDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidSend($value)
-    {
-        $instance = new CreatePostReceiptRequest();
-        $instance->setSend($value);
-    }
-
-    /**
-     * @return array
-     */
-    public function fromArrayCustomerDataProvider()
+    public static function fromArrayCustomerDataProvider(): array
     {
         $customer = new ReceiptCustomer();
         $customer->setFullName('John Doe');
@@ -342,94 +315,62 @@ class CreatePostReceiptRequestTest extends TestCase
         $customer->setPhone('79000000000');
         $customer->setInn('6321341814');
 
-        return array(
+        return [
+            [
+                [],
+                [],
+            ],
 
-            array(
-                array(),
-                array(),
-            ),
-
-            array(
-                array(
-                    'customer' => array(
+            [
+                [
+                    'customer' => [
                         'fullName' => 'John Doe',
                         'email' => 'johndoe@yoomoney.ru',
                         'phone' => '79000000000',
                         'inn' => '6321341814',
-                    ),
-                ),
-                array(
-                    'customer' => $customer
-                ),
-            ),
+                    ],
+                ],
+                [
+                    'customer' => $customer,
+                ],
+            ],
 
-            array(
-                array(
-                    'customer' => array(
+            [
+                [
+                    'customer' => [
                         'full_name' => 'John Doe',
                         'inn' => '6321341814',
                         'email' => 'johndoe@yoomoney.ru',
                         'phone' => '79000000000',
-                    ),
-                ),
-                array(
-                    'customer' => $customer
-                ),
-            )
-        );
+                    ],
+                ],
+                [
+                    'customer' => $customer,
+                ],
+            ],
+        ];
     }
 
     /**
-     * @return \array[][][]
-     * @throws \Exception
+     * @return array[][][]
+     *
+     * @throws Exception
      */
-    public function fromArraySettlementDataProvider()
+    public function fromArraySettlementDataProvider(): array
     {
-        return array(
-            array(
-                array(
-                    'settlements' => $this->generateSettlements()
-                )
-            )
-        );
+        return [
+            [
+                [
+                    'settlements' => $this->generateSettlements(),
+                ],
+            ],
+        ];
     }
 
     /**
-     * @return array
-     * @throws \Exception
+     * @return array[][]
      */
-    private function generateSettlements()
-    {
-        $return = array();
-        $count = Random::int(1, 10);
-
-        for ($i = 0; $i < $count; $i++) {
-            $return[] = $this->generateSettlement($i % 2 == 0);
-        }
-
-        return $return;
-    }
-
-    /**
-     * @param $true
-     * @return array|Settlement
-     * @throws \Exception
-     */
-    private function generateSettlement($true)
-    {
-        $params = array(
-            'type' => Random::value(SettlementType::getValidValues()),
-            'amount' => new MonetaryAmount(Random::int(1, 1000))
-        );
-
-        return $true ? $params : new Settlement($params);
-    }
-
-
-    /**
-     * @return \array[][]
-     */
-    public function fromArrayDataProvider()
+    public static function fromArrayDataProvider(): array
     {
         $receiptItem = new ReceiptItem();
         $receiptItem->setDescription('test');
@@ -437,112 +378,110 @@ class CreatePostReceiptRequestTest extends TestCase
         $receiptItem->setVatCode(4);
         $receiptItem->setPrice(new ReceiptItemAmount(5, 'USD'));
 
-        return array(
-            array(
-                array(),
-                array(),
-            ),
+        return [
+            [
+                [],
+                [],
+            ],
 
-            array(
-                array(
+            [
+                [
                     'taxSystemCode' => 2,
-                    'customer' => array(
+                    'customer' => [
                         'phone' => '1234567890',
                         'email' => 'test@tset',
-                    ),
-                    'items' => array(
+                    ],
+                    'items' => [
                         new ReceiptItem(),
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'tax_system_code' => 2,
-                    'customer' => new ReceiptCustomer(array(
+                    'customer' => new ReceiptCustomer([
                         'phone' => '1234567890',
                         'email' => 'test@tset',
-                    )),
-                    'items' => array(
+                    ]),
+                    'items' => [
                         new ReceiptItem(),
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
 
-            array(
-                array(
+            [
+                [
                     'tax_system_code' => 3,
-                    'customer' => array(
+                    'customer' => [
                         'phone' => '1234567890',
                         'email' => 'test@tset',
-                    ),
-                    'items' => array(
-                        array(
+                    ],
+                    'items' => [
+                        [
                             'description' => 'test',
                             'quantity' => 322,
-                            'amount' => array(
+                            'amount' => [
                                 'value' => 5,
                                 'currency' => 'USD',
-                            ),
+                            ],
                             'vat_code' => 4,
-                        ),
+                        ],
                         new ReceiptItem(),
-                        array(
+                        [
                             'description' => 'test',
                             'quantity' => 322,
                             'amount' => new ReceiptItemAmount(5, 'USD'),
                             'vat_code' => 4,
-                        ),
-                        array(
+                        ],
+                        [
                             'description' => 'test',
                             'quantity' => 322,
-                            'amount' => new ReceiptItemAmount(array(
+                            'amount' => new ReceiptItemAmount([
                                 'value' => 5,
                                 'currency' => 'USD',
-                            )),
+                            ]),
                             'vat_code' => 4,
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'taxSystemCode' => 3,
-                    'customer' => new ReceiptCustomer(array(
+                    'customer' => new ReceiptCustomer([
                         'phone' => '1234567890',
                         'email' => 'test@tset',
-                    )),
-                    'items' => array(
+                    ]),
+                    'items' => [
                         $receiptItem,
                         new ReceiptItem(),
                         $receiptItem,
                         $receiptItem,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
-     * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    public function validDataProvider()
+    public static function validDataProvider(): array
     {
         $type = Random::value(ReceiptType::getEnabledValues());
-        $result = array(
-
-            array(
-                array(
-                    'customer' => array(
+        $result = [
+            [
+                [
+                    'customer' => [
                         'full_name' => Random::str(128),
-                        'email' => Random::str(128),
+                        'email' => 'johndoe@yoomoney.ru',
                         'phone' => Random::str(4, 12, '1234567890'),
                         'inn' => '1234567890',
-                    ),
-                    'items' => array(
-                        array(
+                    ],
+                    'items' => [
+                        [
                             'description' => Random::str(128),
                             'quantity' => Random::int(1, 10),
-                            'amount' => array(
+                            'amount' => [
                                 'value' => Random::float(0.1, 99.99),
-                                'currency' => Random::value(CurrencyCode::getValidValues())
-                            ),
+                                'currency' => Random::value(CurrencyCode::getValidValues()),
+                            ],
                             'vat_code' => Random::int(1, 6),
                             'payment_subject' => Random::value(PaymentSubject::getValidValues()),
                             'payment_mode' => Random::value(PaymentMode::getValidValues()),
@@ -550,41 +489,41 @@ class CreatePostReceiptRequestTest extends TestCase
                             'country_of_origin_code' => 'RU',
                             'customs_declaration_number' => Random::str(128),
                             'excise' => Random::float(0.0, 99.99),
-                        )
-                    ),
+                        ],
+                    ],
                     'tax_system_code' => Random::int(1, 6),
                     'type' => $type,
                     'send' => true,
-                    'settlements' => array(
-                        array(
+                    'settlements' => [
+                        [
                             'type' => Random::value(SettlementType::getValidValues()),
-                            'amount' => array(
+                            'amount' => [
                                 'value' => Random::float(0.1, 99.99),
-                                'currency' => Random::value(CurrencyCode::getValidValues())
-                            )
-                        )
-                    ),
-                    $type . '_id' => uniqid()
-                ),
-            ),
-        );
+                                'currency' => Random::value(CurrencyCode::getValidValues()),
+                            ],
+                        ],
+                    ],
+                    $type . '_id' => uniqid('', true),
+                ],
+            ],
+        ];
         for ($i = 0; $i < 10; $i++) {
             $type = Random::value(ReceiptType::getEnabledValues());
-            $request = array(
-                'customer' => array(
+            $request = [
+                'customer' => [
                     'full_name' => Random::str(128),
-                    'email' => Random::str(128),
+                    'email' => 'johndoe@yoomoney.ru',
                     'phone' => Random::str(4, 12, '1234567890'),
                     'inn' => '1234567890',
-                ),
-                'items' => array(
-                    array(
+                ],
+                'items' => [
+                    [
                         'description' => Random::str(128),
                         'quantity' => Random::int(1, 10),
-                        'amount' => array(
+                        'amount' => [
                             'value' => Random::float(0.1, 99.99),
-                            'currency' => Random::value(CurrencyCode::getValidValues())
-                        ),
+                            'currency' => Random::value(CurrencyCode::getValidValues()),
+                        ],
                         'vat_code' => Random::int(1, 6),
                         'payment_subject' => Random::value(PaymentSubject::getValidValues()),
                         'payment_mode' => Random::value(PaymentMode::getValidValues()),
@@ -592,84 +531,101 @@ class CreatePostReceiptRequestTest extends TestCase
                         'country_of_origin_code' => 'RU',
                         'customs_declaration_number' => Random::str(128),
                         'excise' => Random::float(0.0, 99.99),
-                    )
-                ),
+                    ],
+                ],
                 'tax_system_code' => Random::int(1, 6),
                 'type' => $type,
                 'send' => true,
-                'settlements' => array(
-                    array(
+                'settlements' => [
+                    [
                         'type' => Random::value(SettlementType::getValidValues()),
-                        'amount' => array(
+                        'amount' => [
                             'value' => Random::float(0.1, 99.99),
-                            'currency' => Random::value(CurrencyCode::getValidValues())
-                        )
-                    )
-                ),
-                $type . '_id' => uniqid()
-            );
-            $result[] = array($request);
+                            'currency' => Random::value(CurrencyCode::getValidValues()),
+                        ],
+                    ],
+                ],
+                $type . '_id' => uniqid('', true),
+            ];
+            $result[] = [$request];
         }
+
         return $result;
     }
 
-    public function invalidCustomerDataProvider()
+    public static function invalidCustomerDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-            array(new \stdClass()),
-        );
+        return [
+            [false],
+            [true],
+            [1],
+            [Random::str(10)],
+            [new stdClass()],
+        ];
     }
 
-    public function invalidTypeDataProvider()
+    public static function invalidTypeDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-            array(new \stdClass())
-        );
+        return [
+            [false],
+            [true],
+            [1],
+            [Random::str(10)],
+        ];
     }
 
-    public function invalidSetsDataProvider()
+    public static function invalidSetsDataProvider()
     {
-        return array(
-            array(array(new Airline())),
-            array(""),
-            array(null),
-            array(1)
-        );
+        return [
+            [[]],
+            [null],
+        ];
     }
 
-    public function invalidTaxSystemCodeDataProvider()
+    public static function invalidTaxSystemCodeDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(0),
-            array(""),
-            array(null)
-        );
+        return [
+            [false],
+            [0],
+        ];
     }
 
-    public function invalidBooleanDataProvider()
+    public static function invalidSetOnBehalfOfDataProvider()
     {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array('test'),
-        );
+        return [
+            [new stdClass()],
+        ];
     }
 
-    public function invalidSetOnBehalfOfDataProvider()
+    /**
+     * @throws Exception
+     */
+    private function generateSettlements(): array
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-        );
+        $return = [];
+        $count = Random::int(1, 10);
+
+        for ($i = 0; $i < $count; $i++) {
+            $return[] = $this->generateSettlement(0 === $i % 2);
+        }
+
+        return $return;
+    }
+
+    /**
+     * @param mixed $true
+     *
+     * @return array|Settlement
+     *
+     * @throws Exception
+     */
+    private function generateSettlement($true)
+    {
+        $params = [
+            'type' => Random::value(SettlementType::getValidValues()),
+            'amount' => new MonetaryAmount(Random::int(1, 1000)),
+        ];
+
+        return $true ? $params : new Settlement($params);
     }
 }

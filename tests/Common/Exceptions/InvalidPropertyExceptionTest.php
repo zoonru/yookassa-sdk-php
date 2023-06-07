@@ -6,34 +6,33 @@ use PHPUnit\Framework\TestCase;
 use YooKassa\Common\Exceptions\InvalidPropertyException;
 use YooKassa\Helpers\StringObject;
 
+/**
+ * @internal
+ */
 class InvalidPropertyExceptionTest extends TestCase
 {
     /**
-     * @param string $message
-     * @param string $property
-     * @return InvalidPropertyException
-     */
-    protected function getTestInstance($message, $property)
-    {
-        return new InvalidPropertyException($message, 0, $property);
-    }
-
-    /**
      * @dataProvider validPropertyDataProvider
-     * @param $property
+     *
+     * @param mixed $property
      */
-    public function testGetProperty($property)
+    public function testGetProperty($property): void
     {
         $instance = $this->getTestInstance('', $property);
-        self::assertEquals((string)$property, $instance->getProperty());
+        self::assertEquals((string) $property, $instance->getProperty());
     }
 
-    public function validPropertyDataProvider()
+    public static function validPropertyDataProvider()
     {
-        return array(
-            array(''),
-            array('property'),
-            array(new StringObject('property')),
-        );
+        return [
+            [''],
+            ['property'],
+            [new StringObject('property')],
+        ];
+    }
+
+    protected function getTestInstance(string $message, string $property): InvalidPropertyException
+    {
+        return new InvalidPropertyException($message, 0, $property);
     }
 }

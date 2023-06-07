@@ -16,12 +16,12 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [__construct()](../classes/YooKassa-Common-Exceptions-ExtensionNotFoundException.md#method___construct) |  | Constructor |
+| public | [__construct()](../classes/YooKassa-Common-Exceptions-ExtensionNotFoundException.md#method___construct) |  | Constructor. |
 
 ---
 ### Details
 * File: [lib/Common/Exceptions/ExtensionNotFoundException.php](../../lib/Common/Exceptions/ExtensionNotFoundException.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy: 
   * [\Exception](\Exception)
   * \YooKassa\Common\Exceptions\ExtensionNotFoundException
@@ -37,7 +37,7 @@ public __construct(string $name, int $code) : mixed
 
 **Summary**
 
-Constructor
+Constructor.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\Exceptions\ExtensionNotFoundException](../classes/YooKassa-Common-Exceptions-ExtensionNotFoundException.md)
@@ -62,11 +62,11 @@ Constructor
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

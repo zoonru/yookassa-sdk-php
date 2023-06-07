@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,204 +28,186 @@ namespace YooKassa\Model\SelfEmployed;
 
 use DateTime;
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
  * Класс, представляющий модель SelfEmployed.
  *
  * Объект самозанятого.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
- *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $id Идентификатор самозанятого в ЮKassa.
  * @property string $status Статус подключения самозанятого и выдачи ЮMoney прав на регистрацию чеков.
  * @property DateTime $created_at Время создания объекта самозанятого.
  * @property DateTime $createdAt Время создания объекта самозанятого.
- * @property string|null $itn ИНН самозанятого.
- * @property string|null $phone Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
- * @property SelfEmployedConfirmation|null $confirmation Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
+ * @property null|string $itn ИНН самозанятого.
+ * @property null|string $phone Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
+ * @property null|SelfEmployedConfirmation $confirmation Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
  * @property bool $test Признак тестовой операции.
  */
 class SelfEmployed extends AbstractObject implements SelfEmployedInterface
 {
     /**
-     * @var string Идентификатор самозанятого в ЮKassa.
+     * Идентификатор самозанятого в ЮKassa.
+     *
+     * @var string|null
      */
-    private $_id;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: SelfEmployedInterface::MAX_LENGTH_ID)]
+    #[Assert\Length(min: SelfEmployedInterface::MIN_LENGTH_ID)]
+    protected ?string $_id = null;
 
     /**
-     * @var string Статус подключения самозанятого и выдачи ЮMoney прав на регистрацию чеков.
+     * Статус подключения самозанятого и выдачи ЮMoney прав на регистрацию чеков
+     *
+     * @var string|null
      */
-    private $_status;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [SelfEmployedStatus::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    protected ?string $_status = SelfEmployedStatus::PENDING;
 
     /**
      * Время создания объекта самозанятого.
      *
      * Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время) и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
-     * Пример: ~`2017-11-03T11:52:31.827Z`
+     * Пример: ~`2017-11-03T11:52:31.827Z
      *
-     * @var DateTime
+     * @var DateTime|null
      */
-    private $_created_at;
+    #[Assert\NotBlank]
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    protected ?DateTime $_created_at = null;
 
     /**
-     * @var string|null ИНН самозанятого.
+     * ИНН самозанятого. Формат: 12 цифр без пробелов.
+     *
+     * @var string|null
      */
-    private $_itn;
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^\d{12}$/")]
+    protected ?string $_itn = null;
 
     /**
-     * @var string|null Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
+     * Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
+     *
+     * @var string|null
      */
-    private $_phone;
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^[0-9]{4,15}$/")]
+    protected ?string $_phone = null;
 
     /**
      * Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
      *
      * @var SelfEmployedConfirmation|null
      */
-    private $_confirmation;
+    #[Assert\Type(SelfEmployedConfirmation::class)]
+    protected ?SelfEmployedConfirmation $_confirmation = null;
 
     /**
-     * @var bool Признак тестовой операции.
-     */
-    private $_test;
-
-    /**
-     * Возвращает id.
+     * Признак тестовой операции
      *
-     * @return string
+     * @var bool|null
      */
-    public function getId()
+    #[Assert\NotNull]
+    #[Assert\Type('bool')]
+    protected ?bool $_test = false;
+
+    /**
+     * Возвращает идентификатор самозанятого в ЮKassa.
+     *
+     * @return string|null
+     */
+    public function getId(): ?string
     {
         return $this->_id;
     }
 
     /**
-     * Устанавливает идентификатор самозанятого.
+     * Устанавливает идентификатор самозанятого в ЮKassa.
      *
-     * @param string $id Идентификатор самозанятого в ЮKassa.
+     * @param string|null $id Идентификатор самозанятого в ЮKassa.
      *
-     * @return $this
+     * @return self
      */
-    public function setId($id)
+    public function setId(?string $id = null): self
     {
-        if (!TypeCast::canCastToString($id)) {
-            throw new InvalidPropertyValueTypeException('Invalid SelfEmployed id value type', 0, 'SelfEmployed.id', $id);
-        }
-        $length = mb_strlen($id, 'utf-8');
-        if ($length < SelfEmployedInterface::MIN_LENGTH_ID || $length > SelfEmployedInterface::MAX_LENGTH_ID) {
-            throw new InvalidPropertyValueException('Invalid SelfEmployed id value', 0, 'SelfEmployed.id', $id);
-        }
-        $this->_id = (string)$id;
-
+        $this->_id = $this->validatePropertyValue('_id', $id);
         return $this;
     }
 
     /**
-     * Возвращает статус самозанятого.
+     * Возвращает статус подключения самозанятого и выдачи ЮMoney прав на регистрацию чеков.
      *
-     * @return string Статус самозанятого
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->_status;
     }
 
     /**
-     * Устанавливает статус самозанятого.
+     * Устанавливает статус подключения самозанятого и выдачи ЮMoney прав на регистрацию чеков.
      *
-     * @param string $status Статус самозанятого
+     * @param string|null $status Статус подключения самозанятого
      *
-     * @return $this
+     * @return self
      */
-    public function setStatus($status)
+    public function setStatus(?string $status = null): self
     {
-        if (!TypeCast::canCastToEnumString($status)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid SelfEmployedS status value type',
-                0,
-                'SelfEmployedS.status',
-                $status
-            );
-        }
-        if (!SelfEmployedStatus::valueExists((string)$status)) {
-            throw new InvalidPropertyValueException('Invalid SelfEmployedS status value', 0, 'SelfEmployedS.status', $status);
-        }
-        $this->_status = (string)$status;
-
+        $this->_status = $this->validatePropertyValue('_status', $status);
         return $this;
     }
 
     /**
-     * Возвращает время создания объекта самозанятого
+     * Возвращает время создания объекта самозанятого.
      *
-     * @return DateTime Время создания объекта самозанятого
+     * @return DateTime|null Время создания объекта самозанятого
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?DateTime
     {
         return $this->_created_at;
     }
 
     /**
-     * Устанавливает время создания объекта самозанятого
+     * Устанавливает время создания объекта самозанятого.
      *
-     * @param DateTime|string|int $created_at Время создания объекта самозанятого
+     * @param DateTime|string|null $created_at Время создания объекта самозанятого.
      *
-     * @return $this
-     *
-     * @throws EmptyPropertyValueException Выбрасывается если в метод была передана пустая дата
-     * @throws InvalidPropertyValueException Выбрасывается если передали строку, которую не удалось привести к дате
-     * @throws InvalidPropertyValueTypeException|\Exception Выбрасывается если был передан аргумент, который невозможно
-     * интерпретировать как дату или время
+     * @return self
      */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt(DateTime|string|null $created_at = null): self
     {
-        if ($created_at === null || $created_at === '') {
-            throw new EmptyPropertyValueException('Empty created_at value', 0, 'SelfEmployed.createdAt');
-        }
-        if (!TypeCast::canCastToDateTime($created_at)) {
-            throw new InvalidPropertyValueTypeException('Invalid created_at value', 0, 'SelfEmployed.createdAt', $created_at);
-        }
-        $dateTime = TypeCast::castToDateTime($created_at);
-        if ($dateTime === null) {
-            throw new InvalidPropertyValueException('Invalid created_at value', 0, 'SelfEmployed.createdAt', $created_at);
-        }
-        $this->_created_at = $dateTime;
-
+        $this->_created_at = $this->validatePropertyValue('_created_at', $created_at);
         return $this;
     }
 
     /**
-     * Возвращает ИНН самозанятого
+     * Возвращает ИНН самозанятого.
      *
-     * @return string|null ИНН самозанятого
+     * @return string|null
      */
-    public function getItn()
+    public function getItn(): ?string
     {
         return $this->_itn;
     }
 
     /**
-     * Устанавливает ИНН самозанятого
+     * Устанавливает ИНН самозанятого.
      *
      * @param string|null $itn ИНН самозанятого
      *
-     * @return $this
+     * @return self
      */
-    public function setItn($itn = null)
+    public function setItn(?string $itn = null): self
     {
-        if ($itn === null || $itn === '') {
-            $this->_itn = null;
-        } elseif (!TypeCast::canCastToString($itn)) {
-            throw new InvalidPropertyValueTypeException('Invalid itn value type', 0, 'SelfEmployed.itn');
-        } else {
-            $this->_itn = (string)preg_replace('/\D/', '', $itn);
-        }
-
+        $this->_itn = $this->validatePropertyValue('_itn', $itn);
         return $this;
     }
 
@@ -234,7 +216,7 @@ class SelfEmployed extends AbstractObject implements SelfEmployedInterface
      *
      * @return string|null Телефон самозанятого
      */
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->_phone;
     }
@@ -244,18 +226,11 @@ class SelfEmployed extends AbstractObject implements SelfEmployedInterface
      *
      * @param string|null $phone Телефон самозанятого
      *
-     * @return $this
+     * @return self
      */
-    public function setPhone($phone = null)
+    public function setPhone(?string $phone = null): self
     {
-        if ($phone === null || $phone === '') {
-            $this->_phone = null;
-        } elseif (!TypeCast::canCastToString($phone)) {
-            throw new InvalidPropertyValueTypeException('Invalid phone value type', 0, 'SelfEmployed.phone');
-        } else {
-            $this->_phone = (string)preg_replace('/\D/', '', $phone);
-        }
-
+        $this->_phone = $this->validatePropertyValue('_phone', $phone);
         return $this;
     }
 
@@ -264,7 +239,7 @@ class SelfEmployed extends AbstractObject implements SelfEmployedInterface
      *
      * @return SelfEmployedConfirmation|null Сценарий подтверждения
      */
-    public function getConfirmation()
+    public function getConfirmation(): ?SelfEmployedConfirmation
     {
         return $this->_confirmation;
     }
@@ -276,33 +251,21 @@ class SelfEmployed extends AbstractObject implements SelfEmployedInterface
      *
      * @return $this
      */
-    public function setConfirmation($confirmation = null)
+    public function setConfirmation(mixed $confirmation = null): self
     {
-        if ($confirmation === null || $confirmation === '') {
-            $this->_confirmation = null;
-        } elseif (is_array($confirmation)) {
-            $factory = new SelfEmployedConfirmationFactory();
-            $this->_confirmation = $factory->factoryFromArray($confirmation);
-        } elseif ($confirmation instanceof SelfEmployedConfirmation) {
-            $this->_confirmation = $confirmation;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "confirmation" parameter in SelfEmployed',
-                0,
-                'SelfEmployed.confirmation',
-                $confirmation
-            );
+        if (is_array($confirmation)) {
+            $confirmation = (new SelfEmployedConfirmationFactory)->factoryFromArray($confirmation);
         }
-
+        $this->_confirmation = $this->validatePropertyValue('_confirmation', $confirmation);
         return $this;
     }
 
     /**
      * Возвращает признак тестовой операции.
      *
-     * @return bool Признак тестовой операции.
+     * @return bool Признак тестовой операции
      */
-    public function getTest()
+    public function getTest(): bool
     {
         return $this->_test;
     }
@@ -310,25 +273,13 @@ class SelfEmployed extends AbstractObject implements SelfEmployedInterface
     /**
      * Устанавливает признак тестовой операции.
      *
-     * @param bool $test Признак тестовой операции.
+     * @param bool|null $test Признак тестовой операции
      *
-     * @return $this
+     * @return self
      */
-    public function setTest($test)
+    public function setTest(?bool $test = null): self
     {
-        if ($test === null || $test === '') {
-            throw new EmptyPropertyValueException('Empty SelfEmployed test flag value', 0, 'SelfEmployed.test');
-        }
-        if (!TypeCast::canCastToBoolean($test)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid SelfEmployed test flag value type',
-                0,
-                'SelfEmployed.test',
-                $test
-            );
-        }
-        $this->_test = (bool)$test;
-
+        $this->_test = $this->validatePropertyValue('_test', $test);
         return $this;
     }
 }

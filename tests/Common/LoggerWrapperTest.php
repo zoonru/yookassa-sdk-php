@@ -3,79 +3,77 @@
 namespace Tests\YooKassa\Common;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use stdClass;
+use TypeError;
 use YooKassa\Common\LoggerWrapper;
 use YooKassa\Helpers\Random;
 
+/**
+ * @internal
+ */
 class LoggerWrapperTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $logger = new LoggerWrapper(new ArrayLogger());
         self::assertNotNull($logger);
-        $logger = new LoggerWrapper(function ($level, $message, $context) {
+        $logger = new LoggerWrapper(static function ($level, $message, $context): void {
         });
         self::assertNotNull($logger);
     }
 
     /**
      * @dataProvider invalidLoggerDataProvider
-     * @expectedException \Psr\Log\InvalidArgumentException
-     * @param mixed $source
      */
-    public function testInvalidConstruct($source)
+    public function testInvalidConstruct(mixed $source): void
     {
+        $this->expectException(TypeError::class);
+        $this->expectException(InvalidArgumentException::class);
         new LoggerWrapper($source);
     }
 
-    /**
-     * @return array
-     */
-    public function invalidLoggerDataProvider()
+    public static function invalidLoggerDataProvider(): array
     {
-        return array(
-            array(new \stdClass()),
-            array(true),
-            array(false),
-            array(array()),
-            array(1),
-            array('test'),
-        );
+        return [
+            [new stdClass()],
+            [true],
+            [false],
+            [[]],
+            [1],
+            ['test'],
+        ];
     }
 
     /**
      * @dataProvider validLoggerDataProvider
-     * @param string $level
-     * @param string $message
-     * @param array $context
      */
-    public function testLog($level, $message, $context)
+    public function testLog(string $level, string $message, array $context): void
     {
         $wrapped = new ArrayLogger();
 
         $instance = new LoggerWrapper($wrapped);
         $instance->log($level, $message, $context);
-        $expected = array($level, $message, $context);
+        $expected = [$level, $message, $context];
         self::assertEquals($expected, $wrapped->getLastLog());
 
         $wrapped = new ArrayLogger();
-        $instance = new LoggerWrapper(function ($level, $message, $context) use ($wrapped) {
+        $instance = new LoggerWrapper(function ($level, $message, $context) use ($wrapped): void {
             $wrapped->log($level, $message, $context);
         });
         $instance->log($level, $message, $context);
-        $expected = array($level, $message, $context);
+        $expected = [$level, $message, $context];
         self::assertEquals($expected, $wrapped->getLastLog());
     }
 
     /**
      * @dataProvider validLoggerDataProvider
-     * @param string $notUsed
-     * @param string $message
-     * @param array $context
      */
-    public function testLogMethods($notUsed, $message, $context)
+    public function testLogMethods(string $notUsed, string $message, array $context): void
     {
-        $methodsMap = array(
+        $methodsMap = [
             LogLevel::EMERGENCY => 'emergency',
             LogLevel::ALERT => 'alert',
             LogLevel::CRITICAL => 'critical',
@@ -84,43 +82,83 @@ class LoggerWrapperTest extends TestCase
             LogLevel::NOTICE => 'notice',
             LogLevel::INFO => 'info',
             LogLevel::DEBUG => 'debug',
-        );
+        ];
 
         $wrapped = new ArrayLogger();
         $instance = new LoggerWrapper($wrapped);
         foreach ($methodsMap as $level => $method) {
             $instance->{$method}($message, $context);
-            $expected = array($level, $message, $context);
+            $expected = [$level, $message, $context];
             self::assertEquals($expected, $wrapped->getLastLog());
         }
     }
 
-    public function validLoggerDataProvider()
+    public static function validLoggerDataProvider(): array
     {
-        return array(
-            array(LogLevel::EMERGENCY, Random::str(10, 20), array(Random::str(10, 20))),
-            array(LogLevel::ALERT, Random::str(10, 20), array(Random::str(10, 20))),
-            array(LogLevel::CRITICAL, Random::str(10, 20), array(Random::str(10, 20))),
-            array(LogLevel::ERROR, Random::str(10, 20), array(Random::str(10, 20))),
-            array(LogLevel::WARNING, Random::str(10, 20), array(Random::str(10, 20))),
-            array(LogLevel::NOTICE, Random::str(10, 20), array(Random::str(10, 20))),
-            array(LogLevel::INFO, Random::str(10, 20), array(Random::str(10, 20))),
-            array(LogLevel::DEBUG, Random::str(10, 20), array(Random::str(10, 20))),
-        );
+        return [
+            [LogLevel::EMERGENCY, Random::str(10, 20), [Random::str(10, 20)]],
+            [LogLevel::ALERT, Random::str(10, 20), [Random::str(10, 20)]],
+            [LogLevel::CRITICAL, Random::str(10, 20), [Random::str(10, 20)]],
+            [LogLevel::ERROR, Random::str(10, 20), [Random::str(10, 20)]],
+            [LogLevel::WARNING, Random::str(10, 20), [Random::str(10, 20)]],
+            [LogLevel::NOTICE, Random::str(10, 20), [Random::str(10, 20)]],
+            [LogLevel::INFO, Random::str(10, 20), [Random::str(10, 20)]],
+            [LogLevel::DEBUG, Random::str(10, 20), [Random::str(10, 20)]],
+        ];
     }
 }
 
-class ArrayLogger
+class ArrayLogger implements LoggerInterface
 {
-    private $lastLog;
+    private array $lastLog;
 
-    public function log($level, $message, $context)
+    public function log($level, $message, array $context = []): void
     {
-        $this->lastLog = array($level, $message, $context);
+        $this->lastLog = [$level, $message, $context];
     }
 
-    public function getLastLog()
+    public function getLastLog(): array
     {
         return $this->lastLog;
+    }
+
+    public function emergency($message, array $context = []): void
+    {
+        $this->log(LogLevel::EMERGENCY, $message, $context);
+    }
+
+    public function alert($message, array $context = []): void
+    {
+        $this->log(LogLevel::ALERT, $message, $context);
+    }
+
+    public function critical($message, array $context = []): void
+    {
+        $this->log(LogLevel::CRITICAL, $message, $context);
+    }
+
+    public function error($message, array $context = []): void
+    {
+        $this->log(LogLevel::ERROR, $message, $context);
+    }
+
+    public function warning($message, array $context = []): void
+    {
+        $this->log(LogLevel::WARNING, $message, $context);
+    }
+
+    public function notice($message, array $context = []): void
+    {
+        $this->log(LogLevel::NOTICE, $message, $context);
+    }
+
+    public function info($message, array $context = []): void
+    {
+        $this->log(LogLevel::INFO, $message, $context);
+    }
+
+    public function debug($message, array $context = []): void
+    {
+        $this->log(LogLevel::DEBUG, $message, $context);
     }
 }

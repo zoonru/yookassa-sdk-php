@@ -4,9 +4,12 @@ namespace Tests\YooKassa\Common\Exceptions;
 
 use YooKassa\Common\Exceptions\UnauthorizedException;
 
-class UnauthorizedExceptionTest extends AbstractApiRequestExceptionTest
+/**
+ * @internal
+ */
+class UnauthorizedExceptionTest extends AbstractTestApiRequestException
 {
-    public function getTestInstance($message = '', $code = 0, $responseHeaders = array(), $responseBody = null)
+    public function getTestInstance($message = '', $code = 0, $responseHeaders = [], $responseBody = '')
     {
         return new UnauthorizedException($responseHeaders, $responseBody);
     }

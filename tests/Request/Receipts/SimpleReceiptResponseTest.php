@@ -4,27 +4,29 @@ namespace Tests\YooKassa\Request\Receipts;
 
 use YooKassa\Request\Receipts\SimpleReceiptResponse;
 
-class SimpleReceiptResponseTest extends AbstractReceiptResponseTest
+/**
+ * @internal
+ */
+class SimpleReceiptResponseTest extends AbstractTestReceiptResponse
 {
-    protected $type = 'simple';
+    protected string $type = 'simple';
 
-    protected function getTestInstance($options)
+    /**
+     * @dataProvider validDataProvider
+     */
+    public function testSpecificProperties(array $options): void
+    {
+        $instance = $this->getTestInstance($options);
+        self::assertEquals($options['id'], $instance->getId());
+    }
+
+    protected function getTestInstance($options): SimpleReceiptResponse
     {
         return new SimpleReceiptResponse($options);
     }
 
-    protected function addSpecificProperties($options, $i)
+    protected function addSpecificProperties($options, $i): array
     {
         return $options;
-    }
-
-    /**
-     * @dataProvider validDataProvider
-     * @param array $options
-     */
-    public function testSpecificProperties($options)
-    {
-        $instance = $this->getTestInstance($options);
-        self::assertEquals($options['id'], $instance->getId());
     }
 }

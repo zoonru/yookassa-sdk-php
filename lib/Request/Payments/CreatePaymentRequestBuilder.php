@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,127 +26,100 @@
 
 namespace YooKassa\Request\Payments;
 
-use YooKassa\Common\AbstractPaymentRequest;
-use YooKassa\Common\AbstractPaymentRequestBuilder;
-use YooKassa\Common\AbstractRequest;
+use Exception;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\EmptyPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Common\Exceptions\InvalidRequestException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\Airline;
-use YooKassa\Model\AirlineInterface;
-use YooKassa\Model\ConfirmationAttributes\AbstractConfirmationAttributes;
-use YooKassa\Model\ConfirmationAttributes\ConfirmationAttributesFactory;
 use YooKassa\Model\Deal\PaymentDealInfo;
-use YooKassa\Model\FraudData;
 use YooKassa\Model\Metadata;
-use YooKassa\Model\Payment;
-use YooKassa\Model\PaymentData\AbstractPaymentData;
-use YooKassa\Model\PaymentData\PaymentDataFactory;
-use YooKassa\Model\Receipt\AdditionalUserProps;
+use YooKassa\Model\Payment\Recipient;
+use YooKassa\Model\Payment\RecipientInterface;
 use YooKassa\Model\Receipt\IndustryDetails;
-use YooKassa\Model\Recipient;
-use YooKassa\Model\RecipientInterface;
+use YooKassa\Request\Payments\ConfirmationAttributes\AbstractConfirmationAttributes;
+use YooKassa\Request\Payments\ConfirmationAttributes\ConfirmationAttributesFactory;
+use YooKassa\Request\Payments\PaymentData\AbstractPaymentData;
+use YooKassa\Request\Payments\PaymentData\PaymentDataFactory;
 
 /**
- * Класс билдера объектов запросов к API на создание платежа
+ * Класс, представляющий модель CreatePaymentRequestBuilder.
  *
- * @example 02-builder.php 11 78 Пример использования билдера
+ * Класс билдера объекта запроса на создание платежа, передаваемого в методы клиента API.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ *
+ * @example 02-builder.php 11 75 Пример использования билдера
  */
 class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
 {
     /**
-     * Собираемый объект запроса
-     * @var CreatePaymentRequest
+     * Собираемый объект запроса.
+     *
+     * @var CreatePaymentRequest|null
      */
-    protected $currentObject;
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
-     * @var Recipient Получатель платежа
+     * @var Recipient|null Получатель платежа
      */
-    private $recipient;
+    private ?Recipient $recipient = null;
 
     /**
-     * @var PaymentDataFactory Фабрика методов проведения платежей
+     * @var PaymentDataFactory|null Фабрика методов проведения платежей
      */
-    private $paymentDataFactory;
+    private ?PaymentDataFactory $paymentDataFactory = null;
 
     /**
-     * @var ConfirmationAttributesFactory Фабрика объектов методов подтверждения платежей
+     * @var ConfirmationAttributesFactory|null Фабрика объектов методов подтверждения платежей
      */
-    private $confirmationFactory;
+    private ?ConfirmationAttributesFactory $confirmationFactory = null;
 
     /**
-     * @var AirlineInterface Объект с данными для продажи авиабилетов
-     */
-    private $airline;
-
-    /**
-     * Объект с информацией о сделке, в составе которой проходит платеж.
-     * @var PaymentDealInfo
-     */
-    protected $deal;
-
-    /**
-     * Объект с информацией о сделке, в составе которой проходит платеж.
-     * @var FraudData
-     */
-    protected $fraud_data;
-
-    /**
-     * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
-     * @return CreatePaymentRequest Инстанс собираемого объекта запроса к API
-     */
-    protected function initCurrentObject()
-    {
-        parent::initCurrentObject();
-
-        $request = new CreatePaymentRequest();
-
-        $this->recipient = new Recipient();
-        $this->airline = new Airline();
-
-        return $request;
-    }
-
-    /**
-     * Устанавливает идентификатор магазина получателя платежа
+     * Устанавливает идентификатор магазина получателя платежа.
+     *
      * @param string $value Идентификатор магазина
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws EmptyPropertyValueException Выбрасывается если было передано пустое значение
      * @throws InvalidPropertyValueTypeException Выбрасывается если было передано не строковое значение
+     * @throws Exception
      */
-    public function setAccountId($value)
+    public function setAccountId(string $value): CreatePaymentRequestBuilder
     {
         $this->recipient->setAccountId($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает идентификатор шлюза
+     * Устанавливает идентификатор шлюза.
+     *
      * @param string $value Идентификатор шлюза
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws EmptyPropertyValueException Выбрасывается если было передано пустое значение
      * @throws InvalidPropertyValueTypeException Выбрасывается если было передано не строковое значение
      */
-    public function setGatewayId($value)
+    public function setGatewayId(string $value): CreatePaymentRequestBuilder
     {
         $this->recipient->setGatewayId($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает получателя платежа из объекта или ассоциативного массива
-     * @param RecipientInterface|array $value Получатель платежа
-     * @return CreatePaymentRequestBuilder
+     * Устанавливает получателя платежа из объекта или ассоциативного массива.
+     *
+     * @param array|RecipientInterface|null $value Получатель платежа
+     *
      * @throws InvalidPropertyValueTypeException Выбрасывается если передан аргумент не валидного типа
      */
-    public function setRecipient($value)
+    public function setRecipient(mixed $value): CreatePaymentRequestBuilder
     {
         if (is_array($value)) {
             $this->recipient->fromArray($value);
@@ -156,66 +129,67 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
         } else {
             throw new InvalidPropertyValueTypeException('Invalid recipient value', 0, 'recipient', $value);
         }
+
         return $this;
     }
 
     /**
-     * Устанавливает информацию об авиабилетах
-     * @param AirlineInterface|array $value Объект данных длинной записи или ассоциативный массив с данными
+     * Устанавливает информацию об авиабилетах.
      *
-     * @return CreatePaymentRequestBuilder
+     * @param AirlineInterface|array|null $value Объект данных длинной записи или ассоциативный массив с данными
      */
-    public function setAirline($value)
+    public function setAirline(mixed $value): CreatePaymentRequestBuilder
     {
-        if (is_array($value)) {
-            $this->airline->fromArray($value);
-        } elseif ($value instanceof AirlineInterface) {
-            $this->airline = clone $value;
-        } else {
-            throw new InvalidPropertyValueTypeException('Invalid airline value type', 0, 'airline', $value);
-        }
+        $this->currentObject->setAirline($value);
 
         return $this;
     }
 
     /**
-     * Устанавливает одноразовый токен для проведения оплаты
-     * @param string $value Одноразовый токен для проведения оплаты
+     * Устанавливает одноразовый токен для проведения оплаты.
+     *
+     * @param string|null $value Одноразовый токен для проведения оплаты
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если переданное значение превышает допустимую длину
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
      */
-    public function setPaymentToken($value)
+    public function setPaymentToken(?string $value): CreatePaymentRequestBuilder
     {
         $this->currentObject->setPaymentToken($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает идентификатор записи о сохранённых данных покупателя
-     * @param string $value Идентификатор записи о сохраненных платежных данных покупателя
+     * Устанавливает идентификатор записи о сохранённых данных покупателя.
+     *
+     * @param string|null $value Идентификатор записи о сохраненных платежных данных покупателя
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
-     * @throws InvalidPropertyValueTypeException Генерируется если переданные значение не является строкой или null
      */
-    public function setPaymentMethodId($value)
+    public function setPaymentMethodId(?string $value): CreatePaymentRequestBuilder
     {
         $this->currentObject->setPaymentMethodId($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает объект с информацией для создания метода оплаты
-     * @param AbstractPaymentData|string|array|null $value Объект создания метода оплаты или null
-     * @param array $options Настройки способа оплаты в виде ассоциативного массива
+     * Устанавливает объект с информацией для создания метода оплаты.
+     *
+     * @param null|AbstractPaymentData|array|string $value Объект создания метода оплаты или null
+     * @param array|null $options Настройки способа оплаты в виде ассоциативного массива
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если был передан объект невалидного типа
      */
-    public function setPaymentMethodData($value, array $options = null)
+    public function setPaymentMethodData(mixed $value, array $options = null): CreatePaymentRequestBuilder
     {
-        if (is_string($value) && $value !== '') {
+        if (is_string($value) && '' !== $value) {
             if (empty($options)) {
                 $value = $this->getPaymentDataFactory()->factory($value);
             } else {
@@ -225,188 +199,163 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
             $value = $this->getPaymentDataFactory()->factoryFromArray($value);
         }
         $this->currentObject->setPaymentMethodData($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает способ подтверждения платежа
-     * @param AbstractConfirmationAttributes|string|array|null $value Способ подтверждения платежа
-     * @param array|null $options Настройки способа подтверждения платежа в виде массива
+     * Устанавливает способ подтверждения платежа.
+     *
+     * @param null|AbstractConfirmationAttributes|array|string $value Способ подтверждения платежа
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является объектом типа
-     * AbstractConfirmationAttributes или null
+     *                                           AbstractConfirmationAttributes или null
      */
-    public function setConfirmation($value, array $options = null)
+    public function setConfirmation(mixed $value): CreatePaymentRequestBuilder
     {
-        if (is_string($value) && $value !== '') {
-            if (empty($options)) {
-                $value = $this->getConfirmationFactory()->factory($value);
-            } else {
-                $value = $this->getConfirmationFactory()->factoryFromArray($options, $value);
-            }
-        } elseif (is_array($value)) {
-            $value = $this->getConfirmationFactory()->factoryFromArray($value);
-        }
         $this->currentObject->setConfirmation($value);
+
         return $this;
     }
 
     /**
      * Устанавливает флаг сохранения платёжных данных. Значение true инициирует создание многоразового payment_method.
+     *
      * @param bool $value Сохранить платежные данные для последующего использования
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не кастится в bool
      */
-    public function setSavePaymentMethod($value)
+    public function setSavePaymentMethod(bool $value): CreatePaymentRequestBuilder
     {
         $this->currentObject->setSavePaymentMethod($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает флаг автоматического принятия поступившей оплаты
+     * Устанавливает флаг автоматического принятия поступившей оплаты.
+     *
      * @param bool $value Автоматически принять поступившую оплату
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не кастится в bool
-
      */
-    public function setCapture($value)
+    public function setCapture(bool $value): CreatePaymentRequestBuilder
     {
         $this->currentObject->setCapture($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает IP адрес покупателя
-     * @param string $value IPv4 или IPv6-адрес покупателя
+     * Устанавливает IP адрес покупателя.
+     *
+     * @param string|null $value IPv4 или IPv6-адрес покупателя
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент не является строкой
      */
-    public function setClientIp($value)
+    public function setClientIp(?string $value): CreatePaymentRequestBuilder
     {
         $this->currentObject->setClientIp($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает метаданные, привязанные к платежу
-     * @param Metadata|array|null $value Метаданные платежа, устанавливаемые мерчантом
+     * Устанавливает метаданные, привязанные к платежу.
+     *
+     * @param null|array|Metadata $value Метаданные платежа, устанавливаемые мерчантом
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданные данные не удалось интерпретировать как
-     * метаданные платежа
+     *                                           метаданные платежа
      */
-    public function setMetadata($value)
+    public function setMetadata(mixed $value): CreatePaymentRequestBuilder
     {
         $this->currentObject->setMetadata($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает описание транзакции
-     * @param string $value Описание транзакции
+     * Устанавливает описание транзакции.
+     *
+     * @param string|null $value Описание транзакции
+     *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если переданное значение превышает допустимую длину
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
      */
-    public function setDescription($value)
+    public function setDescription(?string $value): CreatePaymentRequestBuilder
     {
         $this->currentObject->setDescription($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает сделку
-     * @param PaymentDealInfo|array|null $value Данные о сделке, в составе которой проходит платеж
-     * @throws InvalidPropertyValueTypeException
+     * Устанавливает сделку.
+     *
+     * @param null|array|PaymentDealInfo $value Данные о сделке, в составе которой проходит платеж
      *
      * @return CreatePaymentRequestBuilder Инстанс билдера запросов
+     *
+     * @throws InvalidPropertyValueTypeException
      */
-    public function setDeal($value)
+    public function setDeal(mixed $value): CreatePaymentRequestBuilder
     {
-        if ($value === null) {
-            return $this;
-        }
-        if ($value instanceof PaymentDealInfo) {
-            $this->deal = $value;
-        } elseif (is_array($value)) {
-            $this->deal = new PaymentDealInfo($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid deal value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.deal',
-                $value
-            );
-        }
+        $this->currentObject->setDeal($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает сделку
-     * @param FraudData|array|null $value Данные о сделке, в составе которой проходит платеж
-     * @throws InvalidPropertyValueTypeException
+     * Устанавливает сделку.
+     *
+     * @param null|array|FraudData $value Данные о сделке, в составе которой проходит платеж
      *
      * @return CreatePaymentRequestBuilder Информация для проверки операции на мошенничество
+     *
+     * @throws InvalidPropertyValueTypeException
      */
-    public function setFraudData($value)
+    public function setFraudData(mixed $value): CreatePaymentRequestBuilder
     {
-        if ($value === null || (is_array($value) && empty($value))) {
-            $this->fraud_data = null;
-            return $this;
-        }
-        if ($value instanceof FraudData) {
-            $this->fraud_data = $value;
-        } elseif (is_array($value)) {
-            $this->fraud_data = new FraudData($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid fraud_data value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.fraud_data',
-                $value
-            );
-        }
+        $this->currentObject->setFraudData($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает идентификатор покупателя в вашей системе
-     * @param string $value Идентификатор покупателя в вашей системе, например электронная почта или номер телефона. Не более 200 символов
+     * Устанавливает идентификатор покупателя в вашей системе.
+     *
+     * @param string|null $value Идентификатор покупателя в вашей системе, например электронная почта или номер телефона. Не более 200 символов
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент не является строкой
      */
-    public function setMerchantCustomerId($value)
+    public function setMerchantCustomerId(?string $value): self
     {
         $this->currentObject->setMerchantCustomerId($value);
-        return $this;
-    }
-
-    /**
-     * Устанавливает отраслевой реквизит чека
-     *
-     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
-     * @return self Инстанс билдера запросов
-     */
-    public function setReceiptAdditionalUserProps($value)
-    {
-        $this->receipt->setAdditionalUserProps($value);
 
         return $this;
     }
 
     /**
-     * Устанавливает отраслевой реквизит чека
+     * Устанавливает отраслевой реквизит чека.
      *
-     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     * @param array|IndustryDetails[]|null $value Отраслевой реквизит чека
+     *
      * @return self Инстанс билдера запросов
      */
-    public function setReceiptIndustryDetails($value)
+    public function setReceiptIndustryDetails(mixed $value): self
     {
         $this->receipt->setReceiptIndustryDetails($value);
 
@@ -414,12 +363,13 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
     }
 
     /**
-     * Устанавливает отраслевой реквизит чека
+     * Устанавливает отраслевой реквизит чека.
      *
-     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     * @param array|IndustryDetails[]|null $value Отраслевой реквизит чека
+     *
      * @return self Инстанс билдера запросов
      */
-    public function setReceiptOperationalDetails($value)
+    public function setReceiptOperationalDetails(mixed $value): self
     {
         $this->receipt->setReceiptOperationalDetails($value);
 
@@ -427,13 +377,14 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
     }
 
     /**
-     * Строит и возвращает объект запроса для отправки в API ЮKassa
-     * @param array|null $options Массив параметров для установки в объект запроса
-     * @return CreatePaymentRequestInterface|AbstractPaymentRequest|AbstractRequest Инстанс объекта запроса
+     * Строит и возвращает объект запроса для отправки в API ЮKassa.
      *
-     * @throws InvalidRequestException Выбрасывается если собрать объект запроса не удалось
+     * @param null|array $options Массив параметров для установки в объект запроса
+     *
+     * @return CreatePaymentRequestInterface|AbstractRequestInterface Инстанс объекта запроса
+     *
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         if (!empty($options)) {
             $this->setOptions($options);
@@ -445,42 +396,39 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
         if ($this->receipt->notEmpty()) {
             $this->currentObject->setReceipt($this->receipt);
         }
-        if ($this->airline->notEmpty()) {
-            $this->currentObject->setAirline($this->airline);
-        }
+
         $this->currentObject->setAmount($this->amount);
-        $this->currentObject->setTransfers($this->transfers);
-        if ($this->deal) {
-            $this->currentObject->setDeal($this->deal);
-        }
-        if ($this->fraud_data) {
-            $this->currentObject->setFraudData($this->fraud_data);
-        }
 
         return parent::build();
     }
 
     /**
-     * Возвращает фабрику методов проведения платежей
-     * @return PaymentDataFactory Фабрика методов проведения платежей
+     * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
+     *
+     * @return CreatePaymentRequest Инстанс собираемого объекта запроса к API
      */
-    protected function getPaymentDataFactory()
+    protected function initCurrentObject(): CreatePaymentRequest
     {
-        if ($this->paymentDataFactory === null) {
-            $this->paymentDataFactory = new PaymentDataFactory();
-        }
-        return $this->paymentDataFactory;
+        parent::initCurrentObject();
+
+        $request = new CreatePaymentRequest();
+
+        $this->recipient = new Recipient();
+
+        return $request;
     }
 
     /**
-     * Возвращает фабрику для создания методов подтверждения платежей
-     * @return ConfirmationAttributesFactory Фабрика объектов методов подтверждения платежей
+     * Возвращает фабрику методов проведения платежей.
+     *
+     * @return PaymentDataFactory Фабрика методов проведения платежей
      */
-    protected function getConfirmationFactory()
+    protected function getPaymentDataFactory(): PaymentDataFactory
     {
-        if ($this->confirmationFactory === null) {
-            $this->confirmationFactory = new ConfirmationAttributesFactory();
+        if (null === $this->paymentDataFactory) {
+            $this->paymentDataFactory = new PaymentDataFactory();
         }
-        return $this->confirmationFactory;
+
+        return $this->paymentDataFactory;
     }
 }

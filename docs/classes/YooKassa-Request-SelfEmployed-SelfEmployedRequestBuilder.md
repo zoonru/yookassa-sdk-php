@@ -5,8 +5,37 @@
 ---
 **Summary:**
 
-Класс билдера объектов запросов к API на создание самозанятого
+Класс, представляющий модель SelfEmployedRequestBuilder.
 
+**Description:**
+
+Класс билдера объектов запросов к API на создание самозанятого.
+
+---
+### Examples
+Пример использования билдера
+
+```php
+try {
+    $selfEmployedBuilder = \YooKassa\Request\SelfEmployed\SelfEmployedRequest::builder();
+    $selfEmployedBuilder
+        ->setItn('123456789012')
+        ->setPhone('79001002030')
+        ->setConfirmation(['type' => \YooKassa\Model\SelfEmployed\SelfEmployedConfirmationType::REDIRECT])
+    ;
+
+    // Создаем объект запроса
+    $request = $selfEmployedBuilder->build();
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createSelfEmployed($request, $idempotenceKey);
+} catch (Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
+
+```
 
 ---
 ### Constants
@@ -16,44 +45,48 @@
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| protected | [$currentObject](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#property_currentObject) |  | Собираемый объект запроса |
+| protected | [$currentObject](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#property_currentObject) |  | Собираемый объект запроса. |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать |
-| public | [build()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#method_build) |  | Строит и возвращает объект запроса для отправки в API ЮKassa |
+| public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать. |
+| public | [build()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#method_build) |  | Строит и возвращает объект запроса для отправки в API ЮKassa. |
 | public | [setConfirmation()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#method_setConfirmation) |  | Устанавливает сценарий подтверждения. |
-| public | [setItn()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#method_setItn) |  | Устанавливает ИНН самозанятого |
-| public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива |
+| public | [setItn()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#method_setItn) |  | Устанавливает ИНН самозанятого. |
+| public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива. |
 | public | [setPhone()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#method_setPhone) |  | Устанавливает телефон самозанятого. |
 | protected | [initCurrentObject()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md#method_initCurrentObject) |  | Инициализирует объект запроса, который в дальнейшем будет собираться билдером |
 
 ---
 ### Details
 * File: [lib/Request/SelfEmployed/SelfEmployedRequestBuilder.php](../../lib/Request/SelfEmployed/SelfEmployedRequestBuilder.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
   * \YooKassa\Request\SelfEmployed\SelfEmployedRequestBuilder
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
 
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
-| todo |  | @example 02-builder.php 11 78 Пример использования билдера |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Properties
 <a name="property_currentObject"></a>
-#### protected $currentObject : \YooKassa\Request\SelfEmployed\SelfEmployedRequest
+#### protected $currentObject : ?\YooKassa\Common\AbstractRequestInterface
 ---
 **Summary**
 
-Собираемый объект запроса
+Собираемый объект запроса.
 
-**Type:** <a href="../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.html"><abbr title="\YooKassa\Request\SelfEmployed\SelfEmployedRequest">SelfEmployedRequest</abbr></a>
+**Type:** <a href="../?\YooKassa\Common\AbstractRequestInterface"><abbr title="?\YooKassa\Common\AbstractRequestInterface">AbstractRequestInterface</abbr></a>
 
 **Details:**
 
@@ -70,7 +103,7 @@ public __construct() : mixed
 
 **Summary**
 
-Конструктор, инициализирует пустой запрос, который в будущем начнём собирать
+Конструктор, инициализирует пустой запрос, который в будущем начнём собирать.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -79,15 +112,15 @@ public __construct() : mixed
 
 
 <a name="method_build" class="anchor"></a>
-#### public build() : \YooKassa\Request\SelfEmployed\SelfEmployedRequest|\YooKassa\Common\AbstractRequest
+#### public build() : \YooKassa\Request\SelfEmployed\SelfEmployedRequestInterface|\YooKassa\Common\AbstractRequestInterface
 
 ```php
-public build(array|null $options = null) : \YooKassa\Request\SelfEmployed\SelfEmployedRequest|\YooKassa\Common\AbstractRequest
+public build(null|array $options = null) : \YooKassa\Request\SelfEmployed\SelfEmployedRequestInterface|\YooKassa\Common\AbstractRequestInterface
 ```
 
 **Summary**
 
-Строит и возвращает объект запроса для отправки в API ЮKassa
+Строит и возвращает объект запроса для отправки в API ЮKassa.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequestBuilder](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md)
@@ -95,21 +128,21 @@ public build(array|null $options = null) : \YooKassa\Request\SelfEmployed\SelfEm
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR null</code> | options  | Массив параметров для установки в объект запроса |
+| <code lang="php">null OR array</code> | options  | Массив параметров для установки в объект запроса |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \YooKassa\Common\Exceptions\InvalidRequestException | Выбрасывается если собрать объект запроса не удалось |
 
-**Returns:** \YooKassa\Request\SelfEmployed\SelfEmployedRequest|\YooKassa\Common\AbstractRequest - Инстанс объекта запроса
+**Returns:** \YooKassa\Request\SelfEmployed\SelfEmployedRequestInterface|\YooKassa\Common\AbstractRequestInterface - Инстанс объекта запроса
 
 
 <a name="method_setConfirmation" class="anchor"></a>
 #### public setConfirmation() : self
 
 ```php
-public setConfirmation(\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|array|null $value) : self
+public setConfirmation(null|array|\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation $value) : self
 ```
 
 **Summary**
@@ -122,7 +155,7 @@ public setConfirmation(\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|arr
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation OR array OR null</code> | value  | Сценарий подтверждения. |
+| <code lang="php">null OR array OR \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation</code> | value  | сценарий подтверждения |
 
 **Returns:** self - Инстанс билдера запросов
 
@@ -131,12 +164,12 @@ public setConfirmation(\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|arr
 #### public setItn() : self
 
 ```php
-public setItn(string|null $value) : self
+public setItn(null|string $value) : self
 ```
 
 **Summary**
 
-Устанавливает ИНН самозанятого
+Устанавливает ИНН самозанятого.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequestBuilder](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md)
@@ -144,7 +177,7 @@ public setItn(string|null $value) : self
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | value  | ИНН самозанятого |
+| <code lang="php">null OR string</code> | value  | ИНН самозанятого |
 
 **Returns:** self - Инстанс билдера запросов
 
@@ -153,12 +186,12 @@ public setItn(string|null $value) : self
 #### public setOptions() : \YooKassa\Common\AbstractRequestBuilder
 
 ```php
-public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractRequestBuilder
+public setOptions(iterable|null $options) : \YooKassa\Common\AbstractRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает свойства запроса из массива
+Устанавливает свойства запроса из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -166,13 +199,13 @@ public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractReques
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \Traversable</code> | options  | Массив свойств запроса |
+| <code lang="php">iterable OR null</code> | options  | Массив свойств запроса |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \InvalidArgumentException | Выбрасывается если аргумент не массив и не итерируемый объект |
-| \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданныч в массиве настроек |
+| \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек |
 
 **Returns:** \YooKassa\Common\AbstractRequestBuilder - Инстанс текущего билдера запросов
 
@@ -181,7 +214,7 @@ public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractReques
 #### public setPhone() : self
 
 ```php
-public setPhone(string|null $value) : self
+public setPhone(null|string $value) : self
 ```
 
 **Summary**
@@ -194,7 +227,7 @@ public setPhone(string|null $value) : self
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | value  | Телефон самозанятого. |
+| <code lang="php">null OR string</code> | value  | телефон самозанятого |
 
 **Returns:** self - Инстанс билдера запросов
 
@@ -227,11 +260,11 @@ protected initCurrentObject() : \YooKassa\Request\SelfEmployed\SelfEmployedReque
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

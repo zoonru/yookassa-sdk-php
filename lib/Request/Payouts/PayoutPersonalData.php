@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,36 +27,45 @@
 namespace YooKassa\Request\Payouts;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\PersonalData\PersonalDataInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс, представляющий модель PayoutsPersonalData.
+ * Класс, представляющий модель PayoutPersonalData.
  *
- * Персональные данные получателя выплаты. Необходимо передавать, если вы делаете выплату с [проверкой получателя](/developers/payouts/scenario-extensions/recipient-check). Только для обычных выплат.
+ * Персональные данные получателя выплаты. Необходимо передавать,
+ * если вы делаете выплату с [проверкой получателя](/developers/payouts/scenario-extensions/recipient-check). Только для обычных выплат.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property string $id Идентификатор персональных данных, сохраненных в ЮKassa.
  */
-
 class PayoutPersonalData extends AbstractObject
 {
+    /** @var int Максимальная длина идентификатора персональных данных */
+    public const MAX_LENGTH_ID = 50;
+
+    /** @var int Максимальная длина идентификатора персональных данных */
+    public const MIN_LENGTH_ID = 36;
+
     /**
      * Идентификатор персональных данных, сохраненных в ЮKassa.
      *
-     * @var string
+     * @var string|null
      */
-    private $_id;
-
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::MAX_LENGTH_ID)]
+    #[Assert\Length(min: self::MIN_LENGTH_ID)]
+    private ?string $_id = null;
 
     /**
      * Возвращает идентификатор персональных данных.
      *
-     * @return string Идентификатор персональных данных
+     * @return string|null Идентификатор персональных данных
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->_id;
     }
@@ -64,21 +73,13 @@ class PayoutPersonalData extends AbstractObject
     /**
      * Устанавливает идентификатор персональных данных.
      *
-     * @param string $id Идентификатор персональных данных
+     * @param string|null $id Идентификатор персональных данных, сохраненных в ЮKassa
      *
-     * @return $this
+     * @return self
      */
-    public function setId($id)
+    public function setId(?string $id = null): self
     {
-        if (!TypeCast::canCastToString($id)) {
-            throw new InvalidPropertyValueTypeException('Invalid PayoutPersonalData id value type', 0, 'PayoutPersonalData.id', $id);
-        }
-        $length = mb_strlen($id, 'utf-8');
-        if ($length < PersonalDataInterface::MIN_LENGTH_ID || $length > PersonalDataInterface::MAX_LENGTH_ID) {
-            throw new InvalidPropertyValueException('Invalid PayoutPersonalData id value', 0, 'PayoutPersonalData.id', $id);
-        }
-        $this->_id = (string)$id;
-
+        $this->_id = $this->validatePropertyValue('_id', $id);
         return $this;
     }
 }

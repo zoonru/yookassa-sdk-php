@@ -5,8 +5,38 @@
 ---
 **Summary:**
 
-Класс объекта запроса к API на проведение новой сделки
+Класс, представляющий модель SafeDealRequest.
 
+**Description:**
+
+Класс объекта запроса к API на проведение новой сделки.
+
+---
+### Examples
+Пример использования билдера
+
+```php
+try {
+    $dealBuilder = \YooKassa\Request\Deals\CreateDealRequest::builder();
+    $dealBuilder
+        ->setType(\YooKassa\Model\Deal\DealType::SAFE_DEAL)
+        ->setFeeMoment(\YooKassa\Model\Deal\FeeMoment::PAYMENT_SUCCEEDED)
+        ->setDescription('SAFE_DEAL 123554642-2432FF344R')
+        ->setMetadata(['order_id' => '37'])
+    ;
+
+    // Создаем объект запроса
+    $request = $dealBuilder->build();
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createDeal($request, $idempotenceKey);
+} catch (Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
+
+```
 
 ---
 ### Constants
@@ -27,40 +57,42 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [builder()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_builder) |  | Возвращает билдер объектов запросов создания сделки |
-| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getDescription()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_getDescription) |  | Возвращает описание сделки |
-| public | [getFeeMoment()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_getFeeMoment) |  | Возвращает момент перечисления вам вознаграждения платформы |
-| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [builder()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_builder) |  | Возвращает билдер объектов запросов создания сделки. |
+| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
+| public | [getDescription()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_getDescription) |  | Возвращает описание сделки. |
+| public | [getFeeMoment()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_getFeeMoment) |  | Возвращает момент перечисления вам вознаграждения платформы. |
+| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации. |
 | public | [getMetadata()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_getMetadata) |  | Возвращает данные оплаты установленные мерчантом |
-| public | [getType()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_getType) |  | Возвращает тип сделки |
-| public | [hasDescription()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_hasDescription) |  | Проверяет наличие описания в создаваемой сделке |
-| public | [hasFeeMoment()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_hasFeeMoment) |  | Проверяет, был ли установлен момент перечисления вознаграждения |
-| public | [hasMetadata()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_hasMetadata) |  | Проверяет, были ли установлены метаданные заказа |
-| public | [hasType()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_hasType) |  | Проверяет наличие типа в создаваемой сделке |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
-| public | [setDescription()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_setDescription) |  | Устанавливает описание сделки |
-| public | [setFeeMoment()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_setFeeMoment) |  | Устанавливает момент перечисления вам вознаграждения платформы |
-| public | [setMetadata()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_setMetadata) |  | Устанавливает метаданные, привязанные к платежу |
-| public | [setType()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_setType) |  | Устанавливает тип сделки |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
+| public | [getType()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_getType) |  | Возвращает тип сделки. |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [hasDescription()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_hasDescription) |  | Проверяет наличие описания в создаваемой сделке. |
+| public | [hasFeeMoment()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_hasFeeMoment) |  | Проверяет, был ли установлен момент перечисления вознаграждения. |
+| public | [hasMetadata()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_hasMetadata) |  | Проверяет, были ли установлены метаданные заказа. |
+| public | [hasType()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_hasType) |  | Проверяет наличие типа в создаваемой сделке. |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
+| public | [setDescription()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_setDescription) |  | Устанавливает описание сделки. |
+| public | [setFeeMoment()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_setFeeMoment) |  | Устанавливает момент перечисления вам вознаграждения платформы. |
+| public | [setMetadata()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_setMetadata) |  | Устанавливает метаданные, привязанные к платежу. |
+| public | [setType()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_setType) |  | Устанавливает тип сделки. |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
 | public | [validate()](../classes/YooKassa-Request-Deals-CreateDealRequest.md#method_validate) |  | Проверяет на валидность текущий объект |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
-| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Request/Deals/CreateDealRequest.php](../../lib/Request/Deals/CreateDealRequest.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy:  
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
@@ -68,11 +100,15 @@
 * Implements:
   * [\YooKassa\Request\Deals\CreateDealRequestInterface](../classes/YooKassa-Request-Deals-CreateDealRequestInterface.md)
 
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
-| todo: |  | @example 02-builder.php 11 78 Пример использования билдера |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Properties
@@ -143,7 +179,7 @@
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -156,7 +192,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -170,7 +206,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -192,7 +228,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -206,15 +242,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -225,19 +261,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -247,7 +283,7 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_builder" class="anchor"></a>
@@ -259,7 +295,7 @@ Static public builder() : \YooKassa\Request\Deals\CreateDealRequestBuilder
 
 **Summary**
 
-Возвращает билдер объектов запросов создания сделки
+Возвращает билдер объектов запросов создания сделки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -268,32 +304,32 @@ Static public builder() : \YooKassa\Request\Deals\CreateDealRequestBuilder
 
 
 <a name="method_clearValidationError" class="anchor"></a>
-#### public clearValidationError() : mixed
+#### public clearValidationError() : void
 
 ```php
-public clearValidationError() : mixed
+public clearValidationError() : void
 ```
 
 **Summary**
 
-Очищает статус валидации текущего запроса
+Очищает статус валидации текущего запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -303,65 +339,65 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getDescription" class="anchor"></a>
-#### public getDescription() : string
+#### public getDescription() : string|null
 
 ```php
-public getDescription() : string
+public getDescription() : string|null
 ```
 
 **Summary**
 
-Возвращает описание сделки
+Возвращает описание сделки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
 
-**Returns:** string - 
+**Returns:** string|null - Описание сделки.
 
 
 <a name="method_getFeeMoment" class="anchor"></a>
-#### public getFeeMoment() : string
+#### public getFeeMoment() : string|null
 
 ```php
-public getFeeMoment() : string
+public getFeeMoment() : string|null
 ```
 
 **Summary**
 
-Возвращает момент перечисления вам вознаграждения платформы
+Возвращает момент перечисления вам вознаграждения платформы.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
 
-**Returns:** string - Момент перечисления вам вознаграждения платформы
+**Returns:** string|null - Момент перечисления вам вознаграждения платформы
 
 
 <a name="method_getLastValidationError" class="anchor"></a>
-#### public getLastValidationError() : string
+#### public getLastValidationError() : string|null
 
 ```php
-public getLastValidationError() : string
+public getLastValidationError() : string|null
 ```
 
 **Summary**
 
-Возвращает последнюю ошибку валидации
+Возвращает последнюю ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** string - Последняя произошедшая ошибка валидации
+**Returns:** string|null - Последняя произошедшая ошибка валидации
 
 
 <a name="method_getMetadata" class="anchor"></a>
-#### public getMetadata() : \YooKassa\Model\Metadata
+#### public getMetadata() : \YooKassa\Model\Metadata|null
 
 ```php
-public getMetadata() : \YooKassa\Model\Metadata
+public getMetadata() : \YooKassa\Model\Metadata|null
 ```
 
 **Summary**
@@ -371,24 +407,37 @@ public getMetadata() : \YooKassa\Model\Metadata
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
 
-**Returns:** \YooKassa\Model\Metadata - Метаданные, привязанные к платежу
+**Returns:** \YooKassa\Model\Metadata|null - Метаданные, привязанные к платежу
 
 
 <a name="method_getType" class="anchor"></a>
-#### public getType() : string
+#### public getType() : string|null
 
 ```php
-public getType() : string
+public getType() : string|null
 ```
 
 **Summary**
 
-Возвращает тип сделки
+Возвращает тип сделки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
 
-**Returns:** string - Тип сделки
+**Returns:** string|null - Тип сделки
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_hasDescription" class="anchor"></a>
@@ -400,7 +449,7 @@ public hasDescription() : bool
 
 **Summary**
 
-Проверяет наличие описания в создаваемой сделке
+Проверяет наличие описания в создаваемой сделке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -417,7 +466,7 @@ public hasFeeMoment() : bool
 
 **Summary**
 
-Проверяет, был ли установлен момент перечисления вознаграждения
+Проверяет, был ли установлен момент перечисления вознаграждения.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -434,7 +483,7 @@ public hasMetadata() : bool
 
 **Summary**
 
-Проверяет, были ли установлены метаданные заказа
+Проверяет, были ли установлены метаданные заказа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -451,7 +500,7 @@ public hasType() : bool
 
 **Summary**
 
-Проверяет наличие типа в создаваемой сделке
+Проверяет наличие типа в создаваемой сделке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -468,7 +517,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -485,7 +534,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -507,7 +556,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -529,7 +578,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -552,7 +601,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -566,15 +615,15 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setDescription" class="anchor"></a>
-#### public setDescription() : mixed
+#### public setDescription() : self
 
 ```php
-public setDescription(string $value) : mixed
+public setDescription(string|null $description = null) : self
 ```
 
 **Summary**
 
-Устанавливает описание сделки
+Устанавливает описание сделки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -582,27 +631,21 @@ public setDescription(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  |  |
+| <code lang="php">string OR null</code> | description  | Описание сделки (не более 128 символов) |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданное значение превышает допустимую длину |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданное значение не является строкой |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setFeeMoment" class="anchor"></a>
-#### public setFeeMoment() : mixed
+#### public setFeeMoment() : self
 
 ```php
-public setFeeMoment(string $value) : mixed
+public setFeeMoment(string|null $fee_moment = null) : self
 ```
 
 **Summary**
 
-Устанавливает момент перечисления вам вознаграждения платформы
+Устанавливает момент перечисления вам вознаграждения платформы.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -610,27 +653,21 @@ public setFeeMoment(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Момент перечисления вам вознаграждения платформы |
+| <code lang="php">string OR null</code> | fee_moment  | Момент перечисления вам вознаграждения платформы |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Генерируется если переданный аргумент не является строкой |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если переданный аргумент не из списка FeeMoment |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setMetadata" class="anchor"></a>
-#### public setMetadata() : mixed
+#### public setMetadata() : self
 
 ```php
-public setMetadata(\YooKassa\Model\Metadata|array|null $value) : mixed
+public setMetadata(string|array|null $metadata = null) : self
 ```
 
 **Summary**
 
-Устанавливает метаданные, привязанные к платежу
+Устанавливает метаданные, привязанные к платежу.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -638,26 +675,21 @@ public setMetadata(\YooKassa\Model\Metadata|array|null $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\Metadata OR array OR null</code> | value  | Метаданные платежа, устанавливаемые мерчантом |
+| <code lang="php">string OR array OR null</code> | metadata  | Любые дополнительные данные, которые нужны вам для работы. |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданные данные не удалось интерпретировать как метаданные платежа |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setType" class="anchor"></a>
-#### public setType() : mixed
+#### public setType() : self
 
 ```php
-public setType(string $value) : mixed
+public setType(string|null $type = null) : self
 ```
 
 **Summary**
 
-Устанавливает тип сделки
+Устанавливает тип сделки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequest](../classes/YooKassa-Request-Deals-CreateDealRequest.md)
@@ -665,15 +697,9 @@ public setType(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Тип сделки |
+| <code lang="php">string OR null</code> | type  | Тип сделки |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Генерируется если переданный аргумент не является строкой |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если переданный аргумент не из списка DealType |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -686,7 +712,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -720,7 +746,7 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -729,15 +755,15 @@ protected getUnknownProperties() : array
 
 
 <a name="method_setValidationError" class="anchor"></a>
-#### protected setValidationError() : mixed
+#### protected setValidationError() : void
 
 ```php
-protected setValidationError(string $value) : mixed
+protected setValidationError(string $value) : void
 ```
 
 **Summary**
 
-Устанавливает ошибку валидации
+Устанавливает ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
@@ -746,6 +772,25 @@ protected setValidationError(string $value) : mixed
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | value  | Ошибка, произошедшая при валидации объекта |
+
+**Returns:** void - 
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
 
 **Returns:** mixed - 
 
@@ -761,11 +806,11 @@ protected setValidationError(string $value) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,37 +26,39 @@
 
 namespace YooKassa\Model\Notification;
 
-use YooKassa\Model\PaymentInterface;
-use YooKassa\Model\RefundInterface;
+use YooKassa\Model\Deal\DealInterface;
+use YooKassa\Model\Payment\PaymentInterface;
+use YooKassa\Model\Payout\PayoutInterface;
+use YooKassa\Model\Refund\RefundInterface;
 
 interface NotificationInterface
 {
     /**
-     * Возвращает тип уведомления
+     * Возвращает тип уведомления.
      *
      * Тип уведомления - одна из констант, указанных в перечислении {@link NotificationType}.
      *
-     * @return string Тип уведомления в виде строки
+     * @return string|null Тип уведомления в виде строки
      */
-    public function getType();
+    public function getType(): ?string;
 
     /**
-     * Возвращает тип события
+     * Возвращает тип события.
      *
      * Тип события - одна из констант, указанных в перечислении {@link NotificationEventType}.
      *
-     * @return string Тип события
+     * @return string|null Тип события
      */
-    public function getEvent();
+    public function getEvent(): ?string;
 
     /**
-     * Возвращает объект с информацией о платеже или возврате, уведомление о котором хранится в текущем объекте
+     * Возвращает объект с информацией о платеже или возврате, уведомление о котором хранится в текущем объекте.
      *
      * Так как нотификация может быть сгенерирована и поставлена в очередь на отправку гораздо раньше, чем она будет
      * получена на сайте, то опираться на статус пришедшего платежа не стоит, лучше запросить текущую информацию о
      * платеже у API.
      *
-     * @return PaymentInterface|RefundInterface Объект с информацией о платеже
+     * @return PaymentInterface|RefundInterface|PayoutInterface|DealInterface|null Объект с информацией о платеже
      */
-    public function getObject();
+    public function getObject(): RefundInterface|PaymentInterface|PayoutInterface|DealInterface|null;
 }

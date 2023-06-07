@@ -3,19 +3,21 @@
 namespace Tests\YooKassa\Model\Deal;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Deal\CaptureDealData;
 use YooKassa\Model\Deal\SettlementPayoutPayment;
 use YooKassa\Model\Deal\SettlementPayoutPaymentType;
 
+/**
+ * @internal
+ */
 class CaptureDealDataTest extends TestCase
 {
     /**
      * @dataProvider fromArrayDataProvider
-     * @param array $source
-     * @param CaptureDealData $expected
      */
-    public function testFromArray($source, $expected)
+    public function testFromArray(array $source, CaptureDealData $expected): void
     {
         $deal = new CaptureDealData($source);
         $dealArray = $expected->toArray();
@@ -27,86 +29,88 @@ class CaptureDealDataTest extends TestCase
         }
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         for ($i = 0; $i < 10; $i++) {
-            $payment = array(
+            $payment = [
                 'settlements' => $this->generateSettlements(),
-            );
-            $result[] = array($payment);
+            ];
+            $result[] = [$payment];
         }
+
         return $result;
     }
 
-    public function invalidDataProvider()
+    public function invalidDataProvider(): array
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'settlements' => null,
-                )
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'settlements' => '',
-                ),
-            ),
-        );
-        $invalidData = array(
-            array(null),
-            array(''),
-            array(new \stdClass()),
-            array('invalid_value'),
-            array(0),
-            array(3234),
-            array(true),
-            array(false),
-            array(0.43),
-        );
+                ],
+            ],
+        ];
+        $invalidData = [
+            [null],
+            [''],
+            [new stdClass()],
+            ['invalid_value'],
+            [0],
+            [3234],
+            [true],
+            [false],
+            [0.43],
+        ];
         for ($i = 0; $i < 9; $i++) {
-            $payment = array(
+            $payment = [
                 'settlements' => Random::value($invalidData),
-            );
-            $result[] = array($payment);
+            ];
+            $result[] = [$payment];
         }
+
         return $result;
     }
 
-    public function fromArrayDataProvider()
+    public static function fromArrayDataProvider(): array
     {
         $deal = new CaptureDealData();
-        $settlements = array();
-        $settlements[] = new SettlementPayoutPayment(array(
+        $settlements = [];
+        $settlements[] = new SettlementPayoutPayment([
             'type' => SettlementPayoutPaymentType::PAYOUT,
-            'amount' => array(
+            'amount' => [
                 'value' => 123.00,
                 'currency' => 'RUB',
-            ),
-        ));
+            ],
+        ]);
         $deal->setSettlements($settlements);
 
-        return array(
-            array(
-                array(
-                    'settlements' => array(
-                        array(
+        return [
+            [
+                [
+                    'settlements' => [
+                        [
                             'type' => SettlementPayoutPaymentType::PAYOUT,
-                            'amount' => array(
+                            'amount' => [
                                 'value' => 123.00,
                                 'currency' => 'RUB',
-                            ),
-                        )
-                    ),
-                ),
-                $deal
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+                $deal,
+            ],
+        ];
     }
 
-    private function generateSettlements()
+    private function generateSettlements(): array
     {
-        $return = array();
+        $return = [];
         $count = Random::int(1, 10);
 
         for ($i = 0; $i < $count; $i++) {
@@ -116,14 +120,14 @@ class CaptureDealDataTest extends TestCase
         return $return;
     }
 
-    private function generateSettlement()
+    private function generateSettlement(): array
     {
-        return array(
+        return [
             'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
-            'amount' => array(
+            'amount' => [
                 'value' => round(Random::float(1.00, 100.00), 2),
                 'currency' => 'RUB',
-            ),
-        );
+            ],
+        ];
     }
 }

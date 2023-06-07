@@ -2,16 +2,100 @@
 
 namespace Tests\YooKassa\Model\Payout;
 
+use Exception;
+use stdClass;
+use TypeError;
 use YooKassa\Helpers\Random;
+use YooKassa\Model\Payment\PaymentMethodType;
 use YooKassa\Model\Payout\PayoutDestinationYooMoney;
-use YooKassa\Model\PaymentMethodType;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
 
-class PayoutDestinationYooMoneyTest extends AbstractPayoutDestinationTest
+/**
+ * @internal
+ */
+class PayoutDestinationYooMoneyTest extends AbstractTestPayoutDestination
 {
+    /**
+     * @dataProvider validAccountNumberDataProvider
+     */
+    public function testGetSetAccountNumber(mixed $value): void
+    {
+        $instance = $this->getTestInstance();
+
+        $instance->setAccountNumber($value);
+        self::assertEquals($value, $instance->getAccountNumber());
+        self::assertEquals($value, $instance->accountNumber);
+        self::assertEquals($value, $instance->account_number);
+
+        $instance = $this->getTestInstance();
+        $instance->account_number = $value;
+        self::assertEquals($value, $instance->getAccountNumber());
+        self::assertEquals($value, $instance->accountNumber);
+        self::assertEquals($value, $instance->account_number);
+    }
+
+    /**
+     * @dataProvider invalidAccountNumberDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetInvalidAccountNumber(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setAccountNumber($value);
+    }
+
+    /**
+     * @dataProvider invalidAccountNumberDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetterInvalidAccountNumber(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->account_number = $value;
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function validAccountNumberDataProvider(): array
+    {
+        return [
+            [1234567894560],
+            ['0123456789456'],
+            [Random::str(PayoutDestinationYooMoney::MIN_LENGTH_ACCOUNT_NUMBER, PayoutDestinationYooMoney::MAX_LENGTH_ACCOUNT_NUMBER, '0123456789')],
+        ];
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function invalidAccountNumberDataProvider(): array
+    {
+        return [
+             ['', EmptyPropertyValueException::class],
+             [Random::str(PayoutDestinationYooMoney::MIN_LENGTH_ACCOUNT_NUMBER - 1), InvalidPropertyValueException::class],
+             [Random::str(PayoutDestinationYooMoney::MAX_LENGTH_ACCOUNT_NUMBER + 1), InvalidPropertyValueException::class],
+             [true, InvalidPropertyValueException::class],
+             [[], TypeError::class],
+             [new stdClass(), TypeError::class],
+        ];
+    }
+
     /**
      * @return PayoutDestinationYooMoney
      */
-    protected function getTestInstance()
+    protected function getTestInstance(): PayoutDestinationYooMoney
     {
         return new PayoutDestinationYooMoney();
     }
@@ -19,90 +103,8 @@ class PayoutDestinationYooMoneyTest extends AbstractPayoutDestinationTest
     /**
      * @return string
      */
-    protected function getExpectedType()
+    protected function getExpectedType(): string
     {
         return PaymentMethodType::YOO_MONEY;
-    }
-
-    /**
-     * @dataProvider validAccountNumberDataProvider
-     * @param string $value
-     */
-    public function testGetSetAccountNumber($value)
-    {
-        $instance = $this->getTestInstance();
-
-        self::assertNull($instance->getAccountNumber());
-        self::assertNull($instance->accountNumber);
-        self::assertNull($instance->account_number);
-
-        $instance->setAccountNumber($value);
-        if ($value === null || $value === '' || $value === array()) {
-            self::assertNull($instance->getAccountNumber());
-            self::assertNull($instance->accountNumber);
-            self::assertNull($instance->account_number);
-        } else {
-            $expected = $value;
-            self::assertEquals($expected, $instance->getAccountNumber());
-            self::assertEquals($expected, $instance->accountNumber);
-            self::assertEquals($expected, $instance->account_number);
-        }
-
-        $instance = $this->getTestInstance();
-        $instance->account_number = $value;
-        if ($value === null || $value === '' || $value === array()) {
-            self::assertNull($instance->getAccountNumber());
-            self::assertNull($instance->accountNumber);
-            self::assertNull($instance->account_number);
-        } else {
-            $expected = $value;
-            self::assertEquals($expected, $instance->getAccountNumber());
-            self::assertEquals($expected, $instance->accountNumber);
-            self::assertEquals($expected, $instance->account_number);
-        }
-    }
-
-    /**
-     * @dataProvider invalidAccountNumberDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
-     */
-    public function testSetInvalidAccountNumber($value)
-    {
-        $this->getTestInstance()->setAccountNumber($value);
-    }
-
-    /**
-     * @dataProvider invalidAccountNumberDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param mixed $value
-     */
-    public function testSetterInvalidAccountNumber($value)
-    {
-        $this->getTestInstance()->account_number = $value;
-    }
-
-    public function validAccountNumberDataProvider()
-    {
-        return array(
-            array(1234567894560),
-            array('0123456789456'),
-            array(Random::str(11, 33, '0123456789')),
-        );
-    }
-
-    public function invalidAccountNumberDataProvider()
-    {
-        return array(
-            array(0),
-            array(array()),
-            array(''),
-            array(null),
-            array(Random::str(34, 50, '0123456789')),
-            array(true),
-            array(new \stdClass()),
-            array(new \DateTime()),
-            array(Random::str(1, 10, '0123456789')),
-        );
     }
 }

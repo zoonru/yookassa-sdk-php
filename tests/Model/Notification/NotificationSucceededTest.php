@@ -2,115 +2,108 @@
 
 namespace Tests\YooKassa\Model\Notification;
 
+use Exception;
 use YooKassa\Helpers\Random;
-use YooKassa\Model\ConfirmationType;
 use YooKassa\Model\CurrencyCode;
+use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Notification\NotificationSucceeded;
-use YooKassa\Model\NotificationEventType;
-use YooKassa\Model\NotificationType;
-use YooKassa\Model\PaymentInterface;
-use YooKassa\Model\PaymentMethodType;
-use YooKassa\Model\PaymentStatus;
-use YooKassa\Model\ReceiptRegistrationStatus;
+use YooKassa\Model\Notification\NotificationType;
+use YooKassa\Model\Payment\ConfirmationType;
+use YooKassa\Model\Payment\PaymentInterface;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentStatus;
+use YooKassa\Model\Payment\ReceiptRegistrationStatus;
 
-class NotificationSucceededTest extends AbstractNotificationTest
+/**
+ * @internal
+ */
+class NotificationSucceededTest extends AbstractTestNotification
 {
     /**
-     * @param array $source
-     * @return NotificationSucceeded
-     */
-    protected function getTestInstance(array $source)
-    {
-        return new NotificationSucceeded($source);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedType()
-    {
-        return NotificationType::NOTIFICATION;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedEvent()
-    {
-        return NotificationEventType::PAYMENT_SUCCEEDED;
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param array $value
      */
-    public function testGetObject(array $value)
+    public function testGetObject(array $value): void
     {
         $instance = $this->getTestInstance($value);
-        self::assertTrue($instance->getObject() instanceof PaymentInterface);
+        self::assertInstanceOf(PaymentInterface::class, $instance->getObject());
         self::assertEquals($value['object']['id'], $instance->getObject()->getId());
     }
 
     /**
-     * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         $statuses = PaymentStatus::getValidValues();
         $receiptRegistrations = ReceiptRegistrationStatus::getValidValues();
 
-        $confirmations = array(
-            array(
+        $confirmations = [
+            [
                 'type' => ConfirmationType::REDIRECT,
-                'confirmation_url' => Random::str(10),
-                'return_url' => Random::str(10),
+                'confirmation_url' => 'https://confirmation.url',
+                'return_url' => 'https://merchant-site.ru/return_url',
                 'enforce' => false,
-            ),
-            array(
+            ],
+            [
                 'type' => ConfirmationType::EXTERNAL,
-            ),
-        );
+            ],
+        ];
 
         for ($i = 0; $i < 10; $i++) {
-            $payment = array(
+            $payment = [
                 'id' => Random::str(36),
                 'status' => Random::value($statuses),
-                'recipient' => array(
+                'recipient' => [
                     'account_id' => Random::str(1, 64, '0123456789'),
                     'gateway_id' => Random::str(1, 256),
-                ),
-                'amount' => array(
+                ],
+                'amount' => [
                     'value' => Random::float(0.01, 1000000.0),
                     'currency' => Random::value(CurrencyCode::getValidValues()),
-                ),
-                'payment_method' => array(
+                ],
+                'payment_method' => [
                     'type' => PaymentMethodType::QIWI,
-                ),
+                ],
                 'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
                 'captured_at' => date(YOOKASSA_DATE, Random::int(1, time())),
                 'confirmation' => Random::value($confirmations),
-                'refunded' => array(
+                'refunded' => [
                     'value' => Random::float(0.01, 1000000.0),
                     'currency' => Random::value(CurrencyCode::getValidValues()),
-                ),
+                ],
                 'paid' => $i % 2 ? true : false,
                 'refundable' => $i % 2 ? true : false,
                 'receipt_registration' => Random::value($receiptRegistrations),
-                'metadata' => array(
-                    'value' => Random::float(0.01, 1000000.0),
+                'metadata' => [
+                    'value' => Random::str(1, 256),
                     'currency' => Random::str(1, 256),
-                ),
-            );
-            $result[] = array(
-                array(
+                ],
+            ];
+            $result[] = [
+                [
                     'type' => $this->getExpectedType(),
                     'event' => $this->getExpectedEvent(),
                     'object' => $payment,
-                ),
-            );
+                ],
+            ];
         }
+
         return $result;
+    }
+
+    protected function getTestInstance(array $source): NotificationSucceeded
+    {
+        return new NotificationSucceeded($source);
+    }
+
+    protected function getExpectedType(): string
+    {
+        return NotificationType::NOTIFICATION;
+    }
+
+    protected function getExpectedEvent(): string
+    {
+        return NotificationEventType::PAYMENT_SUCCEEDED;
     }
 }

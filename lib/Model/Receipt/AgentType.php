@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,7 +29,7 @@ namespace YooKassa\Model\Receipt;
 use YooKassa\Common\AbstractEnum;
 
 /**
- * AgentType - Тип посредника
+ * AgentType - Тип посредника.
  *
  * Тип посредника передается в запросе на создание чека в массиве `items`, в параметре `agent_type`,
  * если вы отправляете данные для формирования чека по сценарию Сначала платеж, потом чек.
@@ -47,27 +47,33 @@ use YooKassa\Common\AbstractEnum;
 class AgentType extends AbstractEnum
 {
     /** Банковский платежный агент */
-    const BANKING_PAYMENT_AGENT = 'banking_payment_agent';
-    /** Банковский платежный субагент */
-    const BANKING_PAYMENT_SUBAGENT = 'banking_payment_subagent';
-    /** Платежный агент */
-    const PAYMENT_AGENT = 'payment_agent';
-    /** Платежный субагент */
-    const PAYMENT_SUBAGENT = 'payment_subagent';
-    /** Поверенный */
-    const ATTORNEY = 'attorney';
-    /** Комиссионер */
-    const COMMISSIONER = 'commissioner';
-    /** Агент */
-    const AGENT = 'agent';
+    public const BANKING_PAYMENT_AGENT = 'banking_payment_agent';
 
-    protected static $validValues = array(
-        self::BANKING_PAYMENT_AGENT    => true,
+    /** Банковский платежный субагент */
+    public const BANKING_PAYMENT_SUBAGENT = 'banking_payment_subagent';
+
+    /** Платежный агент */
+    public const PAYMENT_AGENT = 'payment_agent';
+
+    /** Платежный субагент */
+    public const PAYMENT_SUBAGENT = 'payment_subagent';
+
+    /** Поверенный */
+    public const ATTORNEY = 'attorney';
+
+    /** Комиссионер */
+    public const COMMISSIONER = 'commissioner';
+
+    /** Агент */
+    public const AGENT = 'agent';
+
+    protected static array $validValues = [
+        self::BANKING_PAYMENT_AGENT => true,
         self::BANKING_PAYMENT_SUBAGENT => true,
-        self::PAYMENT_AGENT            => true,
-        self::PAYMENT_SUBAGENT         => true,
-        self::ATTORNEY                 => true,
-        self::COMMISSIONER             => true,
-        self::AGENT                    => true,
-    );
+        self::PAYMENT_AGENT => true,
+        self::PAYMENT_SUBAGENT => true,
+        self::ATTORNEY => true,
+        self::COMMISSIONER => true,
+        self::AGENT => true,
+    ];
 }

@@ -2,18 +2,25 @@
 
 namespace Tests\YooKassa\Request\Payments;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
-use YooKassa\Model\PaymentMethodType;
-use YooKassa\Model\PaymentStatus;
+use YooKassa\Helpers\Random;
+use YooKassa\Helpers\UUID;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentStatus;
 use YooKassa\Request\Payments\PaymentsRequestBuilder;
 
+/**
+ * @internal
+ */
 class PaymentsRequestBuilderTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCursor($options)
+    public function testSetCursor($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -31,9 +38,10 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCreatedAtGte($options)
+    public function testSetCreatedAtGte($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -51,10 +59,12 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
-     * @throws \Exception
+     *
+     * @param mixed $options
+     *
+     * @throws Exception
      */
-    public function testSetCreatedGt($options)
+    public function testSetCreatedGt($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -72,10 +82,12 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
-     * @throws \Exception
+     *
+     * @param mixed $options
+     *
+     * @throws Exception
      */
-    public function testSetCreatedLte($options)
+    public function testSetCreatedLte($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -93,9 +105,10 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCreatedLt($options)
+    public function testSetCreatedLt($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -113,9 +126,10 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCapturedAtGte($options)
+    public function testSetCapturedAtGte($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -133,10 +147,12 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
-     * @throws \Exception
+     *
+     * @param mixed $options
+     *
+     * @throws Exception
      */
-    public function testSetCapturedGt($options)
+    public function testSetCapturedGt($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -154,10 +170,12 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
-     * @throws \Exception
+     *
+     * @param mixed $options
+     *
+     * @throws Exception
      */
-    public function testSetCapturedLte($options)
+    public function testSetCapturedLte($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -175,9 +193,10 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCapturedLt($options)
+    public function testSetCapturedLt($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -193,12 +212,12 @@ class PaymentsRequestBuilderTest extends TestCase
         }
     }
 
-
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetPaymentMethod($options)
+    public function testSetPaymentMethod($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -216,9 +235,10 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetLimit($options)
+    public function testSetLimit($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
@@ -236,14 +256,14 @@ class PaymentsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetStatus($options)
+    public function testSetStatus($options): void
     {
         $builder = new PaymentsRequestBuilder();
 
         $instance = $builder->build();
-        self::assertNull($instance->getStatus());
 
         $builder->setStatus($options['status']);
         $instance = $builder->build();
@@ -254,78 +274,65 @@ class PaymentsRequestBuilderTest extends TestCase
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function validDataProvider()
     {
-        $result   = array(
-            array(
-                array(
-                    'createdAtGte'       => null,
-                    'createdAtGt'        => null,
-                    'createdAtLte'       => null,
-                    'createdAtLt'        => null,
-                    'capturedAtGte'      => null,
-                    'capturedAtGt'       => null,
-                    'capturedAtLte'      => null,
-                    'capturedAtLt'       => null,
-                    'paymentMethod'      => null,
-                    'status'             => null,
-                    'limit'              => null,
-                    'cursor'             => null,
-                ),
-            ),
-            array(
-                array(
-                    'createdAtGte'       => '',
-                    'createdAtGt'        => '',
-                    'createdAtLte'       => '',
-                    'createdAtLt'        => '',
-                    'capturedAtGte'      => '',
-                    'capturedAtGt'       => '',
-                    'capturedAtLte'      => '',
-                    'capturedAtLt'       => '',
-                    'paymentMethod'      => '',
-                    'status'             => '',
-                    'limit'              => 0,
-                    'cursor'             => '',
-                ),
-            ),
-        );
+        $result = [
+            [
+                [
+                    'createdAtGte' => null,
+                    'createdAtGt' => null,
+                    'createdAtLte' => null,
+                    'createdAtLt' => null,
+                    'capturedAtGte' => null,
+                    'capturedAtGt' => null,
+                    'capturedAtLte' => null,
+                    'capturedAtLt' => null,
+                    'paymentMethod' => null,
+                    'status' => null,
+                    'limit' => null,
+                    'cursor' => null,
+                ],
+            ],
+            [
+                [
+                    'createdAtGte' => '',
+                    'createdAtGt' => '',
+                    'createdAtLte' => '',
+                    'createdAtLt' => '',
+                    'capturedAtGte' => '',
+                    'capturedAtGt' => '',
+                    'capturedAtLte' => '',
+                    'capturedAtLt' => '',
+                    'paymentMethod' => '',
+                    'status' => '',
+                    'limit' => 1,
+                    'cursor' => '',
+                ],
+            ],
+        ];
         $statuses = PaymentStatus::getValidValues();
-        $methods  = PaymentMethodType::getValidValues();
+        $methods = PaymentMethodType::getValidValues();
         for ($i = 0; $i < 10; $i++) {
-            $request  = array(
-                'createdAtGte'       => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createdAtGt'        => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createdAtLte'       => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createdAtLt'        => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'capturedAtGte'      => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'capturedAtGt'       => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'capturedAtLte'      => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'capturedAtLt'       => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'paymentMethod'      => $methods[mt_rand(0, count($methods) - 1)],
-                'status'             => $statuses[mt_rand(0, count($statuses) - 1)],
-                'limit'              => mt_rand(1, 100),
-                'cursor'             => $this->randomString(mt_rand(1, 30)),
-            );
-            $result[] = array($request);
+            $request = [
+                'createdAtGte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createdAtGt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createdAtLte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createdAtLt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'capturedAtGte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'capturedAtGt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'capturedAtLte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'capturedAtLt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'paymentMethod' => Random::value($methods),
+                'status' => Random::value($statuses),
+                'limit' => Random::int(1, 100),
+                'cursor' => UUID::v4(),
+            ];
+            $result[] = [$request];
         }
-        return $result;
-    }
 
-    private function randomString($length, $any = true)
-    {
-        static $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-+_.';
-
-        $result = '';
-        for ($i = 0; $i < $length; $i++) {
-            if ($any) {
-                $char = chr(mt_rand(32, 126));
-            } else {
-                $rnd  = mt_rand(0, strlen($chars) - 1);
-                $char = substr($chars, $rnd, 1);
-            }
-            $result .= $char;
-        }
         return $result;
     }
 }

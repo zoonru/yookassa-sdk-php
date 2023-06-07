@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс HTTP ответа
+Класс, представляющий модель ResponseObject.
 
+**Description:**
+
+Класс HTTP ответа.
 
 ---
 ### Constants
@@ -16,18 +19,18 @@
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| protected | [$body](../classes/YooKassa-Common-ResponseObject.md#property_body) |  | Тело ответа |
-| protected | [$code](../classes/YooKassa-Common-ResponseObject.md#property_code) |  | HTTP код ответа |
-| protected | [$headers](../classes/YooKassa-Common-ResponseObject.md#property_headers) |  | Массив заголовков ответа |
+| protected | [$body](../classes/YooKassa-Common-ResponseObject.md#property_body) |  | Тело ответа. |
+| protected | [$code](../classes/YooKassa-Common-ResponseObject.md#property_code) |  | HTTP код ответа. |
+| protected | [$headers](../classes/YooKassa-Common-ResponseObject.md#property_headers) |  | Массив заголовков ответа. |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-ResponseObject.md#method___construct) |  |  |
-| public | [getBody()](../classes/YooKassa-Common-ResponseObject.md#method_getBody) |  | Возвращает тело ответа |
-| public | [getCode()](../classes/YooKassa-Common-ResponseObject.md#method_getCode) |  | Возвращает HTTP код ответа |
-| public | [getHeaders()](../classes/YooKassa-Common-ResponseObject.md#method_getHeaders) |  | Возвращает массив заголовков ответа |
+| public | [getBody()](../classes/YooKassa-Common-ResponseObject.md#method_getBody) |  | Возвращает тело ответа. |
+| public | [getCode()](../classes/YooKassa-Common-ResponseObject.md#method_getCode) |  | Возвращает HTTP код ответа. |
+| public | [getHeaders()](../classes/YooKassa-Common-ResponseObject.md#method_getHeaders) |  | Возвращает массив заголовков ответа. |
 
 ---
 ### Details
@@ -36,6 +39,16 @@
 * Class Hierarchy:
   * \YooKassa\Common\ResponseObject
 
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
+
 ---
 ## Properties
 <a name="property_body"></a>
@@ -43,7 +56,7 @@
 ---
 **Summary**
 
-Тело ответа
+Тело ответа.
 
 **Type:** <a href="../mixed"><abbr title="mixed">mixed</abbr></a>
 
@@ -51,13 +64,13 @@
 
 
 <a name="property_code"></a>
-#### protected $code : int|string
+#### protected $code : int
 ---
 **Summary**
 
-HTTP код ответа
+HTTP код ответа.
 
-**Type:** <a href="../int|string"><abbr title="int|string">int|string</abbr></a>
+**Type:** <a href="../int"><abbr title="int">int</abbr></a>
 
 **Details:**
 
@@ -67,7 +80,7 @@ HTTP код ответа
 ---
 **Summary**
 
-Массив заголовков ответа
+Массив заголовков ответа.
 
 **Type:** <a href="../array"><abbr title="array">array</abbr></a>
 
@@ -104,7 +117,7 @@ public getBody() : mixed
 
 **Summary**
 
-Возвращает тело ответа
+Возвращает тело ответа.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\ResponseObject](../classes/YooKassa-Common-ResponseObject.md)
@@ -113,20 +126,20 @@ public getBody() : mixed
 
 
 <a name="method_getCode" class="anchor"></a>
-#### public getCode() : int|string
+#### public getCode() : int
 
 ```php
-public getCode() : int|string
+public getCode() : int
 ```
 
 **Summary**
 
-Возвращает HTTP код ответа
+Возвращает HTTP код ответа.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\ResponseObject](../classes/YooKassa-Common-ResponseObject.md)
 
-**Returns:** int|string - HTTP код ответа
+**Returns:** int - HTTP код ответа
 
 
 <a name="method_getHeaders" class="anchor"></a>
@@ -138,7 +151,7 @@ public getHeaders() : array
 
 **Summary**
 
-Возвращает массив заголовков ответа
+Возвращает массив заголовков ответа.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\ResponseObject](../classes/YooKassa-Common-ResponseObject.md)
@@ -157,11 +170,11 @@ public getHeaders() : array
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

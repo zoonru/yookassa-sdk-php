@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,46 +26,53 @@
 
 namespace YooKassa\Request\Deals;
 
-use YooKassa\Common\AbstractObject;
+use DateTime;
 use YooKassa\Common\AbstractRequest;
 
 /**
- * Класс сериализатора объектов запросов к API для получения списка платежей
+ * Класс, представляющий модель DealsRequestSerializer.
  *
- * @package YooKassa
+ * Класс объекта осуществляющего сериализацию объектов запросов к API для получения списка сделок.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class DealsRequestSerializer
 {
     /**
      * @var array Карта маппинга свойств объекта запроса на поля отправляемого запроса
      */
-    private static $propertyMap = array(
-        'createdAtGte'   => 'created_at.gte',
-        'createdAtGt'    => 'created_at.gt',
-        'createdAtLte'   => 'created_at.lte',
-        'createdAtLt'    => 'created_at.lt',
-        'expiresAtGte'   => 'expires_at.gte',
-        'expiresAtGt'    => 'expires_at.gt',
-        'expiresAtLte'   => 'expires_at.lte',
-        'expiresAtLt'    => 'expires_at.lt',
-        'status'         => 'status',
+    private static array $propertyMap = [
+        'createdAtGte' => 'created_at.gte',
+        'createdAtGt' => 'created_at.gt',
+        'createdAtLte' => 'created_at.lte',
+        'createdAtLt' => 'created_at.lt',
+        'expiresAtGte' => 'expires_at.gte',
+        'expiresAtGt' => 'expires_at.gt',
+        'expiresAtLte' => 'expires_at.lte',
+        'expiresAtLt' => 'expires_at.lt',
+        'status' => 'status',
         'fullTextSearch' => 'full_text_search',
-        'limit'          => 'limit',
-        'cursor'         => 'cursor',
-    );
+        'limit' => 'limit',
+        'cursor' => 'cursor',
+    ];
 
     /**
-     * Сериализует объект запроса к API для дальнейшей его отправки
-     * @param DealsRequest|DealsRequestInterface|AbstractRequest $request Сериализуемый объект
+     * Сериализует объект запроса к API для дальнейшей его отправки.
+     *
+     * @param AbstractRequest|DealsRequest|DealsRequestInterface $request Сериализуемый объект
+     *
      * @return array Массив с информацией, отправляемый в дальнейшем в API
      */
-    public function serialize(DealsRequestInterface $request)
+    public function serialize(DealsRequestInterface $request): array
     {
-        $result = array();
+        $result = [];
         foreach (self::$propertyMap as $property => $name) {
             $value = $request->{$property};
             if (!empty($value)) {
-                if ($value instanceof \DateTime) {
+                if ($value instanceof DateTime) {
                     if ($value->getTimestamp() > 1) {
                         $result[$name] = $value->format(YOOKASSA_DATE);
                     }
@@ -74,6 +81,7 @@ class DealsRequestSerializer
                 }
             }
         }
+
         return $result;
     }
 }

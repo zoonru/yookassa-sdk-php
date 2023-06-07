@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,707 +26,565 @@
 
 namespace YooKassa\Request\Deals;
 
-use Exception;
+use DateTime;
 use YooKassa\Common\AbstractRequest;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
 use YooKassa\Model\Deal\DealStatus;
-use YooKassa\Model\SafeDeal;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс объекта запроса к API для получения списка сделок магазина
+ * Класс, представляющий модель DealsRequest.
+ * Класс объекта запроса к API для получения списка сделок магазина.
  *
- * @property string|null $cursor Страница выдачи результатов, которую необходимо отобразить
- * @property integer|null $limit Ограничение количества объектов платежа, отображаемых на одной странице выдачи
- * @property \DateTime|null $createdAtGte Время создания, от (включительно)
- * @property \DateTime|null $createdAtGt Время создания, от (не включая)
- * @property \DateTime|null $createdAtLte Время создания, до (включительно)
- * @property \DateTime|null $createdAtLt Время создания, до (не включая)
- * @property \DateTime|null $expiresAtGte Время автоматического закрытия, от (включительно)
- * @property \DateTime|null $expiresAtGt Время автоматического закрытия, от (не включая)
- * @property \DateTime|null $expiresAtLte Время автоматического закрытия, до (включительно)
- * @property \DateTime|null $expiresAtLt Время автоматического закрытия, до (не включая)
- * @property string|null $fullTextSearch Фильтр по описанию сделки — параметру description
- * @property string|null $status Статус платежа
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property null|string $cursor Страница выдачи результатов, которую необходимо отобразить
+ * @property null|int $limit Ограничение количества объектов платежа, отображаемых на одной странице выдачи
+ * @property null|DateTime $createdAtGte Время создания, от (включительно)
+ * @property null|DateTime $createdAtGt Время создания, от (не включая)
+ * @property null|DateTime $createdAtLte Время создания, до (включительно)
+ * @property null|DateTime $createdAtLt Время создания, до (не включая)
+ * @property null|DateTime $expiresAtGte Время автоматического закрытия, от (включительно)
+ * @property null|DateTime $expiresAtGt Время автоматического закрытия, от (не включая)
+ * @property null|DateTime $expiresAtLte Время автоматического закрытия, до (включительно)
+ * @property null|DateTime $expiresAtLt Время автоматического закрытия, до (не включая)
+ * @property null|string $fullTextSearch Фильтр по описанию сделки — параметру description
+ * @property null|string $status Статус платежа
  */
 class DealsRequest extends AbstractRequest implements DealsRequestInterface
 {
-    /** Максимальное количество объектов платежа в выборке */
-    const MAX_LIMIT_VALUE = 100;
-    /** Минимальное количество символов для поиска */
-    const MIN_LENGTH_DESCRIPTION = 4;
+    /** @var int Максимальное количество объектов платежа в выборке */
+    public const MAX_LIMIT_VALUE = 100;
+
+    /** @var int Максимальное количество символов для поиска */
+    public const MAX_LENGTH_DESCRIPTION = 128;
+
+    /** @var int Минимальное количество символов для поиска */
+    public const MIN_LENGTH_DESCRIPTION = 4;
 
     /**
-     * @var \DateTime Время создания, от (включительно)
+     * Время создания, от (включительно).
+     *
+     * @var DateTime|null
      */
-    private $_createdAtGte;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_created_at_gte = null;
 
     /**
-     * @var \DateTime Время создания, от (не включая)
+     * Время создания, от (не включая).
+     *
+     * @var DateTime|null
      */
-    private $_createdAtGt;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_created_at_gt = null;
 
     /**
-     * @var \DateTime Время создания, до (включительно)
+     * Время создания, до (включительно).
+     *
+     * @var DateTime|null
      */
-    private $_createdAtLte;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_created_at_lte = null;
 
     /**
-     * @var \DateTime Время создания, до (не включая)
+     * Время создания, до (не включая).
+     *
+     * @var DateTime|null
      */
-    private $_createdAtLt;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_created_at_lt = null;
 
     /**
-     * @var \DateTime Время автоматического закрытия, от (включительно)
+     * Время автоматического закрытия, от (включительно).
+     *
+     * @var DateTime|null
      */
-    private $_expiresAtGte;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_expires_at_gte = null;
 
     /**
-     * @var \DateTime Время автоматического закрытия, от (не включая)
+     * Время автоматического закрытия, от (не включая).
+     *
+     * @var DateTime|null
      */
-    private $_expiresAtGt;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_expires_at_gt = null;
 
     /**
-     * @var \DateTime Время автоматического закрытия, до (включительно)
+     * Время автоматического закрытия, до (включительно).
+     *
+     * @var DateTime|null
      */
-    private $_expiresAtLte;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_expires_at_lte = null;
 
     /**
-     * @var \DateTime Время автоматического закрытия, до (не включая)
+     * Время автоматического закрытия, до (не включая).
+     *
+     * @var DateTime|null
      */
-    private $_expiresAtLt;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_expires_at_lt = null;
 
     /**
-     * @var string Статус сделки
+     * Статус сделки
+     *
+     * @var string|null
      */
-    private $_status;
+    #[Assert\Choice(callback: [DealStatus::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private ?string $_status = null;
 
     /**
-     * @var string Строка поиска
+     * Фильтр по описанию сделки — параметру description. От 4 до 128 символов.
+     *
+     * @var string|null
      */
-    private $_fullTextSearch;
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::MAX_LENGTH_DESCRIPTION)]
+    #[Assert\Length(min: self::MIN_LENGTH_DESCRIPTION)]
+    private ?string $_full_text_search = null;
 
     /**
-     * @var string Ограничение количества объектов платежа
+     * Размер выдачи результатов запроса — количество объектов, передаваемых в ответе. Возможные значения: от 1 до 100. Пример: limit=50
+     *
+     * @var int|null
      */
-    private $_limit;
+    #[Assert\NotNull]
+    #[Assert\Type('int')]
+    #[Assert\GreaterThanOrEqual(value: 1)]
+    #[Assert\LessThanOrEqual(self::MAX_LIMIT_VALUE)]
+    private ?int $_limit = 10;
 
     /**
-     * @var string Страница выдачи результатов, которую необходимо отобразить
+     * Указатель на следующий фрагмент списка. Пример: cursor=37a5c87d-3984-51e8-a7f3-8de646d39ec15.
+     *
+     * @var string|null
      */
-    private $_cursor;
+    #[Assert\Type('string')]
+    private ?string $_cursor = null;
 
     /**
-     * Ограничение количества объектов платежа
-     * @return integer|null Ограничение количества объектов платежа
+     * Ограничение количества объектов платежа.
+     *
+     * @return null|int Ограничение количества объектов платежа
      */
-    public function getLimit()
+    public function getLimit(): ?int
     {
         return $this->_limit;
     }
 
     /**
-     * Проверяет, было ли установлено ограничение количества объектов платежа
+     * Проверяет, было ли установлено ограничение количества объектов платежа.
+     *
      * @return bool True если было установлено, false если нет
      */
-    public function hasLimit()
+    public function hasLimit(): bool
     {
-        return $this->_limit !== null;
+        return null !== $this->_limit;
     }
 
     /**
-     * Устанавливает ограничение количества объектов платежа
-     * @param integer|null $value Ограничение количества объектов платежа или null, чтобы удалить значение
+     * Устанавливает ограничение количества объектов платежа.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается, если в метод было передано не целое число
+     * @param null|int $limit Ограничение количества объектов платежа или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setLimit($value)
+    public function setLimit(?int $limit): self
     {
-        if ($value === null || $value === '') {
-            $this->_limit = null;
-        } elseif (is_int($value)) {
-            if ($value < 0 || $value > self::MAX_LIMIT_VALUE) {
-                throw new InvalidPropertyValueException(
-                    'Invalid limit value in DealsRequest',
-                    0,
-                    'DealsRequest.limit',
-                    $value
-                );
-            }
-            $this->_limit = $value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid limit value type in DealsRequest',
-                0,
-                'DealsRequest.limit',
-                $value
-            );
-        }
+        $this->_limit = $this->validatePropertyValue('_limit', $limit);
+        return $this;
     }
 
     /**
-     * Страница выдачи результатов, которую необходимо отобразить
+     * Страница выдачи результатов, которую необходимо отобразить.
+     *
      * @return string|null
      */
-    public function getCursor()
+    public function getCursor(): ?string
     {
         return $this->_cursor;
     }
 
     /**
-     * Проверяет, была ли установлена страница выдачи результатов, которую необходимо отобразить
+     * Проверяет, была ли установлена страница выдачи результатов, которую необходимо отобразить.
+     *
      * @return bool True если была установлена, false если нет
      */
-    public function hasCursor()
+    public function hasCursor(): bool
     {
-        return $this->_cursor !== null;
+        return null !== $this->_cursor;
     }
 
     /**
-     * Устанавливает страницу выдачи результатов, которую необходимо отобразить
-     * @param string $value Страница выдачи результатов или null, чтобы удалить значение
+     * Устанавливает страницу выдачи результатов, которую необходимо отобразить.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     * @param string|null $cursor Страница выдачи результатов или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setCursor($value)
+    public function setCursor(?string $cursor): self
     {
-        if ($value === null || $value === '') {
-            $this->_cursor = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $this->_cursor = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid status value type in DealsRequest',
-                0,
-                'DealsRequest.limit',
-                $value
-            );
-        }
+        $this->_cursor = $this->validatePropertyValue('_cursor', $cursor);
+        return $this;
     }
 
     /**
-     * Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена
-     * @return \DateTime|null Время создания, от (включительно)
+     * Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время создания, от (включительно)
      */
-    public function getCreatedAtGte()
+    public function getCreatedAtGte(): ?DateTime
     {
-        return $this->_createdAtGte;
+        return $this->_created_at_gte;
     }
 
     /**
-     * Проверяет, была ли установлена дата создания от которой выбираются платежи
+     * Проверяет, была ли установлена дата создания от которой выбираются платежи.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasCreatedAtGte()
+    public function hasCreatedAtGte(): bool
     {
-        return $this->_createdAtGte !== null;
+        return null !== $this->_created_at_gte;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются платежи
-     * @param \DateTime|string|int|null $value Время создания, от (включительно) или null, чтобы удалить значение
+     * Устанавливает дату создания от которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param DateTime|string|null $created_at_gte Время создания, от (включительно) или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setCreatedAtGte($value)
+    public function setCreatedAtGte(DateTime|string|null $created_at_gte): self
     {
-        if ($value === null || $value === '') {
-            $this->_createdAtGte = null;
-        } elseif (TypeCast::canCastToDateTime($value)) {
-            $dateTime = TypeCast::castToDateTime($value);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException(
-                    'Invalid createdAtGte value in DealsRequest',
-                    0,
-                    'PaymentRequest.createdAtGte'
-                );
-            }
-            $this->_createdAtGte = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid createdAtGte value type in DealsRequest',
-                0,
-                'PaymentRequest.createdAtGte'
-            );
-        }
+        $this->_created_at_gte = $this->validatePropertyValue('_created_at_gte', $created_at_gte);
+        return $this;
     }
 
     /**
-     * Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена
-     * @return \DateTime|null Время создания, от (не включая)
+     * Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время создания, от (не включая)
      */
-    public function getCreatedAtGt()
+    public function getCreatedAtGt(): ?DateTime
     {
-        return $this->_createdAtGt;
+        return $this->_created_at_gt;
     }
 
     /**
-     * Проверяет, была ли установлена дата создания от которой выбираются платежи
+     * Проверяет, была ли установлена дата создания от которой выбираются платежи.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasCreatedAtGt()
+    public function hasCreatedAtGt(): bool
     {
-        return $this->_createdAtGt !== null;
+        return null !== $this->_created_at_gt;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются платежи
-     * @param \DateTime|string|int|null $value Время создания, от (не включая) или null, чтобы удалить значение
+     * Устанавливает дату создания от которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param DateTime|string|null $created_at_gt Время создания, от (не включая) или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setCreatedAtGt($value)
+    public function setCreatedAtGt(DateTime|string|null $created_at_gt): self
     {
-        if ($value === null || $value === '') {
-            $this->_createdAtGt = null;
-        } elseif (TypeCast::canCastToDateTime($value)) {
-            $dateTime = TypeCast::castToDateTime($value);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException(
-                    'Invalid createdAtGt value in DealsRequest',
-                    0,
-                    'PaymentRequest.createdAtGt'
-                );
-            }
-            $this->_createdAtGt = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid createdAtGt value type in DealsRequest',
-                0,
-                'PaymentRequest.createdAtGt'
-            );
-        }
+        $this->_created_at_gt = $this->validatePropertyValue('_created_at_gt', $created_at_gt);
+        return $this;
     }
 
     /**
-     * Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена
-     * @return \DateTime|null Время создания, до (включительно)
+     * Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время создания, до (включительно)
      */
-    public function getCreatedAtLte()
+    public function getCreatedAtLte(): ?DateTime
     {
-        return $this->_createdAtLte;
+        return $this->_created_at_lte;
     }
 
     /**
-     * Проверяет, была ли установлена дата создания до которой выбираются платежи
+     * Проверяет, была ли установлена дата создания до которой выбираются платежи.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasCreatedAtLte()
+    public function hasCreatedAtLte(): bool
     {
-        return $this->_createdAtLte !== null;
+        return null !== $this->_created_at_lte;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются платежи
-     * @param \DateTime|string|int|null $value Время создания, до (включительно) или null, чтобы удалить значение
+     * Устанавливает дату создания до которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param DateTime|string|null $created_at_lte Время создания, до (включительно) или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setCreatedAtLte($value)
+    public function setCreatedAtLte(DateTime|string|null $created_at_lte): self
     {
-        if ($value === null || $value === '') {
-            $this->_createdAtLte = null;
-        } elseif (TypeCast::canCastToDateTime($value)) {
-            $dateTime = TypeCast::castToDateTime($value);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException(
-                    'Invalid createdAtLte value in DealsRequest',
-                    0,
-                    'PaymentRequest.createdAtLte'
-                );
-            }
-            $this->_createdAtLte = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid createdAtLte value type in DealsRequest',
-                0,
-                'PaymentRequest.createdAtLte'
-            );
-        }
+        $this->_created_at_lte = $this->validatePropertyValue('_created_at_lte', $created_at_lte);
+        return $this;
     }
 
     /**
-     * Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена
-     * @return \DateTime|null Время создания, до (не включая)
+     * Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время создания, до (не включая)
      */
-    public function getCreatedAtLt()
+    public function getCreatedAtLt(): ?DateTime
     {
-        return $this->_createdAtLt;
+        return $this->_created_at_lt;
     }
 
     /**
-     * Проверяет, была ли установлена дата создания до которой выбираются платежи
+     * Проверяет, была ли установлена дата создания до которой выбираются платежи.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasCreatedAtLt()
+    public function hasCreatedAtLt(): bool
     {
-        return $this->_createdAtLt !== null;
+        return null !== $this->_created_at_lt;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются платежи
-     * @param \DateTime|string|int|null $value Время создания, до (не включая) или null, чтобы удалить значение
+     * Устанавливает дату создания до которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param DateTime|string|null $created_at_lt Время создания, до (не включая) или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setCreatedAtLt($value)
+    public function setCreatedAtLt(DateTime|string|null $created_at_lt): self
     {
-        if ($value === null || $value === '') {
-            $this->_createdAtLt = null;
-        } elseif (TypeCast::canCastToDateTime($value)) {
-            $dateTime = TypeCast::castToDateTime($value);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException(
-                    'Invalid createdAtLt value in DealsRequest',
-                    0,
-                    'PaymentRequest.createdAtLt'
-                );
-            }
-            $this->_createdAtLt = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid createdAlLt value type in DealsRequest',
-                0,
-                'PaymentRequest.createdAtLt'
-            );
-        }
+        $this->_created_at_lt = $this->validatePropertyValue('_created_at_lt', $created_at_lt);
+        return $this;
     }
 
     /**
-     * Возвращает дату автоматического закрытия от которой будут возвращены платежи или null, если дата не была установлена
-     * @return \DateTime|null Время автоматического закрытия, от (включительно)
+     * Возвращает дату автоматического закрытия от которой будут возвращены платежи или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время автоматического закрытия, от (включительно)
      */
-    public function getExpiresAtGte()
+    public function getExpiresAtGte(): ?DateTime
     {
-        return $this->_expiresAtGte;
+        return $this->_expires_at_gte;
     }
 
     /**
-     * Проверяет, была ли установлена дата автоматического закрытия от которой выбираются платежи
+     * Проверяет, была ли установлена дата автоматического закрытия от которой выбираются платежи.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasExpiresAtGte()
+    public function hasExpiresAtGte(): bool
     {
-        return $this->_expiresAtGte !== null;
+        return null !== $this->_expires_at_gte;
     }
 
     /**
-     * Устанавливает дату автоматического закрытия от которой выбираются платежи
-     * @param \DateTime|string|int|null $value Время автоматического закрытия, от (включительно) или null, чтобы удалить значение
+     * Устанавливает дату автоматического закрытия от которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param DateTime|string|null $expires_at_gte Время автоматического закрытия, от (включительно) или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setExpiresAtGte($value)
+    public function setExpiresAtGte(DateTime|string|null $expires_at_gte): self
     {
-        if ($value === null || $value === '') {
-            $this->_expiresAtGte = null;
-        } elseif (TypeCast::canCastToDateTime($value)) {
-            $dateTime = TypeCast::castToDateTime($value);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException(
-                    'Invalid expiresAtGte value in DealsRequest',
-                    0,
-                    'PaymentRequest.expiresAtGte'
-                );
-            }
-            $this->_expiresAtGte = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid expiresAtGte value type in DealsRequest',
-                0,
-                'PaymentRequest.expiresAtGte'
-            );
-        }
+        $this->_expires_at_gte = $this->validatePropertyValue('_expires_at_gte', $expires_at_gte);
+        return $this;
     }
 
     /**
-     * Возвращает дату автоматического закрытия от которой будут возвращены платежи или null, если дата не была установлена
-     * @return \DateTime|null Время автоматического закрытия, от (не включая)
+     * Возвращает дату автоматического закрытия от которой будут возвращены платежи или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время автоматического закрытия, от (не включая)
      */
-    public function getExpiresAtGt()
+    public function getExpiresAtGt(): ?DateTime
     {
-        return $this->_expiresAtGt;
+        return $this->_expires_at_gt;
     }
 
     /**
-     * Проверяет, была ли установлена дата автоматического закрытия от которой выбираются платежи
+     * Проверяет, была ли установлена дата автоматического закрытия от которой выбираются платежи.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasExpiresAtGt()
+    public function hasExpiresAtGt(): bool
     {
-        return $this->_expiresAtGt !== null;
+        return null !== $this->_expires_at_gt;
     }
 
     /**
-     * Устанавливает дату автоматического закрытия от которой выбираются платежи
-     * @param \DateTime|string|int|null $value Время автоматического закрытия, от (не включая) или null, чтобы удалить значение
+     * Устанавливает дату автоматического закрытия от которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param DateTime|string|null $expires_at_lt Время автоматического закрытия, от (не включая) или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setExpiresAtGt($value)
+    public function setExpiresAtGt(DateTime|string|null $expires_at_lt): self
     {
-        if ($value === null || $value === '') {
-            $this->_expiresAtGt = null;
-        } elseif (TypeCast::canCastToDateTime($value)) {
-            $dateTime = TypeCast::castToDateTime($value);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException(
-                    'Invalid expiresAtGt value in DealsRequest',
-                    0,
-                    'PaymentRequest.expiresAtGt'
-                );
-            }
-            $this->_expiresAtGt = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid expiresAtGt value type in DealsRequest',
-                0,
-                'PaymentRequest.expiresAtGt'
-            );
-        }
+        $this->_expires_at_gt = $this->validatePropertyValue('_expires_at_gt', $expires_at_lt);
+        return $this;
     }
 
     /**
-     * Возвращает дату автоматического закрытия до которой будут возвращены платежи или null, если дата не была установлена
-     * @return \DateTime|null Время автоматического закрытия, до (включительно)
+     * Возвращает дату автоматического закрытия до которой будут возвращены платежи или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время автоматического закрытия, до (включительно)
      */
-    public function getExpiresAtLte()
+    public function getExpiresAtLte(): ?DateTime
     {
-        return $this->_expiresAtLte;
+        return $this->_expires_at_lte;
     }
 
     /**
-     * Проверяет, была ли установлена дата автоматического закрытия до которой выбираются платежи
+     * Проверяет, была ли установлена дата автоматического закрытия до которой выбираются платежи.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasExpiresAtLte()
+    public function hasExpiresAtLte(): bool
     {
-        return $this->_expiresAtLte !== null;
+        return null !== $this->_expires_at_lte;
     }
 
     /**
-     * Устанавливает дату автоматического закрытия до которой выбираются платежи
-     * @param \DateTime|string|int|null $value Время автоматического закрытия, до (включительно) или null, чтобы удалить значение
+     * Устанавливает дату автоматического закрытия до которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param DateTime|string|null $expires_at_lte Время автоматического закрытия, до (включительно) или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setExpiresAtLte($value)
+    public function setExpiresAtLte(DateTime|string|null $expires_at_lte): self
     {
-        if ($value === null || $value === '') {
-            $this->_expiresAtLte = null;
-        } elseif (TypeCast::canCastToDateTime($value)) {
-            $dateTime = TypeCast::castToDateTime($value);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException(
-                    'Invalid expiresAtLte value in DealsRequest',
-                    0,
-                    'PaymentRequest.expiresAtLte'
-                );
-            }
-            $this->_expiresAtLte = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid expiresAtLte value type in DealsRequest',
-                0,
-                'PaymentRequest.expiresAtLte'
-            );
-        }
+        $this->_expires_at_lte = $this->validatePropertyValue('_expires_at_lte', $expires_at_lte);
+        return $this;
     }
 
     /**
-     * Возвращает дату автоматического закрытия до которой будут возвращены платежи или null, если дата не была установлена
-     * @return \DateTime|null Время автоматического закрытия, до (не включая)
+     * Возвращает дату автоматического закрытия до которой будут возвращены платежи или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время автоматического закрытия, до (не включая)
      */
-    public function getExpiresAtLt()
+    public function getExpiresAtLt(): ?DateTime
     {
-        return $this->_expiresAtLt;
+        return $this->_expires_at_lt;
     }
 
     /**
-     * Проверяет, была ли установлена дата автоматического закрытия до которой выбираются платежи
+     * Проверяет, была ли установлена дата автоматического закрытия до которой выбираются платежи.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasExpiresAtLt()
+    public function hasExpiresAtLt(): bool
     {
-        return $this->_expiresAtLt !== null;
+        return null !== $this->_expires_at_lt;
     }
 
     /**
-     * Устанавливает дату автоматического закрытия до которой выбираются платежи
-     * @param \DateTime|string|int|null $value Время автоматического закрытия, до (не включая) или null, чтобы удалить значение
+     * Устанавливает дату автоматического закрытия до которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param DateTime|string|null $expires_at_lt Время автоматического закрытия, до (не включая) или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setExpiresAtLt($value)
+    public function setExpiresAtLt(DateTime|string|null $expires_at_lt): self
     {
-        if ($value === null || $value === '') {
-            $this->_expiresAtLt = null;
-        } elseif (TypeCast::canCastToDateTime($value)) {
-            $dateTime = TypeCast::castToDateTime($value);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException(
-                    'Invalid expiresAtLt value in DealsRequest',
-                    0,
-                    'PaymentRequest.expiresAtLt'
-                );
-            }
-            $this->_expiresAtLt = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid expiresAlLt value type in DealsRequest',
-                0,
-                'PaymentRequest.expiresAtLt'
-            );
-        }
+        $this->_expires_at_lt = $this->validatePropertyValue('_expires_at_lt', $expires_at_lt);
+        return $this;
     }
 
     /**
-     * Возвращает статус выбираемых сделок или null, если он до этого не был установлен
-     * @return string|null Статус выбираемых сделок
+     * Возвращает статус выбираемых сделок или null, если он до этого не был установлен.
+     *
+     * @return null|string Статус выбираемых сделок
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->_status;
     }
 
     /**
-     * Проверяет, был ли установлен статус выбираемых сделок
+     * Проверяет, был ли установлен статус выбираемых сделок.
+     *
      * @return bool True если статус был установлен, false если нет
      */
-    public function hasStatus()
+    public function hasStatus(): bool
     {
-        return $this->_status !== null;
+        return null !== $this->_status;
     }
 
     /**
-     * Устанавливает статус выбираемых сделок
-     * @param string $value Статус выбираемых сделок или null, чтобы удалить значение
+     * Устанавливает статус выбираемых сделок.
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение не является валидным статусом
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     * @param string|null $status Статус выбираемых сделок или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setStatus($value)
+    public function setStatus(?string $status): self
     {
-        if ($value === null || $value === '') {
-            $this->_status = null;
-        } elseif (TypeCast::canCastToEnumString($value)) {
-            if (!DealStatus::valueExists((string)$value)) {
-                throw new InvalidPropertyValueException(
-                    'Invalid status value in DealsRequest',
-                    0,
-                    'DealsRequest.status',
-                    $value
-                );
-            } else {
-                $this->_status = (string)$value;
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid status value in DealsRequest',
-                0,
-                'DealsRequest.status',
-                $value
-            );
-        }
+        $this->_status = $this->validatePropertyValue('_status', $status);
+        return $this;
     }
 
     /**
-     * Возвращает фильтр по описанию выбираемых сделок или null, если он до этого не был установлен
-     * @return string|null Фильтр по описанию выбираемых сделок
+     * Возвращает фильтр по описанию выбираемых сделок или null, если он до этого не был установлен.
+     *
+     * @return null|string Фильтр по описанию выбираемых сделок
      */
-    public function getFullTextSearch()
+    public function getFullTextSearch(): ?string
     {
-        return $this->_fullTextSearch;
+        return $this->_full_text_search;
     }
 
     /**
-     * Проверяет, был ли установлен фильтр по описанию выбираемых сделок
+     * Проверяет, был ли установлен фильтр по описанию выбираемых сделок.
+     *
      * @return bool True если фильтр по описанию был установлен, false если нет
      */
-    public function hasFullTextSearch()
+    public function hasFullTextSearch(): bool
     {
-        return $this->_fullTextSearch !== null;
+        return null !== $this->_full_text_search;
     }
 
     /**
-     * Устанавливает фильтр по описанию выбираемых сделок
-     * @param string $value Фильтр по описанию выбираемых сделок или null, чтобы удалить значение
+     * Устанавливает фильтр по описанию выбираемых сделок.
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение не является валидным
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     * @param string|null $full_text_search Фильтр по описанию выбираемых сделок или null, чтобы удалить значение
+     *
+     * @return self
      */
-    public function setFullTextSearch($value)
+    public function setFullTextSearch(?string $full_text_search): self
     {
-        if ($value === null || $value === '') {
-            $this->_fullTextSearch = null;
-        } elseif (TypeCast::canCastToEnumString($value)) {
-            $length = mb_strlen((string)$value, 'utf-8');
-            if ($length > SafeDeal::MAX_LENGTH_DESCRIPTION) {
-                throw new InvalidPropertyValueException(
-                    'The value of the full_text_search parameter is too long. Max length is ' . SafeDeal::MAX_LENGTH_DESCRIPTION,
-                    0,
-                    'DealsRequest.fullTextSearch',
-                    $value
-                );
-            }
-            if ($length < self::MIN_LENGTH_DESCRIPTION) {
-                throw new InvalidPropertyValueException(
-                    'The value of the full_text_search parameter is too short. Min length is ' . self::MIN_LENGTH_DESCRIPTION,
-                    0,
-                    'DealsRequest.fullTextSearch',
-                    $value
-                );
-            }
-            $this->_fullTextSearch = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid status value type in DealsRequest',
-                0,
-                'DealsRequest.fullTextSearch',
-                $value
-            );
-        }
+        $this->_full_text_search = $this->validatePropertyValue('_full_text_search', $full_text_search);
+        return $this;
     }
 
     /**
-     * Проверяет валидность текущего объекта запроса
+     * Проверяет валидность текущего объекта запроса.
+     *
      * @return bool True если объект валиден, false если нет
      */
-    public function validate()
+    public function validate(): bool
     {
         return true;
     }
 
     /**
-     * Возвращает инстанс билдера объектов запросов списка сделок магазина
+     * Возвращает инстанс билдера объектов запросов списка сделок магазина.
+     *
      * @return DealsRequestBuilder Билдер объектов запросов списка сделок
      */
-    public static function builder()
+    public static function builder(): DealsRequestBuilder
     {
         return new DealsRequestBuilder();
     }

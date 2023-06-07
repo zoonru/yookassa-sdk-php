@@ -8,7 +8,7 @@
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md) | Класс, представляющий модель SelfEmployed. |
+| [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md) | Interface SelfEmployedInterface. |
 
 ### Classes
 
@@ -16,7 +16,7 @@
 | ---- | ------- |
 | [\YooKassa\Model\SelfEmployed\SelfEmployed](../classes/YooKassa-Model-SelfEmployed-SelfEmployed.md) | Класс, представляющий модель SelfEmployed. |
 | [\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmation.md) | Класс, представляющий модель SelfEmployedConfirmation. |
-| [\YooKassa\Model\SelfEmployed\SelfEmployedConfirmationFactory](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationFactory.md) | Class ConfirmationFactory |
+| [\YooKassa\Model\SelfEmployed\SelfEmployedConfirmationFactory](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationFactory.md) | Фабрика создания объекта сценария подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог. |
 | [\YooKassa\Model\SelfEmployed\SelfEmployedConfirmationRedirect](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationRedirect.md) | Класс, представляющий модель SelfEmployedConfirmationRedirect. |
 | [\YooKassa\Model\SelfEmployed\SelfEmployedConfirmationType](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationType.md) | Класс, представляющий модель SelfEmployedConfirmationType. |
 | [\YooKassa\Model\SelfEmployed\SelfEmployedStatus](../classes/YooKassa-Model-SelfEmployed-SelfEmployedStatus.md) | Класс, представляющий модель SelfEmployedStatus. |
@@ -31,11 +31,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

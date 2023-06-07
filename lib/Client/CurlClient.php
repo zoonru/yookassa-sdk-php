@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,6 +26,7 @@
 
 namespace YooKassa\Client;
 
+use CurlHandle;
 use Psr\Log\LoggerInterface;
 use YooKassa\Common\Exceptions\ApiConnectionException;
 use YooKassa\Common\Exceptions\ApiException;
@@ -35,50 +36,55 @@ use YooKassa\Common\ResponseObject;
 use YooKassa\Helpers\RawHeadersParser;
 
 /**
- * Класс клиента Curl запросов
+ * Класс, представляющий модель CurlClient.
  *
- * @package YooKassa
+ * Класс клиента Curl запросов.
+ *
+ * @category Class
+ * @package  YooKassa
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class CurlClient implements ApiClientInterface
 {
     /** @var array Настройки клиента */
-    private $config;
+    private array $config = [];
 
-    /** @var string|int shopId магазина */
-    private $shopId;
+    /** @var int|null shopId магазина */
+    private ?int $shopId = null;
 
-    /** @var string Секретный ключ магазина */
-    private $shopPassword;
+    /** @var string|null Секретный ключ магазина */
+    private ?string $shopPassword = null;
 
-    /** @var string OAuth токен*/
-    private $bearerToken;
+    /** @var null|string OAuth токен */
+    private ?string $bearerToken = null;
 
-    /** @var int Настройка параметра CURLOPT_TIMEOUT*/
-    private $timeout = 80;
+    /** @var int Настройка параметра CURLOPT_TIMEOUT */
+    private int $timeout = 80;
 
     /** @var int Настройка параметра CURLOPT_CONNECTTIMEOUT */
-    private $connectionTimeout = 30;
+    private int $connectionTimeout = 30;
 
-    /** @var string Настройка прокси-сервера, если нужен */
-    private $proxy;
+    /** @var null|string Настройка прокси-сервера, если нужен */
+    private ?string $proxy = null;
 
     /** @var UserAgent Строка user-agent для статистики */
-    private $userAgent;
+    private UserAgent $userAgent;
 
     /** @var bool Настройка удержания соединения */
-    private $keepAlive = true;
+    private bool $keepAlive = true;
 
     /** @var array Заголовки по умолчанию */
-    private $defaultHeaders = array(
+    private array $defaultHeaders = [
         'Content-Type' => 'application/json',
-        'Accept'       => 'application/json',
-    );
+        'Accept' => 'application/json',
+    ];
 
-    /** @var resource Текущий ресурс для работы с curl */
-    private $curl;
+    /** @var CurlHandle|null Текущий ресурс для работы с curl */
+    private ?CurlHandle $curl = null;
 
-    /** @var LoggerInterface|null Объект для логирования запросов */
-    private $logger;
+    /** @var null|LoggerInterface Объект для логирования запросов */
+    private ?LoggerInterface $logger = null;
 
     /**
      * CurlClient constructor.
@@ -88,30 +94,26 @@ class CurlClient implements ApiClientInterface
         $this->userAgent = new UserAgent();
     }
 
-    /**
-     * @param LoggerInterface|null $logger
-     */
-    public function setLogger($logger)
+    public function setLogger(?LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @param string $path URL запроса
      * @param string $method HTTP метод
      * @param array $queryParams Массив GET параметров запроса
-     * @param string|null $httpBody Тело запроса
+     * @param null|string $httpBody Тело запроса
      * @param array $headers Массив заголовков запроса
      *
-     * @return ResponseObject
      * @throws ApiConnectionException
      * @throws ApiException
      * @throws AuthorizeException
      * @throws ExtensionNotFoundException
      */
-    public function call($path, $method, $queryParams, $httpBody = null, $headers = array())
+    public function call(string $path, string $method, array $queryParams, ?string $httpBody = null, array $headers = []): ResponseObject
     {
         $headers = $this->prepareHeaders($headers);
 
@@ -119,9 +121,9 @@ class CurlClient implements ApiClientInterface
 
         $url = $this->prepareUrl($path, $queryParams);
 
-        $this->prepareCurl($method, $httpBody, $this->implodeHeaders($headers), $url);
+        $this->prepareCurl($method, $url, $httpBody, $this->implodeHeaders($headers));
 
-        list($httpHeaders, $httpBody, $responseInfo) = $this->sendRequest();
+        [$httpHeaders, $httpBody, $responseInfo] = $this->sendRequest();
 
         if (!$this->keepAlive) {
             $this->closeCurlConnection();
@@ -129,32 +131,215 @@ class CurlClient implements ApiClientInterface
 
         $this->logResponse($httpBody, $responseInfo, $httpHeaders);
 
-        return new ResponseObject(array(
-            'code'    => $responseInfo['http_code'],
+        return new ResponseObject([
+            'code' => $responseInfo['http_code'],
             'headers' => $httpHeaders,
-            'body'    => $httpBody,
-        ));
+            'body' => $httpBody,
+        ]);
     }
 
     /**
-     * Устанавливает параметры CURL
+     * Устанавливает параметры CURL.
      *
      * @param string $optionName Имя параметра
      * @param mixed $optionValue Значение параметра
-     *
-     * @return bool
      */
-    public function setCurlOption($optionName, $optionValue)
+    public function setCurlOption(string $optionName, mixed $optionValue): bool
     {
         return curl_setopt($this->curl, $optionName, $optionValue);
     }
 
+    /**
+     * Close connection.
+     */
+    public function closeCurlConnection(): void
+    {
+        if (null !== $this->curl) {
+            curl_close($this->curl);
+        }
+    }
 
     /**
-     * @return resource
+     * Выполняет запрос, получает и возвращает обработанный ответ
+     *
+     * @throws ApiConnectionException
+     */
+    public function sendRequest(): array
+    {
+        $response = curl_exec($this->curl);
+        $httpHeaderSize = curl_getinfo($this->curl, CURLINFO_HEADER_SIZE);
+        $httpHeaders = RawHeadersParser::parse(substr($response, 0, $httpHeaderSize));
+        $httpBody = substr($response, $httpHeaderSize);
+        $responseInfo = curl_getinfo($this->curl);
+        $curlError = curl_error($this->curl);
+        $curlErrno = curl_errno($this->curl);
+        if (false === $response) {
+            $this->handleCurlError($curlError, $curlErrno);
+        }
+
+        return [$httpHeaders, $httpBody, $responseInfo];
+    }
+
+    /**
+     * Устанавливает тело запроса.
+     *
+     * @param string $method HTTP метод
+     * @param string|null $httpBody Тело запроса
+     */
+    public function setBody(string $method, ?string $httpBody = null): void
+    {
+        $this->setCurlOption(CURLOPT_CUSTOMREQUEST, $method);
+        if (!empty($httpBody)) {
+            $this->setCurlOption(CURLOPT_POSTFIELDS, $httpBody);
+        }
+    }
+
+    /**
+     * Устанавливает shopId магазина.
+     *
+     * @param mixed $shopId shopId магазина
+     *
+     * @return $this
+     */
+    public function setShopId(mixed $shopId): self
+    {
+        $this->shopId = (int) $shopId;
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает секретный ключ магазина.
+     *
+     * @param string|null $shopPassword Секретный ключ магазина
+     *
+     * @return $this
+     */
+    public function setShopPassword(?string $shopPassword): self
+    {
+        $this->shopPassword = $shopPassword;
+
+        return $this;
+    }
+
+    /**
+     * Возвращает значение параметра CURLOPT_TIMEOUT.
+     */
+    public function getTimeout(): int
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * Устанавливает значение параметра CURLOPT_TIMEOUT.
+     *
+     * @param int $timeout Максимальное количество секунд для выполнения функций cURL
+     */
+    public function setTimeout(int $timeout): void
+    {
+        $this->timeout = $timeout;
+    }
+
+    /**
+     * Возвращает значение параметра CURLOPT_CONNECTTIMEOUT.
+     */
+    public function getConnectionTimeout(): int
+    {
+        return $this->connectionTimeout;
+    }
+
+    /**
+     * Устанавливает значение параметра CURLOPT_CONNECTTIMEOUT.
+     *
+     * @param int $connectionTimeout Число секунд ожидания при попытке подключения
+     */
+    public function setConnectionTimeout(int $connectionTimeout = 30): void
+    {
+        $this->connectionTimeout = $connectionTimeout;
+    }
+
+    /**
+     * Возвращает настройки прокси.
+     */
+    public function getProxy(): string
+    {
+        return $this->proxy;
+    }
+
+    /**
+     * Устанавливает настройки прокси.
+     *
+     * @param string $proxy Прокси сервер
+     */
+    public function setProxy(string $proxy): void
+    {
+        $this->proxy = $proxy;
+    }
+
+    /**
+     * Возвращает настройки.
+     */
+    public function getConfig(): array
+    {
+        return $this->config;
+    }
+
+    /**
+     * Устанавливает настройки.
+     *
+     * @param array $config Настройки клиента
+     */
+    public function setConfig(array $config): void
+    {
+        $this->config = $config;
+    }
+
+    /**
+     * Возвращает UserAgent.
+     */
+    public function getUserAgent(): UserAgent
+    {
+        return $this->userAgent;
+    }
+
+    /**
+     * Устанавливает OAuth-токен магазина.
+     *
+     * @param null|string $bearerToken OAuth-токен магазина
+     *
+     * @return $this
+     */
+    public function setBearerToken(?string $bearerToken): self
+    {
+        $this->bearerToken = $bearerToken;
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает флаг сохранения соединения.
+     *
+     * @param bool $keepAlive Флаг сохранения настроек
+     *
+     * @return $this
+     */
+    public function setKeepAlive(bool $keepAlive): self
+    {
+        $this->keepAlive = $keepAlive;
+
+        return $this;
+    }
+
+    public function setAdvancedCurlOptions(): void
+    {
+    }
+
+    /**
+     * @return void
+     *
      * @throws ExtensionNotFoundException
      */
-    private function initCurl()
+    private function initCurl(): void
     {
         if (!extension_loaded('curl')) {
             throw new ExtensionNotFoundException('curl');
@@ -164,247 +349,39 @@ class CurlClient implements ApiClientInterface
             $this->curl = curl_init();
         }
 
-        return $this->curl;
     }
 
     /**
-     * Close connection
-     */
-    public function closeCurlConnection()
-    {
-        if ($this->curl !== null) {
-            curl_close($this->curl);
-        }
-    }
-
-    /**
-     * Выполняет запрос, получает и возвращает обработанный ответ
-     *
-     * @return array
      * @throws ApiConnectionException
      */
-    public function sendRequest()
+    private function handleCurlError(string $error, int $errno): void
     {
-        $response       = curl_exec($this->curl);
-        $httpHeaderSize = curl_getinfo($this->curl, CURLINFO_HEADER_SIZE);
-        $httpHeaders    = RawHeadersParser::parse(substr($response, 0, $httpHeaderSize));
-        $httpBody       = substr($response, $httpHeaderSize);
-        $responseInfo   = curl_getinfo($this->curl);
-        $curlError      = curl_error($this->curl);
-        $curlErrno      = curl_errno($this->curl);
-        if ($response === false) {
-            $this->handleCurlError($curlError, $curlErrno);
-        }
+        $msg = match ($errno) {
+            CURLE_COULDNT_CONNECT, CURLE_COULDNT_RESOLVE_HOST, CURLE_OPERATION_TIMEOUTED => 'Could not connect to YooKassa API. Please check your internet connection and try again.',
+            CURLE_SSL_CACERT, CURLE_SSL_PEER_CERTIFICATE => 'Could not verify SSL certificate.',
+            default => 'Unexpected error communicating.',
+        };
+        $msg .= sprintf("\n\n(Network error [errno %s]: %s)", $errno, $error);
 
-        return array($httpHeaders, $httpBody, $responseInfo);
-    }
-
-    /**
-     * Устанавливает тело запроса
-     *
-     * @param string $method HTTP метод
-     * @param string $httpBody Тело запроса
-     */
-    public function setBody($method, $httpBody)
-    {
-
-        $this->setCurlOption(CURLOPT_CUSTOMREQUEST, $method);
-        if (!empty($httpBody)) {
-            $this->setCurlOption(CURLOPT_POSTFIELDS, $httpBody);
-        }
-    }
-
-    /**
-     * Устанавливает shopId магазина
-     *
-     * @param mixed $shopId shopId магазина
-     *
-     * @return $this
-     */
-    public function setShopId($shopId)
-    {
-        $this->shopId = $shopId;
-
-        return $this;
-    }
-
-    /**
-     * Устанавливает секретный ключ магазина
-     *
-     * @param mixed $shopPassword Секретный ключ магазина
-     *
-     * @return $this
-     */
-    public function setShopPassword($shopPassword)
-    {
-        $this->shopPassword = $shopPassword;
-
-        return $this;
-    }
-
-    /**
-     * Возвращает значение параметра CURLOPT_TIMEOUT
-     *
-     * @return int
-     */
-    public function getTimeout()
-    {
-        return $this->timeout;
-    }
-
-    /**
-     * Устанавливает значение параметра CURLOPT_TIMEOUT
-     *
-     * @param int $timeout Максимальное количество секунд для выполнения функций cURL
-     */
-    public function setTimeout($timeout)
-    {
-        $this->timeout = $timeout;
-    }
-
-    /**
-     * Возвращает значение параметра CURLOPT_CONNECTTIMEOUT
-     *
-     * @return int
-     */
-    public function getConnectionTimeout()
-    {
-        return $this->connectionTimeout;
-    }
-
-    /**
-     * Устанавливает значение параметра CURLOPT_CONNECTTIMEOUT
-     *
-     * @param int $connectionTimeout Число секунд ожидания при попытке подключения
-     */
-    public function setConnectionTimeout($connectionTimeout)
-    {
-        $this->connectionTimeout = $connectionTimeout;
-    }
-
-    /**
-     * Возвращает настройки прокси
-     *
-     * @return string
-     * @since 1.0.14
-     */
-    public function getProxy()
-    {
-        return $this->proxy;
-    }
-
-    /**
-     * Устанавливает настройки прокси
-     *
-     * @param string $proxy Прокси сервер
-     *
-     * @since 1.0.14
-     */
-    public function setProxy($proxy)
-    {
-        $this->proxy = $proxy;
-    }
-
-    /**
-     * Возвращает настройки
-     *
-     * @return mixed
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
-     * Устанавливает настройки
-     *
-     * @param array $config Настройки клиента
-     */
-    public function setConfig($config)
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * Возвращает UserAgent
-     *
-     * @return UserAgent
-     */
-    public function getUserAgent()
-    {
-        return $this->userAgent;
-    }
-
-    /**
-     * Устанавливает OAuth-токен магазина
-     *
-     * @param string $bearerToken OAuth-токен магазина
-     *
-     * @return $this
-     */
-    public function setBearerToken($bearerToken)
-    {
-        $this->bearerToken = $bearerToken;
-
-        return $this;
-    }
-
-    /**
-     * Устанавливает флаг сохранения соединения
-     *
-     * @param bool $keepAlive Флаг сохранения настроек
-     *
-     * @return $this
-     */
-    public function setKeepAlive($keepAlive)
-    {
-        $this->keepAlive = $keepAlive;
-
-        return $this;
-    }
-
-    /**
-     * @param string $error
-     * @param int $errno
-     *
-     * @throws ApiConnectionException
-     */
-    private function handleCurlError($error, $errno)
-    {
-        switch ($errno) {
-            case CURLE_COULDNT_CONNECT:
-            case CURLE_COULDNT_RESOLVE_HOST:
-            case CURLE_OPERATION_TIMEOUTED:
-                $msg = 'Could not connect to YooKassa API. Please check your internet connection and try again.';
-                break;
-            case CURLE_SSL_CACERT:
-            case CURLE_SSL_PEER_CERTIFICATE:
-                $msg = 'Could not verify SSL certificate.';
-                break;
-            default:
-                $msg = 'Unexpected error communicating.';
-        }
-        $msg .= "\n\n(Network error [errno $errno]: $error)";
         throw new ApiConnectionException($msg);
     }
 
     /**
-     * @return mixed
+     * Возвращает базовый URL для API Кассы
+     *
+     * @return string
      */
-    private function getUrl()
+    private function getUrl(): string
     {
         $config = $this->config;
 
-        return $config['url'];
+        return (string) $config['url'];
     }
 
     /**
-     * @param array $headers
-     *
-     * @return array
      * @throws AuthorizeException
      */
-    private function prepareHeaders($headers)
+    private function prepareHeaders(array $headers): array
     {
         $headers = array_merge($this->defaultHeaders, $headers);
 
@@ -424,29 +401,16 @@ class CurlClient implements ApiClientInterface
         return $headers;
     }
 
-    /**
-     * @param array $headers
-     * @return array
-     */
-    private function implodeHeaders($headers)
+    private function implodeHeaders(array $headers): array
     {
-        return array_map(function ($key, $value) {
-            return $key . ':' . $value;
-        }, array_keys($headers), $headers);
+        return array_map(static fn ($key, $value) => $key . ':' . $value, array_keys($headers), $headers);
     }
 
-    /**
-     * @param string $path
-     * @param string $method
-     * @param array $queryParams
-     * @param string $httpBody
-     * @param array $headers
-     */
-    private function logRequestParams($path, $method, $queryParams, $httpBody, $headers)
+    private function logRequestParams(string $path, string $method, array $queryParams = [], ?string $httpBody = null, array $headers = []): void
     {
-        if ($this->logger !== null) {
+        if (null !== $this->logger) {
             $message = 'Send request: ' . $method . ' ' . $path;
-            $context = array();
+            $context = [];
             if (!empty($queryParams)) {
                 $context['_params'] = $queryParams;
             }
@@ -464,33 +428,22 @@ class CurlClient implements ApiClientInterface
         }
     }
 
-    /**
-     * @param string $path
-     * @param array $queryParams
-     *
-     * @return string
-     */
-    private function prepareUrl($path, $queryParams)
+    private function prepareUrl(string $path, array $queryParams): string
     {
         $url = $this->getUrl() . $path;
 
         if (!empty($queryParams)) {
-            $url = $url . '?' . http_build_query($queryParams);
+            $url .= '?' . http_build_query($queryParams);
         }
 
         return $url;
     }
 
-    /**
-     * @param string $httpBody
-     * @param array $responseInfo
-     * @param array $httpHeaders
-     */
-    private function logResponse($httpBody, $responseInfo, $httpHeaders)
+    private function logResponse(string $httpBody, array $responseInfo, array $httpHeaders): void
     {
-        if ($this->logger !== null) {
+        if (null !== $this->logger) {
             $message = 'Response with code ' . $responseInfo['http_code'] . ' received.';
-            $context = array();
+            $context = [];
             if (!empty($httpBody)) {
                 $data = json_decode($httpBody, true);
                 if (JSON_ERROR_NONE !== json_last_error()) {
@@ -506,13 +459,9 @@ class CurlClient implements ApiClientInterface
     }
 
     /**
-     * @param string $method
-     * @param string $httpBody
-     * @param array $headers
-     * @param string $url
      * @throws ExtensionNotFoundException
      */
-    private function prepareCurl($method, $httpBody, $headers, $url)
+    private function prepareCurl(string $method, string $url, ?string $httpBody = null, array $headers = []): void
     {
         $this->initCurl();
 
@@ -538,12 +487,5 @@ class CurlClient implements ApiClientInterface
         $this->setCurlOption(CURLOPT_TIMEOUT, $this->timeout);
 
         $this->setAdvancedCurlOptions();
-    }
-
-    /**
-     * @return void
-     */
-    public function setAdvancedCurlOptions()
-    {
     }
 }

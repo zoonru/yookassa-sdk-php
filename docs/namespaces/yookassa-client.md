@@ -8,15 +8,15 @@
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Client\ApiClientInterface](../classes/YooKassa-Client-ApiClientInterface.md) | Interface ApiClientInterface |
+| [\YooKassa\Client\ApiClientInterface](../classes/YooKassa-Client-ApiClientInterface.md) | Interface ApiClientInterface. |
 
 ### Classes
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md) |  |
-| [\YooKassa\Client\CurlClient](../classes/YooKassa-Client-CurlClient.md) | Класс клиента Curl запросов |
-| [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md) | Класс для создания заголовка User-Agent в запросах к API |
+| [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md) | Класс, представляющий модель BaseClient. |
+| [\YooKassa\Client\CurlClient](../classes/YooKassa-Client-CurlClient.md) | Класс, представляющий модель CurlClient. |
+| [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md) | Класс, представляющий модель UserAgent. |
 
 ---
 
@@ -28,11 +28,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

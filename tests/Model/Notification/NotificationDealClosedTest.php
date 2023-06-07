@@ -2,124 +2,118 @@
 
 namespace Tests\YooKassa\Model\Notification;
 
+use Exception;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\CurrencyCode;
+use YooKassa\Model\Deal\DealInterface;
 use YooKassa\Model\Deal\DealStatus;
 use YooKassa\Model\Deal\DealType;
 use YooKassa\Model\Deal\FeeMoment;
 use YooKassa\Model\Notification\NotificationDealClosed;
-use YooKassa\Model\NotificationEventType;
-use YooKassa\Model\NotificationType;
-use YooKassa\Model\DealInterface;
+use YooKassa\Model\Notification\NotificationEventType;
+use YooKassa\Model\Notification\NotificationType;
 
-class NotificationDealClosedTest extends AbstractNotificationTest
+/**
+ * @internal
+ */
+class NotificationDealClosedTest extends AbstractTestNotification
 {
     /**
-     * @param array $source
-     * @return NotificationDealClosed
-     * @throws \Exception
-     */
-    protected function getTestInstance(array $source)
-    {
-        return new NotificationDealClosed($source);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedType()
-    {
-        return NotificationType::NOTIFICATION;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedEvent()
-    {
-        return NotificationEventType::DEAL_CLOSED;
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param array $value
      */
-    public function testGetObject(array $value)
+    public function testGetObject(array $value): void
     {
         $instance = $this->getTestInstance($value);
-        self::assertTrue($instance->getObject() instanceof DealInterface);
+        self::assertInstanceOf(DealInterface::class, $instance->getObject());
         self::assertEquals($value['object']['id'], $instance->getObject()->getId());
     }
 
     /**
-     * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         $statuses = DealStatus::getValidValues();
         $types = DealType::getValidValues();
 
         for ($i = 0; $i < 10; $i++) {
-            $deal = array(
+            $deal = [
                 'id' => Random::str(36),
                 'type' => Random::value($types),
                 'status' => Random::value($statuses),
                 'description' => Random::str(128),
-                'balance' => array(
+                'balance' => [
                     'value' => Random::float(0.01, 1000000.0),
                     'currency' => Random::value(CurrencyCode::getEnabledValues()),
-                ),
-                'payout_balance' => array(
+                ],
+                'payout_balance' => [
                     'value' => Random::float(0.01, 1000000.0),
                     'currency' => Random::value(CurrencyCode::getValidValues()),
-                ),
+                ],
                 'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
                 'expires_at' => date(YOOKASSA_DATE, Random::int(1, time())),
                 'fee_moment' => Random::value(FeeMoment::getEnabledValues()),
-                'test' => (bool)($i % 2),
-                'metadata' => array(
+                'test' => (bool) ($i % 2),
+                'metadata' => [
                     'value' => Random::float(0.01, 1000000.0),
                     'currency' => Random::str(1, 256),
-                ),
-            );
-            $result[] = array(
-                array(
+                ],
+            ];
+            $result[] = [
+                [
                     'type' => $this->getExpectedType(),
                     'event' => $this->getExpectedEvent(),
                     'object' => $deal,
-                ),
-            );
+                ],
+            ];
         }
 
         $trueFalse = Random::bool();
-        $result[] = array(
-            array(
+        $result[] = [
+            [
                 'type' => $this->getExpectedType(),
                 'event' => $this->getExpectedEvent(),
-                    'object' => array(
+                'object' => [
                     'id' => Random::str(36),
                     'type' => Random::value($types),
                     'status' => Random::value($statuses),
                     'description' => Random::str(128),
-                    'balance' => array(
+                    'balance' => [
                         'value' => Random::float(0.01, 1000000.0),
                         'currency' => Random::value(CurrencyCode::getValidValues()),
-                    ),
-                    'payout_balance' => array(
+                    ],
+                    'payout_balance' => [
                         'value' => Random::float(0.01, 1000000.0),
                         'currency' => Random::value(CurrencyCode::getValidValues()),
-                    ),
+                    ],
                     'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
                     'expires_at' => date(YOOKASSA_DATE, Random::int(1, time())),
                     'fee_moment' => Random::value(FeeMoment::getEnabledValues()),
                     'test' => $trueFalse,
-                    'metadata' => array(),
-                ),
-            ),
-        );
+                    'metadata' => [],
+                ],
+            ],
+        ];
 
         return $result;
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function getTestInstance(array $source): NotificationDealClosed
+    {
+        return new NotificationDealClosed($source);
+    }
+
+    protected function getExpectedType(): string
+    {
+        return NotificationType::NOTIFICATION;
+    }
+
+    protected function getExpectedEvent(): string
+    {
+        return NotificationEventType::DEAL_CLOSED;
     }
 }

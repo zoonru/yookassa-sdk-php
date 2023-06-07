@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,39 +26,48 @@
 
 namespace YooKassa\Request\Refunds;
 
+use DateTime;
+
 /**
- * Класс сериализатора объектов запросов к API для получения списка возвратов
+ * Класс, представляющий модель RefundsRequestSerializer.
  *
- * @package YooKassa
+ * Класс сериализатора объектов запросов к API для получения списка возвратов.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class RefundsRequestSerializer
 {
     /**
      * @var array Карта маппинга свойств объекта запроса на поля отправляемого запроса
      */
-    private static $propertyMap = array(
-        'cursor'         => 'cursor',
-        'createdAtGte'   => 'created_at.gte',
-        'createdAtGt'    => 'created_at.gt',
-        'createdAtLte'   => 'created_at.lte',
-        'createdAtLt'    => 'created_at.lt',
-        'limit'          => 'limit',
-        'paymentId'      => 'payment_id',
-        'status'         => 'status',
-    );
+    private static array $propertyMap = [
+        'cursor' => 'cursor',
+        'createdAtGte' => 'created_at.gte',
+        'createdAtGt' => 'created_at.gt',
+        'createdAtLte' => 'created_at.lte',
+        'createdAtLt' => 'created_at.lt',
+        'limit' => 'limit',
+        'paymentId' => 'payment_id',
+        'status' => 'status',
+    ];
 
     /**
-     * Сериализует объект запроса к API для дальнейшей его отправки
+     * Сериализует объект запроса к API для дальнейшей его отправки.
+     *
      * @param RefundsRequestInterface $request Сериализуемый объект
+     *
      * @return array Массив с информацией, отправляемый в дальнейшем в API
      */
-    public function serialize(RefundsRequestInterface $request)
+    public function serialize(RefundsRequestInterface $request): array
     {
-        $result = array();
+        $result = [];
         foreach (self::$propertyMap as $property => $name) {
             $value = $request->{$property};
             if (!empty($value)) {
-                if ($value instanceof \DateTime) {
+                if ($value instanceof DateTime) {
                     if ($value->getTimestamp() > 1) {
                         $result[$name] = $value->format(YOOKASSA_DATE);
                     }
@@ -67,6 +76,7 @@ class RefundsRequestSerializer
                 }
             }
         }
+
         return $result;
     }
 }

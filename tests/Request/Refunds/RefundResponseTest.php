@@ -4,13 +4,12 @@ namespace Tests\YooKassa\Request\Refunds;
 
 use YooKassa\Request\Refunds\RefundResponse;
 
-class RefundResponseTest extends AbstractRefundResponseTest
+/**
+ * @internal
+ */
+class RefundResponseTest extends AbstractTestRefundResponse
 {
-    /**
-     * @param array $options
-     * @return RefundResponse
-     */
-    protected function getTestInstance($options)
+    protected function getTestInstance(array $options): RefundResponse
     {
         return new RefundResponse($options);
     }

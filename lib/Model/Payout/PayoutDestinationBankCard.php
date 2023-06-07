@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,60 +26,62 @@
 
 namespace YooKassa\Model\Payout;
 
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Model\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * PaymentDataBankCard
- * Платежные данные для проведения оплаты при помощи банковской карты
+ * Класс, представляющий модель PayoutDestinationBankCard.
  *
+ * Оплата банковской картой.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property PayoutDestinationBankCardCard $card Данные банковской карты
  */
 class PayoutDestinationBankCard extends AbstractPayoutDestination
 {
     /**
      * Необходим при оплате PCI-DSS данными.
-     * @var PayoutDestinationBankCardCard Данные банковской карты
+     *
+     * @var PayoutDestinationBankCardCard|null Данные банковской карты
      */
-    private $_card;
+    #[Assert\Valid]
+    #[Assert\Type(PayoutDestinationBankCardCard::class)]
+    private ?PayoutDestinationBankCardCard $_card = null;
 
-    public function __construct()
+    /**
+     * Конструктор PayoutDestinationBankCard.
+     *
+     * @param array|null $data
+     */
+    public function __construct(?array $data = [])
     {
+        parent::__construct($data);
         $this->setType(PaymentMethodType::BANK_CARD);
     }
 
     /**
-     * Возвращает данные банковской карты
-     * @return PayoutDestinationBankCardCard Данные банковской карты
+     * Возвращает данные банковской карты.
+     *
+     * @return PayoutDestinationBankCardCard|null Данные банковской карты
      */
-    public function getCard()
+    public function getCard(): ?PayoutDestinationBankCardCard
     {
         return $this->_card;
     }
 
     /**
-     * Устанавливает данные банковской карты
-     * @param PayoutDestinationBankCardCard|array $value Данные банковской карты
+     * Устанавливает данные банковской карты.
+     *
+     * @param PayoutDestinationBankCardCard|array|null $card Данные банковской карты
+     *
+     * @return self
      */
-    public function setCard($value)
+    public function setCard(mixed $card = null): self
     {
-        if ($value === null || $value === '' || $value === array()) {
-            $this->_card = null;
-        } elseif ($value instanceof PayoutDestinationBankCardCard) {
-            $this->_card = $value;
-        } elseif (is_array($value) || $value instanceof \Traversable) {
-            $card = new PayoutDestinationBankCardCard();
-            foreach ($value as $property => $val) {
-                $card->offsetSet($property, $val);
-            }
-            $this->_card = $card;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid card value type in PayoutDestinationBankCard',
-                0,
-                'PayoutDestinationBankCard.card',
-                $value
-            );
-        }
+        $this->_card = $this->validatePropertyValue('_card', $card);
+        return $this;
     }
 }

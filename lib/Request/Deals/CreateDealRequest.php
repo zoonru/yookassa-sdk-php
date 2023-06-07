@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,30 +26,24 @@
 
 namespace YooKassa\Request\Deals;
 
-use YooKassa\Common\AbstractPaymentRequest;
 use YooKassa\Common\AbstractRequest;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\AirlineInterface;
-use YooKassa\Model\AmountInterface;
 use YooKassa\Model\Deal\DealType;
 use YooKassa\Model\Deal\FeeMoment;
-use YooKassa\Model\Payment;
-use YooKassa\Model\PaymentData\AbstractPaymentData;
-use YooKassa\Model\ConfirmationAttributes\AbstractConfirmationAttributes;
+use YooKassa\Model\Deal\SafeDeal;
 use YooKassa\Model\Metadata;
-use YooKassa\Model\ReceiptInterface;
-use YooKassa\Model\RecipientInterface;
-use YooKassa\Model\SafeDeal;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс объекта запроса к API на проведение новой сделки
+ * Класс, представляющий модель SafeDealRequest.
  *
- * @todo: @example 02-builder.php 11 78 Пример использования билдера
+ * Класс объекта запроса к API на проведение новой сделки.
  *
- * @package YooKassa
+ * @example 02-builder.php 252 19 Пример использования билдера
  *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $type Тип сделки
  * @property string $feeMoment Момент перечисления вам вознаграждения платформы
  * @property string $fee_moment Момент перечисления вам вознаграждения платформы
@@ -58,217 +52,202 @@ use YooKassa\Model\SafeDeal;
  */
 class CreateDealRequest extends AbstractRequest implements CreateDealRequestInterface
 {
-    /** @var string Тип сделки */
-    private $_type;
-
-    /** @var string Момент перечисления вам вознаграждения платформы */
-    private $_fee_moment;
-
-    /** @var string Описание сделки */
-    private $_description;
-
-    /** @var Metadata Метаданные привязанные к сделке */
-    private $_metadata;
+    /**
+     * Тип сделки
+     *
+     * @var string|null
+     */
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [DealType::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private ?string $_type = DealType::SAFE_DEAL;
 
     /**
-     * Возвращает тип сделки
-     * @return string Тип сделки
+     * Момент перечисления вам вознаграждения платформы
+     *
+     * @var string|null
      */
-    public function getType()
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [FeeMoment::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private ?string $_fee_moment = FeeMoment::PAYMENT_SUCCEEDED;
+
+    /**
+     * Описание сделки (не более 128 символов).
+     *
+     * @var string|null
+     */
+    #[Assert\Type('string')]
+    #[Assert\Length(max: SafeDeal::MAX_LENGTH_DESCRIPTION)]
+    private ?string $_description = null;
+
+    /**
+     * Метаданные привязанные к сделке.
+     *
+     * @var Metadata|null
+     */
+    #[Assert\Type(Metadata::class)]
+    private ?Metadata $_metadata = null;
+
+    /**
+     * Возвращает тип сделки.
+     *
+     * @return string|null Тип сделки
+     */
+    public function getType(): ?string
     {
         return $this->_type;
     }
 
     /**
-     * Устанавливает тип сделки
-     * @param string $value Тип сделки
+     * Устанавливает тип сделки.
      *
-     * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не является строкой
-     * @throws InvalidPropertyValueException Генерируется если переданный аргумент не из списка DealType
+     * @param string|null $type Тип сделки
+     *
+     * @return self
      */
-    public function setType($value)
+    public function setType(?string $type = null): self
     {
-        if (TypeCast::canCastToEnumString($value)) {
-            if (!DealType::valueExists((string)$value)) {
-                throw new InvalidPropertyValueException('Invalid deal type value', 0, 'CreateDealRequest.type', $value);
-            }
-            $this->_type = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid deal type value type',
-                0,
-                'CreateDealRequest.type',
-                $value
-            );
-        }
+        $this->_type = $this->validatePropertyValue('_type', $type);
+        return $this;
     }
 
     /**
-     * Проверяет наличие типа в создаваемой сделке
+     * Проверяет наличие типа в создаваемой сделке.
+     *
      * @return bool True если тип сделки есть, false если нет
      */
-    public function hasType()
+    public function hasType(): bool
     {
-        return $this->_type !== null;
+        return isset($this->_type);
     }
 
     /**
-     * Возвращает момент перечисления вам вознаграждения платформы
-     * @return string Момент перечисления вам вознаграждения платформы
+     * Возвращает момент перечисления вам вознаграждения платформы.
+     *
+     * @return string|null Момент перечисления вам вознаграждения платформы
      */
-    public function getFeeMoment()
+    public function getFeeMoment(): ?string
     {
         return $this->_fee_moment;
     }
 
     /**
-     * Проверяет, был ли установлен момент перечисления вознаграждения
+     * Устанавливает момент перечисления вам вознаграждения платформы.
+     *
+     * @param string|null $fee_moment  Момент перечисления вам вознаграждения платформы
+     *
+     * @return self
+     */
+    public function setFeeMoment(?string $fee_moment = null): self
+    {
+        $this->_fee_moment = $this->validatePropertyValue('_fee_moment', $fee_moment);
+        return $this;
+    }
+
+    /**
+     * Проверяет, был ли установлен момент перечисления вознаграждения.
+     *
      * @return bool True если момент перечисления был установлен, false если нет
      */
-    public function hasFeeMoment()
+    public function hasFeeMoment(): bool
     {
-        return $this->_fee_moment !== null;
+        return !empty($this->_fee_moment);
     }
 
     /**
-     * Устанавливает момент перечисления вам вознаграждения платформы
-     * @param string $value Момент перечисления вам вознаграждения платформы
+     * Возвращает описание сделки.
      *
-     * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не является строкой
-     * @throws InvalidPropertyValueException Генерируется если переданный аргумент не из списка FeeMoment
+     * @return string|null Описание сделки.
      */
-    public function setFeeMoment($value)
-    {
-        if (TypeCast::canCastToEnumString($value)) {
-            if (!FeeMoment::valueExists((string)$value)) {
-                throw new InvalidPropertyValueException('Invalid deal fee_moment value', 0, 'CreateDealRequest.fee_moment', $value);
-            }
-            $this->_fee_moment = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid fee_moment value type in CreateDealRequest',
-                0,
-                'CreateDealRequest.fee_moment',
-                $value
-            );
-        }
-    }
-
-    /**
-     * Возвращает описание сделки
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->_description;
     }
 
     /**
-     * Устанавливает описание сделки
-     * @param string $value
+     * Устанавливает описание сделки.
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение превышает допустимую длину
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
+     * @param string|null $description Описание сделки (не более 128 символов)
+     *
+     * @return self
      */
-    public function setDescription($value)
+    public function setDescription(?string $description = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_description = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $length = mb_strlen((string)$value, 'utf-8');
-            if ($length > SafeDeal::MAX_LENGTH_DESCRIPTION) {
-                throw new InvalidPropertyValueException(
-                    'The value of the description parameter is too long. Max length is ' . SafeDeal::MAX_LENGTH_DESCRIPTION,
-                    0,
-                    'CreateDealRequest.description',
-                    $value
-                );
-            }
-            $this->_description = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid description value type',
-                0,
-                'CreateDealRequest.description',
-                $value
-            );
-        }
+        $this->_description = $this->validatePropertyValue('_description', $description);
+        return $this;
     }
 
     /**
-     * Проверяет наличие описания в создаваемой сделке
+     * Проверяет наличие описания в создаваемой сделке.
+     *
      * @return bool True если описание сделки есть, false если нет
      */
-    public function hasDescription()
+    public function hasDescription(): bool
     {
-        return $this->_description !== null;
+        return null !== $this->_description;
     }
 
     /**
      * Возвращает данные оплаты установленные мерчантом
-     * @return Metadata Метаданные, привязанные к платежу
+     *
+     * @return Metadata|null Метаданные, привязанные к платежу
      */
-    public function getMetadata()
+    public function getMetadata(): ?Metadata
     {
         return $this->_metadata;
     }
 
     /**
-     * Проверяет, были ли установлены метаданные заказа
+     * Проверяет, были ли установлены метаданные заказа.
+     *
      * @return bool True если метаданные были установлены, false если нет
      */
-    public function hasMetadata()
+    public function hasMetadata(): bool
     {
         return !empty($this->_metadata) && $this->_metadata->count() > 0;
     }
 
     /**
-     * Устанавливает метаданные, привязанные к платежу
-     * @param Metadata|array|null $value Метаданные платежа, устанавливаемые мерчантом
+     * Устанавливает метаданные, привязанные к платежу.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданные данные не удалось интерпретировать как
-     * метаданные платежа
+     * @param string|array|null $metadata Любые дополнительные данные, которые нужны вам для работы.
+     *
+     * @return self
      */
-    public function setMetadata($value)
+    public function setMetadata(mixed $metadata = null): self
     {
-        if ($value === null || (is_array($value) && empty($value))) {
-            $this->_metadata = null;
-        } elseif ($value instanceof Metadata) {
-            $this->_metadata = $value;
-        } elseif (is_array($value)) {
-            $this->_metadata = new Metadata($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid metadata value type in CreateDealRequest',
-                0,
-                'CreateDealRequest.metadata',
-                $value
-            );
-        }
+        $this->_metadata = $this->validatePropertyValue('_metadata', $metadata);
+        return $this;
     }
 
     /**
      * Проверяет на валидность текущий объект
+     *
      * @return bool True если объект запроса валиден, false если нет
      */
-    public function validate()
+    public function validate(): bool
     {
         if (!$this->hasType()) {
             $this->setValidationError('Type field is required');
+
             return false;
         }
         if (!$this->hasFeeMoment()) {
             $this->setValidationError('FeeMoment field is required');
+
             return false;
         }
+
         return true;
     }
 
     /**
-     * Возвращает билдер объектов запросов создания сделки
+     * Возвращает билдер объектов запросов создания сделки.
+     *
      * @return CreateDealRequestBuilder Инстанс билдера объектов запросов
      */
-    public static function builder()
+    public static function builder(): CreateDealRequestBuilder
     {
         return new CreateDealRequestBuilder();
     }

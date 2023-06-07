@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,21 +28,19 @@ namespace YooKassa\Common\Exceptions;
 
 /**
  * Неправильный запрос. Чаще всего этот статус выдается из-за нарушения правил взаимодействия с API.
- *
- * @package YooKassa
  */
 class BadApiRequestException extends ApiException
 {
-    const HTTP_CODE = 400;
+    public const HTTP_CODE = 400;
 
-    public $type;
+    public mixed $type = null;
 
-    public $retryAfter;
+    public mixed $retryAfter = null;
 
-    public function __construct($responseHeaders = array(), $responseBody = null)
+    public function __construct($responseHeaders = [], $responseBody = '')
     {
         $errorData = json_decode($responseBody, true);
-        $message   = '';
+        $message = '';
 
         if (isset($errorData['description'])) {
             $message .= $errorData['description'] . '. ';

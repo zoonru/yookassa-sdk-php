@@ -2,69 +2,63 @@
 
 namespace Tests\YooKassa\Request\Payments;
 
+use DateTime;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
 use YooKassa\Helpers\StringObject;
-use YooKassa\Model\PaymentMethodType;
-use YooKassa\Model\PaymentStatus;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentStatus;
 use YooKassa\Request\Payments\PaymentsRequest;
 use YooKassa\Request\Payments\PaymentsRequestBuilder;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueTypeException;
 
+/**
+ * @internal
+ */
 class PaymentsRequestTest extends TestCase
 {
     /**
-     * @return PaymentsRequest
-     */
-    protected function getTestInstance()
-    {
-        return new PaymentsRequest();
-    }
-
-    /**
      * @dataProvider validNetPageDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testCursor($value)
+    public function testCursor($value): void
     {
-        $this->getterAndSetterTest($value, 'cursor', $value === null ? '' : (string)$value);
-    }
-
-    /**
-     * @dataProvider invalidPageDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidCursor($value)
-    {
-        $this->getTestInstance()->setCursor($value);
+        $this->getterAndSetterTest($value, 'cursor', null === $value ? '' : (string) $value);
     }
 
     /**
      * @dataProvider validPaymentMethodDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testPaymentMethod($value)
+    public function testPaymentMethod($value): void
     {
         $this->getterAndSetterTest($value, 'paymentMethod', $value);
     }
 
     /**
      * @dataProvider invalidPaymentMethodDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidPaymentMethod($value)
+    public function testSetInvalidPaymentMethod($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setPaymentMethod($value);
     }
 
     /**
      * @dataProvider validDateDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testDateMethods($value)
+    public function testDateMethods($value): void
     {
-        $properties = array(
+        $properties = [
             'createdAtGte',
             'createdAtGt',
             'createdAtLte',
@@ -73,9 +67,9 @@ class PaymentsRequestTest extends TestCase
             'capturedAtGt',
             'capturedAtLte',
             'capturedAtLt',
-        );
-        $expected   = null;
-        if ($value instanceof \DateTime) {
+        ];
+        $expected = null;
+        if ($value instanceof DateTime) {
             $expected = $value->format(YOOKASSA_DATE);
         } elseif (is_numeric($value)) {
             $expected = date(YOOKASSA_DATE, $value);
@@ -83,274 +77,292 @@ class PaymentsRequestTest extends TestCase
             $expected = $value;
         }
         foreach ($properties as $property) {
-            $this->getterAndSetterTest($value, $property, empty($expected) ? null : new \DateTime($expected));
+            $this->getterAndSetterTest($value, $property, empty($expected) ? null : new DateTime($expected));
         }
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCreatedAtGte($value)
+    public function testSetInvalidCreatedAtGte($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCreatedAtGte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCreatedAtGt($value)
+    public function testSetInvalidCreatedAtGt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCreatedAtGt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCreatedAtLte($value)
+    public function testSetInvalidCreatedAtLte($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCreatedAtLte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCreatedAtLt($value)
+    public function testSetInvalidCreatedAtLt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCreatedAtLt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCapturedAtGte($value)
+    public function testSetInvalidCapturedAtGte($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCapturedAtGte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCapturedAtGt($value)
+    public function testSetInvalidCapturedAtGt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCapturedAtGt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCapturedAtLte($value)
+    public function testSetInvalidCapturedAtLte($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCapturedAtLte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCapturedAtLt($value)
+    public function testSetInvalidCapturedAtLt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCapturedAtLt($value);
     }
 
-
     /**
      * @dataProvider validLimitDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testLimit($value)
+    public function testLimit($value): void
     {
         $this->getterAndSetterTest($value, 'limit', $value);
     }
 
     /**
-     * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     * @dataProvider invalidLimitDataProvider
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidLimit($value)
+    public function testSetInvalidLimit($value, $exception): void
     {
+        $this->expectException($exception);
         $this->getTestInstance()->setLimit($value);
     }
 
     /**
      * @dataProvider validStatusDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testStatus($value)
+    public function testStatus($value): void
     {
-        $this->getterAndSetterTest($value, 'status', $value === null ? '' : (string)$value);
+        $this->getterAndSetterTest($value, 'status', null === $value ? '' : (string) $value);
     }
 
     /**
-     * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     * @dataProvider invalidStatusDataProvider
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidStatus($value)
+    public function testSetInvalidStatus($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setStatus($value);
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $instance = new PaymentsRequest();
         self::assertTrue($instance->validate());
     }
 
-    public function testBuilder()
+    public function testBuilder(): void
     {
         $builder = PaymentsRequest::builder();
-        self::assertTrue($builder instanceof PaymentsRequestBuilder);
+        self::assertInstanceOf(PaymentsRequestBuilder::class, $builder);
     }
 
-    public function validNetPageDataProvider()
+    public static function validNetPageDataProvider()
     {
-        return array(
-            array(''),
-            array(null),
-            array(Random::str(1)),
-            array(Random::str(2, 64)),
-            array(new StringObject(Random::str(1))),
-            array(new StringObject(Random::str(2, 64))),
-        );
+        return [
+            [''],
+            [null],
+            [Random::str(1)],
+            [Random::str(2, 64)],
+            [new StringObject(Random::str(1))],
+            [new StringObject(Random::str(2, 64))],
+        ];
     }
 
-    public function validPaymentMethodDataProvider()
+    public static function validPaymentMethodDataProvider()
     {
-        $result = array(
-            array(null),
-            array(''),
-        );
+        $result = [
+            [null],
+            [''],
+        ];
         foreach (PaymentMethodType::getValidValues() as $value) {
-            $result[] = array($value);
-            $result[] = array(new StringObject($value));
+            $result[] = [$value];
+            $result[] = [new StringObject($value)];
         }
+
         return $result;
     }
 
     public function validIdDataProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array('123'),
-            array(Random::str(1, 64)),
-            array(new StringObject(Random::str(1, 64))),
-        );
+        return [
+            [null],
+            [''],
+            ['123'],
+            [Random::str(1, 64)],
+            [new StringObject(Random::str(1, 64))],
+        ];
     }
 
-    public function validDateDataProvider()
+    public static function validDateDataProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array(Random::int(0, time())),
-            array(date(YOOKASSA_DATE, Random::int(0, time()))),
-            array(new \DateTime()),
-        );
+        return [
+            [null],
+            [''],
+            [date(YOOKASSA_DATE, Random::int(0, time()))],
+            [new DateTime()],
+        ];
     }
 
-    public function validStatusDataProvider()
+    public static function validStatusDataProvider()
     {
-        $result = array(
-            array(null),
-            array(''),
-        );
+        $result = [
+            [null],
+            [''],
+        ];
         foreach (PaymentStatus::getValidValues() as $value) {
-            $result[] = array($value);
-            $result[] = array(new StringObject($value));
+            $result[] = [$value];
+            $result[] = [new StringObject($value)];
         }
+
         return $result;
     }
 
-    public function validLimitDataProvider()
+    public static function validLimitDataProvider()
     {
-        return array(
-            array(null),
-            array(Random::int(1, PaymentsRequest::MAX_LIMIT_VALUE)),
-        );
+        return [
+            [null],
+            [Random::int(1, PaymentsRequest::MAX_LIMIT_VALUE)],
+        ];
     }
 
     public function invalidIdDataProvider()
     {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array(true),
-            array(false),
-        );
+        return [
+            [[]],
+            [new stdClass()],
+            [true],
+            [false],
+        ];
     }
 
-    public function invalidDataProvider()
+    public static function invalidLimitDataProvider()
     {
-        $result = array(
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(10)),
-            array(Random::bytes(10)),
-            array(-1),
-            array(PaymentsRequest::MAX_LIMIT_VALUE + 1),
-        );
-        return $result;
+        return [
+            [new stdClass(), InvalidPropertyValueTypeException::class],
+            [Random::str(10), InvalidPropertyValueTypeException::class],
+            [Random::bytes(10), InvalidPropertyValueTypeException::class],
+            [-1, InvalidPropertyValueException::class],
+            [PaymentsRequest::MAX_LIMIT_VALUE + 1, InvalidPropertyValueException::class],
+        ];
     }
 
-    public function invalidPaymentMethodDataProvider()
+    public static function invalidStatusDataProvider()
     {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(35)),
-            array(Random::str(37)),
-            array(new StringObject(Random::str(10))),
-        );
+        return [
+            [Random::str(10)],
+        ];
     }
 
-    public function invalidDateDataProvider()
+    public static function invalidPaymentMethodDataProvider()
     {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(35)),
-            array(Random::str(37)),
-            array(new StringObject(Random::str(10))),
-            array(-123),
-        );
+        return [
+            [true],
+            [Random::str(35)],
+            [Random::str(37)],
+            [new StringObject(Random::str(10))],
+        ];
     }
 
-    public function invalidPageDataProvider()
+    public static function invalidDateDataProvider()
     {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array(true),
-            array(false),
-        );
+        return [
+            [true],
+            [false],
+            [new stdClass()],
+            [Random::str(35)],
+            [Random::str(37)],
+            [new StringObject(Random::str(10))],
+            [-123],
+        ];
     }
 
-    private function getterAndSetterTest($value, $property, $expected, $testHas = true)
+    public static function invalidPageDataProvider()
+    {
+        return [
+            [[]],
+            [new stdClass()],
+            [true],
+            [false],
+        ];
+    }
+
+    protected function getTestInstance(): PaymentsRequest
+    {
+        return new PaymentsRequest();
+    }
+
+    private function getterAndSetterTest($value, $property, $expected, $testHas = true): void
     {
         $getter = 'get' . ucfirst($property);
         $setter = 'set' . ucfirst($property);
-        $has    = 'has' . ucfirst($property);
+        $has = 'has' . ucfirst($property);
 
         $instance = $this->getTestInstance();
 
@@ -361,7 +373,7 @@ class PaymentsRequestTest extends TestCase
         self::assertNull($instance->{$property});
 
         $instance->{$setter}($value);
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             if ($testHas) {
                 self::assertFalse($instance->{$has}());
             }
@@ -371,7 +383,7 @@ class PaymentsRequestTest extends TestCase
             if ($testHas) {
                 self::assertTrue($instance->{$has}());
             }
-            if ($expected instanceof \DateTime) {
+            if ($expected instanceof DateTime) {
                 self::assertEquals($expected->getTimestamp(), $instance->{$getter}()->getTimestamp());
                 self::assertEquals($expected->getTimestamp(), $instance->{$property}->getTimestamp());
             } else {
@@ -388,7 +400,7 @@ class PaymentsRequestTest extends TestCase
         self::assertNull($instance->{$property});
 
         $instance->{$property} = $value;
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             if ($testHas) {
                 self::assertFalse($instance->{$has}());
             }
@@ -398,7 +410,7 @@ class PaymentsRequestTest extends TestCase
             if ($testHas) {
                 self::assertTrue($instance->{$has}());
             }
-            if ($expected instanceof \DateTime) {
+            if ($expected instanceof DateTime) {
                 self::assertEquals($expected->getTimestamp(), $instance->{$getter}()->getTimestamp());
                 self::assertEquals($expected->getTimestamp(), $instance->{$property}->getTimestamp());
             } else {

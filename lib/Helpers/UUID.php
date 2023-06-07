@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,16 +26,24 @@
 
 namespace YooKassa\Helpers;
 
+/**
+ * Класс, представляющий модель UUID.
+ *
+ * Класс для получения UUID.
+ *
+ * @category Class
+ * @package  YooKassa\Helpers
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ */
 class UUID
 {
     /**
-     * @return string
-     * @throws \Exception
      */
-    public static function v4()
+    public static function v4(): string
     {
-        $hexData  = bin2hex(Random::bytes(16));
-        $parts    = str_split($hexData, 4);
+        $hexData = bin2hex(Random::bytes(16));
+        $parts = str_split($hexData, 4);
         $parts[3] = '4' . substr($parts[3], 1);
         $parts[4] = '8' . substr($parts[4], 1);
 

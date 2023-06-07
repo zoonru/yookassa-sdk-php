@@ -4,9 +4,12 @@ namespace Tests\YooKassa\Common\Exceptions;
 
 use YooKassa\Common\Exceptions\ResponseProcessingException;
 
+/**
+ * @internal
+ */
 class ResponseProcessingExceptionTest extends ApiExceptionTest
 {
-    public function getTestInstance($message = '', $code = 0, $responseHeaders = array(), $responseBody = null)
+    public function getTestInstance($message = '', $code = 0, $responseHeaders = [], $responseBody = '')
     {
         return new ResponseProcessingException($responseHeaders, $responseBody);
     }
@@ -18,11 +21,10 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
 
     /**
      * @dataProvider descriptionDataProvider
-     * @param string $body
      */
-    public function testDescription($body)
+    public function testDescription(string $body): void
     {
-        $instance = $this->getTestInstance('', 0, array(), $body);
+        $instance = $this->getTestInstance('', 0, [], $body);
         $tmp = json_decode($body, true);
         if (empty($tmp['description'])) {
             self::assertEquals('', $instance->getMessage());
@@ -31,22 +33,21 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
         }
     }
 
-    public function descriptionDataProvider()
+    public static function descriptionDataProvider()
     {
-        return array(
-            array('{}'),
-            array('{"description":"test"}'),
-            array('{"description":"У попа была собака"}'),
-        );
+        return [
+            ['{}'],
+            ['{"description":"test"}'],
+            ['{"description":"У попа была собака"}'],
+        ];
     }
 
     /**
      * @dataProvider retryAfterDataProvider
-     * @param string $body
      */
-    public function testRetryAfter($body)
+    public function testRetryAfter(string $body): void
     {
-        $instance = $this->getTestInstance('', 0, array(), $body);
+        $instance = $this->getTestInstance('', 0, [], $body);
         $tmp = json_decode($body, true);
         if (empty($tmp['retry_after'])) {
             self::assertNull($instance->retryAfter);
@@ -55,22 +56,21 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
         }
     }
 
-    public function retryAfterDataProvider()
+    public static function retryAfterDataProvider()
     {
-        return array(
-            array('{}'),
-            array('{"retry_after":-20}'),
-            array('{"retry_after":123}'),
-        );
+        return [
+            ['{}'],
+            ['{"retry_after":-20}'],
+            ['{"retry_after":123}'],
+        ];
     }
 
     /**
      * @dataProvider typeDataProvider
-     * @param string $body
      */
-    public function testType($body)
+    public function testType(string $body): void
     {
-        $instance = $this->getTestInstance('', 0, array(), $body);
+        $instance = $this->getTestInstance('', 0, [], $body);
         $tmp = json_decode($body, true);
         if (empty($tmp['type'])) {
             self::assertNull($instance->type);
@@ -79,22 +79,23 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
         }
     }
 
-    public function typeDataProvider()
+    public static function typeDataProvider()
     {
-        return array(
-            array('{}'),
-            array('{"type":"server_error"}'),
-            array('{"type":"error"}'),
-        );
+        return [
+            ['{}'],
+            ['{"type":"server_error"}'],
+            ['{"type":"error"}'],
+        ];
     }
 
     /**
      * @dataProvider messageDataProvider
-     * @param $body
+     *
+     * @param mixed $body
      */
-    public function testMessage($body)
+    public function testMessage($body): void
     {
-        $instance = $this->getTestInstance('', 0, array(), $body);
+        $instance = $this->getTestInstance('', 0, [], $body);
 
         $tmp = json_decode($body, true);
         $message = '';
@@ -115,18 +116,18 @@ class ResponseProcessingExceptionTest extends ApiExceptionTest
         }
     }
 
-    public function messageDataProvider()
+    public static function messageDataProvider()
     {
-        return array(
-            array('{}'),
-            array('{"code":"server_error","description":"Internal server error"}'),
-            array('{"code":"server_error","description":"Invalid parameter value","parameter":"shop_id"}'),
-            array('{"code":"server_error","description":"Invalid parameter value","parameter":"shop_id","type":"test"}'),
-            array('{"code":"server_error","description":"Invalid parameter value","parameter":"shop_id","retry_after":333}'),
-        );
+        return [
+            ['{}'],
+            ['{"code":"server_error","description":"Internal server error"}'],
+            ['{"code":"server_error","description":"Invalid parameter value","parameter":"shop_id"}'],
+            ['{"code":"server_error","description":"Invalid parameter value","parameter":"shop_id","type":"test"}'],
+            ['{"code":"server_error","description":"Invalid parameter value","parameter":"shop_id","retry_after":333}'],
+        ];
     }
 
-    public function testExceptionCode()
+    public function testExceptionCode(): void
     {
         $instance = $this->getTestInstance();
         self::assertEquals($this->expectedHttpCode(), $instance->getCode());

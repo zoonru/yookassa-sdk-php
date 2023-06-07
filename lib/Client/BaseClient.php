@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,6 +27,7 @@
 namespace YooKassa\Client;
 
 use Exception;
+use JsonException;
 use Psr\Log\LoggerInterface;
 use YooKassa\Common\Exceptions\ApiConnectionException;
 use YooKassa\Common\Exceptions\ApiException;
@@ -35,7 +36,6 @@ use YooKassa\Common\Exceptions\BadApiRequestException;
 use YooKassa\Common\Exceptions\ExtensionNotFoundException;
 use YooKassa\Common\Exceptions\ForbiddenException;
 use YooKassa\Common\Exceptions\InternalServerError;
-use YooKassa\Common\Exceptions\JsonException;
 use YooKassa\Common\Exceptions\NotFoundException;
 use YooKassa\Common\Exceptions\ResponseProcessingException;
 use YooKassa\Common\Exceptions\TooManyRequestsException;
@@ -46,119 +46,116 @@ use YooKassa\Helpers\Config\ConfigurationLoader;
 use YooKassa\Helpers\Config\ConfigurationLoaderInterface;
 use YooKassa\Helpers\SecurityHelper;
 
+/**
+ * Класс, представляющий модель BaseClient.
+ *
+ * Базовый класс Curl клиента.
+ *
+ * @category Class
+ * @package  YooKassa
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ */
 class BaseClient
 {
     /** Точка входа для запроса к API по магазину */
-    const ME_PATH = '/me';
+    public const ME_PATH = '/me';
 
     /** Точка входа для запросов к API по платежам */
-    const PAYMENTS_PATH = '/payments';
+    public const PAYMENTS_PATH = '/payments';
 
     /** Точка входа для запросов к API по возвратам */
-    const REFUNDS_PATH = '/refunds';
+    public const REFUNDS_PATH = '/refunds';
 
     /** Точка входа для запросов к API по вебхукам */
-    const WEBHOOKS_PATH = '/webhooks';
+    public const WEBHOOKS_PATH = '/webhooks';
 
     /** Точка входа для запросов к API по чекам */
-    const RECEIPTS_PATH = '/receipts';
+    public const RECEIPTS_PATH = '/receipts';
 
     /** Точка входа для запросов к API по сделкам */
-    const DEALS_PATH = '/deals';
+    public const DEALS_PATH = '/deals';
 
     /** Точка входа для запросов к API по выплатам */
-    const PAYOUTS_PATH = '/payouts';
+    public const PAYOUTS_PATH = '/payouts';
 
     /** Точка входа для запросов к API по персональным данным */
-    const PERSONAL_DATA_PATH = '/personal_data';
+    public const PERSONAL_DATA_PATH = '/personal_data';
 
     /** Точка входа для запросов к API по участникам СБП */
-    const SBP_BANKS_PATH = '/sbp_banks';
+    public const SBP_BANKS_PATH = '/sbp_banks';
 
     /** Точка входа для запросов к API по самозанятым */
-    const SELF_EMPLOYED_PATH = '/self_employed';
+    public const SELF_EMPLOYED_PATH = '/self_employed';
 
     /** Имя HTTP заголовка, используемого для передачи idempotence key */
-    const IDEMPOTENCY_KEY_HEADER = 'Idempotence-Key';
+    public const IDEMPOTENCY_KEY_HEADER = 'Idempotence-Key';
 
     /**
      * Значение по умолчанию времени ожидания между запросами при отправке повторного запроса в случае получения
-     * ответа с HTTP статусом 202
+     * ответа с HTTP статусом 202.
      */
-    const DEFAULT_DELAY = 1800;
+    public const DEFAULT_DELAY = 1800;
 
     /** Значение по умолчанию количества попыток получения информации от API если пришёл ответ с HTTP статусом 202 */
-    const DEFAULT_TRIES_COUNT = 3;
+    public const DEFAULT_TRIES_COUNT = 3;
 
     /** Значение по умолчанию количества попыток получения информации от API если пришёл ответ с HTTP статусом 202 */
-    const DEFAULT_ATTEMPTS_COUNT = 3;
+    public const DEFAULT_ATTEMPTS_COUNT = 3;
 
     /**
      * CURL клиент
-     *
-     * @var null|ApiClientInterface
      */
-    protected $apiClient;
+    protected ?ApiClientInterface $apiClient;
 
     /**
-     * shopId магазина
+     * shopId магазина.
      *
-     * @var string|int
+     * @var int|null
      */
-    protected $login;
+    protected ?int $login = null;
 
     /**
-     * Секретный ключ магазина
-     *
-     * @var string
+     * Секретный ключ магазина.
      */
-    protected $password;
+    protected ?string $password = null;
 
     /**
-     * Настройки для CURL клиента
-     *
-     * @var array
+     * Настройки для CURL клиента.
      */
-    protected $config;
+    protected array $config = [];
 
     /**
-     * Время через которое будут осуществляться повторные запросы
+     * Время через которое будут осуществляться повторные запросы.
      *
      * Значение по умолчанию - 1800 миллисекунд.
      *
      * @var int Значение в миллисекундах
      */
-    protected $timeout;
+    protected int $timeout = 1800;
 
     /**
-     * Количество повторных запросов при ответе API статусом 202
+     * Количество повторных запросов при ответе API статусом 202.
      *
      * Значение по умолчанию 3
-     *
-     * @var int
      */
-    protected $attempts;
+    protected int $attempts = 3;
 
     /**
-     * Объект для логирования работы SDK
-     *
-     * @var LoggerInterface|null
+     * Объект для логирования работы SDK.
      */
-    protected $logger;
+    protected ?LoggerInterface $logger = null;
 
     /**
-     * Constructor
-     *
-     * @param ApiClientInterface|null $apiClient
-     * @param ConfigurationLoaderInterface|null $configLoader
+     * Constructor.
      */
     public function __construct(ApiClientInterface $apiClient = null, ConfigurationLoaderInterface $configLoader = null)
     {
-        if ($apiClient === null) {
+        if (null === $apiClient) {
             $apiClient = new CurlClient();
         }
 
-        if ($configLoader === null) {
+        if (null === $configLoader) {
             $configLoader = new ConfigurationLoader();
         }
         $config = $configLoader->load()->getConfig();
@@ -170,65 +167,61 @@ class BaseClient
     }
 
     /**
-     * Устанавливает авторизацию по логин/паролю
+     * Устанавливает авторизацию по логин/паролю.
      *
      * @example 01-client.php 7 1 Пример авторизации
      *
-     * @param string $login
+     * @param string|int $login
      * @param string $password
      *
      * @return $this
      */
-    public function setAuth($login, $password)
+    public function setAuth(mixed $login, string $password): self
     {
-        $this->login    = $login;
+        $this->login = $login;
         $this->password = $password;
 
         $this->apiClient
             ->setBearerToken(null)
             ->setShopId($this->login)
-            ->setShopPassword($this->password);
+            ->setShopPassword($this->password)
+        ;
 
         return $this;
     }
 
     /**
-     * Устанавливает авторизацию по Oauth-токену
+     * Устанавливает авторизацию по Oauth-токену.
      *
      * @example 01-client.php 9 1 Пример авторизации
      *
-     * @param string $token
-     *
      * @return $this
      */
-    public function setAuthToken($token)
+    public function setAuthToken(string $token): self
     {
         $this->apiClient
             ->setShopId(null)
             ->setShopPassword(null)
-            ->setBearerToken($token);
+            ->setBearerToken($token)
+        ;
 
         return $this;
     }
 
     /**
-     * Возвращает CURL клиента для работы с API
-     *
-     * @return ApiClientInterface
+     * Возвращает CURL клиента для работы с API.
      */
-    public function getApiClient()
+    public function getApiClient(): ApiClientInterface
     {
         return $this->apiClient;
     }
 
     /**
-     * Устанавливает CURL клиента для работы с API
-     *
-     * @param ApiClientInterface $apiClient
+     * Устанавливает CURL клиента для работы с API.
      *
      * @return $this
      */
-    public function setApiClient(ApiClientInterface $apiClient)
+    public function setApiClient(ApiClientInterface $apiClient): self
     {
         $this->apiClient = $apiClient;
         $this->apiClient->setConfig($this->config);
@@ -238,50 +231,44 @@ class BaseClient
     }
 
     /**
-     * Устанавливает логгер приложения
+     * Устанавливает логгер приложения.
      *
-     * @param null|callable|object|LoggerInterface $value Инстанс логгера
+     * @param null|callable|LoggerInterface|object $value Инстанс логгера
      */
-    public function setLogger($value)
+    public function setLogger(mixed $value): self
     {
-        if ($value === null || $value instanceof LoggerInterface) {
+        if (null === $value || $value instanceof LoggerInterface) {
             $this->logger = $value;
         } else {
             $this->logger = new LoggerWrapper($value);
         }
-        if ($this->apiClient !== null) {
-            $this->apiClient->setLogger($this->logger);
-        }
+        $this->apiClient?->setLogger($this->logger);
+
+        return $this;
     }
 
     /**
-     * Возвращает настройки клиента
-     *
-     * @return array
+     * Возвращает настройки клиента.
      */
-    public function getConfig()
+    public function getConfig(): array
     {
         return $this->config;
     }
 
     /**
-     * Устанавливает настройки клиента
-     *
-     * @param array $config
+     * Устанавливает настройки клиента.
      */
-    public function setConfig($config)
+    public function setConfig(array $config): void
     {
         $this->config = $config;
     }
 
     /**
-     * Установка значения задержки между повторными запросами
-     *
-     * @param int $timeout
+     * Установка значения задержки между повторными запросами.
      *
      * @return $this
      */
-    public function setRetryTimeout($timeout)
+    public function setRetryTimeout(int $timeout = self::DEFAULT_DELAY): self
     {
         $this->timeout = $timeout;
 
@@ -289,140 +276,111 @@ class BaseClient
     }
 
     /**
-     * Установка значения количества попыток повторных запросов при статусе 202
-     *
-     * @param int $attempts
+     * Установка значения количества попыток повторных запросов при статусе 202.
      *
      * @return $this
      */
-    public function setMaxRequestAttempts($attempts)
+    public function setMaxRequestAttempts(int $attempts = self::DEFAULT_ATTEMPTS_COUNT): self
     {
         $this->attempts = $attempts;
 
         return $this;
     }
 
-
     /**
-     * Метод проверяет, находится ли IP адрес среди IP адресов Юkassa, с которых отправляются уведомления
+     * Метод проверяет, находится ли IP адрес среди IP адресов Юkassa, с которых отправляются уведомления.
      *
      * @param string $ip IPv4 или IPv6 адрес webhook уведомления
-     * @return bool
      *
      * @throws Exception Выбрасывается, если будет передан IP адрес неверного формата
      */
-    public function isNotificationIPTrusted($ip)
+    public function isNotificationIPTrusted(string $ip): bool
     {
-        $securityHelper = new SecurityHelper();
-
-        return $securityHelper->isIPTrusted($ip);
+        return (new SecurityHelper())->isIPTrusted($ip);
     }
 
     /**
-     * Кодирует массив данных в JSON строку
+     * Кодирует массив данных в JSON строку.
      *
      * @param array $serializedData Массив данных для кодировки
      *
      * @return string Строка JSON
-     * @throws Exception Выбрасывается, если не удалось конвертировать данные в строку JSON
+     *
+     * @throws JsonException Выбрасывается, если не удалось конвертировать данные в строку JSON
      */
-    protected function encodeData($serializedData)
+    protected function encodeData(array $serializedData): string
     {
-        if ($serializedData === array()) {
+        if ([] === $serializedData) {
             return '{}';
         }
 
-        if (defined('JSON_UNESCAPED_UNICODE') && defined('JSON_UNESCAPED_SLASHES')) {
-            $encoded = json_encode($serializedData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        } else {
-            $encoded = self::unescaped(json_encode($serializedData));
-        }
-
-        if ($encoded === false) {
-            $errorCode = json_last_error();
-            throw new JsonException("Failed serialize json.", $errorCode);
-        }
-
-        return $encoded;
+        return json_encode($serializedData, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     /**
-     * Убирает лишние обратные слэши, а также декодирует строку UTF-8 в нормальный вид
-     *
-     * Вспомогательная функция для старых версий PHP
-     *
-     * @param string $json Строка JSON
-     * @return string|false Отформатированная строка JSON
-     */
-    private static function unescaped($json)
-    {
-        if ($json === false) {
-            return false;
-        }
-
-        $json = str_replace('\\/', '/', $json);
-
-        return preg_replace_callback('/\\\\u(\w{4})/', function ($matches) {
-            return html_entity_decode('&#x' . $matches[1] . ';', ENT_COMPAT, 'UTF-8');
-        }, $json);
-    }
-
-    /**
-     * Декодирует JSON строку в массив данных
+     * Декодирует JSON строку в массив данных.
      *
      * @param ResponseObject $response Объект ответа на запрос к API
      *
      * @return array Массив данных
+     * @throws JsonException
      */
-    protected function decodeData(ResponseObject $response)
+    protected function decodeData(ResponseObject $response): array
     {
-        $resultArray = json_decode($response->getBody(), true);
-        if ($resultArray === null) {
-            throw new JsonException('Failed to decode response', json_last_error());
-        }
-
-        return $resultArray;
+        return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Выбрасывает исключение по коду ошибки
+     * Выбрасывает исключение по коду ошибки.
      *
-     * @param ResponseObject $response
-     *
-     * @throws ApiException Неожиданный код ошибки.
+     * @throws ApiException неожиданный код ошибки
      * @throws BadApiRequestException Неправильный запрос. Чаще всего этот статус выдается из-за нарушения правил взаимодействия с API.
-     * @throws ForbiddenException Секретный ключ или OAuth-токен верный, но не хватает прав для совершения операции.
+     * @throws ForbiddenException секретный ключ или OAuth-токен верный, но не хватает прав для совершения операции
      * @throws InternalServerError Технические неполадки на стороне ЮKassa. Результат обработки запроса неизвестен. Повторите запрос позднее с тем же ключом идемпотентности.
-     * @throws NotFoundException Ресурс не найден.
-     * @throws ResponseProcessingException Запрос был принят на обработку, но она не завершена.
+     * @throws NotFoundException ресурс не найден
+     * @throws ResponseProcessingException запрос был принят на обработку, но она не завершена
      * @throws TooManyRequestsException Превышен лимит запросов в единицу времени. Попробуйте снизить интенсивность запросов.
-     * @throws UnauthorizedException Неверное имя пользователя или пароль или невалидный OAuth-токен при аутентификации.
+     * @throws UnauthorizedException неверное имя пользователя или пароль или невалидный OAuth-токен при аутентификации
      * @throws AuthorizeException Ошибка авторизации. Не установлен заголовок.
      */
-    protected function handleError(ResponseObject $response)
+    protected function handleError(ResponseObject $response): void
     {
         switch ($response->getCode()) {
             case BadApiRequestException::HTTP_CODE:
                 throw new BadApiRequestException($response->getHeaders(), $response->getBody());
+
                 break;
+
             case ForbiddenException::HTTP_CODE:
                 throw new ForbiddenException($response->getHeaders(), $response->getBody());
+
                 break;
+
             case UnauthorizedException::HTTP_CODE:
                 throw new UnauthorizedException($response->getHeaders(), $response->getBody());
+
                 break;
+
             case InternalServerError::HTTP_CODE:
                 throw new InternalServerError($response->getHeaders(), $response->getBody());
+
                 break;
+
             case NotFoundException::HTTP_CODE:
                 throw new NotFoundException($response->getHeaders(), $response->getBody());
+
                 break;
+
             case TooManyRequestsException::HTTP_CODE:
                 throw new TooManyRequestsException($response->getHeaders(), $response->getBody());
+
                 break;
+
             case ResponseProcessingException::HTTP_CODE:
                 throw new ResponseProcessingException($response->getHeaders(), $response->getBody());
+
                 break;
+
             default:
                 if ($response->getCode() > 399) {
                     throw new ApiException(
@@ -436,13 +394,14 @@ class BaseClient
     }
 
     /**
-     * Задержка между повторными запросами
+     * Задержка между повторными запросами.
      *
      * @param ResponseObject $response Объект ответа на запрос к API
+     * @throws JsonException
      */
-    protected function delay($response)
+    protected function delay(ResponseObject $response): void
     {
-        $timeout      = $this->timeout;
+        $timeout = $this->timeout;
         $responseData = $this->decodeData($response);
         if ($timeout) {
             $delay = $timeout;
@@ -457,28 +416,29 @@ class BaseClient
     }
 
     /**
-     * Выполнение запроса и обработка 202 статуса
+     * Выполнение запроса и обработка 202 статуса.
      *
      * @param string $path URL запроса
      * @param string $method HTTP метод
      * @param array $queryParams Массив GET параметров запроса
-     * @param string|null $httpBody Тело запроса
+     * @param null|string $httpBody Тело запроса
      * @param array $headers Массив заголовков запроса
      *
      * @return mixed|ResponseObject
+     *
      * @throws ApiException
      * @throws AuthorizeException
      * @throws ApiConnectionException
      * @throws ExtensionNotFoundException
      */
-    protected function execute($path, $method, $queryParams, $httpBody = null, $headers = array())
+    protected function execute(string $path, string $method, array $queryParams, ?string $httpBody = null, array $headers = []): mixed
     {
         $attempts = $this->attempts;
         $response = $this->apiClient->call($path, $method, $queryParams, $httpBody, $headers);
 
-        while (in_array($response->getCode(), array(202, 500)) && $attempts > 0) {
+        while (in_array($response->getCode(), [202, 500], true) && $attempts > 0) {
             $this->delay($response);
-            $attempts--;
+            --$attempts;
             $response = $this->apiClient->call($path, $method, $queryParams, $httpBody, $headers);
         }
 

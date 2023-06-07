@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,68 +26,44 @@
 
 namespace YooKassa\Request\Payments;
 
-use Exception;
-use YooKassa\Common\AbstractObject;
-use YooKassa\Model\PaymentInterface;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
+use YooKassa\Model\Payment\PaymentInterface;
+use YooKassa\Request\AbstractListResponse;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс объекта ответа от API со списком платежей магазина
+ * Класс, представляющий модель PaymentsResponse.
  *
- * @package YooKassa
+ * Класс объекта ответа от API со списком платежей магазина.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ *
+ * @property PaymentInterface[]|ListObjectInterface|null $items Массив платежей
  */
-class PaymentsResponse extends AbstractObject
+class PaymentsResponse extends AbstractListResponse
 {
     /**
-     * @var PaymentInterface[] Массив платежей
+     * @var PaymentInterface[]|ListObjectInterface|null Массив платежей
      */
-    private $items;
+    #[Assert\Valid]
+    #[Assert\AllType(PaymentResponse::class)]
+    #[Assert\Type(ListObject::class)]
+    protected ?ListObject $_items = null;
 
     /**
-     * @var string|null Токен следующей страницы
-     */
-    private $nextCursor;
-
-    /**
-     * Конструктор, устанавливает свойства объекта из пришедшего из API ассоциативного массива
+     * Возвращает список платежей.
      *
-     * @param array $sourceArray Массив настроек, пришедший от API
-     * @throws Exception
+     * @return PaymentInterface[]|ListObjectInterface Список платежей
      */
-    public function fromArray($sourceArray)
+    public function getItems(): ListObjectInterface
     {
-        $this->items = array();
-        foreach ($sourceArray['items'] as $paymentInfo) {
-            $this->items[] = new PaymentResponse($paymentInfo);
+        if($this->_items === null) {
+            $this->_items = new ListObject(PaymentResponse::class);
         }
-        if (!empty($sourceArray['next_cursor'])) {
-            $this->nextCursor = $sourceArray['next_cursor'];
-        }
-    }
-
-    /**
-     * Возвращает список платежей
-     * @return PaymentInterface[] Список платежей
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-     * Возвращает токен следующей страницы, если он задан, или null
-     * @return string|null Токен следующей страницы
-     */
-    public function getNextCursor()
-    {
-        return $this->nextCursor;
-    }
-
-    /**
-     * Проверяет, имеется ли в ответе токен следующей страницы
-     * @return bool True если токен следующей страницы есть, false если нет
-     */
-    public function hasNextCursor()
-    {
-        return $this->nextCursor !== null;
+        return $this->_items;
     }
 }

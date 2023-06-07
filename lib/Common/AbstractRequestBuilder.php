@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,24 +26,31 @@
 
 namespace YooKassa\Common;
 
+use Exception;
+use InvalidArgumentException;
+use Traversable;
 use YooKassa\Common\Exceptions\InvalidPropertyException;
 use YooKassa\Common\Exceptions\InvalidRequestException;
 
 /**
- * Базовый класс билдера запросов
+ * Класс, представляющий модель AbstractRequestBuilder.
  *
- * @package YooKassa
+ * Базовый класс билдера запросов.
+ *
+ * @category Class
+ * @package  YooKassa
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 abstract class AbstractRequestBuilder
 {
     /**
-     * Инстанс собираемого запроса
-     * @var AbstractRequest
+     * Инстанс собираемого запроса.
      */
-    protected $currentObject;
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
-     * Конструктор, инициализирует пустой запрос, который в будущем начнём собирать
+     * Конструктор, инициализирует пустой запрос, который в будущем начнём собирать.
      */
     public function __construct()
     {
@@ -51,24 +58,18 @@ abstract class AbstractRequestBuilder
     }
 
     /**
-     * Инициализирует пустой запрос
-     * @return AbstractRequest Инстанс запроса, который будем собирать
-     */
-    abstract protected function initCurrentObject();
-
-    /**
-     * Строит запрос, валидирует его и возвращает, если все прошло нормально
-     * @param array $options Массив свойств запроса, если нужно их установить перед сборкой
-     * @return AbstractRequest Инстанс собранного запроса
+     * Строит запрос, валидирует его и возвращает, если все прошло нормально.
      *
-     * @throws InvalidRequestException Выбрасывается если при валидации запроса произошла ошибка
-     * @throws InvalidPropertyException Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек
+     * @param null|array $options Массив свойств запроса, если нужно их установить перед сборкой
+     *
+     * @return AbstractRequestInterface Инстанс собранного запроса
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         if (!empty($options)) {
             $this->setOptions($options);
         }
+
         try {
             $this->currentObject->clearValidationError();
             if (!$this->currentObject->validate()) {
@@ -76,30 +77,32 @@ abstract class AbstractRequestBuilder
             }
         } catch (InvalidRequestException $e) {
             throw $e;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new InvalidRequestException($this->currentObject, 0, $e);
         }
         $result = $this->currentObject;
         $this->currentObject = $this->initCurrentObject();
+
         return $result;
     }
 
     /**
-     * Устанавливает свойства запроса из массива
-     * @param array|\Traversable $options Массив свойств запроса
+     * Устанавливает свойства запроса из массива.
+     *
+     * @param iterable|null $options Массив свойств запроса
+     *
      * @return AbstractRequestBuilder Инстанс текущего билдера запросов
      *
-     * @throws \InvalidArgumentException Выбрасывается если аргумент не массив и не итерируемый объект
-     * @throws InvalidPropertyException Выбрасывается если не удалось установить один из параметров, переданныч
-     * в массиве настроек
+     * @throws InvalidArgumentException Выбрасывается если аргумент не массив и не итерируемый объект
+     * @throws InvalidPropertyException Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек
      */
-    public function setOptions($options)
+    public function setOptions(mixed $options): AbstractRequestBuilder
     {
         if (empty($options)) {
             return $this;
         }
-        if (!is_array($options) && !($options instanceof \Traversable)) {
-            throw new \InvalidArgumentException('Invalid options value in setOptions method');
+        if (!is_array($options) && !($options instanceof Traversable)) {
+            throw new InvalidArgumentException('Invalid options value in setOptions method');
         }
         foreach ($options as $property => $value) {
             $method = 'set' . ucfirst($property);
@@ -114,6 +117,14 @@ abstract class AbstractRequestBuilder
                 }
             }
         }
+
         return $this;
     }
+
+    /**
+     * Инициализирует пустой запрос
+     *
+     * @return AbstractRequestInterface|null Инстанс запроса, который будем собирать
+     */
+    abstract protected function initCurrentObject(): ?AbstractRequestInterface;
 }

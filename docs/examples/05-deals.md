@@ -31,14 +31,14 @@ $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 try {
     $response = $client->createDeal(
-        array(
+        [
             'type' => \YooKassa\Model\Deal\DealType::SAFE_DEAL,
             'fee_moment' => \YooKassa\Model\Deal\FeeMoment::PAYMENT_SUCCEEDED,
-            'metadata' => array(
+            'metadata' => [
                 'order_id' => '37',
-            ),
+            ],
             'description' => 'SAFE_DEAL 123554642-2432FF344R',
-        ),
+        ],
         uniqid('', true)
     );
     echo $response->getStatus();
@@ -69,9 +69,9 @@ try {
     $builder = \YooKassa\Request\Deals\CreateDealRequest::builder();
     $builder->setType(\YooKassa\Model\Deal\DealType::SAFE_DEAL)
         ->setFeeMoment(\YooKassa\Model\Deal\FeeMoment::PAYMENT_SUCCEEDED)
-        ->setMetadata(array(
+        ->setMetadata([
             'order_id' => '37',
-        ))
+        ])
         ->setDescription('SAFE_DEAL 123554642-2432FF344R');
 
     // Создаем объект запроса
@@ -117,35 +117,35 @@ $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 $paymentId = '21b23b5b-000f-5061-a000-0674e49a8c10';
-$request = array(
-    'amount' => array(
+$request = [
+    'amount' => [
         'value' => '100.00',
         'currency' => 'RUB',
-    ),
-    'confirmation' => array(
+    ],
+    'confirmation' => [
         'type' => 'redirect',
         'locale' => 'ru_RU',
         'return_url' => 'https://testna5.ru/',
-    ),
+    ],
     'description' => 'Оплата заказа на сумму 100 руб',
-    'metadata' => array(
+    'metadata' => [
         'order_id' => '37'
-    ),
+    ],
     'capture' => true,
-    'deal' => array(
+    'deal' => [
         'id' => 'dl-2909e77d-0022-5000-8000-0c37205b3208',
-        'settlements' => array(
-            array(
+        'settlements' => [
+            [
                 'type' => 'payout',
-                'amount' => array(
+                'amount' => [
                     'value' => '80.00',
                     'currency' => 'RUB',
-                )
-            ),
-        ),
-    ),
+                ]
+            ],
+        ],
+    ],
     'merchant_customer_id' => 'merchant@shop.com'
-);
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createPayment($request, $idempotenceKey);
@@ -173,23 +173,23 @@ require_once 'vendor/autoload.php';
 $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
-$request = array(
-    'amount' => array(
+$request = [
+    'amount' => [
         'value' => '80.00',
         'currency' => 'RUB',
-    ),
-    'payout_destination_data' => array(
-        'type' => PaymentMethodType::YOO_MONEY,
+    ],
+    'payout_destination_data' => [
+        'type' => \YooKassa\Model\Payout\PayoutDestinationType::YOO_MONEY,
         'accountNumber' => '4100116075156746',
-    ),
+    ],
     'description' => 'Выплата по заказу №37',
-    'metadata' => array(
+    'metadata' => [
         'order_id' => '37'
-    ),
-    'deal' => array(
+    ],
+    'deal' => [
         'id' => 'dl-2909e77d-0022-5000-8000-0c37205b3208',
-    ),
-);
+    ],
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createPayout($request, $idempotenceKey);
@@ -247,25 +247,25 @@ $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 $cursor = null;
-$params = array(
+$params = [
     'limit' => 30,
     'status' => \YooKassa\Model\Deal\DealStatus::OPENED,
     'full_text_search' => 'DEAL',
     'created_at_gte' => '2021-10-01T00:00:00.000Z',
     'created_at_lt' => '2021-11-01T23:59:59.999Z',
-);
+];
 try {
     do {
         $params['cursor'] = $cursor;
         $deals = $client->getDeals($params);
         foreach ($deals->getItems() as $deal) {
-            $res = array(
+            $res = [
                 $deal->getCreatedAt()->format('Y-m-d H:i:s'),
                 $deal->getBalance()->getValue() . ' ' . $deal->getBalance()->getCurrency(),
                 $deal->getPayoutBalance()->getValue() . ' ' . $deal->getBalance()->getCurrency(),
                 $deal->getStatus(),
                 $deal->getId(),
-            );
+            ];
             echo implode(' - ', $res) . "\n";
         }
     } while ($cursor = $deals->getNextCursor());

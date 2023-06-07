@@ -2,7 +2,9 @@
 
 namespace Tests\YooKassa\Request\SelfEmployed;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\SelfEmployed\SelfEmployedConfirmationType;
 use YooKassa\Request\SelfEmployed\SelfEmployedRequest;
@@ -11,18 +13,19 @@ use YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation;
 use YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationFactory;
 use YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationRedirect;
 
+/**
+ * @internal
+ */
 class SelfEmployedRequestTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testItn($options)
+    public function testItn($options): void
     {
         $instance = new SelfEmployedRequest();
-
-        self::assertNull($instance->getItn());
-        self::assertNull($instance->itn);
 
         $instance->setItn($options['itn']);
 
@@ -31,21 +34,11 @@ class SelfEmployedRequestTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidItnDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidItn($value)
-    {
-        $instance = new SelfEmployedRequest();
-        $instance->setItn($value);
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testPhone($options)
+    public function testPhone($options): void
     {
         $instance = new SelfEmployedRequest();
 
@@ -66,7 +59,7 @@ class SelfEmployedRequestTest extends TestCase
             self::assertSame($expected, $instance->phone);
         }
 
-        $instance->setPhone(null);
+        $instance->setPhone();
         self::assertFalse($instance->hasPhone());
         self::assertNull($instance->getPhone());
         self::assertNull($instance->phone);
@@ -84,21 +77,11 @@ class SelfEmployedRequestTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidPhone($value)
-    {
-        $instance = new SelfEmployedRequest();
-        $instance->setPhone($value);
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testConfirmation($options)
+    public function testConfirmation($options): void
     {
         $instance = new SelfEmployedRequest();
 
@@ -122,7 +105,7 @@ class SelfEmployedRequestTest extends TestCase
             self::assertSame($expected, $instance->confirmation->toArray());
         }
 
-        $instance->setConfirmation(null);
+        $instance->setConfirmation();
         self::assertFalse($instance->hasConfirmation());
         self::assertNull($instance->getConfirmation());
         self::assertNull($instance->confirmation);
@@ -141,24 +124,27 @@ class SelfEmployedRequestTest extends TestCase
 
     /**
      * @dataProvider invalidConfirmationDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidConfirmation($value)
+    public function testSetInvalidConfirmation(mixed $value, string $exceptionClassName): void
     {
         $instance = new SelfEmployedRequest();
+
+        $this->expectException($exceptionClassName);
         $instance->setConfirmation($value);
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $instance = new SelfEmployedRequest();
 
         self::assertFalse($instance->validate());
 
-        $instance->setItn(null);
+        $instance->setItn();
         self::assertFalse($instance->validate());
-        $instance->setPhone('');
+        $instance->setPhone();
         self::assertFalse($instance->validate());
         $instance->setConfirmation(new SelfEmployedRequestConfirmationRedirect());
         self::assertFalse($instance->validate());
@@ -167,67 +153,65 @@ class SelfEmployedRequestTest extends TestCase
         self::assertTrue($instance->validate());
     }
 
-    public function testBuilder()
+    public function testBuilder(): void
     {
         $builder = SelfEmployedRequest::builder();
-        self::assertTrue($builder instanceof SelfEmployedRequestBuilder);
+        self::assertInstanceOf(SelfEmployedRequestBuilder::class, $builder);
     }
 
-    public function validDataProvider()
+    public static function validDataProvider(): array
     {
         $factory = new SelfEmployedRequestConfirmationFactory();
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'itn' => Random::str(12, 12, '0123456789'),
-                    'phone' => Random::str(11, 11, '0123456789'),
+                    'phone' => Random::str(4, 15, '0123456789'),
                     'confirmation' => null,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'itn' => Random::str(12, 12, '0123456789'),
-                    'phone' => Random::str(11, 11, '0123456789'),
-                    'confirmation' => '',
-                ),
-            ),
-        );
+                    'phone' => Random::str(4, 15, '0123456789'),
+                    'confirmation' => $factory->factoryFromArray(['type' => Random::value(SelfEmployedConfirmationType::getValidValues())]),
+                ],
+            ],
+        ];
         for ($i = 0; $i < 10; $i++) {
-            $request = array(
+            $request = [
                 'itn' => Random::str(12, 12, '0123456789'),
-                'phone' => Random::str(11, 11, '0123456789'),
-                'confirmation' => $factory->factoryFromArray(array('type' => Random::value(SelfEmployedConfirmationType::getValidValues()))),
-            );
-            $result[] = array($request);
+                'phone' => Random::str(4, 15, '0123456789'),
+                'confirmation' => $factory->factoryFromArray(['type' => Random::value(SelfEmployedConfirmationType::getValidValues())]),
+            ];
+            $result[] = [$request];
         }
+
         return $result;
     }
 
-    public function invalidItnDataProvider()
+    public static function invalidItnDataProvider(): array
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-        );
+        return [
+            [false],
+            [true],
+        ];
     }
 
-    public function invalidPhoneDataProvider()
+    public static function invalidPhoneDataProvider(): array
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-        );
+        return [
+            [false],
+            [true],
+        ];
     }
 
-    public function invalidConfirmationDataProvider()
+    public static function invalidConfirmationDataProvider(): array
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(Random::str(10)),
-        );
+        return [
+            [Random::str(100), TypeError::class],
+            [[], InvalidArgumentException::class],
+            [[new \stdClass()], InvalidArgumentException::class],
+        ];
     }
 }

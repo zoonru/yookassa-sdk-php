@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,132 +29,141 @@ namespace YooKassa\Request\PersonalData;
 use YooKassa\Model\Metadata;
 
 /**
- * Класс, представляющий интерфейс SbpPayoutRecipientPersonalDataRequestInterface.
+ * Interface CreatePersonalDataRequestInterface.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Interface
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 interface CreatePersonalDataRequestInterface
 {
     /**
      * Возвращает тип персональных данных.
      *
-     * @return string Тип персональных данных
+     * @return string|null Тип персональных данных
      */
-    public function getType();
+    public function getType(): ?string;
 
     /**
      * Устанавливает тип персональных данных.
      *
-     * @param string $type Тип персональных данных
+     * @param string|null $type Тип персональных данных
      *
      * @return $this
      */
-    public function setType($type);
+    public function setType(?string $type): self;
 
     /**
-     * Проверяет наличие типа персональных данных в запросе
+     * Проверяет наличие типа персональных данных в запросе.
+     *
      * @return bool True если тип персональных данных задан, false если нет
      */
-    public function hasType();
+    public function hasType(): bool;
 
     /**
      * Возвращает фамилию пользователя.
      *
-     * @return string Фамилия пользователя
+     * @return string|null Фамилия пользователя
      */
-    public function getLastName();
+    public function getLastName(): ?string;
 
     /**
      * Устанавливает фамилию пользователя.
      *
-     * @param string $last_name Фамилия пользователя.
+     * @param string|null $last_name Фамилия пользователя
      *
      * @return $this
      */
-    public function setLastName($last_name);
+    public function setLastName(?string $last_name): self;
 
     /**
-     * Проверяет наличие фамилии пользователя в запросе
+     * Проверяет наличие фамилии пользователя в запросе.
+     *
      * @return bool True если фамилия пользователя задана, false если нет
      */
-    public function hasLastName();
+    public function hasLastName(): bool;
 
     /**
      * Возвращает имя пользователя.
      *
-     * @return string Имя пользователя
+     * @return string|null Имя пользователя
      */
-    public function getFirstName();
+    public function getFirstName(): ?string;
 
     /**
      * Устанавливает имя пользователя.
      *
-     * @param string $first_name Имя пользователя.
+     * @param string|null $first_name Имя пользователя
      *
      * @return $this
      */
-    public function setFirstName($first_name);
+    public function setFirstName(?string $first_name): self;
 
     /**
-     * Проверяет наличие имени пользователя в запросе
+     * Проверяет наличие имени пользователя в запросе.
+     *
      * @return bool True если имя пользователя задано, false если нет
      */
-    public function hasFirstName();
+    public function hasFirstName(): bool;
 
     /**
      * Возвращает отчество пользователя.
      *
-     * @return string|null Отчество пользователя
+     * @return null|string Отчество пользователя
      */
-    public function getMiddleName();
+    public function getMiddleName(): ?string;
 
     /**
      * Устанавливает отчество пользователя.
      *
-     * @param string|null $middle_name Отчество пользователя
+     * @param null|string $middle_name Отчество пользователя
      *
      * @return $this
      */
-    public function setMiddleName($middle_name = null);
+    public function setMiddleName(?string $middle_name = null): self;
 
     /**
-     * Проверяет наличие отчества пользователя в запросе
+     * Проверяет наличие отчества пользователя в запросе.
+     *
      * @return bool True если отчество пользователя задано, false если нет
      */
-    public function hasMiddleName();
+    public function hasMiddleName(): bool;
 
     /**
      * Возвращает метаданные.
      *
-     * @return Metadata Метаданные
+     * @return Metadata|null Метаданные
      */
-    public function getMetadata();
+    public function getMetadata(): ?Metadata;
 
     /**
      * Устанавливает метаданные.
      *
-     * @param Metadata|array|null $metadata Метаданные
+     * @param null|array|Metadata $metadata Метаданные
      *
      * @return $this
      */
-    public function setMetadata($metadata = null);
+    public function setMetadata(mixed $metadata): self;
 
     /**
-     * Проверяет, были ли установлены метаданные
+     * Проверяет, были ли установлены метаданные.
+     *
      * @return bool True если метаданные были установлены, false если нет
      */
-    public function hasMetadata();
+    public function hasMetadata(): bool;
 
     /**
      * Проверяет на валидность текущий объект
+     *
      * @return bool True если объект запроса валиден, false если нет
      */
-    public function validate();
+    public function validate(): bool;
 
     /**
-     * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+     * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
+     *
      * @return array Ассоциативный массив со свойствами текущего объекта
      */
-    public function toArray();
+    public function toArray(): array;
 }

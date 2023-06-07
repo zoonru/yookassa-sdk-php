@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,157 +26,189 @@
 
 namespace YooKassa\Request\Refunds;
 
-use YooKassa\Common\AbstractRequest;
+use DateTime;
+use Exception;
 use YooKassa\Common\AbstractRequestBuilder;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 
 /**
- * Класс билдера объектов запросов к API списка возвратов
+ * Класс, представляющий модель RefundsRequestBuilder.
  *
- * @package YooKassa
+ * Класс билдера объектов запросов к API списка возвратов.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class RefundsRequestBuilder extends AbstractRequestBuilder
 {
     /**
-     * @var RefundsRequest Инстанс собираемого объекта запроса
+     * @var RefundsRequest|null Инстанс собираемого объекта запроса
      */
-    protected $currentObject;
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
-     * Инициализирует новый инстанс собираемого объекта
-     * @return RefundsRequest Инстанс собираемого запроса
-     */
-    protected function initCurrentObject()
-    {
-        return new RefundsRequest();
-    }
-
-    /**
-     * Устанавливает идентификатор платежа или null, если требуется его удалить
-     * @param string|null $value Идентификатор платежа
+     * Устанавливает идентификатор платежа или null, если требуется его удалить.
+     *
+     * @param null|string $value Идентификатор платежа
+     *
      * @return RefundsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если длина переданной строки не равна 36 символам
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setPaymentId($value)
+    public function setPaymentId(?string $value): RefundsRequestBuilder
     {
         $this->currentObject->setPaymentId($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает статус выбираемых возвратов
+     * Устанавливает статус выбираемых возвратов.
+     *
      * @param string $value Статус выбираемых платежей или null, чтобы удалить значение
+     *
      * @return RefundsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если переданное значение не является валидным статусом
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setStatus($value)
+    public function setStatus(string $value): RefundsRequestBuilder
     {
         $this->currentObject->setStatus($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает ограничение количества объектов возвратов
-     * @param string $value Ограничение количества объектов возвратов или null, чтобы удалить значение
+     * Устанавливает ограничение количества объектов возвратов.
+     *
+     * @param null|int $value Ограничение количества объектов возвратов или null, чтобы удалить значение
+     *
      * @return RefundsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод было передана не целое число
      */
-    public function setLimit($value)
+    public function setLimit(?int $value): RefundsRequestBuilder
     {
         $this->currentObject->setLimit($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает токен следующей страницы выборки
-     * @param string $value Токен следующей страницы выборки или null, чтобы удалить значение
+     * Устанавливает токен следующей страницы выборки.
+     *
+     * @param string|null $value Токен следующей страницы выборки или null, чтобы удалить значение
+     *
      * @return RefundsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setCursor($value)
+    public function setCursor(?string $value): RefundsRequestBuilder
     {
         $this->currentObject->setCursor($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются возвраты
-     * @param \DateTime|string|int|null $value Время создания, от (не включая) или null, чтобы удалить значение
+     * Устанавливает дату создания от которой выбираются возвраты.
+     *
+     * @param null|DateTime|int|string $value Время создания, от (не включая) или null, чтобы удалить значение
+     *
      * @return RefundsRequestBuilder Инстанс текущего объекта билдера
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|\Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtGt($value)
+    public function setCreatedAtGt(mixed $value): RefundsRequestBuilder
     {
         $this->currentObject->setCreatedAtGt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются возвраты
-     * @param \DateTime|string|int|null $value Время создания, от (включительно) или null, чтобы удалить значение
+     * Устанавливает дату создания от которой выбираются возвраты.
+     *
+     * @param null|DateTime|int|string $value Время создания, от (включительно) или null, чтобы удалить значение
+     *
      * @return RefundsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|\Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtGte($value)
+    public function setCreatedAtGte(mixed $value): RefundsRequestBuilder
     {
         $this->currentObject->setCreatedAtGte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются возвраты
-     * @param \DateTime|string|int|null $value Время создания, до (не включая) или null, чтобы удалить значение
+     * Устанавливает дату создания до которой выбираются возвраты.
+     *
+     * @param null|DateTime|int|string $value Время создания, до (не включая) или null, чтобы удалить значение
+     *
      * @return RefundsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|\Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtLt($value)
+    public function setCreatedAtLt(mixed $value): RefundsRequestBuilder
     {
         $this->currentObject->setCreatedAtLt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются возвраты
-     * @param \DateTime|string|int|null $value Время создания, до (включительно) или null, чтобы удалить значение
+     * Устанавливает дату создания до которой выбираются возвраты.
+     *
+     * @param null|DateTime|int|string $value Время создания, до (включительно) или null, чтобы удалить значение
+     *
      * @return RefundsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|\Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtLte($value)
+    public function setCreatedAtLte(mixed $value): RefundsRequestBuilder
     {
         $this->currentObject->setCreatedAtLte($value);
+
         return $this;
     }
 
     /**
-     * Собирает и возвращает объект запроса списка возвратов магазина
-     * @param array|null $options Массив с настройками запроса
-     * @return RefundsRequestInterface|AbstractRequest Инстанс объекта запроса к API для получения списка возвратов магазина
+     * Собирает и возвращает объект запроса списка возвратов магазина.
+     *
+     * @param null|array $options Массив с настройками запроса
+     *
+     * @return RefundsRequest Инстанс объекта запроса к API для получения списка возвратов магазина
      */
-    public function build(array $options = null)
+    public function build(?array $options = null): RefundsRequest
     {
         return parent::build($options);
+    }
+
+    /**
+     * Инициализирует новый инстанс собираемого объекта.
+     *
+     * @return RefundsRequestInterface Инстанс собираемого запроса
+     */
+    protected function initCurrentObject(): AbstractRequestInterface
+    {
+        return new RefundsRequest();
     }
 }

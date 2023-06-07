@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс сериалайзера объекта запроса к API на создание сделки
+Класс, представляющий модель CreateDealRequestSerializer.
 
+**Description:**
+
+Класс объекта осуществляющего сериализацию объекта запроса к API на создание сделки.
 
 ---
 ### Constants
@@ -16,14 +19,24 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [serialize()](../classes/YooKassa-Request-Deals-CreateDealRequestSerializer.md#method_serialize) |  | Формирует ассоциативный массив данных из объекта запроса |
+| public | [serialize()](../classes/YooKassa-Request-Deals-CreateDealRequestSerializer.md#method_serialize) |  | Формирует ассоциативный массив данных из объекта запроса. |
 
 ---
 ### Details
 * File: [lib/Request/Deals/CreateDealRequestSerializer.php](../../lib/Request/Deals/CreateDealRequestSerializer.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy:
   * \YooKassa\Request\Deals\CreateDealRequestSerializer
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -36,7 +49,7 @@ public serialize(\YooKassa\Request\Deals\CreateDealRequestInterface $request) : 
 
 **Summary**
 
-Формирует ассоциативный массив данных из объекта запроса
+Формирует ассоциативный массив данных из объекта запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\CreateDealRequestSerializer](../classes/YooKassa-Request-Deals-CreateDealRequestSerializer.md)
@@ -60,11 +73,11 @@ public serialize(\YooKassa\Request\Deals\CreateDealRequestInterface $request) : 
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

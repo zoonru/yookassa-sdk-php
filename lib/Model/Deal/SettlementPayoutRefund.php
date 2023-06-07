@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,80 +27,74 @@
 namespace YooKassa\Model\Deal;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\MonetaryAmount;
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Model\Receipt\SettlementInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Class SettlementPayoutRefund
- * @package YooKassa
+ * Класс, представляющий модель SettlementPayoutRefund.
  *
+ * Данные о распределении денег в возврате.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $type Вид оплаты в чеке
  * @property AmountInterface $amount Размер оплаты
  */
 class SettlementPayoutRefund extends AbstractObject implements SettlementInterface
 {
     /**
-     * @var string Тип операции (payout - выплата продавцу)
+     * Тип операции (payout - выплата продавцу)
+     *
+     * @var string|null
      */
-    private $_type;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [SettlementPayoutPaymentType::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private ?string $_type = null;
 
     /**
-     * @var AmountInterface Сумма, на которую необходимо уменьшить вознаграждение продавца.
+     * Сумма на которую необходимо уменьшить вознаграждение продавца
+     *
+     * @var AmountInterface|null
      */
-    private $_amount;
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[Assert\Type(MonetaryAmount::class)]
+    private ?AmountInterface $_amount = null;
 
     /**
-     * Возвращает тип операции (payout - выплата продавцу)
-     * @return string Тип операции
+     * Возвращает тип операции (payout - выплата продавцу).
+     *
+     * @return string|null Тип операции
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->_type;
     }
 
     /**
-     * Устанавливает вид оплаты в чеке
-     * @param string $value
+     * Устанавливает вид оплаты в чеке.
+     *
+     * @param string|null $type
+     *
+     * @return self
      */
-    public function setType($value)
+    public function setType(?string $type = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty value for "type" parameter in Settlement',
-                0,
-                'settlement.type'
-            );
-        } elseif (TypeCast::canCastToEnumString($value)) {
-            if (SettlementPayoutPaymentType::valueExists($value)) {
-                $this->_type = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid value for "type" parameter in Settlement',
-                    0,
-                    'settlement.type',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "type" parameter in Settlement',
-                0,
-                'settlement.type',
-                $value
-            );
-        }
+        $this->_type = $this->validatePropertyValue('_type', $type);
+        return $this;
     }
 
     /**
-     * Возвращает размер оплаты
-     * @return AmountInterface Размер оплаты
+     * Возвращает размер оплаты.
+     *
+     * @return AmountInterface|null Размер оплаты
      */
-    public function getAmount()
+    public function getAmount(): ?AmountInterface
     {
         return $this->_amount;
     }
@@ -108,44 +102,14 @@ class SettlementPayoutRefund extends AbstractObject implements SettlementInterfa
     /**
      * Устанавливает сумму, на которую необходимо уменьшить вознаграждение продавца.
      * Должна быть меньше суммы возврата или равна ей.
-     * @param AmountInterface|array $value Сумма, на которую необходимо уменьшить вознаграждение продавца
-     */
-    public function setAmount($value)
-    {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty value for "amount" parameter in Settlement',
-                0,
-                'settlement.amount'
-            );
-        } elseif (is_array($value)) {
-            $this->_amount = $this->factoryAmount($value);
-        } elseif ($value instanceof AmountInterface) {
-            $this->_amount = $value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "amount" parameter in Settlement',
-                0,
-                'settlement.amount',
-                $value
-            );
-        }
-    }
-
-    /**
-     * Фабричный метод создания суммы
      *
-     * @param array $options Сумма в виде ассоциативного массива
+     * @param AmountInterface|array|null $amount Сумма платежа
      *
-     * @return AmountInterface Созданный инстанс суммы
+     * @return self
      */
-    private function factoryAmount($options)
+    public function setAmount(mixed $amount = null): self
     {
-        $amount = new MonetaryAmount(null, $options['currency']);
-        if ($options['value'] > 0) {
-            $amount->setValue($options['value']);
-        }
-
-        return $amount;
+        $this->_amount = $this->validatePropertyValue('_amount', $amount);
+        return $this;
     }
 }

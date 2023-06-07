@@ -2,30 +2,26 @@
 
 namespace Tests\YooKassa\Model\Receipt;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use TypeError;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Receipt\OperationalDetails;
-use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class OperationalDetailsTest extends TestCase
 {
-    protected static function getInstance($options = null)
-    {
-        return new OperationalDetails($options);
-    }
-
     /**
      * @dataProvider validArrayDataProvider
      *
-     * @param $options
+     * @param mixed $options
      */
-    public function testConstructor($options)
+    public function testConstructor($options): void
     {
-        $instance = self::getInstance();
-
-        self::assertNull($instance->getOperationId());
-        self::assertNull($instance->getCreatedAt());
-        self::assertNull($instance->getValue());
-
         $instance = self::getInstance($options);
 
         self::assertEquals($options['operation_id'], $instance->getOperationId());
@@ -35,16 +31,13 @@ class OperationalDetailsTest extends TestCase
 
     /**
      * @dataProvider validArrayDataProvider
-     *
-     * @param array $options
      */
-    public function testGetSetValue($options)
+    public function testGetSetValue(array $options): void
     {
         $expected = $options['value'];
 
         $instance = self::getInstance();
-        self::assertNull($instance->getValue());
-        self::assertNull($instance->value);
+
         $instance->setValue($expected);
         self::assertEquals($expected, $instance->getValue());
         self::assertEquals($expected, $instance->value);
@@ -57,44 +50,37 @@ class OperationalDetailsTest extends TestCase
 
     /**
      * @dataProvider invalidValueDataProvider
+     *
      * @param mixed $value
-     * @param string $exceptionClassDocumentNumber
      */
-    public function testSetInvalidValue($value, $exceptionClassDocumentNumber)
+    public function testSetInvalidValue($value, string $exceptionClassDocumentNumber): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setValue($value);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentNumber, $e);
-        }
+
+        self::expectException($exceptionClassDocumentNumber);
+        $instance->setValue($value);
     }
 
     /**
      * @dataProvider invalidValueDataProvider
+     *
      * @param mixed $value
-     * @param string $exceptionClassDocumentNumber
      */
-    public function testSetterInvalidValue($value, $exceptionClassDocumentNumber)
+    public function testSetterInvalidValue($value, string $exceptionClassDocumentNumber): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->value = $value;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentNumber, $e);
-        }
+
+        self::expectException($exceptionClassDocumentNumber);
+        $instance->value = $value;
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     * @param array $options
      */
-    public function testGetSetOperationId($options)
+    public function testGetSetOperationId(array $options): void
     {
         $instance = self::getInstance();
 
-        self::assertNull($instance->getOperationId());
-        self::assertNull($instance->operation_id);
         $instance->setOperationId($options['operation_id']);
         self::assertEquals($options['operation_id'], $instance->getOperationId());
         self::assertEquals($options['operation_id'], $instance->operation_id);
@@ -102,44 +88,33 @@ class OperationalDetailsTest extends TestCase
 
     /**
      * @dataProvider invalidOperationIdDataProvider
-     * @param string $operation_id
-     * @param string $exceptionClassOperationId
      */
-    public function testSetInvalidOperationId($operation_id, $exceptionClassOperationId)
+    public function testSetInvalidOperationId(mixed $operation_id, string $exceptionClassOperationId): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setOperationId($operation_id);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassOperationId, $e);
-        }
+
+        self::expectException($exceptionClassOperationId);
+        $instance->setOperationId($operation_id);
     }
 
     /**
      * @dataProvider invalidOperationIdDataProvider
-     * @param string $operation_id
-     * @param string $exceptionClassOperationId
      */
-    public function testSetterInvalidOperationId($operation_id, $exceptionClassOperationId)
+    public function testSetterInvalidOperationId(mixed $operation_id, string $exceptionClassOperationId): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->operation_id = $operation_id;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassOperationId, $e);
-        }
+
+        self::expectException($exceptionClassOperationId);
+        $instance->operation_id = $operation_id;
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     * @param array $options
      */
-    public function testGetSetCreatedAt($options)
+    public function testGetSetCreatedAt(array $options): void
     {
         $instance = self::getInstance();
 
-        self::assertNull($instance->getCreatedAt());
-        self::assertNull($instance->created_at);
         $instance->setCreatedAt($options['created_at']);
         self::assertEquals($options['created_at'], $instance->getCreatedAt()->format(YOOKASSA_DATE));
         self::assertEquals($options['created_at'], $instance->created_at->format(YOOKASSA_DATE));
@@ -147,113 +122,84 @@ class OperationalDetailsTest extends TestCase
 
     /**
      * @dataProvider invalidCreatedAtDataProvider
-     * @param string $created_at
-     * @param string $exceptionClassCreatedAt
      */
-    public function testSetInvalidCreatedAt($created_at, $exceptionClassCreatedAt)
+    public function testSetInvalidCreatedAt(mixed $created_at, string $exceptionClassCreatedAt): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setCreatedAt($created_at);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassCreatedAt, $e);
-        }
+        self::expectException($exceptionClassCreatedAt);
+        $instance->setCreatedAt($created_at);
     }
 
     /**
      * @dataProvider invalidCreatedAtDataProvider
-     * @param string $created_at
-     * @param string $exceptionClassCreatedAt
      */
-    public function testSetterInvalidCreatedAt($created_at, $exceptionClassCreatedAt)
+    public function testSetterInvalidCreatedAt(mixed $created_at, string $exceptionClassCreatedAt): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->created_at = $created_at;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassCreatedAt, $e);
-        }
+
+        self::expectException($exceptionClassCreatedAt);
+        $instance->created_at = $created_at;
     }
 
-    public function validArrayDataProvider()
+    public static function validArrayDataProvider()
     {
-        $result = array();
+        date_default_timezone_set('UTC');
+        $result = [];
         foreach (range(1, 10) as $i) {
-            $result[$i][] = array(
-                'operation_id' => Random::str(1, OperationalDetails::OPERATION_ID_MAX_LENGTH),
+            $result[$i][] = [
+                'operation_id' => Random::int(1, OperationalDetails::OPERATION_ID_MAX_VALUE),
                 'created_at' => date(YOOKASSA_DATE, Random::int(10000000, 29999999)),
                 'value' => Random::str(1, OperationalDetails::VALUE_MAX_LENGTH),
-            );
+            ];
         }
+
         return $result;
     }
 
-    public function invalidValueDataProvider()
+    public static function invalidValueDataProvider()
     {
-        $exceptionValueNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionValueNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionValueNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionValueNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionValueNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::str(OperationalDetails::VALUE_MAX_LENGTH + 1), $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(-1,                   $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(0.0,                  $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(0,                    $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(0.001,                $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(true,                 $exceptionValueNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionValueNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+            [Random::str(OperationalDetails::VALUE_MAX_LENGTH + 1), InvalidPropertyValueException::class],
+        ];
     }
 
-    public function invalidOperationIdDataProvider()
+    public static function invalidOperationIdDataProvider()
     {
-        $exceptionOperationIdNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionOperationIdNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionOperationIdNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionOperationIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionOperationIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::str(OperationalDetails::OPERATION_ID_MAX_LENGTH + 1), $exceptionOperationIdNamespace . 'InvalidPropertyValueException'),
-            array('III',                $exceptionOperationIdNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionOperationIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.0,                  $exceptionOperationIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(0,                    $exceptionOperationIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.01,                 $exceptionOperationIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(true,                 $exceptionOperationIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionOperationIdNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', TypeError::class],
+            [Random::str(OperationalDetails::MIN_VALUE, OperationalDetails::OPERATION_ID_MAX_VALUE + 1), TypeError::class],
+            [Random::int(OperationalDetails::OPERATION_ID_MAX_VALUE + 1), InvalidPropertyValueException::class],
+        ];
     }
 
-    public function invalidCreatedAtDataProvider()
+    public static function invalidCreatedAtDataProvider()
     {
-        $exceptionCreatedAtNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionCreatedAtNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionCreatedAtNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionCreatedAtNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionCreatedAtNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::str(1, 20), $exceptionCreatedAtNamespace . 'InvalidPropertyValueException'),
-            array('III',                $exceptionCreatedAtNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionCreatedAtNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.0,                  $exceptionCreatedAtNamespace . 'InvalidPropertyValueTypeException'),
-            array(0,                    $exceptionCreatedAtNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.01,                 $exceptionCreatedAtNamespace . 'InvalidPropertyValueTypeException'),
-            array(true,                 $exceptionCreatedAtNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionCreatedAtNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+            [[], TypeError::class],
+            [fopen(__FILE__, 'r'), TypeError::class],
+            ['III', InvalidPropertyValueException::class],
+            [-0.01, InvalidPropertyValueException::class],
+            [false, EmptyPropertyValueException::class],
+        ];
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     *
-     * @param array $options
      */
-    public function testJsonSerialize($options)
+    public function testJsonSerialize(array $options): void
     {
         $instance = self::getInstance($options);
         $expected = $options;
         self::assertEquals($expected, $instance->jsonSerialize());
+    }
+
+    protected static function getInstance($options = [])
+    {
+        return new OperationalDetails($options);
     }
 }

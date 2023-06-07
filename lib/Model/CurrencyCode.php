@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,41 +29,54 @@ namespace YooKassa\Model;
 use YooKassa\Common\AbstractEnum;
 
 /**
- * CurrencyCode - Код валюты в формате [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html).
- * Должен соответствовать валюте субаккаунта (`recipient.gateway_id`), если вы разделяете потоки платежей,
- * и валюте аккаунта (shopId в [личном кабинете](https://yookassa.ru/my)), если не разделяете.
+ * Класс, представляющий модель CurrencyCode.
  *
- * @package YooKassa\Model
+ * Трехбуквенный код валюты в формате [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html).
+ *
+ * Пример: ~`RUB`. Должен соответствовать валюте субаккаунта (`recipient.gateway_id`),
+ * если вы разделяете потоки платежей, и валюте аккаунта (shopId в [личном кабинете](https://yookassa.ru/my)), если не разделяете.
+ *
  * @author  cms@yoomoney.ru
  */
 class CurrencyCode extends AbstractEnum
 {
     /** Российский рубль */
-    const RUB = 'RUB';
-    /** Доллар США */
-    const USD = 'USD';
-    /** Евро */
-    const EUR = 'EUR';
-    /** Белорусский рубль */
-    const BYN = 'BYN';
-    /** Китайская йена */
-    const CNY = 'CNY';
-    /** Казахский тенге */
-    const KZT = 'KZT';
-    /** Украинская гривна */
-    const UAH = 'UAH';
-    /** Узбекский сум */
-    const UZS = 'UZS';
-    /** Турецкая лира */
-    const _TRY = 'TRY';
-    /** Индийская рупия */
-    const INR = 'INR';
-    /** Молдавский лей */
-    const MDL = 'MDL';
-    /** Азербайджанский манат */
-    const AZN = 'AZN';
+    public const RUB = 'RUB';
 
-    protected static $validValues = array(
+    /** Доллар США */
+    public const USD = 'USD';
+
+    /** Евро */
+    public const EUR = 'EUR';
+
+    /** Белорусский рубль */
+    public const BYN = 'BYN';
+
+    /** Китайская йена */
+    public const CNY = 'CNY';
+
+    /** Казахский тенге */
+    public const KZT = 'KZT';
+
+    /** Украинская гривна */
+    public const UAH = 'UAH';
+
+    /** Узбекский сум */
+    public const UZS = 'UZS';
+
+    /** Турецкая лира */
+    public const _TRY = 'TRY';
+
+    /** Индийская рупия */
+    public const INR = 'INR';
+
+    /** Молдавский лей */
+    public const MDL = 'MDL';
+
+    /** Азербайджанский манат */
+    public const AZN = 'AZN';
+
+    protected static array $validValues = [
         self::RUB => true,
         self::USD => true,
         self::EUR => true,
@@ -76,5 +89,5 @@ class CurrencyCode extends AbstractEnum
         self::INR => true,
         self::MDL => true,
         self::AZN => true,
-    );
+    ];
 }

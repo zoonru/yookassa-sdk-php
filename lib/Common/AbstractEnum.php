@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,48 +27,51 @@
 namespace YooKassa\Common;
 
 /**
- * Базовый класс генерируемых enum'ов
+ * Класс, представляющий модель AbstractEnum.
  *
- * @package YooKassa
+ * Базовый класс генерируемых enum'ов.
+ *
+ * @category Class
+ * @package  YooKassa
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 abstract class AbstractEnum
 {
     /**
      * @var array Массив принимаемых enum'ом значений
      */
-    protected static $validValues = array();
+    protected static array $validValues = [];
 
     /**
-     * Проверяет наличие значения в enum'e
+     * Проверяет наличие значения в enum'e.
+     *
      * @param mixed $value Проверяемое значение
+     *
      * @return bool True если значение имеется, false если нет
      */
-    public static function valueExists($value)
+    public static function valueExists(mixed $value): bool
     {
         return array_key_exists($value, static::$validValues);
     }
 
     /**
-     * Возвращает все значения в enum'e
+     * Возвращает все значения в enum'e.
+     *
      * @return array Массив значений в перечислении
      */
-    public static function getValidValues()
+    public static function getValidValues(): array
     {
         return array_keys(static::$validValues);
     }
 
     /**
-     * Возвращает значения в enum'е значения которых разрешены
+     * Возвращает значения в enum'е значения которых разрешены.
+     *
      * @return string[] Массив разрешённых значений
      */
-    public static function getEnabledValues()
+    public static function getEnabledValues(): array
     {
-        $result = array();
-        foreach (static::$validValues as $key => $enabled) {
-            if ($enabled) {
-                $result[] = $key;
-            }
-        }
-        return $result;
+        return array_keys(array_filter(static::$validValues, static fn ($v) => $v, ARRAY_FILTER_USE_BOTH));
     }
 }

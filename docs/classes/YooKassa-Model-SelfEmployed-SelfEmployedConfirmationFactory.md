@@ -5,7 +5,8 @@
 ---
 **Summary:**
 
-Class ConfirmationFactory
+Фабрика создания объекта сценария подтверждения пользователем заявки ЮMoney
+на получение прав для регистрации чеков в сервисе Мой налог.
 
 
 ---
@@ -16,15 +17,25 @@ Class ConfirmationFactory
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [factory()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationFactory.md#method_factory) |  | Возвращает объект, соответствующий типу подтверждения платежа |
-| public | [factoryFromArray()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationFactory.md#method_factoryFromArray) |  | Возвращает объект, соответствующий типу подтверждения платежа, из массива данных |
+| public | [factory()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationFactory.md#method_factory) |  | Возвращает объект, соответствующий типу подтверждения платежа. |
+| public | [factoryFromArray()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationFactory.md#method_factoryFromArray) |  | Возвращает объект, соответствующий типу подтверждения платежа, из массива данных. |
 
 ---
 ### Details
 * File: [lib/Model/SelfEmployed/SelfEmployedConfirmationFactory.php](../../lib/Model/SelfEmployed/SelfEmployedConfirmationFactory.php)
-* Package: YooKassa
+* Package: YooKassa\Model
 * Class Hierarchy:
   * \YooKassa\Model\SelfEmployed\SelfEmployedConfirmationFactory
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -37,7 +48,7 @@ public factory(string $type) : \YooKassa\Model\SelfEmployed\SelfEmployedConfirma
 
 **Summary**
 
-Возвращает объект, соответствующий типу подтверждения платежа
+Возвращает объект, соответствующий типу подтверждения платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedConfirmationFactory](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationFactory.md)
@@ -54,12 +65,12 @@ public factory(string $type) : \YooKassa\Model\SelfEmployed\SelfEmployedConfirma
 #### public factoryFromArray() : \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation
 
 ```php
-public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation
+public factoryFromArray(array $data, null|string $type = null) : \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation
 ```
 
 **Summary**
 
-Возвращает объект, соответствующий типу подтверждения платежа, из массива данных
+Возвращает объект, соответствующий типу подтверждения платежа, из массива данных.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedConfirmationFactory](../classes/YooKassa-Model-SelfEmployed-SelfEmployedConfirmationFactory.md)
@@ -68,7 +79,7 @@ public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Model
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">array</code> | data  | Массив данных подтверждения платежа |
-| <code lang="php">string OR null</code> | type  | Тип подтверждения платежа |
+| <code lang="php">null OR string</code> | type  | Тип подтверждения платежа |
 
 **Returns:** \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation - 
 
@@ -84,11 +95,11 @@ public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Model
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

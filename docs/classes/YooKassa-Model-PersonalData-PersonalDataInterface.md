@@ -5,11 +5,7 @@
 ---
 **Summary:**
 
-Класс, представляющий модель PersonalDataInterface.
-
-**Description:**
-
-Информация о персональных данных
+Interface PersonalDataInterface.
 
 ---
 ### Constants
@@ -41,12 +37,25 @@
 ### Details
 * File: [lib/Model/PersonalData/PersonalDataInterface.php](../../lib/Model/PersonalData/PersonalDataInterface.php)
 * Package: \YooKassa\Model
+* See Also:
+  * [](https://yookassa.ru/developers/api)
 
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
+| category |  | Interface |
 | author |  | cms@yoomoney.ru |
+| property |  | Идентификатор персональных данных |
+| property |  | Тип персональных данных |
+| property |  | Текущий статус персональных данных |
+| property |  | Время создания персональных данных |
+| property |  | Время создания персональных данных |
+| property |  | Срок жизни объекта персональных данных |
+| property |  | Срок жизни объекта персональных данных |
+| property |  | Комментарий к отмене выплаты |
+| property |  | Комментарий к отмене выплаты |
+| property |  | Метаданные выплаты указанные мерчантом |
 
 ---
 ## Constants
@@ -68,10 +77,10 @@ MAX_LENGTH_ID = 50 : int
 ---
 ## Methods
 <a name="method_getId" class="anchor"></a>
-#### public getId() : string
+#### public getId() : string|null
 
 ```php
-public getId() : string
+public getId() : string|null
 ```
 
 **Summary**
@@ -81,14 +90,14 @@ public getId() : string
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalDataInterface](../classes/YooKassa-Model-PersonalData-PersonalDataInterface.md)
 
-**Returns:** string - 
+**Returns:** string|null - 
 
 
 <a name="method_setId" class="anchor"></a>
-#### public setId() : $this
+#### public setId() : self
 
 ```php
-public setId(string $id) : $this
+public setId(string|null $id) : self
 ```
 
 **Summary**
@@ -101,16 +110,16 @@ public setId(string $id) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | id  | Идентификатор персональных данных, сохраненных в ЮKassa. |
+| <code lang="php">string OR null</code> | id  | идентификатор персональных данных, сохраненных в ЮKassa |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getType" class="anchor"></a>
-#### public getType() : string
+#### public getType() : string|null
 
 ```php
-public getType() : string
+public getType() : string|null
 ```
 
 **Summary**
@@ -120,14 +129,14 @@ public getType() : string
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalDataInterface](../classes/YooKassa-Model-PersonalData-PersonalDataInterface.md)
 
-**Returns:** string - Тип персональных данных
+**Returns:** string|null - Тип персональных данных
 
 
 <a name="method_setType" class="anchor"></a>
-#### public setType() : $this
+#### public setType() : self
 
 ```php
-public setType(string $type) : $this
+public setType(string|null $type) : self
 ```
 
 **Summary**
@@ -140,16 +149,16 @@ public setType(string $type) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | type  | Тип персональных данных |
+| <code lang="php">string OR null</code> | type  | Тип персональных данных |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getStatus" class="anchor"></a>
-#### public getStatus() : string
+#### public getStatus() : string|null
 
 ```php
-public getStatus() : string
+public getStatus() : string|null
 ```
 
 **Summary**
@@ -159,14 +168,14 @@ public getStatus() : string
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalDataInterface](../classes/YooKassa-Model-PersonalData-PersonalDataInterface.md)
 
-**Returns:** string - Статус персональных данных
+**Returns:** string|null - Статус персональных данных
 
 
 <a name="method_setStatus" class="anchor"></a>
-#### public setStatus() : $this
+#### public setStatus() : self
 
 ```php
-public setStatus(string $status) : $this
+public setStatus(string|null $status) : self
 ```
 
 **Summary**
@@ -179,16 +188,16 @@ public setStatus(string $status) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | status  | Статус персональных данных |
+| <code lang="php">string OR null</code> | status  | Статус персональных данных |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getCancellationDetails" class="anchor"></a>
-#### public getCancellationDetails() : \YooKassa\Model\PersonalData\PersonalDataCancellationDetails|null
+#### public getCancellationDetails() : ?\YooKassa\Model\PersonalData\PersonalDataCancellationDetails
 
 ```php
-public getCancellationDetails() : \YooKassa\Model\PersonalData\PersonalDataCancellationDetails|null
+public getCancellationDetails() : ?\YooKassa\Model\PersonalData\PersonalDataCancellationDetails
 ```
 
 **Summary**
@@ -198,14 +207,14 @@ public getCancellationDetails() : \YooKassa\Model\PersonalData\PersonalDataCance
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalDataInterface](../classes/YooKassa-Model-PersonalData-PersonalDataInterface.md)
 
-**Returns:** \YooKassa\Model\PersonalData\PersonalDataCancellationDetails|null - 
+**Returns:** ?\YooKassa\Model\PersonalData\PersonalDataCancellationDetails - 
 
 
 <a name="method_setCancellationDetails" class="anchor"></a>
-#### public setCancellationDetails() : $this
+#### public setCancellationDetails() : self
 
 ```php
-public setCancellationDetails(\YooKassa\Model\PersonalData\PersonalDataCancellationDetails|array|null $cancellation_details) : $this
+public setCancellationDetails(null|array|\YooKassa\Model\PersonalData\PersonalDataCancellationDetails $cancellation_details) : self
 ```
 
 **Summary**
@@ -218,16 +227,16 @@ public setCancellationDetails(\YooKassa\Model\PersonalData\PersonalDataCancellat
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\PersonalData\PersonalDataCancellationDetails OR array OR null</code> | cancellation_details  |  |
+| <code lang="php">null OR array OR \YooKassa\Model\PersonalData\PersonalDataCancellationDetails</code> | cancellation_details  |  |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getCreatedAt" class="anchor"></a>
-#### public getCreatedAt() : \DateTime
+#### public getCreatedAt() : \DateTime|null
 
 ```php
-public getCreatedAt() : \DateTime
+public getCreatedAt() : \DateTime|null
 ```
 
 **Summary**
@@ -237,14 +246,14 @@ public getCreatedAt() : \DateTime
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalDataInterface](../classes/YooKassa-Model-PersonalData-PersonalDataInterface.md)
 
-**Returns:** \DateTime - 
+**Returns:** \DateTime|null - 
 
 
 <a name="method_setCreatedAt" class="anchor"></a>
-#### public setCreatedAt() : $this
+#### public setCreatedAt() : self
 
 ```php
-public setCreatedAt(\DateTime|string|int $created_at) : $this
+public setCreatedAt(\DateTime|string|null $created_at) : self
 ```
 
 **Summary**
@@ -257,9 +266,9 @@ public setCreatedAt(\DateTime|string|int $created_at) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int</code> | created_at  | Время создания персональных данных |
+| <code lang="php">\DateTime OR string OR null</code> | created_at  | Время создания персональных данных |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getExpiresAt" class="anchor"></a>
@@ -280,10 +289,10 @@ public getExpiresAt() : \DateTime|null
 
 
 <a name="method_setExpiresAt" class="anchor"></a>
-#### public setExpiresAt() : $this
+#### public setExpiresAt() : self
 
 ```php
-public setExpiresAt(\DateTime|string|int|null $expires_at = null) : $this
+public setExpiresAt(\DateTime|string|null $expires_at = null) : self
 ```
 
 **Summary**
@@ -296,16 +305,16 @@ public setExpiresAt(\DateTime|string|int|null $expires_at = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | expires_at  | Срок жизни объекта персональных данных |
+| <code lang="php">\DateTime OR string OR null</code> | expires_at  | Срок жизни объекта персональных данных |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getMetadata" class="anchor"></a>
-#### public getMetadata() : array|null
+#### public getMetadata() : ?\YooKassa\Model\Metadata
 
 ```php
-public getMetadata() : array|null
+public getMetadata() : ?\YooKassa\Model\Metadata
 ```
 
 **Summary**
@@ -315,14 +324,14 @@ public getMetadata() : array|null
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalDataInterface](../classes/YooKassa-Model-PersonalData-PersonalDataInterface.md)
 
-**Returns:** array|null - 
+**Returns:** ?\YooKassa\Model\Metadata - 
 
 
 <a name="method_setMetadata" class="anchor"></a>
-#### public setMetadata() : $this
+#### public setMetadata() : self
 
 ```php
-public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
+public setMetadata(null|array|\YooKassa\Model\Metadata $metadata = null) : self
 ```
 
 **Summary**
@@ -335,9 +344,9 @@ public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\Metadata OR array OR null</code> | metadata  | Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа). |
+| <code lang="php">null OR array OR \YooKassa\Model\Metadata</code> | metadata  | любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа) |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 
@@ -352,11 +361,11 @@ public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

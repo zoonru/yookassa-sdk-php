@@ -5,29 +5,33 @@ namespace Tests\YooKassa\Helpers\Config;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Config\ConfigurationLoader;
 
+/**
+ * @internal
+ */
 class ConfigurationLoaderTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $fileName
+     *
+     * @param mixed $fileName
      */
-    public function testLoad($fileName)
+    public function testLoad($fileName): void
     {
         $loader = new ConfigurationLoader();
         $loader->load($fileName);
         if (empty($fileName)) {
-            $fileName = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR . "configuration.json";
+            $fileName = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'configuration.json';
         }
         $data = file_get_contents($fileName);
         self::assertEquals(json_decode($data, true), $loader->getConfig());
     }
 
-    public function validDataProvider()
+    public static function validDataProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array(__DIR__ . DIRECTORY_SEPARATOR . 'test_config.json'),
-        );
+        return [
+            [null],
+            [''],
+            [__DIR__ . DIRECTORY_SEPARATOR . 'test_config.json'],
+        ];
     }
 }

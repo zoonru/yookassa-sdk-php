@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,141 +26,151 @@
 
 namespace YooKassa\Helpers;
 
+use Exception;
+
 /**
- * Класс хэлпера для генерации случайных значений, используется в тестах
+ * Класс, представляющий модель Random.
  *
- * @package YooKassa
+ * Класс хэлпера для генерации случайных значений, используется в тестах.
+ *
+ * @category Class
+ * @package  YooKassa\Helpers
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class Random
 {
     /**
      * Возвращает рандомное целое число. По умолчанию возвращает число от нуля до PHP_INT_MAX.
-     * @param int|null $min Минимально возможное значение
-     * @param int|null $max Максимально возможное значение
-     * @param bool $useBest Использовать ли функцию random_int если она доступна
+     *
+     * @param null|int $min Минимально возможное значение
+     * @param null|int $max Максимально возможное значение
      * @return int Рандомное целое число
-     * @throws \Exception
      */
-    public static function int($min = null, $max = null, $useBest = true)
+    public static function int(?int $min = null, ?int $max = null): int
     {
-        if ($min === null) {
+        if (null === $min) {
             $min = 0;
         }
-        if ($max === null) {
+        if (null === $max) {
             $max = PHP_INT_MAX;
         }
-        if (function_exists('random_int') && $useBest) {
+        try {
             return random_int($min, $max);
-        } else {
-            return mt_rand($min, $max);
+        } catch (Exception) {
+            return $min;
         }
     }
 
     /**
      * Возвращает рандомное число с плавающей точкой. По умолчанию возвращает значение в промежутке от нуля до едениы.
-     * @param float|null $min Минимально возможное значение
-     * @param float|null $max Максимально возможное значение
-     * @param bool $useBest Использовать ли функцию random_int если она доступна
+     *
+     * @param null|float $min Минимально возможное значение
+     * @param null|float $max Максимально возможное значение
+     *
      * @return float Рандомное число с плавающей точкой
-     * @throws \Exception
      */
-    public static function float($min = null, $max = null, $useBest = true)
+    public static function float(?float $min = null, ?float $max = null): float
     {
-        $random = self::int(null, null, $useBest) / PHP_INT_MAX;
-        if ($min === null) {
+        $random = self::int() / PHP_INT_MAX;
+        if (null === $min) {
             $min = 0.0;
         }
-        if ($max === null) {
+        if (null === $max) {
             return $random + $min;
         }
+
         return ($random * ($max - $min)) + $min;
     }
 
     /**
-     * Возвращает строку из рандомных символов
+     * Возвращает строку из рандомных символов.
+     *
      * @param int $length Длина возвращаемой строки, или минимальная длина, если передан парамтр $maxLength
-     * @param int|null $maxLength Если параметр не равен null, возвращает сроку длиной от $length до $maxLength
-     * @param string|array|null $characters Строка или массив используемых в строке символов
-     * @param bool $useBest Использовать ли функцию random_int если она доступна
+     * @param null|int|string $maxLength Если параметр не равен null, возвращает сроку длиной от $length до $maxLength
+     * @param null|array|string $characters Строка или массив используемых в строке символов
+     *
      * @return string Строка, состоящая из рандомных символов
-     * @throws \Exception
      */
-    public static function str($length, $maxLength = null, $characters = null, $useBest = true)
+    public static function str(int $length, mixed $maxLength = null, array|string $characters = null): string
     {
         $result = '';
-        if ($maxLength !== null) {
+        if (null !== $maxLength) {
             if (is_string($maxLength)) {
                 $characters = $maxLength;
             } else {
-                $length = self::int($length, $maxLength, $useBest);
+                $length = self::int($length, $maxLength);
             }
         }
         if ($characters === null) {
             for ($i = 0; $i < $length; $i++) {
-                $chr = chr(self::int(32, 125, $useBest));
+                $chr = chr(self::int(32, 125));
                 $result .= $chr;
             }
         } else {
             for ($i = 0; $i < $length; $i++) {
-                $chr = $characters[self::int(0, strlen($characters) - 1, $useBest)];
+                $chr = $characters[self::int(0, strlen($characters) - 1)];
                 $result .= $chr;
             }
         }
+
         return $result;
     }
 
     /**
-     * Возвращает строку, состоящую из символов '0123456789abcdef'
+     * Возвращает строку, состоящую из символов '0123456789abcdef'.
+     *
      * @param int $length Длина возвращаемой строки
      * @param bool $useBest Использовать ли функцию random_int если она доступна
+     *
      * @return string Строка, состоящая из рандомных символов
-     * @throws \Exception
      */
-    public static function hex($length, $useBest = true)
+    public static function hex(int $length, bool $useBest = true): string
     {
         return self::str($length, '0123456789abcdef', $useBest);
     }
 
     /**
      * Возвращает рандомную последовательность байт
+     *
      * @param int $length Длина возвращаемой строки
-     * @param bool $useBest Использовать ли функцию random_int если она доступна
+     *
      * @return string Строка, состоящая из рандомных символов
-     * @throws \Exception
      */
-    public static function bytes($length, $useBest = true)
+    public static function bytes(int $length): string
     {
-        if (function_exists('random_bytes') && $useBest) {
+        $result = '';
+        try {
             $result = random_bytes($length);
-        } else {
-            $result = '';
+        } catch (Exception) {
             for ($i = 0; $i < $length; $i++) {
                 $chr = chr(self::int(0, 255));
                 $result .= $chr;
             }
         }
+
         return $result;
     }
 
     /**
-     * Возвращает рандомное значение из переданного массива
+     * Возвращает рандомное значение из переданного массива.
+     *
      * @param array $values Массив источник данных
-     * @param bool $useBest Использовать ли функцию random_int если она доступна
+     *
      * @return mixed Случайное значение из переданного массива
-     * @throws \Exception
      */
-    public static function value(array $values, $useBest = true)
+    public static function value(array $values): mixed
     {
-        return $values[self::int(0, count($values) - 1, $useBest)];
+        return $values[self::int(0, count($values) - 1)];
     }
 
     /**
-     * Возвращает рандомное буллево значение
+     * Возвращает рандомное буллево значение.
+     *
      * @return bool Либо true либо false, одно из двух
-     * @throws \Exception
      */
-    public static function bool()
+    public static function bool(): bool
     {
-        return self::int(0, 1) === 1;
+        return 1 === self::int(0, 1);
     }
 }

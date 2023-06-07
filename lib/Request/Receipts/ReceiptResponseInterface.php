@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,77 +26,82 @@
 
 namespace YooKassa\Request\Receipts;
 
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Common\ListObjectInterface;
+use YooKassa\Model\Receipt\SettlementInterface;
 
 /**
- * Interface ReceiptInterface
+ * Interface ReceiptInterface.
  *
- * @package YooKassa
+ * @category Interface
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
- * @property-read string $id Идентификатор чека в ЮKassa.
- * @property-read string $type Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
- * @property-read string $receiptRegistration Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled").
- * @property-read string $receipt_registration Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled").
- * @property-read string $status Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled").
- * @property-read int $taxSystemCode Код системы налогообложения. Число 1-6.
- * @property-read int $tax_system_code Код системы налогообложения. Число 1-6.
- * @property-read ReceiptResponseItemInterface[] $items Список товаров в заказе
- * @property-read SettlementInterface[] $settlements Список товаров в заказе
+ * @property string $id Идентификатор чека в ЮKassa.
+ * @property string $type Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
+ * @property string $receiptRegistration Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled").
+ * @property string $receipt_registration Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled").
+ * @property string $status Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled").
+ * @property int $taxSystemCode Код системы налогообложения. Число 1-6.
+ * @property int $tax_system_code Код системы налогообложения. Число 1-6.
+ * @property ReceiptResponseItemInterface[] $items Список товаров в заказе
+ * @property SettlementInterface[] $settlements Список товаров в заказе
  */
 interface ReceiptResponseInterface
 {
     /**
-     * Возвращает идентификатор чека в ЮKassa
+     * Возвращает идентификатор чека в ЮKassa.
      *
-     * @return string Идентификатор чека в ЮKassa.
+     * @return string|null Идентификатор чека в ЮKassa
      */
-    public function getId();
+    public function getId(): ?string;
 
     /**
-     * Возвращает тип чека в онлайн-кассе
+     * Возвращает тип чека в онлайн-кассе.
      *
-     * @return string Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
+     * @return string|null Тип чека в онлайн-кассе: приход "payment" или возврат "refund"
      */
-    public function getType();
+    public function getType(): ?string;
 
     /**
-     * Возвращает статус доставки данных для чека в онлайн-кассу
+     * Возвращает статус доставки данных для чека в онлайн-кассу.
      *
-     *  @return string Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled").
+     * @return string|null Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled")
      */
-    public function getStatus();
+    public function getStatus(): ?string;
 
     /**
-     * Возвращает код системы налогообложения
+     * Возвращает код системы налогообложения.
      *
-     *  @return int Код системы налогообложения. Число 1-6.
+     * @return int|null Код системы налогообложения. Число 1-6.
      */
-    public function getTaxSystemCode();
+    public function getTaxSystemCode(): ?int;
 
     /**
-     * Возвращает список товаров в заказ
+     * Возвращает список товаров в заказ.
      *
-     *  @return ReceiptResponseItemInterface[]
+     *  @return ReceiptResponseItemInterface[]|ListObjectInterface
      */
-    public function getItems();
+    public function getItems(): ListObjectInterface;
 
     /**
-     * Возвращает список расчетов
+     * Возвращает список расчетов.
      *
-     *  @return SettlementInterface[]
+     *  @return SettlementInterface[]|ListObjectInterface
      */
-    public function getSettlements();
+    public function getSettlements(): ListObjectInterface;
 
     /**
      * Возвращает идентификатор магазин
      *
      * @return string|null
      */
-    public function getOnBehalfOf();
+    public function getOnBehalfOf(): ?string;
 
     /**
-     * Проверяет есть ли в чеке хотя бы одна позиция
+     * Проверяет есть ли в чеке хотя бы одна позиция.
+     *
      * @return bool True если чек не пуст, false если в чеке нет ни одной позиции
      */
-    public function notEmpty();
+    public function notEmpty(): bool;
 }

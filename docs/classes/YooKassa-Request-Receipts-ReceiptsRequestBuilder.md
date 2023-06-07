@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Класс билдера объектов запросов к API списка чеков
+Класс билдера объектов запросов к API списка чеков.
 
 
 ---
@@ -16,30 +16,30 @@
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| protected | [$currentObject](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#property_currentObject) |  | Инстанс собираемого запроса |
+| protected | [$currentObject](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#property_currentObject) |  | Инстанс собираемого запроса. |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать |
-| public | [build()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_build) |  | Собирает и возвращает объект запроса списка чеков магазина |
-| public | [setCreatedAtGt()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCreatedAtGt) |  | Устанавливает дату создания от которой выбираются чеки |
-| public | [setCreatedAtGte()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCreatedAtGte) |  | Устанавливает дату создания от которой выбираются чеки |
-| public | [setCreatedAtLt()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCreatedAtLt) |  | Устанавливает дату создания до которой выбираются чеки |
-| public | [setCreatedAtLte()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCreatedAtLte) |  | Устанавливает дату создания до которой выбираются чеки |
-| public | [setCursor()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCursor) |  | Устанавливает токен следующей страницы выборки |
-| public | [setLimit()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setLimit) |  | Устанавливает ограничение количества объектов чеков |
-| public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива |
-| public | [setPaymentId()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setPaymentId) |  | Устанавливает идентификатор платежа или null, если требуется его удалить |
-| public | [setRefundId()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setRefundId) |  | Устанавливает идентификатор возврата |
-| public | [setStatus()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setStatus) |  | Устанавливает статус выбираемых чеков |
-| protected | [initCurrentObject()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_initCurrentObject) |  | Инициализирует новый инстанс собираемого объекта |
+| public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать. |
+| public | [build()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_build) |  | Собирает и возвращает объект запроса списка чеков магазина. |
+| public | [setCreatedAtGt()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCreatedAtGt) |  | Устанавливает дату создания от которой выбираются чеки. |
+| public | [setCreatedAtGte()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCreatedAtGte) |  | Устанавливает дату создания от которой выбираются чеки. |
+| public | [setCreatedAtLt()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCreatedAtLt) |  | Устанавливает дату создания до которой выбираются чеки. |
+| public | [setCreatedAtLte()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCreatedAtLte) |  | Устанавливает дату создания до которой выбираются чеки. |
+| public | [setCursor()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setCursor) |  | Устанавливает токен следующей страницы выборки. |
+| public | [setLimit()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setLimit) |  | Устанавливает ограничение количества объектов чеков. |
+| public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива. |
+| public | [setPaymentId()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setPaymentId) |  | Устанавливает идентификатор платежа или null, если требуется его удалить. |
+| public | [setRefundId()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setRefundId) |  | Устанавливает идентификатор возврата. |
+| public | [setStatus()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_setStatus) |  | Устанавливает статус выбираемых чеков. |
+| protected | [initCurrentObject()](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md#method_initCurrentObject) |  | Инициализирует новый инстанс собираемого объекта. |
 
 ---
 ### Details
 * File: [lib/Request/Receipts/ReceiptsRequestBuilder.php](../../lib/Request/Receipts/ReceiptsRequestBuilder.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
   * \YooKassa\Request\Receipts\ReceiptsRequestBuilder
@@ -47,13 +47,13 @@
 ---
 ## Properties
 <a name="property_currentObject"></a>
-#### protected $currentObject : \YooKassa\Request\Receipts\ReceiptsRequest
+#### protected $currentObject : ?\YooKassa\Common\AbstractRequestInterface
 ---
 **Summary**
 
-Инстанс собираемого запроса
+Инстанс собираемого запроса.
 
-**Type:** <a href="../classes/YooKassa-Request-Receipts-ReceiptsRequest.html"><abbr title="\YooKassa\Request\Receipts\ReceiptsRequest">ReceiptsRequest</abbr></a>
+**Type:** <a href="../?\YooKassa\Common\AbstractRequestInterface"><abbr title="?\YooKassa\Common\AbstractRequestInterface">AbstractRequestInterface</abbr></a>
 Инстанс собираемого объекта запроса
 **Details:**
 
@@ -70,7 +70,7 @@ public __construct() : mixed
 
 **Summary**
 
-Конструктор, инициализирует пустой запрос, который в будущем начнём собирать
+Конструктор, инициализирует пустой запрос, который в будущем начнём собирать.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -79,15 +79,15 @@ public __construct() : mixed
 
 
 <a name="method_build" class="anchor"></a>
-#### public build() : \YooKassa\Request\Receipts\ReceiptsRequestInterface|\YooKassa\Common\AbstractRequest
+#### public build() : \YooKassa\Common\AbstractRequestInterface|\YooKassa\Request\Receipts\ReceiptsRequest
 
 ```php
-public build(array|null $options = null) : \YooKassa\Request\Receipts\ReceiptsRequestInterface|\YooKassa\Common\AbstractRequest
+public build(null|array $options = null) : \YooKassa\Common\AbstractRequestInterface|\YooKassa\Request\Receipts\ReceiptsRequest
 ```
 
 **Summary**
 
-Собирает и возвращает объект запроса списка чеков магазина
+Собирает и возвращает объект запроса списка чеков магазина.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -95,21 +95,21 @@ public build(array|null $options = null) : \YooKassa\Request\Receipts\ReceiptsRe
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR null</code> | options  | Массив с настройками запроса |
+| <code lang="php">null OR array</code> | options  | Массив с настройками запроса |
 
-**Returns:** \YooKassa\Request\Receipts\ReceiptsRequestInterface|\YooKassa\Common\AbstractRequest - Инстанс объекта запроса к API для получения списка чеков магазина
+**Returns:** \YooKassa\Common\AbstractRequestInterface|\YooKassa\Request\Receipts\ReceiptsRequest - Инстанс объекта запроса к API для получения списка чеков магазина
 
 
 <a name="method_setCreatedAtGt" class="anchor"></a>
 #### public setCreatedAtGt() : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 
 ```php
-public setCreatedAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
+public setCreatedAtGt(null|\DateTime|int|string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются чеки
+Устанавливает дату создания от которой выбираются чеки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -117,13 +117,13 @@ public setCreatedAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Rece
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, от (не включая) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время создания, от (не включая) или null, чтобы удалить значение |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| \Exception|\YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа DateTime) |
 
 **Returns:** \YooKassa\Request\Receipts\ReceiptsRequestBuilder - Инстанс текущего объекта билдера
 
@@ -132,12 +132,12 @@ public setCreatedAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Rece
 #### public setCreatedAtGte() : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 
 ```php
-public setCreatedAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
+public setCreatedAtGte(null|\DateTime|int|string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются чеки
+Устанавливает дату создания от которой выбираются чеки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -145,13 +145,13 @@ public setCreatedAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Rec
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, от (включительно) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время создания, от (включительно) или null, чтобы удалить значение |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| \Exception|\YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа DateTime) |
 
 **Returns:** \YooKassa\Request\Receipts\ReceiptsRequestBuilder - Инстанс текущего объекта билдера
 
@@ -160,12 +160,12 @@ public setCreatedAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Rec
 #### public setCreatedAtLt() : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 
 ```php
-public setCreatedAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
+public setCreatedAtLt(null|\DateTime|int|string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются чеки
+Устанавливает дату создания до которой выбираются чеки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -173,13 +173,13 @@ public setCreatedAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Rece
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, до (не включая) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время создания, до (не включая) или null, чтобы удалить значение |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| \Exception|\YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа DateTime) |
 
 **Returns:** \YooKassa\Request\Receipts\ReceiptsRequestBuilder - Инстанс текущего объекта билдера
 
@@ -188,12 +188,12 @@ public setCreatedAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Rece
 #### public setCreatedAtLte() : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 
 ```php
-public setCreatedAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
+public setCreatedAtLte(null|\DateTime|int|string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются чеки
+Устанавливает дату создания до которой выбираются чеки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -201,13 +201,13 @@ public setCreatedAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Rec
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, до (включительно) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время создания, до (включительно) или null, чтобы удалить значение |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| \Exception|\YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа DateTime) |
 
 **Returns:** \YooKassa\Request\Receipts\ReceiptsRequestBuilder - Инстанс текущего объекта билдера
 
@@ -216,12 +216,12 @@ public setCreatedAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Rec
 #### public setCursor() : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 
 ```php
-public setCursor(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
+public setCursor(null|string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает токен следующей страницы выборки
+Устанавливает токен следующей страницы выборки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -229,7 +229,7 @@ public setCursor(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuil
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Токен следующей страницы выборки или null, чтобы удалить значение |
+| <code lang="php">null OR string</code> | value  | Токен следующей страницы выборки или null, чтобы удалить значение |
 
 ##### Throws:
 | Type | Description |
@@ -243,12 +243,12 @@ public setCursor(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuil
 #### public setLimit() : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 
 ```php
-public setLimit(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
+public setLimit(null|int $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает ограничение количества объектов чеков
+Устанавливает ограничение количества объектов чеков.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -256,7 +256,7 @@ public setLimit(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuild
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Ограничение количества объектов чеков или null, чтобы удалить значение |
+| <code lang="php">null OR int</code> | value  | Ограничение количества объектов чеков или null, чтобы удалить значение |
 
 ##### Throws:
 | Type | Description |
@@ -270,12 +270,12 @@ public setLimit(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuild
 #### public setOptions() : \YooKassa\Common\AbstractRequestBuilder
 
 ```php
-public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractRequestBuilder
+public setOptions(iterable|null $options) : \YooKassa\Common\AbstractRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает свойства запроса из массива
+Устанавливает свойства запроса из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -283,13 +283,13 @@ public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractReques
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \Traversable</code> | options  | Массив свойств запроса |
+| <code lang="php">iterable OR null</code> | options  | Массив свойств запроса |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \InvalidArgumentException | Выбрасывается если аргумент не массив и не итерируемый объект |
-| \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданныч в массиве настроек |
+| \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек |
 
 **Returns:** \YooKassa\Common\AbstractRequestBuilder - Инстанс текущего билдера запросов
 
@@ -298,12 +298,12 @@ public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractReques
 #### public setPaymentId() : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 
 ```php
-public setPaymentId(string|null $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
+public setPaymentId(null|string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает идентификатор платежа или null, если требуется его удалить
+Устанавливает идентификатор платежа или null, если требуется его удалить.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -311,7 +311,7 @@ public setPaymentId(string|null $value) : \YooKassa\Request\Receipts\ReceiptsReq
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | value  | Идентификатор платежа |
+| <code lang="php">null OR string</code> | value  | Идентификатор платежа |
 
 ##### Throws:
 | Type | Description |
@@ -331,7 +331,7 @@ public setRefundId(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBu
 
 **Summary**
 
-Устанавливает идентификатор возврата
+Устанавливает идентификатор возврата.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -354,12 +354,12 @@ public setRefundId(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBu
 #### public setStatus() : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 
 ```php
-public setStatus(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
+public setStatus(null|string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает статус выбираемых чеков
+Устанавливает статус выбираемых чеков.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -367,7 +367,7 @@ public setStatus(string $value) : \YooKassa\Request\Receipts\ReceiptsRequestBuil
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Статус выбираемых платежей или null, чтобы удалить значение |
+| <code lang="php">null OR string</code> | value  | Статус выбираемых платежей или null, чтобы удалить значение |
 
 ##### Throws:
 | Type | Description |
@@ -387,7 +387,7 @@ protected initCurrentObject() : \YooKassa\Request\Receipts\ReceiptsRequest
 
 **Summary**
 
-Инициализирует новый инстанс собираемого объекта
+Инициализирует новый инстанс собираемого объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptsRequestBuilder](../classes/YooKassa-Request-Receipts-ReceiptsRequestBuilder.md)
@@ -406,11 +406,11 @@ protected initCurrentObject() : \YooKassa\Request\Receipts\ReceiptsRequest
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

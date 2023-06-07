@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,49 +26,44 @@
 
 namespace YooKassa\Request\Payouts;
 
-use YooKassa\Common\AbstractPaymentRequestBuilder;
-use YooKassa\Common\AbstractRequest;
 use YooKassa\Common\AbstractRequestBuilder;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Common\Exceptions\InvalidRequestException;
 use YooKassa\Model\AmountInterface;
+use YooKassa\Model\Deal\PayoutDealInfo;
 use YooKassa\Model\Metadata;
 use YooKassa\Model\Payout\AbstractPayoutDestination;
-use YooKassa\Model\Deal\PayoutDealInfo;
 
 /**
- * Класс билдера объектов запросов к API на создание платежа
+ * Класс, представляющий модель CreatePayoutRequestBuilder.
  *
- * @example 02-builder.php 11 78 Пример использования билдера
+ * Класс билдера объектов запросов к API на создание платежа.
  *
- * @package YooKassa
+ * @example 02-builder.php 182 26 Пример использования билдера
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class CreatePayoutRequestBuilder extends AbstractRequestBuilder
 {
     /**
-     * Собираемый объект запроса
-     * @var CreatePayoutRequest
+     * Собираемый объект запроса.
+     *
+     * @var CreatePayoutRequest|null
      */
-    protected $currentObject;
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
-     * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
-     * @return CreatePayoutRequest Инстанс собираемого объекта запроса к API
-     */
-    protected function initCurrentObject()
-    {
-        return new CreatePayoutRequest();
-    }
-
-    /**
-     * Устанавливает сумму
+     * Устанавливает сумму.
      *
      * @param AmountInterface|array|string $value Сумма выплаты
      *
      * @return self Инстанс билдера запросов
      */
-    public function setAmount($value)
+    public function setAmount(mixed $value): self
     {
         $this->currentObject->setAmount($value);
 
@@ -76,131 +71,138 @@ class CreatePayoutRequestBuilder extends AbstractRequestBuilder
     }
 
     /**
-     * Устанавливает одноразовый токен для проведения выплаты
-     * @param string $value Одноразовый токен для проведения выплаты
-     * @return CreatePayoutRequestBuilder Инстанс текущего билдера
+     * Устанавливает одноразовый токен для проведения выплаты.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
+     * @param string|null $value Одноразовый токен для проведения выплаты
+     *
+     * @return CreatePayoutRequestBuilder Инстанс текущего билдера
      */
-    public function setPayoutToken($value)
+    public function setPayoutToken(?string $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setPayoutToken($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает объект с информацией для создания метода оплаты
-     * @param AbstractPayoutDestination|array|null $value Объект создания метода оплаты или null
+     * Устанавливает объект с информацией для создания метода оплаты.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если был передан объект невалидного типа
+     * @param null|AbstractPayoutDestination|array $value Объект создания метода оплаты или null
      */
-    public function setPayoutDestinationData($value)
+    public function setPayoutDestinationData(mixed $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setPayoutDestinationData($value);
+
         return $this;
     }
 
     /**
      * Устанавливает идентификатор сохраненного способа оплаты.
      *
-     * @param string|null $value Идентификатор сохраненного способа оплаты
-     *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если был передан объект невалидного типа
+     * @param null|string $value Идентификатор сохраненного способа оплаты
      */
-    public function setPaymentMethodId($value)
+    public function setPaymentMethodId(?string $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setPaymentMethodId($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает сделку, в рамках которой нужно провести выплату
-     * @param PayoutDealInfo|array $value Сделка, в рамках которой нужно провести выплату
+     * Устанавливает сделку, в рамках которой нужно провести выплату.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если был передан объект невалидного типа
+     * @param array|PayoutDealInfo $value Сделка, в рамках которой нужно провести выплату
      */
-    public function setDeal($value)
+    public function setDeal(mixed $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setDeal($value);
+
         return $this;
     }
 
     /**
      * Устанавливает данные самозанятого, который получит выплату.
      *
-     * @param PayoutSelfEmployedInfo|array|null $value Данные самозанятого, который получит выплату
-     *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если был передан объект невалидного типа
+     * @param null|array|PayoutSelfEmployedInfo $value Данные самозанятого, который получит выплату
      */
-    public function setSelfEmployed($value)
+    public function setSelfEmployed(mixed $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setSelfEmployed($value);
+
         return $this;
     }
 
     /**
      * Устанавливает данные для формирования чека в сервисе Мой налог.
      *
-     * @param IncomeReceiptData|array|null $value Данные для формирования чека в сервисе Мой налог
-     *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если был передан объект невалидного типа
+     * @param null|array|IncomeReceiptData $value Данные для формирования чека в сервисе Мой налог
      */
-    public function setReceiptData($value)
+    public function setReceiptData(mixed $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setReceiptData($value);
+
         return $this;
     }
 
     /**
      * Устанавливает персональные данные получателя выплаты.
      *
-     * @param PayoutPersonalData[]|array|null $value Персональные данные получателя выплаты
-     *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если был передан объект невалидного типа
+     * @param null|array|PayoutPersonalData[] $value Персональные данные получателя выплаты
      */
-    public function setPersonalData($value)
+    public function setPersonalData(?array $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setPersonalData($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает метаданные, привязанные к платежу
-     * @param Metadata|array|null $value Метаданные платежа, устанавливаемые мерчантом
-     * @return CreatePayoutRequestBuilder Инстанс текущего билдера
+     * Устанавливает метаданные, привязанные к платежу.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданные данные не удалось интерпретировать как
-     * метаданные платежа
+     * @param null|array|Metadata $value Метаданные платежа, устанавливаемые мерчантом
+     *
+     * @return CreatePayoutRequestBuilder Инстанс текущего билдера
      */
-    public function setMetadata($value)
+    public function setMetadata(mixed $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setMetadata($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает описание транзакции
-     * @param string $value Описание транзакции
-     * @return CreatePayoutRequestBuilder Инстанс текущего билдера
+     * Устанавливает описание транзакции.
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение превышает допустимую длину
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
+     * @param string|null $value Описание транзакции
+     *
+     * @return CreatePayoutRequestBuilder Инстанс текущего билдера
      */
-    public function setDescription($value)
+    public function setDescription(?string $value): CreatePayoutRequestBuilder
     {
         $this->currentObject->setDescription($value);
+
         return $this;
     }
 
     /**
-     * Строит и возвращает объект запроса для отправки в API ЮKassa
-     * @param array|null $options Массив параметров для установки в объект запроса
-     * @return CreatePayoutRequestInterface|CreatePayoutRequest|AbstractRequest Инстанс объекта запроса
+     * Строит и возвращает объект запроса для отправки в API ЮKassa.
      *
-     * @throws InvalidRequestException Выбрасывается если собрать объект запроса не удалось
+     * @param null|array $options Массив параметров для установки в объект запроса
+     *
+     * @return CreatePayoutRequestInterface|AbstractRequestInterface Инстанс объекта запроса
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         return parent::build($options);
+    }
+
+    /**
+     * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
+     *
+     * @return CreatePayoutRequest Инстанс собираемого объекта запроса к API
+     */
+    protected function initCurrentObject(): CreatePayoutRequest
+    {
+        return new CreatePayoutRequest();
     }
 }

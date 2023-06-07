@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,38 +27,26 @@
 namespace YooKassa\Request\PersonalData;
 
 /**
- * Класс сериалайзера объекта запроса к API на проведение выплаты
+ * Класс, представляющий модель CreatePersonalDataRequestSerializer.
  *
- * @package YooKassa
+ * Класс объекта осуществляющего сериализацию объекта запроса к API на создание персональных данных.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class CreatePersonalDataRequestSerializer
 {
     /**
-     * Формирует ассоциативный массив данных из объекта запроса
+     * Формирует ассоциативный массив данных из объекта запроса.
      *
      * @param CreatePersonalDataRequestInterface $request Объект запроса
+     *
      * @return array Массив данных для дальнейшего кодирования в JSON
      */
-    public function serialize(CreatePersonalDataRequestInterface $request)
+    public function serialize(CreatePersonalDataRequestInterface $request): array
     {
-        $result = array();
-
-        if ($request->hasType()) {
-            $result['type'] = $request->getType();
-        }
-        if ($request->hasLastName()) {
-            $result['last_name'] = $request->getLastName();
-        }
-        if ($request->hasFirstName()) {
-            $result['first_name'] = $request->getFirstName();
-        }
-        if ($request->hasMiddleName()) {
-            $result['first_name'] = $request->getMiddleName();
-        }
-        if ($request->hasMetadata()) {
-            $result['metadata'] = $request->getMetadata()->toArray();
-        }
-
-        return $result;
+        return $request->toArray();
     }
 }

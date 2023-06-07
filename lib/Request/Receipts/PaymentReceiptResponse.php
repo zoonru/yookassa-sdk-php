@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,14 +26,15 @@
 
 namespace YooKassa\Request\Receipts;
 
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс описывающий чек, привязанный к платежу
+ * Класс описывающий чек, привязанный к платежу.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @property string $payment_id Идентификатор платежа в ЮKassa
  * @property string $paymentId Идентификатор платежа в ЮKassa
@@ -41,55 +42,43 @@ use YooKassa\Helpers\TypeCast;
 class PaymentReceiptResponse extends AbstractReceiptResponse
 {
     /** Длина идентификатора платежа */
-    const LENGTH_PAYMENT_ID = 36;
-
-    private $_payment_id;
+    public const LENGTH_PAYMENT_ID = 36;
 
     /**
-     * Установка свойств, присущих конкретному объекту
-     *
-     * @param array $receiptData
-     *
-     * @return void
+     * @var string|null Идентификатор платежа
      */
-    public function setSpecificProperties($receiptData)
+    #[Assert\Type('string')]
+    #[Assert\Length(exactly: self::LENGTH_PAYMENT_ID)]
+    private ?string $_payment_id = null;
+
+    /**
+     * Установка свойств, присущих конкретному объекту.
+     */
+    public function setSpecificProperties(array $receiptData): void
     {
         $this->setPaymentId($this->getObjectId());
     }
 
     /**
-     * Возвращает идентификатор платежа
+     * Возвращает идентификатор платежа.
      *
-     * @return string Идентификатор платежа
+     * @return string|null Идентификатор платежа
      */
-    public function getPaymentId()
+    public function getPaymentId(): ?string
     {
         return $this->_payment_id;
     }
 
     /**
-     * Устанавливает идентификатор платежа в ЮKassa
+     * Устанавливает идентификатор платежа в ЮKassa.
      *
-     * @param string $value Идентификатор платежа в ЮKassa
+     * @param string|null $payment_id Идентификатор платежа в ЮKassa
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве значения была передана не строка
-     * @throws InvalidPropertyValueException Выбрасывается если длина переданной строки не равна 36
+     *@return self
      */
-    public function setPaymentId($value)
+    public function setPaymentId(?string $payment_id = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_payment_id = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid payment_id value type', 0, 'Receipt.paymentId');
-        } elseif (mb_strlen((string)$value) !== self::LENGTH_PAYMENT_ID) {
-            throw new InvalidPropertyValueException(
-                'Invalid payment_id value: "' . $value . '"',
-                0,
-                'Receipt.paymentId',
-                $value
-            );
-        } else {
-            $this->_payment_id = (string)$value;
-        }
+        $this->_payment_id = $this->validatePropertyValue('_payment_id', $payment_id);
+        return $this;
     }
 }

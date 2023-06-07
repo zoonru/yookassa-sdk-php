@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -32,32 +32,33 @@ use YooKassa\Common\AbstractEnum;
  * Класс, представляющий модель PersonalDataStatus.
  *
  * Статус персональных данных.
- *
  * Возможные значения:
  * - `waiting_for_operation` — данные сохранены, но не использованы при проведении выплаты;
  * - `active` — данные сохранены и использованы при проведении выплаты; данные можно использовать повторно до срока, указанного в параметре `expires_at`;
  * - `canceled` — хранение данных отменено, данные удалены, инициатор и причина отмены указаны в объекте `cancellation_details` (финальный и неизменяемый статус).
  *
- * [Подробнее о жизненном цикле персональных данных](/developers/payouts/scenario-extensions/recipient-check#lifecircle)
- *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class PersonalDataStatus extends AbstractEnum
 {
     /** Данные сохранены, но не использованы при проведении выплаты */
-    const WAITING_FOR_OPERATION = 'waiting_for_operation';
+    public const WAITING_FOR_OPERATION = 'waiting_for_operation';
+
     /** Данные сохранены и использованы при проведении выплаты */
-    const ACTIVE = 'active';
+    public const ACTIVE = 'active';
+
     /** Хранение данных отменено */
-    const CANCELED = 'canceled';
+    public const CANCELED = 'canceled';
 
     /**
      * @var array Массив принимаемых enum'ом значений
      */
-    protected static $validValues = array(
+    protected static array $validValues = [
         self::WAITING_FOR_OPERATION => true,
-        self::ACTIVE                => true,
-        self::CANCELED              => true,
-    );
+        self::ACTIVE => true,
+        self::CANCELED => true,
+    ];
 }

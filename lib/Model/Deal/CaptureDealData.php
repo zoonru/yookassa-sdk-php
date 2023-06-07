@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,74 +27,56 @@
 namespace YooKassa\Model\Deal;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
+use YooKassa\Model\Receipt\SettlementInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Class CaptureDealData
+ * Класс, представляющий модель CaptureDealData.
  *
- * @package YooKassa
- *
- * @property SettlementPayoutPayment[] $settlements Данные о распределении денег
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property ListObjectInterface|SettlementInterface[] $settlements Данные о распределении денег.
  */
 class CaptureDealData extends AbstractObject
 {
-    /** @var SettlementPayoutPayment[] Данные о распределении денег */
-    private $_settlements = array();
+    /**
+     * Данные о распределении денег.
+     *
+     * @var SettlementInterface[]|null
+     */
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[Assert\AllType(SettlementPayoutPayment::class)]
+    #[Assert\Type(ListObject::class)]
+    private ?ListObject $_settlements = null;
 
     /**
-     * Возвращает массив оплат, обеспечивающих выдачу товара
+     * Возвращает массив оплат, обеспечивающих выдачу товара.
      *
-     * @return SettlementInterface[] Массив оплат, обеспечивающих выдачу товара.
+     * @return SettlementInterface[]|ListObjectInterface Массив оплат, обеспечивающих выдачу товара
      */
-    public function getSettlements()
+    public function getSettlements(): ListObjectInterface
     {
+        if ($this->_settlements === null) {
+            $this->_settlements = new ListObject(SettlementPayoutPayment::class);
+        }
         return $this->_settlements;
     }
 
     /**
-     * Возвращает массив оплат, обеспечивающих выдачу товара
+     * Устанавливает массив оплат, обеспечивающих выдачу товара.
      *
-     * @param SettlementInterface[]|array $value
-     */
-    public function setSettlements($value)
-    {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty settlements value in deal', 0, 'deal.settlements');
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid settlements value type in deal',
-                0,
-                'deal.settlements',
-                $value
-            );
-        }
-        $this->_settlements = array();
-        foreach ($value as $key => $val) {
-            if (is_array($val)) {
-                $this->addSettlement(new SettlementPayoutPayment($val));
-            } elseif ($val instanceof SettlementInterface) {
-                $this->addSettlement($val);
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid settlements value type in deal',
-                    0,
-                    'deal.settlements[' . $key . ']',
-                    $val
-                );
-            }
-        }
-    }
-
-    /**
-     * Добавляет оплату в чек
+     * @param ListObjectInterface|array|null $settlements Данные о распределении денег.
      *
-     * @param SettlementInterface $value Объект добавляемой в чек позиции
+     * @return self
      */
-    public function addSettlement($value)
+    public function setSettlements(mixed $settlements = null): self
     {
-        $this->_settlements[] = $value;
+        $this->_settlements = $this->validatePropertyValue('_settlements', $settlements);
+        return $this;
     }
 }

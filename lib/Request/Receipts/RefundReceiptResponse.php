@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,11 +29,15 @@ namespace YooKassa\Request\Receipts;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс описывающий чек, привязанный к возврату
+ * Класс описывающий чек, привязанный к возврату.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @property string $refund_id Идентификатор возврата в ЮKassa.
  * @property string $refundId Идентификатор возврата в ЮKassa.
@@ -41,55 +45,43 @@ use YooKassa\Helpers\TypeCast;
 class RefundReceiptResponse extends AbstractReceiptResponse
 {
     /** Длина идентификатора возврата */
-    const LENGTH_REFUND_ID = 36;
-
-    private $_refund_id;
+    public const LENGTH_REFUND_ID = 36;
 
     /**
-     * Установка свойств, присущих конкретному объекту
-     *
-     * @param array $receiptData
-     *
-     * @return void
+     * @var string|null Идентификатор возврата
      */
-    public function setSpecificProperties($receiptData)
+    #[Assert\Type('string')]
+    #[Assert\Length(exactly: self::LENGTH_REFUND_ID)]
+    private ?string $_refund_id = null;
+
+    /**
+     * Установка свойств, присущих конкретному объекту.
+     */
+    public function setSpecificProperties(array $receiptData): void
     {
         $this->setRefundId($this->getObjectId());
     }
 
     /**
-     * Возвращает идентификатор возврата
+     * Возвращает идентификатор возврата.
      *
-     * @return string Идентификатор возврата
+     * @return string|null Идентификатор возврата
      */
-    public function getRefundId()
+    public function getRefundId(): ?string
     {
         return $this->_refund_id;
     }
 
     /**
-     * Устанавливает идентификатор возврата в ЮKassa
+     * Устанавливает идентификатор возврата в ЮKassa.
      *
-     * @param string $value Идентификатор возврата в ЮKassa
+     * @param string|null $refund_id Идентификатор возврата в ЮKassa
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве значения была передана не строка
-     * @throws InvalidPropertyValueException Выбрасывается если длина переданной строки не равна 36
+     * @return self
      */
-    public function setRefundId($value)
+    public function setRefundId(?string $refund_id): self
     {
-        if ($value === null || $value === '') {
-            $this->_refund_id = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid refund_id value type', 0, 'Receipt.refundId');
-        } elseif (mb_strlen((string)$value) !== self::LENGTH_REFUND_ID) {
-            throw new InvalidPropertyValueException(
-                'Invalid refund_id value: "' . $value . '"',
-                0,
-                'Receipt.refundId',
-                $value
-            );
-        } else {
-            $this->_refund_id = (string)$value;
-        }
+        $this->_refund_id = $this->validatePropertyValue('_refund_id', $refund_id);
+        return $this;
     }
 }

@@ -2,41 +2,25 @@
 
 namespace Tests\YooKassa\Model\Payout;
 
+use InvalidArgumentException;
 use YooKassa\Helpers\Random;
-use YooKassa\Model\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentMethodType;
 use YooKassa\Model\Payout\PayoutDestinationSbp;
 
-class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
+/**
+ * @internal
+ */
+class PayoutDestinationSbpTest extends AbstractTestPayoutDestination
 {
     /**
-     * @return PayoutDestinationSbp
-     */
-    protected function getTestInstance()
-    {
-        return new PayoutDestinationSbp();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedType()
-    {
-        return PaymentMethodType::SBP;
-    }
-
-    /**
      * @dataProvider validPhoneDataProvider
-     * @param string $value
      */
-    public function testGetSetPhone($value)
+    public function testGetSetPhone(string $value): void
     {
         $instance = $this->getTestInstance();
 
-        self::assertNull($instance->getPhone());
-        self::assertNull($instance->phone);
-
         $instance->setPhone($value);
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getPhone());
             self::assertNull($instance->phone);
         } else {
@@ -47,7 +31,7 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
 
         $instance = $this->getTestInstance();
         $instance->phone = $value;
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getPhone());
             self::assertNull($instance->phone);
         } else {
@@ -59,38 +43,35 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidPhone($value)
+    public function testSetInvalidPhone($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setPhone($value);
     }
 
     /**
      * @dataProvider invalidPhoneDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetterInvalidPhone($value)
+    public function testSetterInvalidPhone($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->phone = $value;
     }
 
     /**
      * @dataProvider validBankIdDataProvider
-     * @param string $value
      */
-    public function testGetSetBankId($value)
+    public function testGetSetBankId(string $value): void
     {
         $instance = $this->getTestInstance();
 
-        self::assertNull($instance->getBankId());
-        self::assertNull($instance->bankId);
-        self::assertNull($instance->bank_id);
-
         $instance->setBankId($value);
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getBankId());
             self::assertNull($instance->bankId);
             self::assertNull($instance->bank_id);
@@ -103,7 +84,7 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
 
         $instance = $this->getTestInstance();
         $instance->bankId = $value;
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getBankId());
             self::assertNull($instance->bankId);
             self::assertNull($instance->bank_id);
@@ -117,38 +98,35 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
 
     /**
      * @dataProvider invalidBankIdDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidBankId($value)
+    public function testSetInvalidBankId($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setBankId($value);
     }
 
     /**
      * @dataProvider invalidBankIdDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetterInvalidBankId($value)
+    public function testSetterInvalidBankId($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->bankId = $value;
     }
 
     /**
      * @dataProvider validRecipientCheckedDataProvider
-     * @param string $value
      */
-    public function testGetSetRecipientChecked($value)
+    public function testGetSetRecipientChecked(mixed $value): void
     {
         $instance = $this->getTestInstance();
 
-        self::assertNull($instance->getRecipientChecked());
-        self::assertNull($instance->recipientChecked);
-        self::assertNull($instance->recipient_checked);
-
         $instance->setRecipientChecked($value);
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getRecipientChecked());
             self::assertNull($instance->recipientChecked);
             self::assertNull($instance->recipient_checked);
@@ -161,7 +139,7 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
 
         $instance = $this->getTestInstance();
         $instance->recipientChecked = $value;
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getRecipientChecked());
             self::assertNull($instance->recipientChecked);
             self::assertNull($instance->recipient_checked);
@@ -173,84 +151,54 @@ class PayoutDestinationSbpTest extends AbstractPayoutDestinationTest
         }
     }
 
-    /**
-     * @dataProvider invalidRecipientCheckedDataProvider
-     * @param mixed $value
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetInvalidRecipientChecked($value)
+    public static function validPhoneDataProvider(): array
     {
-        $this->getTestInstance()->recipientChecked = $value;
+        return [
+            [Random::str(4, 15, '0123456789')],
+            [Random::str(4, 15, '0123456789')],
+        ];
     }
 
-    /**
-     * @dataProvider invalidRecipientCheckedDataProvider
-     * @param mixed $value
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSettterInvalidRecipientChecked($value)
+    public static function invalidPhoneDataProvider(): array
     {
-        $this->getTestInstance()->setRecipientChecked($value);
+        return [
+            [null],
+            [''],
+        ];
     }
 
-    public function validPhoneDataProvider()
+    public static function validBankIdDataProvider(): array
     {
-        return array(
-            array(Random::str(4, 16, '0123456789')),
-            array(Random::str(4, 16, '0123456789')),
-        );
+        return [
+            [Random::str(7, 12, '0123456789')],
+            [Random::str(7, 12, '0123456789')],
+        ];
     }
 
-    public function invalidPhoneDataProvider()
+    public static function invalidBankIdDataProvider(): array
     {
-        return array(
-            array(array()),
-            array(null),
-            array(''),
-            array(true),
-            array(new \stdClass()),
-            array(new \DateTime()),
-        );
+        return [
+            [null],
+            [''],
+            [Random::str(13)],
+        ];
     }
 
-    public function validBankIdDataProvider()
+    public static function validRecipientCheckedDataProvider(): array
     {
-        return array(
-            array(Random::str(7, 12, '0123456789')),
-            array(Random::str(7, 12, '0123456789')),
-        );
+        return [
+            [Random::bool()],
+            [Random::bool()],
+        ];
     }
 
-    public function invalidBankIdDataProvider()
+    protected function getTestInstance(): PayoutDestinationSbp
     {
-        return array(
-            array(array()),
-            array(null),
-            array(''),
-            array(true),
-            array(new \stdClass()),
-            array(new \DateTime()),
-            array(Random::str(13)),
-        );
+        return new PayoutDestinationSbp();
     }
 
-    public function validRecipientCheckedDataProvider()
+    protected function getExpectedType(): string
     {
-        return array(
-            array(Random::bool()),
-            array(Random::bool()),
-        );
+        return PaymentMethodType::SBP;
     }
-
-    public function invalidRecipientCheckedDataProvider()
-    {
-        return array(
-            array(array()),
-            array(null),
-            array(''),
-            array(new \stdClass()),
-            array(new \DateTime()),
-        );
-    }
-
 }

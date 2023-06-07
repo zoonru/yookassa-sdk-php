@@ -3,28 +3,23 @@
 namespace Tests\YooKassa\Model\PersonalData;
 
 use PHPUnit\Framework\TestCase;
+use YooKassa\Common\Exceptions\EmptyPropertyValueException;
+use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 use YooKassa\Model\PersonalData\PersonalDataCancellationDetails;
 use YooKassa\Model\PersonalData\PersonalDataCancellationDetailsPartyCode;
 use YooKassa\Model\PersonalData\PersonalDataCancellationDetailsReasonCode;
 
-
+/**
+ * @internal
+ */
 class PersonalDataCancellationDetailsTest extends TestCase
 {
     /**
-     * @param null $value
-     * @return PersonalDataCancellationDetails
-     */
-    protected static function getInstance($value = null)
-    {
-        return new PersonalDataCancellationDetails($value);
-    }
-
-    /**
      * @dataProvider validDataProvider
      *
-     * @param $value
+     * @param null|mixed $value
      */
-    public function testConstructor($value = null)
+    public function testConstructor($value = null): void
     {
         $instance = self::getInstance($value);
 
@@ -35,14 +30,14 @@ class PersonalDataCancellationDetailsTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $value
+     * @param null|mixed $value
      */
-    public function testGetSetParty($value = null)
+    public function testGetSetParty($value): void
     {
         $instance = self::getInstance($value);
         self::assertEquals($value['party'], $instance->getParty());
 
-        $instance = self::getInstance();
+        $instance = self::getInstance([]);
         $instance->setParty($value['party']);
         self::assertEquals($value['party'], $instance->getParty());
         self::assertEquals($value['party'], $instance->party);
@@ -53,79 +48,46 @@ class PersonalDataCancellationDetailsTest extends TestCase
      *
      * @param null $value
      */
-    public function testGetSetReason($value = null)
+    public function testGetSetReason($value = null): void
     {
         $instance = self::getInstance($value);
         self::assertEquals($value['reason'], $instance->getReason());
 
-        $instance = self::getInstance();
+        $instance = self::getInstance([]);
         $instance->setReason($value['reason']);
         self::assertEquals($value['reason'], $instance->getReason());
         self::assertEquals($value['reason'], $instance->reason);
     }
 
-    /**
-     * @dataProvider invalidValueDataProvider
-     * @param mixed $value
-     * @param string $exceptionClassName
-     */
-    public function testSetInvalidParty($value, $exceptionClassName)
+    public static function validDataProvider(): array
     {
-        $instance = self::getInstance();
-        try {
-            $instance->setParty($value);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassName, $e);
-        }
-    }
-
-    /**
-     * @dataProvider invalidValueDataProvider
-     * @param mixed $value
-     * @param string $exceptionClassName
-     */
-    public function testSetterInvalidReason($value, $exceptionClassName)
-    {
-        $instance = self::getInstance();
-        try {
-            $instance->reason = $value;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassName, $e);
-        }
-    }
-
-    /**
-     * @return array
-     */
-    public function validDataProvider()
-    {
-        $result                          = array();
-        $cancellationDetailsParties      = PersonalDataCancellationDetailsPartyCode::getValidValues();
+        $result = [];
+        $cancellationDetailsParties = PersonalDataCancellationDetailsPartyCode::getValidValues();
         $countCancellationDetailsParties = count($cancellationDetailsParties);
-        $cancellationDetailsReasons      = PersonalDataCancellationDetailsReasonCode::getValidValues();
+        $cancellationDetailsReasons = PersonalDataCancellationDetailsReasonCode::getValidValues();
         $countCancellationDetailsReasons = count($cancellationDetailsReasons);
         for ($i = 0; $i < 20; $i++) {
-            $result[] = array(
-                array(
-                    'party'  => $cancellationDetailsParties[$i % $countCancellationDetailsParties],
-                    'reason' => $cancellationDetailsReasons[$i % $countCancellationDetailsReasons]
-                )
-            );
+            $result[] = [
+                [
+                    'party' => $cancellationDetailsParties[$i % $countCancellationDetailsParties],
+                    'reason' => $cancellationDetailsReasons[$i % $countCancellationDetailsReasons],
+                ],
+            ];
         }
+
         return $result;
     }
 
-    public function invalidValueDataProvider()
+    public static function invalidValueDataProvider()
     {
-        $exceptionNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null, $exceptionNamespace . 'EmptyPropertyValueException'),
-            array('', $exceptionNamespace . 'EmptyPropertyValueException'),
-            array(array(), $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(true, $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(false, $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+            [[], InvalidPropertyValueTypeException::class],
+            [fopen(__FILE__, 'rb'), InvalidPropertyValueTypeException::class],
+            [true, InvalidPropertyValueTypeException::class],
+            [false, InvalidPropertyValueTypeException::class],
+        ];
     }
 
     /**
@@ -133,13 +95,22 @@ class PersonalDataCancellationDetailsTest extends TestCase
      *
      * @param null $value
      */
-    public function testJsonSerialize($value = null)
+    public function testJsonSerialize($value = null): void
     {
         $instance = new PersonalDataCancellationDetails($value);
-        $expected = array(
-            'party'  => $value['party'],
+        $expected = [
+            'party' => $value['party'],
             'reason' => $value['reason'],
-        );
+        ];
         self::assertEquals($expected, $instance->jsonSerialize());
+    }
+
+    /**
+     * @param mixed $value
+     * @return PersonalDataCancellationDetails
+     */
+    protected static function getInstance(mixed $value): PersonalDataCancellationDetails
+    {
+        return new PersonalDataCancellationDetails($value);
     }
 }

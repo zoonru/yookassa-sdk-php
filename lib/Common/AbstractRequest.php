@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,46 +27,54 @@
 namespace YooKassa\Common;
 
 /**
- * Базовый класс объекта запроса, передаваемого в методы клиента API
+ * Класс, представляющий модель AbstractRequest.
  *
- * @package YooKassa
+ * Базовый класс объекта запроса, передаваемого в методы клиента API.
+ *
+ * @category Class
+ * @package  YooKassa
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
-abstract class AbstractRequest extends AbstractObject
+abstract class AbstractRequest extends AbstractObject implements AbstractRequestInterface
 {
     /**
-     * @var string Последняя ошибка валидации текущего запроса
+     * @var null|string Последняя ошибка валидации текущего запроса
      */
-    private $_validationError;
+    private ?string $_validationError = null;
 
     /**
-     * Валидирует текущий запрос, проверяет все ли нужные свойства установлены
+     * Валидирует текущий запрос, проверяет все ли нужные свойства установлены.
+     *
      * @return bool True если запрос валиден, false если нет
      */
-    abstract public function validate();
+    abstract public function validate(): bool;
 
     /**
-     * Очищает статус валидации текущего запроса
+     * Очищает статус валидации текущего запроса.
      */
-    public function clearValidationError()
+    public function clearValidationError(): void
     {
         $this->_validationError = null;
     }
 
     /**
-     * Устанавливает ошибку валидации
-     * @param string $value Ошибка, произошедшая при валидации объекта
+     * Возвращает последнюю ошибку валидации.
+     *
+     * @return string|null Последняя произошедшая ошибка валидации
      */
-    protected function setValidationError($value)
+    public function getLastValidationError(): ?string
     {
-        $this->_validationError = $value;
+        return $this->_validationError;
     }
 
     /**
-     * Возвращает последнюю ошибку валидации
-     * @return string Последняя произошедшая ошибка валидации
+     * Устанавливает ошибку валидации.
+     *
+     * @param string $value Ошибка, произошедшая при валидации объекта
      */
-    public function getLastValidationError()
+    protected function setValidationError(string $value): void
     {
-        return $this->_validationError;
+        $this->_validationError = $value;
     }
 }

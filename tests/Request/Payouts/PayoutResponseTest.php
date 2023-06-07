@@ -4,9 +4,12 @@ namespace Tests\YooKassa\Request\Payouts;
 
 use YooKassa\Request\Payouts\PayoutResponse;
 
-class PayoutResponseTest extends AbstractPayoutResponseTest
+/**
+ * @internal
+ */
+class PayoutResponseTest extends AbstractTestPayoutResponse
 {
-    protected function getTestInstance($options)
+    protected function getTestInstance($options): PayoutResponse
     {
         return new PayoutResponse($options);
     }

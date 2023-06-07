@@ -8,16 +8,16 @@
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md) | Класс, представляющий интерфейс SbpPayoutRecipientPersonalDataRequestInterface. |
+| [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md) | Interface CreatePersonalDataRequestInterface. |
 
 ### Classes
 
 | Name | Summary |
 | ---- | ------- |
 | [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md) | Класс, представляющий модель CreatePersonalDataRequest. |
-| [\YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md) | Класс билдера объектов запросов к API на создание платежа |
-| [\YooKassa\Request\PersonalData\CreatePersonalDataRequestSerializer](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestSerializer.md) | Класс сериалайзера объекта запроса к API на проведение выплаты |
-| [\YooKassa\Request\PersonalData\PersonalDataResponse](../classes/YooKassa-Request-PersonalData-PersonalDataResponse.md) | Класс, представляющий модель PersonalData. |
+| [\YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md) | Класс, представляющий модель CreatePersonalDataRequestBuilder. |
+| [\YooKassa\Request\PersonalData\CreatePersonalDataRequestSerializer](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestSerializer.md) | Класс, представляющий модель CreatePersonalDataRequestSerializer. |
+| [\YooKassa\Request\PersonalData\PersonalDataResponse](../classes/YooKassa-Request-PersonalData-PersonalDataResponse.md) | Класс, представляющий модель PersonalDataResponse. |
 
 ---
 
@@ -29,11 +29,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

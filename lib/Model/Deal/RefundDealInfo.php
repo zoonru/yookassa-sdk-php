@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,103 +27,92 @@
 namespace YooKassa\Model\Deal;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
+use YooKassa\Model\Receipt\SettlementInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Class PaymentDealInfo
+ * Класс, представляющий модель RefundDealInfo.
  *
- * @package YooKassa
+ * Данные о сделке, в составе которой проходит возврат.
  *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $id Идентификатор сделки
- * @property SettlementPayoutRefund[] $refund_settlements Данные о распределении денег
- * @property SettlementPayoutRefund[] $refundSettlements Данные о распределении денег
+ * @property ListObjectInterface|SettlementInterface[] $refund_settlements Данные о распределении денег
+ * @property ListObjectInterface|SettlementInterface[] $refundSettlements Данные о распределении денег
  */
 class RefundDealInfo extends AbstractObject
 {
-    /** @var string Идентификатор сделки */
-    private $_id;
-
-    /** @var SettlementPayoutRefund[] Данные о распределении денег */
-    private $_refund_settlements = array();
+    /**
+     * Идентификатор сделки
+     *
+     * @var string|null
+     */
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    private ?string $_id = null;
 
     /**
-     * Возвращает Id сделки
+     * Данные о распределении денег.
+     *
+     * @var SettlementInterface[]|null
      */
-    public function getId()
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[Assert\AllType(SettlementPayoutRefund::class)]
+    #[Assert\Type(ListObject::class)]
+    private ?ListObject $_refund_settlements = null;
+
+    /**
+     * Возвращает Id сделки.
+     *
+     * @return string|null
+     */
+    public function getId(): ?string
     {
         return $this->_id;
     }
 
     /**
-     * Устанавливает Id сделки
+     * Устанавливает Id сделки.
      *
-     * @param string $value Id сделки
-     * @return RefundDealInfo
+     * @param string|null $id
+     *
+     * @return self
      */
-    public function setId($value)
+    public function setId(?string $id = null): self
     {
-        $this->_id = $value;
+        $this->_id = $this->validatePropertyValue('_id', $id);
         return $this;
     }
 
     /**
-     * Возвращает массив оплат, обеспечивающих выдачу товара
+     * Возвращает массив оплат, обеспечивающих выдачу товара.
      *
-     * @return SettlementInterface[] Массив оплат, обеспечивающих выдачу товара.
+     * @return SettlementInterface[]|ListObjectInterface Массив оплат, обеспечивающих выдачу товара
      */
-    public function getRefundSettlements()
+    public function getRefundSettlements(): ListObjectInterface
     {
+        if ($this->_refund_settlements === null) {
+            $this->_refund_settlements = new ListObject(SettlementPayoutRefund::class);
+        }
         return $this->_refund_settlements;
     }
 
     /**
-     * Возвращает массив оплат, обеспечивающих выдачу товара
+     * Устанавливает массив оплат, обеспечивающих выдачу товара.
      *
-     * @param SettlementInterface[]|array $value
-     * @return RefundDealInfo
-     */
-    public function setRefundSettlements($value)
-    {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty settlements value in deal', 0, 'deal.settlements');
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid settlements value type in deal',
-                0,
-                'deal.settlements',
-                $value
-            );
-        }
-        $this->_refund_settlements = array();
-        foreach ($value as $key => $val) {
-            if (is_array($val)) {
-                $this->addSettlement(new SettlementPayoutRefund($val));
-            } elseif ($val instanceof SettlementInterface) {
-                $this->addSettlement($val);
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid settlements value type in deal',
-                    0,
-                    'deal.settlements[' . $key . ']',
-                    $val
-                );
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Добавляет оплату в чек
+     * @param ListObjectInterface|array|null $refund_settlements Данные о распределении денег.
      *
-     * @param SettlementInterface $value Объект добавляемой в чек позиции
-     * @return RefundDealInfo
+     * @return self
      */
-    public function addSettlement($value)
+    public function setRefundSettlements(mixed $refund_settlements = null): self
     {
-        $this->_refund_settlements[] = $value;
+        $this->_refund_settlements = $this->validatePropertyValue('_refund_settlements', $refund_settlements);
         return $this;
     }
 }

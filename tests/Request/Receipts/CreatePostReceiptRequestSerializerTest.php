@@ -1,34 +1,38 @@
 <?php
 
-namespace Tests\YooKassa\Request\Payments;
+namespace Tests\YooKassa\Request\Receipts;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\Receipt\PaymentMode;
 use YooKassa\Model\Receipt\PaymentSubject;
+use YooKassa\Model\Receipt\ReceiptType;
 use YooKassa\Model\Receipt\SettlementType;
-use YooKassa\Model\ReceiptType;
 use YooKassa\Request\Receipts\CreatePostReceiptRequest;
 use YooKassa\Request\Receipts\CreatePostReceiptRequestSerializer;
 
+/**
+ * @internal
+ */
 class CreatePostReceiptRequestSerializerTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
      */
-    public function testSerialize($options)
+    public function testSerialize($options): void
     {
         $serializer = new CreatePostReceiptRequestSerializer();
         $instance = CreatePostReceiptRequest::builder()->build($options);
         $data = $serializer->serialize($instance);
 
-        $expected = array(
+        $expected = [
             'type' => $options['type'],
             'send' => $options['send'],
-        );
+        ];
 
         if (!empty($options['customer'])) {
             $expected['customer'] = $options['customer'];
@@ -69,84 +73,86 @@ class CreatePostReceiptRequestSerializerTest extends TestCase
         if (!empty($options['refund_id'])) {
             $expected['refund_id'] = $options['refund_id'];
         }
+        if (!empty($options['receipt_industry_details'])) {
+            $expected['receipt_industry_details'] = $options['receipt_industry_details'];
+        }
 
         self::assertEquals($expected, $data);
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'type' => 'payment',
                     'send' => true,
-                    'customer' => array(
-                        'email' => Random::str(10),
-                    ),
-                    'items' => array(
-                        array(
+                    'customer' => [
+                        'email' => 'johndoe@yoomoney.ru',
+                    ],
+                    'items' => [
+                        [
                             'description' => Random::str(10),
-                            'quantity' => (float)Random::int(1, 10),
-                            'amount' => array(
+                            'quantity' => (float) Random::int(1, 10),
+                            'amount' => [
                                 'value' => round(Random::float(1, 100), 2),
                                 'currency' => CurrencyCode::RUB,
-                            ),
+                            ],
                             'vat_code' => Random::int(1, 6),
                             'payment_subject' => PaymentSubject::COMMODITY,
                             'payment_mode' => PaymentMode::PARTIAL_PREPAYMENT,
-                        )
-                    ),
-                    'settlements' => array(
-                        array(
+                        ],
+                    ],
+                    'settlements' => [
+                        [
                             'type' => Random::value(SettlementType::getValidValues()),
-                            'amount' => array(
+                            'amount' => [
                                 'value' => round(Random::float(0.1, 99.99), 2),
-                                'currency' => Random::value(CurrencyCode::getValidValues())
-                            )
-                        )
-                    ),
-                    'payment_id' => uniqid(),
+                                'currency' => Random::value(CurrencyCode::getValidValues()),
+                            ],
+                        ],
+                    ],
+                    'payment_id' => uniqid('', true),
                     'tax_system_code' => Random::int(1, 6),
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         for ($i = 0; $i < 10; $i++) {
-            $type = Random::value(array(ReceiptType::PAYMENT, ReceiptType::REFUND));
-            $request = array(
+            $type = Random::value([ReceiptType::PAYMENT, ReceiptType::REFUND]);
+            $request = [
                 'items' => $this->getReceiptItems($i + 1),
-                'customer' => array(
-                    'email' => Random::str(10),
+                'customer' => [
+                    'email' => 'johndoe@yoomoney.ru',
                     'phone' => Random::str(12, '0123456789'),
-                ),
+                ],
                 'tax_system_code' => Random::int(1, 6),
                 'type' => $type,
                 'send' => true,
                 'settlements' => $this->getSettlements($i + 1),
-                $type . '_id' => uniqid()
-            );
-            $result[] = array($request);
+                'receipt_industry_details' => [],
+                $type . '_id' => uniqid('', true),
+            ];
+            $result[] = [$request];
         }
 
         return $result;
     }
 
     /**
-     * @param int $count
-     * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    private function getReceiptItems($count)
+    private function getReceiptItems(int $count): array
     {
-        $result = array();
+        $result = [];
         for ($i = 0; $i < $count; $i++) {
-            $result[] = array(
+            $result[] = [
                 'description' => Random::str(10),
-                'quantity' => (float)Random::float(1, 100),
-                'amount' => array(
-                    'value' => (float)Random::int(1, 100),
+                'quantity' => (float) Random::float(1, 100),
+                'amount' => [
+                    'value' => (float) Random::int(1, 100),
                     'currency' => CurrencyCode::RUB,
-                ),
+                ],
                 'vat_code' => Random::int(1, 6),
                 'payment_subject' => Random::value(PaymentSubject::getValidValues()),
                 'payment_mode' => Random::value(PaymentMode::getValidValues()),
@@ -154,28 +160,26 @@ class CreatePostReceiptRequestSerializerTest extends TestCase
                 'country_of_origin_code' => 'RU',
                 'customs_declaration_number' => Random::str(32),
                 'excise' => Random::float(0.0, 99.99),
-            );
+            ];
         }
 
         return $result;
     }
 
     /**
-     * @param int $count
-     * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    private function getSettlements($count)
+    private function getSettlements(int $count): array
     {
-        $result = array();
+        $result = [];
         for ($i = 0; $i < $count; $i++) {
-            $result[] = array(
+            $result[] = [
                 'type' => Random::value(SettlementType::getValidValues()),
-                'amount' => array(
+                'amount' => [
                     'value' => round(Random::float(0.1, 99.99), 2),
-                    'currency' => Random::value(CurrencyCode::getValidValues())
-                )
-            );
+                    'currency' => Random::value(CurrencyCode::getValidValues()),
+                ],
+            ];
         }
 
         return $result;

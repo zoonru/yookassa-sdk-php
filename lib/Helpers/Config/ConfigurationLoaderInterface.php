@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,15 +26,17 @@
 
 namespace YooKassa\Helpers\Config;
 
+/**
+ * Interface ConfigurationLoaderInterface.
+ *
+ * @category Interface
+ * @package  YooKassa\Helpers
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ */
 interface ConfigurationLoaderInterface
 {
-    /**
-     * @return mixed
-     */
-    public function getConfig();
+    public function getConfig(): array;
 
-    /**
-     * @return mixed
-     */
-    public function load();
+    public function load(): ConfigurationLoaderInterface;
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,20 +28,22 @@ namespace YooKassa\Model\Notification;
 
 use YooKassa\Common\Exceptions\EmptyPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Model\NotificationEventType;
-use YooKassa\Model\NotificationType;
-use YooKassa\Model\Payment;
-use YooKassa\Model\PaymentInterface;
+use YooKassa\Model\Payment\Payment;
+use YooKassa\Model\Payment\PaymentInterface;
 use YooKassa\Request\Payments\PaymentResponse;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс объекта, присылаемого API при изменении статуса платежа на "succeeded"
+ * Класс объекта, присылаемого API при изменении статуса платежа на "succeeded".
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @example 03-notification.php 3 Пример скрипта обработки уведомления
  *
- * @package YooKassa
- *
- * @property-read PaymentInterface $object Объект с информацией о платеже
+ * @property PaymentInterface $object Объект с информацией о платеже
  */
 class NotificationSucceeded extends AbstractNotification
 {
@@ -50,55 +52,58 @@ class NotificationSucceeded extends AbstractNotification
      * очередь на отправку гораздо раньше, чем она будет получена на сайте, то опираться на статус пришедшего
      * платежа не стоит, лучше запросить текущую информацию о платеже у API.
      *
-     * @var Payment Объект платежа
+     * @var PaymentInterface Объект платежа
      */
-    private $_object;
+    #[Assert\NotBlank]
+    #[Assert\Type(PaymentResponse::class)]
+    #[Assert\Valid]
+    private PaymentInterface $_object;
 
     /**
-     * Конструктор объекта нотификации о возможности подтверждения платежа
+     * Конструктор объекта нотификации о возможности подтверждения платежа.
      *
      * Инициализирует текущий объект из ассоциативного массива, который просто путём JSON десериализации получен из
      * тела пришедшего запроса. При конструировании проверяется валидность типа передаваемого уведомления, если
      * передать уведомление не того типа, будет сгенерировано исключение типа {@link InvalidPropertyValueException}
      *
-     * @param array $source Ассоциативный массив с информацией об уведомлении
+     * @param array $sourceArray Ассоциативный массив с информацией об уведомлении
      *
      * @throws InvalidPropertyValueException Генерируется если значение типа нотификации или события не равны
-     * "notification" и "payment.succeeded" соответственно, что может говорить о том, что переданные в
-     * конструктор данные не являются уведомлением нужного типа.
+     *                                       "notification" и "payment.succeeded" соответственно, что может говорить о том, что переданные в
+     *                                       конструктор данные не являются уведомлением нужного типа.
      */
-    public function __construct(array $source)
+    public function fromArray(iterable $sourceArray): void
     {
         $this->setType(NotificationType::NOTIFICATION);
         $this->setEvent(NotificationEventType::PAYMENT_SUCCEEDED);
-        if (!empty($source['type'])) {
-            if ($this->getType() !== $source['type']) {
+        if (!empty($sourceArray['type'])) {
+            if ($this->getType() !== $sourceArray['type']) {
                 throw new InvalidPropertyValueException(
                     'Invalid value for "type" parameter in Notification',
                     0,
                     'notification.type',
-                    $source['type']
+                    $sourceArray['type']
                 );
             }
         }
-        if (!empty($source['event'])) {
-            if ($this->getEvent() !== $source['event']) {
+        if (!empty($sourceArray['event'])) {
+            if ($this->getEvent() !== $sourceArray['event']) {
                 throw new InvalidPropertyValueException(
                     'Invalid value for "event" parameter in Notification',
                     0,
                     'notification.event',
-                    $source['event']
+                    $sourceArray['event']
                 );
             }
         }
-        if (empty($source['object'])) {
+        if (empty($sourceArray['object'])) {
             throw new EmptyPropertyValueException('Parameter object in NotificationSucceeded is empty');
         }
-        $this->_object = new PaymentResponse($source['object']);
+        $this->setObject($sourceArray['object']);
     }
 
     /**
-     * Возвращает объект с информацией о платеже, уведомление о котором хранится в текущем объекте
+     * Возвращает объект с информацией о платеже, уведомление о котором хранится в текущем объекте.
      *
      * Так как нотификация может быть сгенерирована и поставлена в очередь на отправку гораздо раньше, чем она будет
      * получена на сайте, то опираться на статус пришедшего платежа не стоит, лучше запросить текущую информацию о
@@ -106,8 +111,21 @@ class NotificationSucceeded extends AbstractNotification
      *
      * @return PaymentInterface Объект с информацией о платеже
      */
-    public function getObject()
+    public function getObject(): PaymentInterface
     {
         return $this->_object;
+    }
+
+    /**
+     * Устанавливает объект с информацией о платеже, уведомление о которой хранится в текущем объекте.
+     *
+     * @param PaymentInterface|array $object
+     *
+     * @return self
+     */
+    public function setObject(mixed $object): self
+    {
+        $this->_object = $this->validatePropertyValue('_object', $object);
+        return $this;
     }
 }

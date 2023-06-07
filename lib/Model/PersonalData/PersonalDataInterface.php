@@ -30,129 +30,136 @@ use DateTime;
 use YooKassa\Model\Metadata;
 
 /**
- * Класс, представляющий модель PersonalDataInterface.
+ * Interface PersonalDataInterface.
  *
- * Информация о персональных данных
- *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Interface
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property string $id Идентификатор персональных данных
+ * @property string $type Тип персональных данных
+ * @property string $status Текущий статус персональных данных
+ * @property DateTime $createdAt Время создания персональных данных
+ * @property DateTime $created_at Время создания персональных данных
+ * @property null|DateTime $expiresAt Срок жизни объекта персональных данных
+ * @property null|DateTime $expires_at Срок жизни объекта персональных данных
+ * @property PersonalDataCancellationDetails $cancellationDetails Комментарий к отмене выплаты
+ * @property PersonalDataCancellationDetails $cancellation_details Комментарий к отмене выплаты
+ * @property Metadata $metadata Метаданные выплаты указанные мерчантом
  */
 interface PersonalDataInterface
 {
     /** @var int Минимальная длина идентификатора */
-    const MIN_LENGTH_ID = 36;
+    public const MIN_LENGTH_ID = 36;
+
     /** @var int Максимальная длина идентификатора */
-    const MAX_LENGTH_ID = 50;
+    public const MAX_LENGTH_ID = 50;
 
     /**
      * Возвращает id.
      *
-     * @return string
+     * @return string|null
      */
-    public function getId();
+    public function getId(): ?string;
 
     /**
      * Устанавливает id.
      *
-     * @param string $id Идентификатор персональных данных, сохраненных в ЮKassa.
+     * @param string|null $id идентификатор персональных данных, сохраненных в ЮKassa
      *
-     * @return $this
+     * @return self
      */
-    public function setId($id);
+    public function setId(?string $id): self;
 
     /**
      * Возвращает тип персональных данных.
      *
-     * @return string Тип персональных данных
+     * @return string|null Тип персональных данных
      */
-    public function getType();
+    public function getType(): ?string;
 
     /**
      * Устанавливает тип персональных данных.
      *
-     * @param string $type Тип персональных данных
+     * @param string|null $type Тип персональных данных
      *
-     * @return $this
+     * @return self
      */
-    public function setType($type);
+    public function setType(?string $type): self;
 
     /**
      * Возвращает статус персональных данных.
      *
-     * @return string Статус персональных данных
+     * @return string|null Статус персональных данных
      */
-    public function getStatus();
+    public function getStatus(): ?string;
 
     /**
      * Устанавливает статус персональных данных.
      *
-     * @param string $status Статус персональных данных
+     * @param string|null $status Статус персональных данных
      *
-     * @return $this
+     * @return self
      */
-    public function setStatus($status);
+    public function setStatus(?string $status): self;
 
     /**
      * Возвращает cancellation_details.
-     *
-     * @return PersonalDataCancellationDetails|null
      */
-    public function getCancellationDetails();
+    public function getCancellationDetails(): ?PersonalDataCancellationDetails;
 
     /**
      * Устанавливает cancellation_details.
      *
-     * @param PersonalDataCancellationDetails|array|null $cancellation_details
+     * @param null|array|PersonalDataCancellationDetails $cancellation_details
      *
-     * @return $this
+     * @return self
      */
-    public function setCancellationDetails($cancellation_details);
+    public function setCancellationDetails($cancellation_details): self;
 
     /**
      * Возвращает created_at.
      *
-     * @return DateTime
+     * @return DateTime|null
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): ?DateTime;
 
     /**
      * Устанавливает время создания персональных данных.
      *
-     * @param DateTime|string|int $created_at Время создания персональных данных
+     * @param DateTime|string|null $created_at Время создания персональных данных
      *
-     * @return $this
+     * @return self
      */
-    public function setCreatedAt($created_at);
+    public function setCreatedAt(DateTime|string|null $created_at): self;
 
     /**
      * Возвращает expires_at.
      *
      * @return DateTime|null
      */
-    public function getExpiresAt();
+    public function getExpiresAt(): ?DateTime;
 
     /**
      * Устанавливает срок жизни объекта персональных данных.
      *
-     * @param DateTime|string|int|null $expires_at Срок жизни объекта персональных данных
+     * @param DateTime|string|null $expires_at Срок жизни объекта персональных данных
      *
-     * @return $this
+     * @return self
      */
-    public function setExpiresAt($expires_at = null);
+    public function setExpiresAt(DateTime|string|null $expires_at = null): self;
 
     /**
      * Возвращает metadata.
-     *
-     * @return array|null
      */
-    public function getMetadata();
+    public function getMetadata(): ?Metadata;
 
     /**
      * Устанавливает metadata.
      *
-     * @param Metadata|array|null $metadata Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа).
+     * @param null|array|Metadata $metadata любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа)
      *
-     * @return $this
+     * @return self
      */
-    public function setMetadata($metadata = null);
+    public function setMetadata(mixed $metadata = null): self;
 }

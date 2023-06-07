@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,144 +27,101 @@
 namespace YooKassa\Model\Notification;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\NotificationEventType;
-use YooKassa\Model\NotificationType;
-use YooKassa\Model\PaymentInterface;
-use YooKassa\Model\RefundInterface;
+use YooKassa\Model\Deal\DealInterface;
+use YooKassa\Model\Payment\PaymentInterface;
+use YooKassa\Model\Payout\PayoutInterface;
+use YooKassa\Model\Refund\RefundInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Базовый класс уведомлений
+ * Базовый класс уведомлений.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @example 03-notification.php 3 Пример скрипта обработки уведомления
  *
- * @package YooKassa
- *
- * @property-read string $type Тип уведомления в виде строки
- * @property-read string $event Тип события
+ * @property string $type Тип уведомления в виде строки
+ * @property string $event Тип события
  */
 abstract class AbstractNotification extends AbstractObject implements NotificationInterface
 {
     /**
-     * @var string Тип уведомления
+     * @var string|null Тип уведомления
      */
-    private $_type;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Choice(callback: [NotificationType::class, 'getValidValues'])]
+    protected ?string $_type = null;
 
     /**
-     * @var string Тип произошедшего события
+     * @var string|null Тип произошедшего события
      */
-    private $_event;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Choice(callback: [NotificationEventType::class, 'getValidValues'])]
+    protected ?string $_event = null;
 
     /**
-     * Возвращает тип уведомления
+     * Возвращает тип уведомления.
      *
      * Тип уведомления - одна из констант, указанных в перечислении {@link NotificationType}.
      *
-     * @return string Тип уведомления в виде строки
+     * @return string|null Тип уведомления в виде строки
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->_type;
     }
 
     /**
-     * Устанавливает тип уведомления
+     * Устанавливает тип уведомления.
      *
-     * @param string $value Тип уведомления
+     * @param string|null $type Тип уведомления
      *
-     * @throws EmptyPropertyValueException Выбрасывается если в качестве значения было передано пустое значение
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение не найдено в перечислении типов
-     * нотификаций
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
+     * @return self
      */
-    protected function setType($value)
+    protected function setType(?string $type): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty parameter "type" in Notification', 0, 'notification.type');
-        }
-        if (TypeCast::canCastToEnumString($value)) {
-            if (NotificationType::valueExists($value)) {
-                $this->_type = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid value for "type" parameter in Notification',
-                    0,
-                    'notification.type',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "type" parameter in Notification',
-                0,
-                'notification.type',
-                $value
-            );
-        }
+        $this->_type = $this->validatePropertyValue('_type', $type);
+        return $this;
     }
 
     /**
-     * Возвращает тип события
+     * Возвращает тип события.
      *
      * Тип события - одна из констант, указанных в перечислении {@link NotificationEventType}.
      *
-     * @return string Тип события
+     * @return string|null Тип события
      */
-    public function getEvent()
+    public function getEvent(): ?string
     {
         return $this->_event;
     }
 
     /**
-     * Устанавливает тип события
+     * Устанавливает тип события.
      *
-     * @param string $value Тип события
+     * @param string|null $event Тип события
      *
-     * @throws EmptyPropertyValueException Выбрасывается если в качестве значения было передано пустое значение
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение не найдено в перечислении типов
-     * событий
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
+     * @return self
      */
-    protected function setEvent($value)
+    protected function setEvent(?string $event): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty parameter "event" in Notification', 0, 'notification.event');
-        }
-        if (TypeCast::canCastToEnumString($value)) {
-            if (NotificationEventType::valueExists($value)) {
-                $this->_event = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid value for "event" parameter in Notification',
-                    0,
-                    'notification.event',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "event" parameter in Notification',
-                0,
-                'notification.event',
-                $value
-            );
-        }
+        $this->_event = $this->validatePropertyValue('_event', $event);
+        return $this;
     }
 
     /**
-     * Возвращает объект с информацией о платеже или возврате, уведомление о котором хранится в текущем объекте
+     * Возвращает объект с информацией о платеже или возврате, уведомление о котором хранится в текущем объекте.
      *
      * Так как нотификация может быть сгенерирована и поставлена в очередь на отправку гораздо раньше, чем она будет
      * получена на сайте, то опираться на статус пришедшего платежа не стоит, лучше запросить текущую информацию о
      * платеже у API.
      *
-     * @return PaymentInterface|RefundInterface Объект с информацией о платеже
+     * @return PaymentInterface|RefundInterface|PayoutInterface|DealInterface|null Объект с информацией о платеже
      */
-    public function getObject()
-    {
-        return null;
-    }
+    abstract public function getObject(): PaymentInterface|RefundInterface|PayoutInterface|DealInterface|null;
 }

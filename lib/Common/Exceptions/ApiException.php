@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -30,30 +30,28 @@ use Exception;
 
 /**
  * Неожиданный код ошибки.
- *
- * @package YooKassa
  */
 class ApiException extends Exception
 {
     /**
-     * @var mixed
+     * @var string|null
      */
-    protected $responseBody;
+    protected ?string $responseBody = '';
 
     /**
      * @var string[]
      */
-    protected $responseHeaders;
+    protected array $responseHeaders = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $message Error message
      * @param int $code HTTP status code
      * @param string[] $responseHeaders HTTP header
-     * @param mixed $responseBody HTTP body
+     * @param string|null $responseBody HTTP body
      */
-    public function __construct($message = "", $code = 0, $responseHeaders = array(), $responseBody = null)
+    public function __construct(string $message = '', int $code = 0, array $responseHeaders = [], ?string $responseBody = '')
     {
         parent::__construct($message, $code);
         $this->responseHeaders = $responseHeaders;
@@ -63,15 +61,12 @@ class ApiException extends Exception
     /**
      * @return string[]
      */
-    public function getResponseHeaders()
+    public function getResponseHeaders(): array
     {
         return $this->responseHeaders;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getResponseBody()
+    public function getResponseBody(): ?string
     {
         return $this->responseBody;
     }

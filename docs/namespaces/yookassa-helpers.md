@@ -12,13 +12,13 @@
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md) | Класс для формирования тега 1162 на основе кода в формате Data Matrix |
-| [\YooKassa\Helpers\Random](../classes/YooKassa-Helpers-Random.md) | Класс хэлпера для генерации случайных значений, используется в тестах |
-| [\YooKassa\Helpers\RawHeadersParser](../classes/YooKassa-Helpers-RawHeadersParser.md) |  |
-| [\YooKassa\Helpers\SecurityHelper](../classes/YooKassa-Helpers-SecurityHelper.md) |  |
-| [\YooKassa\Helpers\StringObject](../classes/YooKassa-Helpers-StringObject.md) | Класс объекта, кастящегося в строку, используется только в тестах |
-| [\YooKassa\Helpers\TypeCast](../classes/YooKassa-Helpers-TypeCast.md) | Класс хэлпер для преобразования типов значений |
-| [\YooKassa\Helpers\UUID](../classes/YooKassa-Helpers-UUID.md) |  |
+| [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md) | Класс, представляющий модель ProductCode. |
+| [\YooKassa\Helpers\Random](../classes/YooKassa-Helpers-Random.md) | Класс, представляющий модель Random. |
+| [\YooKassa\Helpers\RawHeadersParser](../classes/YooKassa-Helpers-RawHeadersParser.md) | Класс, представляющий модель Random. |
+| [\YooKassa\Helpers\SecurityHelper](../classes/YooKassa-Helpers-SecurityHelper.md) | Класс, представляющий модель SecurityHelper. |
+| [\YooKassa\Helpers\StringObject](../classes/YooKassa-Helpers-StringObject.md) | Класс, представляющий модель StringObject. |
+| [\YooKassa\Helpers\TypeCast](../classes/YooKassa-Helpers-TypeCast.md) | Класс, представляющий модель TypeCast. |
+| [\YooKassa\Helpers\UUID](../classes/YooKassa-Helpers-UUID.md) | Класс, представляющий модель UUID. |
 
 ---
 
@@ -30,11 +30,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

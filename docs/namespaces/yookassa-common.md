@@ -8,20 +8,25 @@
 
 * [\YooKassa\Common\Exceptions](../namespaces/yookassa-common-exceptions.md)
 
+### Interfaces
+
+| Name | Summary |
+| ---- | ------- |
+| [\YooKassa\Common\AbstractRequestInterface](../classes/YooKassa-Common-AbstractRequestInterface.md) | Interface AbstractRequestInterface. |
+| [\YooKassa\Common\ListObjectInterface](../classes/YooKassa-Common-ListObjectInterface.md) | Interface ListObjectInterface. |
+
 ### Classes
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md) | Базовый класс генерируемых enum&#039;ов |
-| [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md) | Базовый класс генерируемых объектов |
-| [\YooKassa\Common\AbstractPaymentRequest](../classes/YooKassa-Common-AbstractPaymentRequest.md) | Класс объекта запроса к API |
-| [\YooKassa\Common\AbstractPaymentRequestBuilder](../classes/YooKassa-Common-AbstractPaymentRequestBuilder.md) | Базовый класс объекта платежного запроса, передаваемого в методы клиента API |
-| [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md) | Класс объекта запроса к API |
-| [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md) | Базовый класс объекта запроса, передаваемого в методы клиента API |
-| [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md) | Базовый класс билдера запросов |
-| [\YooKassa\Common\HttpVerb](../classes/YooKassa-Common-HttpVerb.md) | Базовый класс генерируемых enum&#039;ов |
-| [\YooKassa\Common\LoggerWrapper](../classes/YooKassa-Common-LoggerWrapper.md) |  |
-| [\YooKassa\Common\ResponseObject](../classes/YooKassa-Common-ResponseObject.md) | Класс HTTP ответа |
+| [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md) | Класс, представляющий модель AbstractEnum. |
+| [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md) | Класс, представляющий модель AbstractObject. |
+| [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md) | Класс, представляющий модель AbstractRequest. |
+| [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md) | Класс, представляющий модель AbstractRequestBuilder. |
+| [\YooKassa\Common\HttpVerb](../classes/YooKassa-Common-HttpVerb.md) | Класс, представляющий модель HttpVerb. |
+| [\YooKassa\Common\ListObject](../classes/YooKassa-Common-ListObject.md) | Класс, представляющий модель ListObject. |
+| [\YooKassa\Common\LoggerWrapper](../classes/YooKassa-Common-LoggerWrapper.md) | Класс, представляющий модель LoggerWrapper. |
+| [\YooKassa\Common\ResponseObject](../classes/YooKassa-Common-ResponseObject.md) | Класс, представляющий модель ResponseObject. |
 
 ---
 
@@ -33,11 +38,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

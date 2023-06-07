@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,22 +26,25 @@
 
 namespace YooKassa\Model\Notification;
 
+use Exception;
 use YooKassa\Common\Exceptions\EmptyPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Model\NotificationEventType;
-use YooKassa\Model\NotificationType;
-use YooKassa\Model\SafeDeal;
-use YooKassa\Model\DealInterface;
+use YooKassa\Model\Deal\DealInterface;
+use YooKassa\Model\Deal\SafeDeal;
 use YooKassa\Request\Deals\DealResponse;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс объекта, присылаемого API при изменении статуса сделки на "closed"
+ * Класс объекта, присылаемого API при изменении статуса сделки на "closed".
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @example 03-notification.php 3 Пример скрипта обработки уведомления
  *
- * @package YooKassa
- *
- * @property-read DealInterface $object Объект с информацией о сделке
+ * @property DealInterface $object Объект с информацией о сделке
  */
 class NotificationDealClosed extends AbstractNotification
 {
@@ -50,55 +53,58 @@ class NotificationDealClosed extends AbstractNotification
      * очередь на отправку гораздо раньше, чем она будет получена на сайте, то опираться на статус пришедшей
      * сделки не стоит, лучше запросить текущую информацию о сделке у API.
      *
-     * @var SafeDeal Объект платежа
+     * @var DealInterface Объект платежа
      */
-    private $_object;
+    #[Assert\NotBlank]
+    #[Assert\Type(DealResponse::class)]
+    #[Assert\Valid]
+    private DealInterface $_object;
 
     /**
-     * Конструктор объекта нотификации
+     * Конструктор объекта нотификации.
      *
      * Инициализирует текущий объект из ассоциативного массива, который просто путём JSON десериализации получен из
      * тела пришедшего запроса. При конструировании проверяется валидность типа передаваемого уведомления, если
      * передать уведомление не того типа, будет сгенерировано исключение типа {@link InvalidPropertyValueException}
      *
-     * @param array $source Ассоциативный массив с информацией об уведомлении
+     * @param array $sourceArray Ассоциативный массив с информацией об уведомлении
      *
-     * @throws InvalidPropertyValueException|\Exception Генерируется если значение типа нотификации или события не равны
-     * "notification" и "deal.closed" соответственно, что может говорить о том, что переданные в
-     * конструктор данные не являются уведомлением нужного типа.
+     * @throws Exception|InvalidPropertyValueException Генерируется если значение типа нотификации или события не равны
+     *                                                 "notification" и "deal.closed" соответственно, что может говорить о том, что переданные в
+     *                                                 конструктор данные не являются уведомлением нужного типа.
      */
-    public function __construct(array $source)
+    public function fromArray(iterable $sourceArray): void
     {
         $this->setType(NotificationType::NOTIFICATION);
         $this->setEvent(NotificationEventType::DEAL_CLOSED);
-        if (!empty($source['type'])) {
-            if ($this->getType() !== $source['type']) {
+        if (!empty($sourceArray['type'])) {
+            if ($this->getType() !== $sourceArray['type']) {
                 throw new InvalidPropertyValueException(
                     'Invalid value for "type" parameter in Notification',
                     0,
                     'notification.type',
-                    $source['type']
+                    $sourceArray['type']
                 );
             }
         }
-        if (!empty($source['event'])) {
-            if ($this->getEvent() !== $source['event']) {
+        if (!empty($sourceArray['event'])) {
+            if ($this->getEvent() !== $sourceArray['event']) {
                 throw new InvalidPropertyValueException(
                     'Invalid value for "event" parameter in Notification',
                     0,
                     'notification.event',
-                    $source['event']
+                    $sourceArray['event']
                 );
             }
         }
-        if (empty($source['object'])) {
+        if (empty($sourceArray['object'])) {
             throw new EmptyPropertyValueException('Parameter object in NotificationDealClosed is empty');
         }
-        $this->_object = new DealResponse($source['object']);
+        $this->setObject($sourceArray['object']);
     }
 
     /**
-     * Возвращает объект с информацией о сделке, уведомление о которой хранится в текущем объекте
+     * Возвращает объект с информацией о сделке, уведомление о которой хранится в текущем объекте.
      *
      * Так как нотификация может быть сгенерирована и поставлена в очередь на отправку гораздо раньше, чем она будет
      * получена на сайте, то опираться на статус пришедшей сделки не стоит, лучше запросить текущую информацию о
@@ -106,8 +112,21 @@ class NotificationDealClosed extends AbstractNotification
      *
      * @return DealInterface Объект с информацией о сделке
      */
-    public function getObject()
+    public function getObject(): DealInterface
     {
         return $this->_object;
+    }
+
+    /**
+     * Устанавливает объект с информацией о сделке, уведомление о которой хранится в текущем объекте.
+     *
+     * @param DealInterface|array $object
+     *
+     * @return self
+     */
+    public function setObject(mixed $object): self
+    {
+        $this->_object = $this->validatePropertyValue('_object', $object);
+        return $this;
     }
 }

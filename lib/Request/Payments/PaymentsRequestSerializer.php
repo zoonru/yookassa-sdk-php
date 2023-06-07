@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,43 +26,52 @@
 
 namespace YooKassa\Request\Payments;
 
+use DateTime;
+
 /**
- * Класс сериализатора объектов запросов к API для получения списка платежей
+ * Класс, представляющий модель PaymentsRequestSerializer.
  *
- * @package YooKassa
+ * Класс объекта осуществляющего сериализацию запроса к API для получения списка платежей.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class PaymentsRequestSerializer
 {
     /**
      * @var array Карта маппинга свойств объекта запроса на поля отправляемого запроса
      */
-    private static $propertyMap = array(
-        'createdAtGte'       => 'created_at.gte',
-        'createdAtGt'        => 'created_at.gt',
-        'createdAtLte'       => 'created_at.lte',
-        'createdAtLt'        => 'created_at.lt',
-        'capturedAtGte'      => 'captured_at.gte',
-        'capturedAtGt'       => 'captured_at.gt',
-        'capturedAtLte'      => 'captured_at.lte',
-        'capturedAtLt'       => 'captured_at.lt',
-        'status'             => 'status',
-        'paymentMethod'      => 'payment_method',
-        'limit'              => 'limit',
-        'cursor'             => 'cursor',
-    );
+    private static array $propertyMap = [
+        'createdAtGte' => 'created_at.gte',
+        'createdAtGt' => 'created_at.gt',
+        'createdAtLte' => 'created_at.lte',
+        'createdAtLt' => 'created_at.lt',
+        'capturedAtGte' => 'captured_at.gte',
+        'capturedAtGt' => 'captured_at.gt',
+        'capturedAtLte' => 'captured_at.lte',
+        'capturedAtLt' => 'captured_at.lt',
+        'status' => 'status',
+        'paymentMethod' => 'payment_method',
+        'limit' => 'limit',
+        'cursor' => 'cursor',
+    ];
 
     /**
-     * Сериализует объект запроса к API для дальнейшей его отправки
+     * Сериализует объект запроса к API для дальнейшей его отправки.
+     *
      * @param PaymentsRequestInterface $request Сериализуемый объект
+     *
      * @return array Массив с информацией, отправляемый в дальнейшем в API
      */
-    public function serialize(PaymentsRequestInterface $request)
+    public function serialize(PaymentsRequestInterface $request): array
     {
-        $result = array();
+        $result = [];
         foreach (self::$propertyMap as $property => $name) {
             $value = $request->{$property};
             if (!empty($value)) {
-                if ($value instanceof \DateTime) {
+                if ($value instanceof DateTime) {
                     if ($value->getTimestamp() > 1) {
                         $result[$name] = $value->format(YOOKASSA_DATE);
                     }
@@ -71,6 +80,7 @@ class PaymentsRequestSerializer
                 }
             }
         }
+
         return $result;
     }
 }

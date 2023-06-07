@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,9 +27,14 @@
 namespace YooKassa\Request\Deals;
 
 /**
- * Класс объекта ответа, возвращаемого API при запросе конкретной сделки
+ * Класс, представляющий DealResponse.
  *
- * @package YooKassa
+ * Класс объекта ответа, возвращаемого API при запросе конкретной сделки.
+ *
+ * @category Abstract Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class DealResponse extends AbstractDealResponse
 {

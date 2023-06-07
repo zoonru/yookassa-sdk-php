@@ -3,13 +3,13 @@
         configVersion="3"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://www.phpdoc.org"
-        xsi:noNamespaceSchemaLocation="data/xsd/phpdoc.xsd"
+        xsi:noNamespaceSchemaLocation="https://docs.phpdoc.org/latest/phpdoc.xsd"
 >
     <title>YooKassa API SDK</title>
     <paths>
         <output>.phpdoc</output>
     </paths>
-    <version number="2.8.1">
+    <version number="3.0.0">
         <folder>latest</folder>
         <api>
             <source dsn=".">

@@ -10,22 +10,15 @@ use YooKassa\Model\PersonalData\PersonalDataStatus;
 use YooKassa\Model\PersonalData\PersonalDataType;
 use YooKassa\Request\PersonalData\PersonalDataResponse;
 
+/**
+ * @internal
+ */
 class PersonalDataResponseTest extends TestCase
 {
     /**
-     * @param $options
-     * @return PersonalDataResponse
-     */
-    private function getTypeInstance($options)
-    {
-        return new PersonalDataResponse($options);
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetId($options)
+    public function testGetId(array $options): void
     {
         $instance = $this->getTypeInstance($options);
         self::assertEquals($options['id'], $instance->getId());
@@ -33,9 +26,8 @@ class PersonalDataResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetStatus($options)
+    public function testGetStatus(array $options): void
     {
         $instance = $this->getTypeInstance($options);
         self::assertEquals($options['status'], $instance->getStatus());
@@ -43,9 +35,8 @@ class PersonalDataResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetType($options)
+    public function testGetType(array $options): void
     {
         $instance = $this->getTypeInstance($options);
         self::assertEquals($options['type'], $instance->getType());
@@ -53,9 +44,8 @@ class PersonalDataResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetCreatedAt($options)
+    public function testGetCreatedAt(array $options): void
     {
         $instance = $this->getTypeInstance($options);
         if (empty($options['created_at'])) {
@@ -69,9 +59,8 @@ class PersonalDataResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetExpiresAt($options)
+    public function testGetExpiresAt(array $options): void
     {
         $instance = $this->getTypeInstance($options);
         if (empty($options['expires_at'])) {
@@ -85,9 +74,8 @@ class PersonalDataResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetCancellationDetails($options)
+    public function testGetCancellationDetails(array $options): void
     {
         $instance = $this->getTypeInstance($options);
         if (empty($options['cancellation_details'])) {
@@ -106,9 +94,8 @@ class PersonalDataResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetMetadata($options)
+    public function testGetMetadata(array $options): void
     {
         $instance = $this->getTypeInstance($options);
         if (empty($options['metadata'])) {
@@ -118,55 +105,64 @@ class PersonalDataResponseTest extends TestCase
         }
     }
 
-    public function validDataProvider()
+    public static function validDataProvider()
     {
-        $result = array();
+        $result = [];
         $cancellationDetailsParties = PersonalDataCancellationDetailsPartyCode::getValidValues();
         $countCancellationDetailsParties = count($cancellationDetailsParties);
         $cancellationDetailsReasons = PersonalDataCancellationDetailsReasonCode::getValidValues();
         $countCancellationDetailsReasons = count($cancellationDetailsReasons);
 
-        $result[] = array(
-            array(
+        $result[] = [
+            [
                 'id' => Random::str(36, 50),
                 'status' => Random::value(PersonalDataStatus::getValidValues()),
                 'type' => Random::value(PersonalDataType::getValidValues()),
-                'created_at' => date(YOOKASSA_DATE, mt_rand(111111111, time())),
-                'expires_at' => date(YOOKASSA_DATE, mt_rand(111111111, time())),
-                'metadata' => array('order_id' => '37'),
-                'cancellation_details' => array(
+                'created_at' => date(YOOKASSA_DATE, Random::int(111111111, time())),
+                'expires_at' => date(YOOKASSA_DATE, Random::int(111111111, time())),
+                'metadata' => ['order_id' => '37'],
+                'cancellation_details' => [
                     'party' => Random::value($cancellationDetailsParties),
-                    'reason' => Random::value($cancellationDetailsReasons)
-                ),
-            )
-        );
-        $result[] = array(
-            array(
+                    'reason' => Random::value($cancellationDetailsReasons),
+                ],
+            ],
+        ];
+        $result[] = [
+            [
                 'id' => Random::str(36, 50),
                 'status' => Random::value(PersonalDataStatus::getValidValues()),
                 'type' => Random::value(PersonalDataType::getValidValues()),
-                'created_at' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'expires_at' => date(YOOKASSA_DATE, mt_rand(1, time())),
+                'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'expires_at' => date(YOOKASSA_DATE, Random::int(1, time())),
                 'metadata' => null,
                 'cancellation_details' => null,
-            )
-        );
+            ],
+        ];
 
         for ($i = 0; $i < 20; $i++) {
-            $data = array(
+            $data = [
                 'id' => Random::str(36, 50),
                 'status' => Random::value(PersonalDataStatus::getValidValues()),
                 'type' => Random::value(PersonalDataType::getValidValues()),
-                'created_at' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'expires_at' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'metadata' => array(Random::str(3, 128, 'abcdefghijklmnopqrstuvwxyz') => Random::str(1, 512)),
-                'cancellation_details' => array(
+                'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'expires_at' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'metadata' => [Random::str(3, 128, 'abcdefghijklmnopqrstuvwxyz') => Random::str(1, 512)],
+                'cancellation_details' => [
                     'party' => $cancellationDetailsParties[$i % $countCancellationDetailsParties],
-                    'reason' => $cancellationDetailsReasons[$i % $countCancellationDetailsReasons]
-                ),
-            );
-            $result[] = array($data);
+                    'reason' => $cancellationDetailsReasons[$i % $countCancellationDetailsReasons],
+                ],
+            ];
+            $result[] = [$data];
         }
+
         return $result;
+    }
+
+    /**
+     * @param mixed $options
+     */
+    private function getTypeInstance($options): PersonalDataResponse
+    {
+        return new PersonalDataResponse($options);
     }
 }

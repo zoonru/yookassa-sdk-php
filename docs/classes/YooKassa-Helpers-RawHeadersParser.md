@@ -3,6 +3,13 @@
 # Class: \YooKassa\Helpers\RawHeadersParser
 ### Namespace: [\YooKassa\Helpers](../namespaces/yookassa-helpers.md)
 ---
+**Summary:**
+
+Класс, представляющий модель Random.
+
+**Description:**
+
+Класс хэлпера для генерации случайных значений, используется в тестах.
 
 ---
 ### Constants
@@ -17,9 +24,19 @@
 ---
 ### Details
 * File: [lib/Helpers/RawHeadersParser.php](../../lib/Helpers/RawHeadersParser.php)
-* Package: Default
+* Package: YooKassa\Helpers
 * Class Hierarchy:
   * \YooKassa\Helpers\RawHeadersParser
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -52,11 +69,11 @@ Static public parse(mixed $rawHeaders) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

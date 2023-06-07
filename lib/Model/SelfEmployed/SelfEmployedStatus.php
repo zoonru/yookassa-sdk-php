@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -38,24 +38,29 @@ use YooKassa\Common\AbstractEnum;
  * - `confirmed` — самозанятый выдал права ЮMoney; вы можете делать выплаты;
  * - `canceled` — самозанятый отклонил заявку или отозвал ранее выданные права.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class SelfEmployedStatus extends AbstractEnum
 {
     /** ЮMoney запросили права на регистрацию чеков, но самозанятый еще не ответил на заявку */
-    const PENDING = 'pending';
+    public const PENDING = 'pending';
+
     /** Самозанятый выдал права ЮMoney, вы можете делать выплаты */
-    const CONFIRMED = 'confirmed';
+    public const CONFIRMED = 'confirmed';
+
     /** Самозанятый отклонил заявку или отозвал ранее выданные права */
-    const CANCELED = 'canceled';
+    public const CANCELED = 'canceled';
 
     /**
-     * @var array Массив принимаемых enum'ом значений
+     * Возвращает список доступных значений
+     * @return string[]
      */
-    protected static $validValues = array(
+    protected static array $validValues = [
         self::PENDING => true,
         self::CONFIRMED => true,
         self::CANCELED => true,
-    );
+    ];
 }

@@ -16,7 +16,7 @@
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Client](../classes/YooKassa-Client.md) | Класс клиента API |
+| [\YooKassa\Client](../classes/YooKassa-Client.md) | Класс клиента API. |
 
 ---
 
@@ -28,11 +28,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

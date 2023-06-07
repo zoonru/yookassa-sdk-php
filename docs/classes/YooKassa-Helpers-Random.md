@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс хэлпера для генерации случайных значений, используется в тестах
+Класс, представляющий модель Random.
 
+**Description:**
+
+Класс хэлпера для генерации случайных значений, используется в тестах.
 
 ---
 ### Constants
@@ -16,20 +19,30 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [bool()](../classes/YooKassa-Helpers-Random.md#method_bool) |  | Возвращает рандомное буллево значение |
+| public | [bool()](../classes/YooKassa-Helpers-Random.md#method_bool) |  | Возвращает рандомное буллево значение. |
 | public | [bytes()](../classes/YooKassa-Helpers-Random.md#method_bytes) |  | Возвращает рандомную последовательность байт |
 | public | [float()](../classes/YooKassa-Helpers-Random.md#method_float) |  | Возвращает рандомное число с плавающей точкой. По умолчанию возвращает значение в промежутке от нуля до едениы. |
-| public | [hex()](../classes/YooKassa-Helpers-Random.md#method_hex) |  | Возвращает строку, состоящую из символов '0123456789abcdef' |
+| public | [hex()](../classes/YooKassa-Helpers-Random.md#method_hex) |  | Возвращает строку, состоящую из символов '0123456789abcdef'. |
 | public | [int()](../classes/YooKassa-Helpers-Random.md#method_int) |  | Возвращает рандомное целое число. По умолчанию возвращает число от нуля до PHP_INT_MAX. |
-| public | [str()](../classes/YooKassa-Helpers-Random.md#method_str) |  | Возвращает строку из рандомных символов |
-| public | [value()](../classes/YooKassa-Helpers-Random.md#method_value) |  | Возвращает рандомное значение из переданного массива |
+| public | [str()](../classes/YooKassa-Helpers-Random.md#method_str) |  | Возвращает строку из рандомных символов. |
+| public | [value()](../classes/YooKassa-Helpers-Random.md#method_value) |  | Возвращает рандомное значение из переданного массива. |
 
 ---
 ### Details
 * File: [lib/Helpers/Random.php](../../lib/Helpers/Random.php)
-* Package: YooKassa
+* Package: YooKassa\Helpers
 * Class Hierarchy:
   * \YooKassa\Helpers\Random
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -42,15 +55,10 @@ Static public bool() : bool
 
 **Summary**
 
-Возвращает рандомное буллево значение
+Возвращает рандомное буллево значение.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\Random](../classes/YooKassa-Helpers-Random.md)
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
 
 **Returns:** bool - Либо true либо false, одно из двух
 
@@ -59,7 +67,7 @@ Static public bool() : bool
 #### public bytes() : string
 
 ```php
-Static public bytes(int $length, bool $useBest = true) : string
+Static public bytes(int $length) : string
 ```
 
 **Summary**
@@ -73,12 +81,6 @@ Static public bytes(int $length, bool $useBest = true) : string
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">int</code> | length  | Длина возвращаемой строки |
-| <code lang="php">bool</code> | useBest  | Использовать ли функцию random_int если она доступна |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
 
 **Returns:** string - Строка, состоящая из рандомных символов
 
@@ -87,7 +89,7 @@ Static public bytes(int $length, bool $useBest = true) : string
 #### public float() : float
 
 ```php
-Static public float(float|null $min = null, float|null $max = null, bool $useBest = true) : float
+Static public float(null|float $min = null, null|float $max = null) : float
 ```
 
 **Summary**
@@ -100,14 +102,8 @@ Static public float(float|null $min = null, float|null $max = null, bool $useBes
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">float OR null</code> | min  | Минимально возможное значение |
-| <code lang="php">float OR null</code> | max  | Максимально возможное значение |
-| <code lang="php">bool</code> | useBest  | Использовать ли функцию random_int если она доступна |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
+| <code lang="php">null OR float</code> | min  | Минимально возможное значение |
+| <code lang="php">null OR float</code> | max  | Максимально возможное значение |
 
 **Returns:** float - Рандомное число с плавающей точкой
 
@@ -121,7 +117,7 @@ Static public hex(int $length, bool $useBest = true) : string
 
 **Summary**
 
-Возвращает строку, состоящую из символов '0123456789abcdef'
+Возвращает строку, состоящую из символов '0123456789abcdef'.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\Random](../classes/YooKassa-Helpers-Random.md)
@@ -132,11 +128,6 @@ Static public hex(int $length, bool $useBest = true) : string
 | <code lang="php">int</code> | length  | Длина возвращаемой строки |
 | <code lang="php">bool</code> | useBest  | Использовать ли функцию random_int если она доступна |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
-
 **Returns:** string - Строка, состоящая из рандомных символов
 
 
@@ -144,7 +135,7 @@ Static public hex(int $length, bool $useBest = true) : string
 #### public int() : int
 
 ```php
-Static public int(int|null $min = null, int|null $max = null, bool $useBest = true) : int
+Static public int(null|int $min = null, null|int $max = null) : int
 ```
 
 **Summary**
@@ -157,14 +148,8 @@ Static public int(int|null $min = null, int|null $max = null, bool $useBest = tr
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">int OR null</code> | min  | Минимально возможное значение |
-| <code lang="php">int OR null</code> | max  | Максимально возможное значение |
-| <code lang="php">bool</code> | useBest  | Использовать ли функцию random_int если она доступна |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
+| <code lang="php">null OR int</code> | min  | Минимально возможное значение |
+| <code lang="php">null OR int</code> | max  | Максимально возможное значение |
 
 **Returns:** int - Рандомное целое число
 
@@ -173,12 +158,12 @@ Static public int(int|null $min = null, int|null $max = null, bool $useBest = tr
 #### public str() : string
 
 ```php
-Static public str(int $length, int|null $maxLength = null, string|array|null $characters = null, bool $useBest = true) : string
+Static public str(int $length, null|int|string $maxLength = null, null|array|string $characters = null) : string
 ```
 
 **Summary**
 
-Возвращает строку из рандомных символов
+Возвращает строку из рандомных символов.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\Random](../classes/YooKassa-Helpers-Random.md)
@@ -187,14 +172,8 @@ Static public str(int $length, int|null $maxLength = null, string|array|null $ch
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">int</code> | length  | Длина возвращаемой строки, или минимальная длина, если передан парамтр $maxLength |
-| <code lang="php">int OR null</code> | maxLength  | Если параметр не равен null, возвращает сроку длиной от $length до $maxLength |
-| <code lang="php">string OR array OR null</code> | characters  | Строка или массив используемых в строке символов |
-| <code lang="php">bool</code> | useBest  | Использовать ли функцию random_int если она доступна |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
+| <code lang="php">null OR int OR string</code> | maxLength  | Если параметр не равен null, возвращает сроку длиной от $length до $maxLength |
+| <code lang="php">null OR array OR string</code> | characters  | Строка или массив используемых в строке символов |
 
 **Returns:** string - Строка, состоящая из рандомных символов
 
@@ -203,12 +182,12 @@ Static public str(int $length, int|null $maxLength = null, string|array|null $ch
 #### public value() : mixed
 
 ```php
-Static public value(array $values, bool $useBest = true) : mixed
+Static public value(array $values) : mixed
 ```
 
 **Summary**
 
-Возвращает рандомное значение из переданного массива
+Возвращает рандомное значение из переданного массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\Random](../classes/YooKassa-Helpers-Random.md)
@@ -217,12 +196,6 @@ Static public value(array $values, bool $useBest = true) : mixed
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">array</code> | values  | Массив источник данных |
-| <code lang="php">bool</code> | useBest  | Использовать ли функцию random_int если она доступна |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
 
 **Returns:** mixed - Случайное значение из переданного массива
 
@@ -238,11 +211,11 @@ Static public value(array $values, bool $useBest = true) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

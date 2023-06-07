@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,99 +26,108 @@
 
 namespace YooKassa\Request\Deals;
 
-use YooKassa\Common\AbstractRequest;
 use YooKassa\Common\AbstractRequestBuilder;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 use YooKassa\Model\Metadata;
 
 /**
- * Класс билдера объектов запросов к API на создание платежа
+ * Класс, представляющий модель CreateDealRequestBuilder.
  *
- * @example 02-builder.php 11 78 Пример использования билдера
+ * Класс билдера объектов запросов к API на создание платежа.
  *
- * @package YooKassa
+ * @example 02-builder.php 252 19 Пример использования билдера
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class CreateDealRequestBuilder extends AbstractRequestBuilder
 {
     /**
-     * Собираемый объект запроса
-     * @var CreateDealRequest
+     * Собираемый объект запроса.
+     *
+     * @var CreateDealRequest|null
      */
-    protected $currentObject;
+    protected ?AbstractRequestInterface $currentObject = null;
+
+    /**
+     * Устанавливает тип сделки.
+     *
+     * @param string $value Тип сделки
+     *
+     * @return CreateDealRequestBuilder Инстанс текущего билдера
+     */
+    public function setType(string $value): CreateDealRequestBuilder
+    {
+        $this->currentObject->setType($value);
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает момент перечисления вам вознаграждения платформы.
+     *
+     * @param string $value Момент перечисления вам вознаграждения платформы
+     *
+     * @return CreateDealRequestBuilder Инстанс текущего билдера
+     */
+    public function setFeeMoment(string $value): CreateDealRequestBuilder
+    {
+        $this->currentObject->setFeeMoment($value);
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает метаданные, привязанные к платежу.
+     *
+     * @param null|array|Metadata $value Метаданные платежа, устанавливаемые мерчантом
+     *
+     * @return CreateDealRequestBuilder Инстанс текущего билдера
+     */
+    public function setMetadata(mixed $value): CreateDealRequestBuilder
+    {
+        $this->currentObject->setMetadata($value);
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает описание транзакции.
+     *
+     * @param string|null $value Описание транзакции
+     *
+     * @return CreateDealRequestBuilder Инстанс текущего билдера
+     */
+    public function setDescription(?string $value): CreateDealRequestBuilder
+    {
+        $this->currentObject->setDescription($value);
+
+        return $this;
+    }
+
+    /**
+     * Осуществляет сборку объекта запроса к API.
+     *
+     * @param array|null $options
+     *
+     * @return CreateDealRequestInterface|AbstractRequestInterface
+     */
+    public function build(array $options = null): AbstractRequestInterface
+    {
+        return parent::build($options);
+    }
 
     /**
      * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
+     *
      * @return CreateDealRequest Инстанс собираемого объекта запроса к API
      */
-    protected function initCurrentObject()
+    protected function initCurrentObject(): CreateDealRequest
     {
         return new CreateDealRequest();
-    }
-
-    /**
-     * Устанавливает тип сделки
-     * @param string $value Тип сделки
-     * @return CreateDealRequestBuilder Инстанс текущего билдера
-     *
-     * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не является строкой
-     * @throws InvalidPropertyValueException Генерируется если переданный аргумент не из списка DealType
-
-     */
-    public function setType($value)
-    {
-        $this->currentObject->setType($value);
-        return $this;
-    }
-
-    /**
-     * Устанавливает момент перечисления вам вознаграждения платформы
-     * @param string $value Момент перечисления вам вознаграждения платформы
-     * @return CreateDealRequestBuilder Инстанс текущего билдера
-     *
-     * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не является строкой
-     * @throws InvalidPropertyValueException Генерируется если переданный аргумент не из списка FeeMoment
-     */
-    public function setFeeMoment($value)
-    {
-        $this->currentObject->setFeeMoment($value);
-        return $this;
-    }
-
-    /**
-     * Устанавливает метаданные, привязанные к платежу
-     * @param Metadata|array|null $value Метаданные платежа, устанавливаемые мерчантом
-     * @return CreateDealRequestBuilder Инстанс текущего билдера
-     *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданные данные не удалось интерпретировать как
-     * метаданные платежа
-     */
-    public function setMetadata($value)
-    {
-        $this->currentObject->setMetadata($value);
-        return $this;
-    }
-
-    /**
-     * Устанавливает описание транзакции
-     * @param string $value Описание транзакции
-     * @return CreateDealRequestBuilder Инстанс текущего билдера
-     *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение превышает допустимую длину
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
-     */
-    public function setDescription($value)
-    {
-        $this->currentObject->setDescription($value);
-        return $this;
-    }
-
-    /**
-     * @param array|null $options
-     * @return CreateDealRequest|AbstractRequest
-     */
-    public function build(array $options = null)
-    {
-        return parent::build($options);
     }
 }

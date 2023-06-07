@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,9 +27,14 @@
 namespace YooKassa\Request\Refunds;
 
 /**
- * Класс объекта ответа от API при запросе одного конкретного возврата
+ * Класс, представляющий модель RefundResponse.
  *
- * @package YooKassa
+ * Класс объекта ответа от API при запросе одного конкретного возврата.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class RefundResponse extends AbstractRefundResponse
 {

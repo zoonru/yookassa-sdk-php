@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,15 +27,13 @@
 namespace YooKassa\Model;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueTypeException;
 
 /**
- * MonetaryAmount - Сумма определенная в валюте
- *
- * @package YooKassa
+ * MonetaryAmount - Сумма определенная в валюте.
  *
  * @property int $value Сумма
  * @property string $currency Код валюты
@@ -43,135 +41,138 @@ use YooKassa\Helpers\TypeCast;
 class MonetaryAmount extends AbstractObject implements AmountInterface
 {
     /**
-     * @var int Сумма
+     * Сумма в выбранной валюте.
+     *
+     * @var int|null
      */
-    private $_value = 0;
+    #[Assert\NotBlank]
+    #[Assert\Type('int')]
+    private ?int $_value = 0;
 
     /**
-     * @var string Код валюты
+     * Трехбуквенный код валюты в формате ISO-4217. Пример: RUB.
+     *
+     * @var string|null
      */
-    private $_currency = CurrencyCode::RUB;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [CurrencyCode::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private ?string $_currency = CurrencyCode::RUB;
 
     /**
      * MonetaryAmount constructor.
-     * @param array|numeric|null $value Сумма
-     * @param string|null $currency Код валюты
+     *
+     * @param null|array|numeric $value Сумма
+     * @param null|string $currency Код валюты
      */
-    public function __construct($value = null, $currency = null)
+    public function __construct(mixed $value = null, ?string $currency = null)
     {
         if (is_array($value)) {
             parent::__construct($value);
         } else {
-            if ($value !== null && $value > 0.0) {
+            parent::__construct();
+            if (null !== $value && $value > 0.0) {
                 $this->setValue($value);
             }
-            if ($currency !== null) {
+            if (null !== $currency) {
                 $this->setCurrency($currency);
             }
         }
     }
 
     /**
-     * Возвращает значение суммы
+     * Возвращает значение суммы.
+     *
      * @return string Сумма
      */
-    public function getValue()
+    public function getValue(): string
     {
         if ($this->_value < 10) {
             return '0.0' . $this->_value;
-        } elseif ($this->_value < 100) {
-            return '0.' . $this->_value;
-        } else {
-            return substr($this->_value, 0, -2) . '.' . substr($this->_value, -2);
         }
+        if ($this->_value < 100) {
+            return '0.' . $this->_value;
+        }
+
+        return substr($this->_value, 0, -2) . '.' . substr($this->_value, -2);
     }
 
     /**
-     * Устанавливает сумму
-     * @param string $value Сумма
+     * Устанавливает сумму.
+     *
+     * @param numeric|string|null $value Сумма
      *
      * @throws EmptyPropertyValueException Генерируется если было передано пустое значение
      * @throws InvalidPropertyValueTypeException Генерируется если было передано значение невалидного типа
      * @throws InvalidPropertyValueException Генерируется если было передано не валидное значение
      */
-    public function setValue($value)
+    public function setValue(mixed $value): self
     {
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             throw new EmptyPropertyValueException('Empty amount value', 0, 'amount.value');
         }
         if (!is_numeric($value)) {
             throw new InvalidPropertyValueTypeException('Invalid amount value type', 0, 'amount.value', $value);
         }
-        if ($value <= 0.0) {
+        if ((float) $value <= 0.0) {
             throw new InvalidPropertyValueException('Invalid amount value: "' . $value . '"', 0, 'amount.value', $value);
         }
-        $castedValue = (int)round($value * 100.0);
+        $castedValue = (int) round((float) $value * 100.0);
         if ($castedValue <= 0.0) {
             throw new InvalidPropertyValueException('Invalid amount value: "' . $value . '"', 0, 'amount.value', $value);
         }
-        $this->_value = $castedValue;
+        $this->_value = $this->validatePropertyValue('_value', $castedValue);
+        return $this;
     }
 
     /**
-     * Возвращает сумму в копейках в виде целого числа
+     * Возвращает сумму в копейках в виде целого числа.
+     *
      * @return int Сумма в копейках/центах
      */
-    public function getIntegerValue()
+    public function getIntegerValue(): int
     {
         return $this->_value;
     }
 
     /**
-     * Возвращает валюту
+     * Возвращает валюту.
+     *
      * @return string Код валюты
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->_currency;
     }
 
     /**
-     * Устанавливает код валюты
-     * @param string $value Код валюты
+     * Устанавливает код валюты.
+     *
+     * @param string $currency Код валюты
      *
      * @throws EmptyPropertyValueException Генерируется если было передано пустое значение
      * @throws InvalidPropertyValueTypeException Генерируется если было передано значение невалидного типа
      * @throws InvalidPropertyValueException Генерируется если был передан неподдерживаемый код валюты
      */
-    public function setCurrency($value)
+    public function setCurrency(string $currency): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty currency value', 0, 'amount.currency');
-        }
-        if (TypeCast::canCastToEnumString($value)) {
-            $value = strtoupper((string)$value);
-            if (CurrencyCode::valueExists($value)) {
-                $this->_currency = $value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid currency value: "' . $value . '"',
-                    0,
-                    'amount.currency',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException('Invalid currency value type', 0, 'amount.currency', $value);
-        }
+        $this->_currency = $this->validatePropertyValue('_currency', $currency);
+        return $this;
     }
 
     /**
      * Умножает текущую сумму на указанный коэффициент
+     *
      * @param float $coefficient Множитель
      *
      * @throws EmptyPropertyValueException Выбрасывается если передано пустое значение
      * @throws InvalidPropertyValueTypeException Выбрасывается если было передано не число
      * @throws InvalidPropertyValueException Выбрасывается если переданное значение меньше или равно нулю, либо если
-     * после умножения получили значение равное нулю
+     *                                       после умножения получили значение равное нулю
      */
-    public function multiply($coefficient)
+    public function multiply(float $coefficient): void
     {
-        if ($coefficient === null || $coefficient === '') {
+        if (null === $coefficient || '' === $coefficient) {
             throw new EmptyPropertyValueException('Empty coefficient in multiply method', 0, 'amount.value');
         }
         if (!is_numeric($coefficient)) {
@@ -190,8 +191,8 @@ class MonetaryAmount extends AbstractObject implements AmountInterface
                 $coefficient
             );
         }
-        $castedValue = (int)round($coefficient * $this->_value);
-        if ($castedValue === 0) {
+        $castedValue = (int) round($coefficient * $this->_value);
+        if (0 === $castedValue) {
             throw new InvalidPropertyValueException(
                 'Invalid coefficient value in multiply method: "' . $coefficient . '"',
                 0,
@@ -203,27 +204,17 @@ class MonetaryAmount extends AbstractObject implements AmountInterface
     }
 
     /**
-     * Увеличивает сумму на указанное значение
-     * @param int $value Значение, которое будет прибавлено к текущему
+     * Увеличивает сумму на указанное значение.
+     *
+     * @param float $value Значение, которое будет прибавлено к текущему
      *
      * @throws EmptyPropertyValueException Выбрасывается если передано пустое значение
      * @throws InvalidPropertyValueTypeException Выбрасывается если было передано не число
      * @throws InvalidPropertyValueException Выбрасывается если после сложения получилась сумма меньше или равная нулю
      */
-    public function increase($value)
+    public function increase(float $value): void
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty amount value in increase method', 0, 'amount.value');
-        }
-        if (!is_numeric($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid amount value type in increase method',
-                0,
-                'amount.value',
-                $value
-            );
-        }
-        $castedValue = (int)round($this->_value + $value * 100.0);
+        $castedValue = (int) round($this->_value + $value * 100.0);
         if ($castedValue <= 0) {
             throw new InvalidPropertyValueException(
                 'Invalid amount value in increase method: "' . $value . '"',
@@ -235,14 +226,11 @@ class MonetaryAmount extends AbstractObject implements AmountInterface
         $this->_value = $castedValue;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
-        return array(
+        return [
             'value' => number_format($this->_value / 100.0, 2, '.', ''),
             'currency' => $this->_currency,
-        );
+        ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,19 +29,31 @@ namespace YooKassa\Model\Deal;
 use YooKassa\Common\AbstractEnum;
 
 /**
- * Class FeeMoment
+ * Класс, представляющий модель FeeMoment.
  *
- * @package YooKassa
+ * Момент перечисления вам вознаграждения платформы. Возможные значения:
+ * ~`payment_succeeded` — после успешной оплаты;
+ * ~`deal_closed` — при закрытии сделки после успешной выплаты.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class FeeMoment extends AbstractEnum
 {
-    /** Вознаграждение после успешной оплаты */
-    const PAYMENT_SUCCEEDED = 'payment_succeeded';
-    /** Вознаграждение при закрытии сделки после успешной выплаты */
-    const DEAL_CLOSED = 'deal_closed';
+    /** @var string Вознаграждение после успешной оплаты */
+    public const PAYMENT_SUCCEEDED = 'payment_succeeded';
 
-    protected static $validValues = array(
+    /** @var string Вознаграждение при закрытии сделки после успешной выплаты */
+    public const DEAL_CLOSED = 'deal_closed';
+
+    /**
+     * Возвращает список доступных значений
+     * @return string[]
+     */
+    protected static array $validValues = [
         self::PAYMENT_SUCCEEDED => true,
         self::DEAL_CLOSED => true,
-    );
+    ];
 }

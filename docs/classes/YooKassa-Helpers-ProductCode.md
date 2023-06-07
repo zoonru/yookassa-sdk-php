@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс для формирования тега 1162 на основе кода в формате Data Matrix
+Класс, представляющий модель ProductCode.
 
+**Description:**
+
+Класс для формирования тега 1162 на основе кода в формате Data Matrix.
 
 ---
 ### Examples
@@ -15,7 +18,7 @@
 ```php
 $inputDataMatrix = '010463003407001221SxMGorvNuq6Wk91fgr92sdfsdfghfgjh';
 $productCode = new \YooKassa\Helpers\ProductCode($inputDataMatrix);
-$receiptItem = new \YooKassa\Model\ReceiptItem();
+$receiptItem = new \YooKassa\Model\Receipt\ReceiptItem();
 $receiptItem->setProductCode($productCode);
 $receiptItem->setMarkCodeInfo($productCode->getMarkCodeInfo());
 
@@ -26,10 +29,10 @@ var_dump($receiptItem);
 
 ```php
 $inputDataMatrix = '010463003407001221SxMGorvNuq6Wk91fgr92sdfsdfghfgjh';
-$receiptItem = new \YooKassa\Model\ReceiptItem(array(
-    'product_code' => (string)($code = new \YooKassa\Helpers\ProductCode($inputDataMatrix)),
-    'mark_code_info' => $code->getMarkCodeInfo()
-));
+$receiptItem = new \YooKassa\Model\Receipt\ReceiptItem([
+    'product_code' => (string) ($code = new \YooKassa\Helpers\ProductCode($inputDataMatrix)),
+    'mark_code_info' => $code->getMarkCodeInfo(),
+]);
 
 var_dump($receiptItem);
 
@@ -68,34 +71,42 @@ var_dump($receiptItem);
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Helpers-ProductCode.md#method___construct) |  | ProductCode constructor. |
-| public | [__toString()](../classes/YooKassa-Helpers-ProductCode.md#method___toString) |  | Приводит объект к строке |
+| public | [__toString()](../classes/YooKassa-Helpers-ProductCode.md#method___toString) |  | Приводит объект к строке. |
 | public | [calcResult()](../classes/YooKassa-Helpers-ProductCode.md#method_calcResult) |  | Формирует тег 1162. |
-| public | [getAppIdentifiers()](../classes/YooKassa-Helpers-ProductCode.md#method_getAppIdentifiers) |  | Возвращает массив дополнительных идентификаторов применения |
-| public | [getGtin()](../classes/YooKassa-Helpers-ProductCode.md#method_getGtin) |  | Возвращает глобальный номер товарной продукции |
+| public | [getAppIdentifiers()](../classes/YooKassa-Helpers-ProductCode.md#method_getAppIdentifiers) |  | Возвращает массив дополнительных идентификаторов применения. |
+| public | [getGtin()](../classes/YooKassa-Helpers-ProductCode.md#method_getGtin) |  | Возвращает глобальный номер товарной продукции. |
 | public | [getMarkCodeInfo()](../classes/YooKassa-Helpers-ProductCode.md#method_getMarkCodeInfo) |  |  |
-| public | [getPrefix()](../classes/YooKassa-Helpers-ProductCode.md#method_getPrefix) |  | Возвращает код типа маркировки |
+| public | [getPrefix()](../classes/YooKassa-Helpers-ProductCode.md#method_getPrefix) |  | Возвращает код типа маркировки. |
 | public | [getResult()](../classes/YooKassa-Helpers-ProductCode.md#method_getResult) |  | Возвращает сформированный тег 1162. |
-| public | [getSerial()](../classes/YooKassa-Helpers-ProductCode.md#method_getSerial) |  | Возвращает серийный номер товара |
-| public | [getType()](../classes/YooKassa-Helpers-ProductCode.md#method_getType) |  | Возвращает тип маркировки |
-| public | [isUsePrefix()](../classes/YooKassa-Helpers-ProductCode.md#method_isUsePrefix) |  | Возвращает флаг использования кода типа маркировки |
-| public | [setAppIdentifiers()](../classes/YooKassa-Helpers-ProductCode.md#method_setAppIdentifiers) |  | Устанавливает массив дополнительных идентификаторов применения |
-| public | [setGtin()](../classes/YooKassa-Helpers-ProductCode.md#method_setGtin) |  | Устанавливает глобальный номер товарной продукции |
+| public | [getSerial()](../classes/YooKassa-Helpers-ProductCode.md#method_getSerial) |  | Возвращает серийный номер товара. |
+| public | [getType()](../classes/YooKassa-Helpers-ProductCode.md#method_getType) |  | Возвращает тип маркировки. |
+| public | [isUsePrefix()](../classes/YooKassa-Helpers-ProductCode.md#method_isUsePrefix) |  | Возвращает флаг использования кода типа маркировки. |
+| public | [setAppIdentifiers()](../classes/YooKassa-Helpers-ProductCode.md#method_setAppIdentifiers) |  | Устанавливает массив дополнительных идентификаторов применения. |
+| public | [setGtin()](../classes/YooKassa-Helpers-ProductCode.md#method_setGtin) |  | Устанавливает глобальный номер товарной продукции. |
 | public | [setMarkCodeInfo()](../classes/YooKassa-Helpers-ProductCode.md#method_setMarkCodeInfo) |  |  |
-| public | [setPrefix()](../classes/YooKassa-Helpers-ProductCode.md#method_setPrefix) |  | Устанавливает код типа маркировки |
-| public | [setSerial()](../classes/YooKassa-Helpers-ProductCode.md#method_setSerial) |  | Устанавливает серийный номер товара |
-| public | [setType()](../classes/YooKassa-Helpers-ProductCode.md#method_setType) |  | Устанавливает тип маркировки |
-| public | [setUsePrefix()](../classes/YooKassa-Helpers-ProductCode.md#method_setUsePrefix) |  | Устанавливает флаг использования кода типа маркировки |
-| public | [validate()](../classes/YooKassa-Helpers-ProductCode.md#method_validate) |  | Проверяет заполненность необходимых свойств |
+| public | [setPrefix()](../classes/YooKassa-Helpers-ProductCode.md#method_setPrefix) |  | Устанавливает код типа маркировки. |
+| public | [setSerial()](../classes/YooKassa-Helpers-ProductCode.md#method_setSerial) |  | Устанавливает серийный номер товара. |
+| public | [setType()](../classes/YooKassa-Helpers-ProductCode.md#method_setType) |  | Устанавливает тип маркировки. |
+| public | [setUsePrefix()](../classes/YooKassa-Helpers-ProductCode.md#method_setUsePrefix) |  | Устанавливает флаг использования кода типа маркировки. |
+| public | [validate()](../classes/YooKassa-Helpers-ProductCode.md#method_validate) |  | Проверяет заполненность необходимых свойств. |
 
 ---
 ### Details
 * File: [lib/Helpers/ProductCode.php](../../lib/Helpers/ProductCode.php)
-* Package: YooKassa
+* Package: YooKassa\Model
 * Class Hierarchy:
   * \YooKassa\Helpers\ProductCode
 
 * See Also:
+  * [](https://yookassa.ru/developers/api)
   * [](https://git.yoomoney.ru/projects/SDK/repos/yookassa-sdk-php/browse/lib/Helpers/ProductCode.php)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -267,7 +278,7 @@ MAX_MARK_CODE_LENGTH = 32 : int
 #### public __construct() : mixed
 
 ```php
-public __construct(string|null $codeDataMatrix = null, bool|string $usePrefix = true) : mixed
+public __construct(null|string $codeDataMatrix = null, bool|string $usePrefix = true) : mixed
 ```
 
 **Summary**
@@ -280,7 +291,7 @@ ProductCode constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | codeDataMatrix  | Строка, расшифрованная из QR-кода |
+| <code lang="php">null OR string</code> | codeDataMatrix  | Строка, расшифрованная из QR-кода |
 | <code lang="php">bool OR string</code> | usePrefix  | Нужен ли код типа маркировки в результате |
 
 **Returns:** mixed - 
@@ -295,7 +306,7 @@ public __toString() : string
 
 **Summary**
 
-Приводит объект к строке
+Приводит объект к строке.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -317,71 +328,71 @@ public calcResult() : string
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
 
-**Returns:** string - Сформированный тег 1162.
+**Returns:** string - Сформированный тег 1162
 
 
 <a name="method_getAppIdentifiers" class="anchor"></a>
-#### public getAppIdentifiers() : array|null
+#### public getAppIdentifiers() : null|array
 
 ```php
-public getAppIdentifiers() : array|null
+public getAppIdentifiers() : null|array
 ```
 
 **Summary**
 
-Возвращает массив дополнительных идентификаторов применения
+Возвращает массив дополнительных идентификаторов применения.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
 
-**Returns:** array|null - Массив дополнительных идентификаторов применения
+**Returns:** null|array - Массив дополнительных идентификаторов применения
 
 
 <a name="method_getGtin" class="anchor"></a>
-#### public getGtin() : string
+#### public getGtin() : string|null
 
 ```php
-public getGtin() : string
+public getGtin() : string|null
 ```
 
 **Summary**
 
-Возвращает глобальный номер товарной продукции
+Возвращает глобальный номер товарной продукции.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
 
-**Returns:** string - Глобальный номер товарной продукции
+**Returns:** string|null - Глобальный номер товарной продукции
 
 
 <a name="method_getMarkCodeInfo" class="anchor"></a>
-#### public getMarkCodeInfo() : \YooKassa\Model\Receipt\MarkCodeInfo
+#### public getMarkCodeInfo() : ?\YooKassa\Model\Receipt\MarkCodeInfo
 
 ```php
-public getMarkCodeInfo() : \YooKassa\Model\Receipt\MarkCodeInfo
+public getMarkCodeInfo() : ?\YooKassa\Model\Receipt\MarkCodeInfo
 ```
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
 
-**Returns:** \YooKassa\Model\Receipt\MarkCodeInfo - 
+**Returns:** ?\YooKassa\Model\Receipt\MarkCodeInfo - 
 
 
 <a name="method_getPrefix" class="anchor"></a>
-#### public getPrefix() : string
+#### public getPrefix() : ?string
 
 ```php
-public getPrefix() : string
+public getPrefix() : ?string
 ```
 
 **Summary**
 
-Возвращает код типа маркировки
+Возвращает код типа маркировки.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
 
-**Returns:** string - Код типа маркировки
+**Returns:** ?string - Код типа маркировки
 
 
 <a name="method_getResult" class="anchor"></a>
@@ -398,41 +409,41 @@ public getResult() : string
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
 
-**Returns:** string - Сформированный тег 1162.
+**Returns:** string - Сформированный тег 1162
 
 
 <a name="method_getSerial" class="anchor"></a>
-#### public getSerial() : string
+#### public getSerial() : string|null
 
 ```php
-public getSerial() : string
+public getSerial() : string|null
 ```
 
 **Summary**
 
-Возвращает серийный номер товара
+Возвращает серийный номер товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
 
-**Returns:** string - Серийный номер товара
+**Returns:** string|null - Серийный номер товара
 
 
 <a name="method_getType" class="anchor"></a>
-#### public getType() : string
+#### public getType() : string|null
 
 ```php
-public getType() : string
+public getType() : string|null
 ```
 
 **Summary**
 
-Возвращает тип маркировки
+Возвращает тип маркировки.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
 
-**Returns:** string - Тип маркировки
+**Returns:** string|null - Тип маркировки
 
 
 <a name="method_isUsePrefix" class="anchor"></a>
@@ -444,7 +455,7 @@ public isUsePrefix() : bool
 
 **Summary**
 
-Возвращает флаг использования кода типа маркировки
+Возвращает флаг использования кода типа маркировки.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -453,15 +464,15 @@ public isUsePrefix() : bool
 
 
 <a name="method_setAppIdentifiers" class="anchor"></a>
-#### public setAppIdentifiers() : mixed
+#### public setAppIdentifiers() : void
 
 ```php
-public setAppIdentifiers(array|null $appIdentifiers) : mixed
+public setAppIdentifiers(null|array $appIdentifiers) : void
 ```
 
 **Summary**
 
-Устанавливает массив дополнительных идентификаторов применения
+Устанавливает массив дополнительных идентификаторов применения.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -469,21 +480,21 @@ public setAppIdentifiers(array|null $appIdentifiers) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR null</code> | appIdentifiers  | Массив дополнительных идентификаторов применения |
+| <code lang="php">null OR array</code> | appIdentifiers  | Массив дополнительных идентификаторов применения |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setGtin" class="anchor"></a>
 #### public setGtin() : \YooKassa\Helpers\ProductCode
 
 ```php
-public setGtin(string $gtin) : \YooKassa\Helpers\ProductCode
+public setGtin(string|null $gtin) : \YooKassa\Helpers\ProductCode
 ```
 
 **Summary**
 
-Устанавливает глобальный номер товарной продукции
+Устанавливает глобальный номер товарной продукции.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -491,16 +502,16 @@ public setGtin(string $gtin) : \YooKassa\Helpers\ProductCode
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | gtin  | Глобальный номер товарной продукции |
+| <code lang="php">string OR null</code> | gtin  | Глобальный номер товарной продукции |
 
 **Returns:** \YooKassa\Helpers\ProductCode - 
 
 
 <a name="method_setMarkCodeInfo" class="anchor"></a>
-#### public setMarkCodeInfo() : mixed
+#### public setMarkCodeInfo() : void
 
 ```php
-public setMarkCodeInfo(\YooKassa\Model\Receipt\MarkCodeInfo|array|string $markCodeInfo) : mixed
+public setMarkCodeInfo(array|\YooKassa\Model\Receipt\MarkCodeInfo|string $markCodeInfo) : void
 ```
 
 **Details:**
@@ -509,21 +520,21 @@ public setMarkCodeInfo(\YooKassa\Model\Receipt\MarkCodeInfo|array|string $markCo
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\Receipt\MarkCodeInfo OR array OR string</code> | markCodeInfo  |  |
+| <code lang="php">array OR \YooKassa\Model\Receipt\MarkCodeInfo OR string</code> | markCodeInfo  |  |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setPrefix" class="anchor"></a>
 #### public setPrefix() : \YooKassa\Helpers\ProductCode
 
 ```php
-public setPrefix(string|int $prefix) : \YooKassa\Helpers\ProductCode
+public setPrefix(int|string|null $prefix) : \YooKassa\Helpers\ProductCode
 ```
 
 **Summary**
 
-Устанавливает код типа маркировки
+Устанавливает код типа маркировки.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -531,7 +542,7 @@ public setPrefix(string|int $prefix) : \YooKassa\Helpers\ProductCode
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR int</code> | prefix  | Код типа маркировки |
+| <code lang="php">int OR string OR null</code> | prefix  | Код типа маркировки |
 
 **Returns:** \YooKassa\Helpers\ProductCode - 
 
@@ -540,12 +551,12 @@ public setPrefix(string|int $prefix) : \YooKassa\Helpers\ProductCode
 #### public setSerial() : \YooKassa\Helpers\ProductCode
 
 ```php
-public setSerial(string $serial) : \YooKassa\Helpers\ProductCode
+public setSerial(string|null $serial) : \YooKassa\Helpers\ProductCode
 ```
 
 **Summary**
 
-Устанавливает серийный номер товара
+Устанавливает серийный номер товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -553,21 +564,21 @@ public setSerial(string $serial) : \YooKassa\Helpers\ProductCode
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | serial  | Серийный номер товара |
+| <code lang="php">string OR null</code> | serial  | Серийный номер товара |
 
 **Returns:** \YooKassa\Helpers\ProductCode - 
 
 
 <a name="method_setType" class="anchor"></a>
-#### public setType() : mixed
+#### public setType() : void
 
 ```php
-public setType(string $type) : mixed
+public setType(string $type) : void
 ```
 
 **Summary**
 
-Устанавливает тип маркировки
+Устанавливает тип маркировки.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -577,7 +588,7 @@ public setType(string $type) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | type  | Тип маркировки |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setUsePrefix" class="anchor"></a>
@@ -589,7 +600,7 @@ public setUsePrefix(bool $usePrefix) : \YooKassa\Helpers\ProductCode
 
 **Summary**
 
-Устанавливает флаг использования кода типа маркировки
+Устанавливает флаг использования кода типа маркировки.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -611,7 +622,7 @@ public validate() : bool
 
 **Summary**
 
-Проверяет заполненность необходимых свойств
+Проверяет заполненность необходимых свойств.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\ProductCode](../classes/YooKassa-Helpers-ProductCode.md)
@@ -630,11 +641,11 @@ public validate() : bool
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

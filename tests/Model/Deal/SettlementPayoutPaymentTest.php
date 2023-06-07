@@ -1,36 +1,29 @@
 <?php
 
-namespace Tests\YooKassa\Model;
+namespace Tests\YooKassa\Model\Deal;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
+use stdClass;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\Deal\SettlementPayoutPayment;
 use YooKassa\Model\Deal\SettlementPayoutPaymentType;
 use YooKassa\Model\MonetaryAmount;
+use YooKassa\Validator\Exceptions\InvalidPropertyException;
 
+/**
+ * @internal
+ */
 class SettlementPayoutPaymentTest extends TestCase
 {
-    protected function getTestInstance()
-    {
-        return new SettlementPayoutPayment();
-    }
-
     /**
      * @dataProvider validDataProvider
-     *
-     * @param array $value
      */
-    public function testFromArray($value)
+    public function testFromArray(array $value): void
     {
         $instance = $this->getTestInstance();
-
-        self::assertNull($instance->getType());
-        self::assertNull($instance->getAmount());
-        self::assertNull($instance->type);
-        self::assertNull($instance->amount);
 
         $instance->fromArray($value);
 
@@ -44,15 +37,11 @@ class SettlementPayoutPaymentTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     *
-     * @param array $value
      */
-    public function testGetSetType($value)
+    public function testGetSetType(array $value): void
     {
         $instance = $this->getTestInstance();
 
-        self::assertNull($instance->getType());
-        self::assertNull($instance->type);
         $instance->setType($value['type']);
         self::assertSame($value['type'], $instance->getType());
         self::assertSame($value['type'], $instance->type);
@@ -61,46 +50,40 @@ class SettlementPayoutPaymentTest extends TestCase
     /**
      * @dataProvider invalidTypeDataProvider
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     *
-     * @param $value
+     * @param mixed $value
      */
-    public function testSetInvalidType($value)
+    public function testSetInvalidType($value): void
     {
+        $this->expectException(InvalidPropertyException::class);
         $this->getTestInstance()->setType($value);
     }
 
     /**
-     * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    public function validDataProvider()
+    public static function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         for ($i = 0; $i < 10; $i++) {
-            $result[] = array(
+            $result[] = [
                 'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
-                'amount' => array(
+                'amount' => [
                     'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
-                    'currency' => Random::value(CurrencyCode::getValidValues())
-                )
-            );
+                    'currency' => Random::value(CurrencyCode::getValidValues()),
+                ],
+            ];
         }
-        return array($result);
+
+        return [$result];
     }
 
     /**
      * @dataProvider validAmountDataProvider
-     *
-     * @param AmountInterface $value
      */
-    public function testGetSetAmount($value)
+    public function testGetSetAmount(AmountInterface $value): void
     {
         $instance = $this->getTestInstance();
 
-        self::assertNull($instance->getAmount());
-        self::assertNull($instance->amount);
         $instance->setAmount($value);
         self::assertSame($value, $instance->getAmount());
         self::assertSame($value, $instance->amount);
@@ -108,10 +91,8 @@ class SettlementPayoutPaymentTest extends TestCase
 
     /**
      * @dataProvider validAmountDataProvider
-     *
-     * @param AmountInterface $value
      */
-    public function testSetterAmount($value)
+    public function testSetterAmount(AmountInterface $value): void
     {
         $instance = $this->getTestInstance();
         $instance->amount = $value;
@@ -119,76 +100,65 @@ class SettlementPayoutPaymentTest extends TestCase
         self::assertSame($value, $instance->amount);
     }
 
-    public function validAmountDataProvider()
+    public static function validAmountDataProvider(): array
     {
-        return array(
-            array(
+        return [
+            [
                 new MonetaryAmount(
                     Random::int(1, 100),
                     Random::value(CurrencyCode::getValidValues())
                 ),
-            ),
-            array(
-                new MonetaryAmount(),
-            ),
-        );
+            ],
+            [
+                new MonetaryAmount(['value' => Random::float(0.01, 99.99)]),
+            ],
+        ];
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     *
-     * @param $value
+     * @param mixed $value
      */
-    public function testSetInvalidAmount($value)
+    public function testSetInvalidAmount($value): void
     {
+        $this->expectException(InvalidPropertyException::class);
         $this->getTestInstance()->setAmount($value);
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     *
-     * @param $value
+     * @param mixed $value
      */
-    public function testSetterInvalidAmount($value)
+    public function testSetterInvalidAmount($value): void
     {
+        $this->expectException(InvalidPropertyException::class);
         $this->getTestInstance()->amount = $value;
     }
 
-    public function invalidAmountDataProvider()
+    public static function invalidAmountDataProvider(): array
     {
-        $result = array(
-            array(null),
-            array(''),
-            array(1.0),
-            array(1),
-            array(true),
-            array(false),
-            array(new \stdClass()),
-        );
-
-        return $result;
+        return [
+            [null],
+            [''],
+            [false],
+            [new stdClass()],
+        ];
     }
 
-    public function invalidTypeDataProvider()
+    public static function invalidTypeDataProvider(): array
     {
-        $result = array(
-            array(null),
-            array(''),
-            array(1.0),
-            array(1),
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(1, 10)),
-        );
+        return [
+            [null],
+            [''],
+            [false],
+            [Random::str(1, 10)],
+        ];
+    }
 
-        return $result;
+    protected function getTestInstance(): SettlementPayoutPayment
+    {
+        return new SettlementPayoutPayment();
     }
 }

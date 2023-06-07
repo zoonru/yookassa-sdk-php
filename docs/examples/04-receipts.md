@@ -28,30 +28,30 @@ $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 try {
     $response = $client->createReceipt(
-        array(
-            'customer' => array(
+        [
+            'customer' => [
                 'email' => 'johndoe@yoomoney.ru',
                 'phone' => '79000000000',
-            ),
+            ],
             'type' => 'payment',
             'payment_id' => '24e89cb0-000f-5000-9000-1de77fa0d6df',
             'on_behalf_of' => '123',
             'send' => true,
-            'items' => array(
-                array(
+            'items' => [
+                [
                     'description' => 'Платок Gucci',
                     'quantity' => '1.00',
-                    'amount' => array(
+                    'amount' => [
                         'value' => '3000.00',
                         'currency' => \YooKassa\Model\CurrencyCode::RUB,
-                    ),
+                    ],
                     'vat_code' => 2,
                     'payment_mode' => \YooKassa\Model\Receipt\PaymentMode::FULL_PAYMENT,
                     'payment_subject' => \YooKassa\Model\Receipt\PaymentSubject::COMMODITY,
-                ),
-            ),
+                ],
+            ],
             'tax_system_code' => 1,
-        ),
+        ],
         uniqid('', true)
     );
     echo $response->getStatus();
@@ -79,35 +79,35 @@ $client->setAuth('xxxxxx', 'test_XXXXXXX');
 try {
     $inputDataMatrix = '010463003407001221SxMGorvNuq6Wk91fgr92sdfsdfghfgjh';
     $receiptBuilder = \YooKassa\Request\Receipts\CreatePostReceiptRequest::builder();
-    $receiptBuilder->setType(\YooKassa\Model\ReceiptType::PAYMENT)
-        ->setObjectId('24b94598-000f-5000-9000-1b68e7b15f3f', \YooKassa\Model\ReceiptType::PAYMENT) // payment_id
-        ->setCustomer(array(
+    $receiptBuilder->setType(\YooKassa\Model\Receipt\ReceiptType::PAYMENT)
+        ->setObjectId('24b94598-000f-5000-9000-1b68e7b15f3f', \YooKassa\Model\Receipt\ReceiptType::PAYMENT) // payment_id
+        ->setCustomer([
             'email' => 'john.doe@merchant.com',
             'phone' => '71111111111',
-        ))
-        ->setItems(array(
-            array(
+        ])
+        ->setItems([
+            [
                 'description' => 'Платок Gucci',
                 'quantity' => '1.00',
-                'amount' => array(
+                'amount' => [
                     'value' => '3000.00',
                     'currency' => 'RUB',
-                ),
+                ],
                 'vat_code' => 2,
                 'payment_mode' => \YooKassa\Model\Receipt\PaymentMode::FULL_PAYMENT,
                 'payment_subject' => \YooKassa\Model\Receipt\PaymentSubject::COMMODITY,
                 'product_code' => (string)(new \YooKassa\Helpers\ProductCode($inputDataMatrix)),
-            ),
-        ))
-        ->setSettlements(array(
-            array(
+            ],
+        ])
+        ->setSettlements([
+            [
                 'type' => 'prepayment',
-                'amount' => array(
+                'amount' => [
                     'value' => 100.00,
                     'currency' => 'RUB',
-                ),
-            ),
-        ))
+                ],
+            ],
+        ])
         ->setSend(true);
 
     // Создаем объект запроса
@@ -115,17 +115,17 @@ try {
 
     // Можно изменить данные, если нужно
     $request->setOnBehalfOf('159753');
-    $request->addItem(new \YooKassa\Model\ReceiptItem(array(
+    $request->addItem(new \YooKassa\Model\Receipt\ReceiptItem([
         'description' => 'Платок Gucci Новый',
         'quantity' => '1.00',
-        'amount' => array(
+        'amount' => [
             'value' => '3500.00',
             'currency' => 'RUB',
-        ),
+        ],
         'vat_code' => 2,
         'payment_mode' => \YooKassa\Model\Receipt\PaymentMode::FULL_PAYMENT,
         'payment_subject' => \YooKassa\Model\Receipt\PaymentSubject::COMMODITY,
-    )));
+    ]));
 
     $idempotenceKey = uniqid('', true);
     $response = $client->createReceipt($request, $idempotenceKey);
@@ -184,13 +184,13 @@ $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 $cursor = null;
-$params = array(
+$params = [
     'limit' => 30,
-    'status' => \YooKassa\Model\ReceiptRegistrationStatus::SUCCEEDED,
+    'status' => \YooKassa\Model\Payment\ReceiptRegistrationStatus::SUCCEEDED,
     'payment_id' => '1da5c87d-0984-50e8-a7f3-8de646dd9ec9',
     'created_at_gte' => '2021-01-01T00:00:00.000Z',
     'created_at_lt' => '2021-03-30T23:59:59.999Z',
-);
+];
 try {
     do {
         $params['cursor'] = $cursor;

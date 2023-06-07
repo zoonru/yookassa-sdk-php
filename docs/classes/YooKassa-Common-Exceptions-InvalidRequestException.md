@@ -29,7 +29,7 @@
 #### public __construct() : mixed
 
 ```php
-public __construct(\YooKassa\Common\AbstractRequest|string $error, int $code, null $previous = null) : mixed
+public __construct(\YooKassa\Common\AbstractRequestInterface|string $error, int $code, ?\Throwable $previous = null) : mixed
 ```
 
 **Summary**
@@ -42,24 +42,24 @@ InvalidRequestException constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Common\AbstractRequest OR string</code> | error  |  |
+| <code lang="php">\YooKassa\Common\AbstractRequestInterface OR string</code> | error  |  |
 | <code lang="php">int</code> | code  |  |
-| <code lang="php">null</code> | previous  |  |
+| <code lang="php">?\Throwable</code> | previous  |  |
 
 **Returns:** mixed - 
 
 
 <a name="method_getRequestObject" class="anchor"></a>
-#### public getRequestObject() : \YooKassa\Common\AbstractRequest|null
+#### public getRequestObject() : ?\YooKassa\Common\AbstractRequestInterface
 
 ```php
-public getRequestObject() : \YooKassa\Common\AbstractRequest|null
+public getRequestObject() : ?\YooKassa\Common\AbstractRequestInterface
 ```
 
 **Details:**
 * Inherited From: [\YooKassa\Common\Exceptions\InvalidRequestException](../classes/YooKassa-Common-Exceptions-InvalidRequestException.md)
 
-**Returns:** \YooKassa\Common\AbstractRequest|null - 
+**Returns:** ?\YooKassa\Common\AbstractRequestInterface - 
 
 
 
@@ -73,11 +73,11 @@ public getRequestObject() : \YooKassa\Common\AbstractRequest|null
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс билдера запросов к API для получения списка сделок магазина
+Класс, представляющий модель DealsRequestBuilder.
 
+**Description:**
+
+Класс билдера запросов к API для получения списка сделок магазина.
 
 ---
 ### Constants
@@ -16,47 +19,57 @@
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| protected | [$currentObject](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#property_currentObject) |  | Инстанс собираемого запроса |
+| protected | [$currentObject](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#property_currentObject) |  | Инстанс собираемого запроса. |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать |
-| public | [build()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_build) |  | Собирает и возвращает объект запроса списка сделок магазина |
-| public | [setCreatedAtGt()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCreatedAtGt) |  | Устанавливает дату создания от которой выбираются платежи |
-| public | [setCreatedAtGte()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCreatedAtGte) |  | Устанавливает дату создания от которой выбираются платежи |
-| public | [setCreatedAtLt()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCreatedAtLt) |  | Устанавливает дату создания до которой выбираются платежи |
-| public | [setCreatedAtLte()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCreatedAtLte) |  | Устанавливает дату создания до которой выбираются платежи |
-| public | [setCursor()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCursor) |  | Устанавливает страница выдачи результатов |
-| public | [setExpiresAtGt()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setExpiresAtGt) |  | Устанавливает дату автоматического закрытия от которой выбираются платежи |
-| public | [setExpiresAtGte()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setExpiresAtGte) |  | Устанавливает дату автоматического закрытия от которой выбираются платежи |
-| public | [setExpiresAtLt()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setExpiresAtLt) |  | Устанавливает дату автоматического закрытия до которой выбираются платежи |
-| public | [setExpiresAtLte()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setExpiresAtLte) |  | Устанавливает дату автоматического закрытия до которой выбираются платежи |
-| public | [setFullTextSearch()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setFullTextSearch) |  | Устанавливает фильтр по описанию выбираемых сделок |
-| public | [setLimit()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setLimit) |  | Устанавливает ограничение количества объектов сделки |
-| public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива |
-| public | [setStatus()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setStatus) |  | Устанавливает статус выбираемых сделок |
-| protected | [initCurrentObject()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_initCurrentObject) |  | Возвращает новый объект запроса для получения списка сделок, который в дальнейшем будет собираться в билдере |
+| public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать. |
+| public | [build()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_build) |  | Собирает и возвращает объект запроса списка сделок магазина. |
+| public | [setCreatedAtGt()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCreatedAtGt) |  | Устанавливает дату создания от которой выбираются платежи. |
+| public | [setCreatedAtGte()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCreatedAtGte) |  | Устанавливает дату создания от которой выбираются платежи. |
+| public | [setCreatedAtLt()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCreatedAtLt) |  | Устанавливает дату создания до которой выбираются платежи. |
+| public | [setCreatedAtLte()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCreatedAtLte) |  | Устанавливает дату создания до которой выбираются платежи. |
+| public | [setCursor()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setCursor) |  | Устанавливает страница выдачи результатов. |
+| public | [setExpiresAtGt()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setExpiresAtGt) |  | Устанавливает дату автоматического закрытия от которой выбираются платежи. |
+| public | [setExpiresAtGte()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setExpiresAtGte) |  | Устанавливает дату автоматического закрытия от которой выбираются платежи. |
+| public | [setExpiresAtLt()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setExpiresAtLt) |  | Устанавливает дату автоматического закрытия до которой выбираются платежи. |
+| public | [setExpiresAtLte()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setExpiresAtLte) |  | Устанавливает дату автоматического закрытия до которой выбираются платежи. |
+| public | [setFullTextSearch()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setFullTextSearch) |  | Устанавливает фильтр по описанию выбираемых сделок. |
+| public | [setLimit()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setLimit) |  | Устанавливает ограничение количества объектов сделки. |
+| public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива. |
+| public | [setStatus()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_setStatus) |  | Устанавливает статус выбираемых сделок. |
+| protected | [initCurrentObject()](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md#method_initCurrentObject) |  | Возвращает новый объект запроса для получения списка сделок, который в дальнейшем будет собираться в билдере. |
 
 ---
 ### Details
 * File: [lib/Request/Deals/DealsRequestBuilder.php](../../lib/Request/Deals/DealsRequestBuilder.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
   * \YooKassa\Request\Deals\DealsRequestBuilder
 
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
+
 ---
 ## Properties
 <a name="property_currentObject"></a>
-#### protected $currentObject : \YooKassa\Request\Deals\DealsRequest
+#### protected $currentObject : ?\YooKassa\Common\AbstractRequestInterface
 ---
 **Summary**
 
-Инстанс собираемого запроса
+Инстанс собираемого запроса.
 
-**Type:** <a href="../classes/YooKassa-Request-Deals-DealsRequest.html"><abbr title="\YooKassa\Request\Deals\DealsRequest">DealsRequest</abbr></a>
+**Type:** <a href="../?\YooKassa\Common\AbstractRequestInterface"><abbr title="?\YooKassa\Common\AbstractRequestInterface">AbstractRequestInterface</abbr></a>
 Собираемый объект запроса списка сделок магазина
 **Details:**
 
@@ -73,7 +86,7 @@ public __construct() : mixed
 
 **Summary**
 
-Конструктор, инициализирует пустой запрос, который в будущем начнём собирать
+Конструктор, инициализирует пустой запрос, который в будущем начнём собирать.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -82,15 +95,15 @@ public __construct() : mixed
 
 
 <a name="method_build" class="anchor"></a>
-#### public build() : \YooKassa\Common\AbstractRequest|\YooKassa\Request\Deals\DealsRequest
+#### public build() : \YooKassa\Common\AbstractRequestInterface
 
 ```php
-public build(array|null $options = null) : \YooKassa\Common\AbstractRequest|\YooKassa\Request\Deals\DealsRequest
+public build(null|array $options = null) : \YooKassa\Common\AbstractRequestInterface
 ```
 
 **Summary**
 
-Собирает и возвращает объект запроса списка сделок магазина
+Собирает и возвращает объект запроса списка сделок магазина.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -98,21 +111,21 @@ public build(array|null $options = null) : \YooKassa\Common\AbstractRequest|\Yoo
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR null</code> | options  | Массив с настройками запроса |
+| <code lang="php">null OR array</code> | options  | Массив с настройками запроса |
 
-**Returns:** \YooKassa\Common\AbstractRequest|\YooKassa\Request\Deals\DealsRequest - Инстанс объекта запроса к API для получения списка сделок магазина
+**Returns:** \YooKassa\Common\AbstractRequestInterface - Инстанс объекта запроса к API для получения списка сделок магазина
 
 
 <a name="method_setCreatedAtGt" class="anchor"></a>
 #### public setCreatedAtGt() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setCreatedAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setCreatedAtGt(null|\DateTime|int|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются платежи
+Устанавливает дату создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -120,13 +133,7 @@ public setCreatedAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Deal
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, от (не включая) или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время создания, от (не включая) или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -135,12 +142,12 @@ public setCreatedAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Deal
 #### public setCreatedAtGte() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setCreatedAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setCreatedAtGte(null|\DateTime|int|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются платежи
+Устанавливает дату создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -148,13 +155,7 @@ public setCreatedAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Dea
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, от (включительно) или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время создания, от (включительно) или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -163,12 +164,12 @@ public setCreatedAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Dea
 #### public setCreatedAtLt() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setCreatedAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setCreatedAtLt(null|\DateTime|int|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются платежи
+Устанавливает дату создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -176,13 +177,7 @@ public setCreatedAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Deal
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, до (не включая) или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время создания, до (не включая) или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -191,12 +186,12 @@ public setCreatedAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Deal
 #### public setCreatedAtLte() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setCreatedAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setCreatedAtLte(null|\DateTime|int|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются платежи
+Устанавливает дату создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -204,13 +199,7 @@ public setCreatedAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Dea
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, до (включительно) или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время создания, до (включительно) или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -219,12 +208,12 @@ public setCreatedAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Dea
 #### public setCursor() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setCursor(string|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setCursor(null|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает страница выдачи результатов
+Устанавливает страница выдачи результатов.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -232,12 +221,7 @@ public setCursor(string|null $value) : \YooKassa\Request\Deals\DealsRequestBuild
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | value  | Страница выдачи результатов или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод была передана не строка |
+| <code lang="php">null OR string</code> | value  | Страница выдачи результатов или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -246,12 +230,12 @@ public setCursor(string|null $value) : \YooKassa\Request\Deals\DealsRequestBuild
 #### public setExpiresAtGt() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setExpiresAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setExpiresAtGt(null|\DateTime|int|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату автоматического закрытия от которой выбираются платежи
+Устанавливает дату автоматического закрытия от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -259,13 +243,7 @@ public setExpiresAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Deal
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время автоматического закрытия, до (включительно) или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время автоматического закрытия, до (включительно) или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -274,12 +252,12 @@ public setExpiresAtGt(\DateTime|string|int|null $value) : \YooKassa\Request\Deal
 #### public setExpiresAtGte() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setExpiresAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setExpiresAtGte(null|\DateTime|int|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату автоматического закрытия от которой выбираются платежи
+Устанавливает дату автоматического закрытия от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -287,13 +265,7 @@ public setExpiresAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Dea
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время автоматического закрытия, от (включительно) или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время автоматического закрытия, от (включительно) или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -302,12 +274,12 @@ public setExpiresAtGte(\DateTime|string|int|null $value) : \YooKassa\Request\Dea
 #### public setExpiresAtLt() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setExpiresAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setExpiresAtLt(null|\DateTime|int|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату автоматического закрытия до которой выбираются платежи
+Устанавливает дату автоматического закрытия до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -315,13 +287,7 @@ public setExpiresAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Deal
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время автоматического закрытия, до (включительно) или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время автоматического закрытия, до (включительно) или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -330,12 +296,12 @@ public setExpiresAtLt(\DateTime|string|int|null $value) : \YooKassa\Request\Deal
 #### public setExpiresAtLte() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setExpiresAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setExpiresAtLte(null|\DateTime|int|string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает дату автоматического закрытия до которой выбираются платежи
+Устанавливает дату автоматического закрытия до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -343,13 +309,7 @@ public setExpiresAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Dea
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время автоматического закрытия, до (включительно) или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
+| <code lang="php">null OR \DateTime OR int OR string</code> | value  | Время автоматического закрытия, до (включительно) или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -358,12 +318,12 @@ public setExpiresAtLte(\DateTime|string|int|null $value) : \YooKassa\Request\Dea
 #### public setFullTextSearch() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setFullTextSearch(string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setFullTextSearch(string|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает фильтр по описанию выбираемых сделок
+Устанавливает фильтр по описанию выбираемых сделок.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -371,13 +331,7 @@ public setFullTextSearch(string $value) : \YooKassa\Request\Deals\DealsRequestBu
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Фильтр по описанию выбираемых сделок или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданное значение не является валидным |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод была передана не строка |
+| <code lang="php">string OR null</code> | value  | Фильтр по описанию выбираемых сделок или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -386,12 +340,12 @@ public setFullTextSearch(string $value) : \YooKassa\Request\Deals\DealsRequestBu
 #### public setLimit() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setLimit(string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setLimit(null|string|int $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает ограничение количества объектов сделки
+Устанавливает ограничение количества объектов сделки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -399,12 +353,7 @@ public setLimit(string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Ограничение количества объектов сделки или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод было передана не целое число |
+| <code lang="php">null OR string OR int</code> | value  | Ограничение количества объектов сделки или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -413,12 +362,12 @@ public setLimit(string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 #### public setOptions() : \YooKassa\Common\AbstractRequestBuilder
 
 ```php
-public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractRequestBuilder
+public setOptions(iterable|null $options) : \YooKassa\Common\AbstractRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает свойства запроса из массива
+Устанавливает свойства запроса из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -426,13 +375,13 @@ public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractReques
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \Traversable</code> | options  | Массив свойств запроса |
+| <code lang="php">iterable OR null</code> | options  | Массив свойств запроса |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \InvalidArgumentException | Выбрасывается если аргумент не массив и не итерируемый объект |
-| \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданныч в массиве настроек |
+| \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек |
 
 **Returns:** \YooKassa\Common\AbstractRequestBuilder - Инстанс текущего билдера запросов
 
@@ -441,12 +390,12 @@ public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractReques
 #### public setStatus() : \YooKassa\Request\Deals\DealsRequestBuilder
 
 ```php
-public setStatus(string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
+public setStatus(string|null $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает статус выбираемых сделок
+Устанавливает статус выбираемых сделок.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -454,13 +403,7 @@ public setStatus(string $value) : \YooKassa\Request\Deals\DealsRequestBuilder
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Статус выбираемых сделок или null, чтобы удалить значение |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданное значение не является валидным статусом |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод была передана не строка |
+| <code lang="php">string OR null</code> | value  | Статус выбираемых сделок или null, чтобы удалить значение |
 
 **Returns:** \YooKassa\Request\Deals\DealsRequestBuilder - Инстанс текущего билдера
 
@@ -474,7 +417,7 @@ protected initCurrentObject() : \YooKassa\Request\Deals\DealsRequest
 
 **Summary**
 
-Возвращает новый объект запроса для получения списка сделок, который в дальнейшем будет собираться в билдере
+Возвращает новый объект запроса для получения списка сделок, который в дальнейшем будет собираться в билдере.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Deals\DealsRequestBuilder](../classes/YooKassa-Request-Deals-DealsRequestBuilder.md)
@@ -493,11 +436,11 @@ protected initCurrentObject() : \YooKassa\Request\Deals\DealsRequest
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

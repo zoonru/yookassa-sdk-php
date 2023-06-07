@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,72 +27,79 @@
 namespace YooKassa\Model\Payout;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\MonetaryAmount;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
  * Класс, представляющий модель IncomeReceipt.
  *
- * Данные чека, зарегистрированного в ФНС. Присутствует, если вы делаете выплату [самозанятому](/developers/payouts/scenario-extensions/self-employed).
+ * Данные чека, зарегистрированного в ФНС.
+ * Присутствует, если вы делаете выплату [самозанятому](/developers/payouts/scenario-extensions/self-employed).
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
- *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $service_name Описание услуги, оказанной получателем выплаты. Не более 50 символов.
  * @property string $serviceName Описание услуги, оказанной получателем выплаты. Не более 50 символов.
- * @property string|null $npd_receipt_id Идентификатор чека в сервисе.
- * @property string|null $npdReceiptId Идентификатор чека в сервисе.
- * @property string|null $url Ссылка на зарегистрированный чек.
- * @property AmountInterface|null $amount Сумма, указанная в чеке. Присутствует, если в запросе передавалась сумма для печати в чеке.
+ * @property string $npd_receipt_id Идентификатор чека в сервисе.
+ * @property string $npdReceiptId Идентификатор чека в сервисе.
+ * @property string $url Ссылка на зарегистрированный чек.
+ * @property AmountInterface $amount Сумма, указанная в чеке. Присутствует, если в запросе передавалась сумма для печати в чеке.
  */
 class IncomeReceipt extends AbstractObject
 {
     /** @var int Максимальная длина описание услуги */
-    const MAX_LENGTH_SERVICE_NAME = 50;
+    public const MAX_LENGTH_SERVICE_NAME = 50;
+
+    /** @var int Максимальная длина описание услуги */
+    public const MIN_LENGTH_SERVICE_NAME = 1;
 
     /**
      * Описание услуги, оказанной получателем выплаты. Не более 50 символов.
      *
-     * @var string
+     * @var string|null
      */
-    private $_service_name;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::MAX_LENGTH_SERVICE_NAME)]
+    #[Assert\Length(min: self::MIN_LENGTH_SERVICE_NAME)]
+    private ?string $_service_name = null;
 
     /**
-     * Идентификатор чека в сервисе.
-     *
-     * Пример: ~`208jd98zqe`
+     * Идентификатор чека в сервисе. Пример: ~`208jd98zqe`
      *
      * @var string|null
      */
-    private $_npd_receipt_id;
+    #[Assert\Type('string')]
+    private ?string $_npd_receipt_id = null;
 
     /**
      * Ссылка на зарегистрированный чек.
-     *
      * Пример: ~`https://www.nalog.gov.ru/api/v1/receipt/<Идентификатор чека>/print`
      *
      * @var string|null
      */
-    private $_url;
+    #[Assert\Type('string')]
+    #[Assert\Url]
+    private ?string $_url = null;
 
     /**
      * Сумма, указанная в чеке. Присутствует, если в запросе передавалась сумма для печати в чеке.
      *
      * @var AmountInterface|null
      */
-    private $_amount;
-
+    #[Assert\Valid]
+    #[Assert\Type(MonetaryAmount::class)]
+    private ?AmountInterface $_amount = null;
 
     /**
      * Возвращает service_name.
      *
-     * @return string
+     * @return string|null
      */
-    public function getServiceName()
+    public function getServiceName(): ?string
     {
         return $this->_service_name;
     }
@@ -100,28 +107,13 @@ class IncomeReceipt extends AbstractObject
     /**
      * Устанавливает service_name.
      *
-     * @param string $value Описание услуги, оказанной получателем выплаты. Не более 50 символов.
+     * @param string|null $service_name Описание услуги, оказанной получателем выплаты. Не более 50 символов.
      *
-     * @return $this
+     * @return self
      */
-    public function setServiceName($value)
+    public function setServiceName(?string $service_name = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty service_name value', 0, 'IncomeReceipt.service_name');
-        }
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid service_name value type',
-                0,
-                'IncomeReceipt.service_name',
-                $value
-            );
-        }
-        if (mb_strlen($value, 'utf-8') > self::MAX_LENGTH_SERVICE_NAME) {
-            throw new InvalidPropertyValueException('Invalid IncomeReceipt service_name value', 0, 'IncomeReceipt.service_name', $value);
-        }
-        $this->_service_name = (string)$value;
-
+        $this->_service_name = $this->validatePropertyValue('_service_name', $service_name);
         return $this;
     }
 
@@ -130,7 +122,7 @@ class IncomeReceipt extends AbstractObject
      *
      * @return string|null
      */
-    public function getNpdReceiptId()
+    public function getNpdReceiptId(): ?string
     {
         return $this->_npd_receipt_id;
     }
@@ -138,64 +130,36 @@ class IncomeReceipt extends AbstractObject
     /**
      * Устанавливает npd_receipt_id.
      *
-     * @param string|null $value Идентификатор чека в сервисе.
+     * @param string|null $npd_receipt_id Идентификатор чека в сервисе
      *
-     * Пример: ~`208jd98zqe`
-     *
-     * @return $this
+     * @return self
      */
-    public function setNpdReceiptId($value = null)
+    public function setNpdReceiptId(?string $npd_receipt_id = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_npd_receipt_id = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $this->_npd_receipt_id = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid npd_receipt_id value type',
-                0,
-                'IncomeReceipt.npd_receipt_id',
-                $value
-            );
-        }
-
+        $this->_npd_receipt_id = $this->validatePropertyValue('_npd_receipt_id', $npd_receipt_id);
         return $this;
     }
 
     /**
-     * Возвращает Ссылка на зарегистрированный чек.
+     * Возвращает ссылку на зарегистрированный чек.
      *
      * @return string|null
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->_url;
     }
 
     /**
-     * Устанавливает ссылка на зарегистрированный чек.
+     * Устанавливает ссылку на зарегистрированный чек.
      *
-     * @param string|null $value Ссылка на зарегистрированный чек
+     * @param string|null $url Ссылка на зарегистрированный чек
      *
-     * Пример: ~`https://www.nalog.gov.ru/api/v1/receipt/<Идентификатор чека>/print`
-     *
-     * @return $this
+     * @return self
      */
-    public function setUrl($value = null)
+    public function setUrl(?string $url = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_url = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $this->_url = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid url value type',
-                0,
-                'IncomeReceipt.url',
-                $value
-            );
-        }
-
+        $this->_url = $this->validatePropertyValue('_url', $url);
         return $this;
     }
 
@@ -204,7 +168,7 @@ class IncomeReceipt extends AbstractObject
      *
      * @return AmountInterface|null
      */
-    public function getAmount()
+    public function getAmount(): ?AmountInterface
     {
         return $this->_amount;
     }
@@ -212,27 +176,13 @@ class IncomeReceipt extends AbstractObject
     /**
      * Устанавливает amount.
      *
-     * @param AmountInterface|array|null $value
+     * @param AmountInterface|array|null $amount
      *
-     * @return $this
+     * @return self
      */
-    public function setAmount($value = null)
+    public function setAmount(mixed $amount = null): self
     {
-        if ($value === null || (is_array($value) && empty($value))) {
-            $this->_amount = null;
-        } elseif ($value instanceof AmountInterface) {
-            $this->_amount = $value;
-        } elseif (is_array($value)) {
-            $this->_amount = new MonetaryAmount($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid IncomeReceipt.amount value type',
-                0,
-                'IncomeReceipt.amount',
-                $value
-            );
-        }
-
+        $this->_amount = $this->validatePropertyValue('_amount', $amount);
         return $this;
     }
 }

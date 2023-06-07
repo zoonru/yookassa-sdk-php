@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,147 +26,168 @@
 
 namespace YooKassa\Request\Receipts;
 
+use YooKassa\Common\ListObjectInterface;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\Receipt\IndustryDetails;
 use YooKassa\Model\Receipt\MarkCodeInfo;
 use YooKassa\Model\Receipt\MarkQuantity;
-use YooKassa\Model\Supplier;
-use YooKassa\Model\SupplierInterface;
+use YooKassa\Model\Receipt\Supplier;
+use YooKassa\Model\Receipt\SupplierInterface;
 
 /**
- * Interface ReceiptItemInterface
+ * Interface ReceiptResponseItemInterface.
  *
- * @package YooKassa
+ * @category Interface
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
- * @property-read string $description Наименование товара (тег в 54 ФЗ — 1030)
- * @property-read float $quantity Количество (тег в 54 ФЗ — 1023)
- * @property-read float $amount Суммарная стоимость покупаемого товара в копейках/центах
- * @property-read AmountInterface $price Цена товара (тег в 54 ФЗ — 1079)
- * @property-read int $vatCode Ставка НДС, число 1-6 (тег в 54 ФЗ — 1199)
- * @property-read int $vat_code Ставка НДС, число 1-6 (тег в 54 ФЗ — 1199)
- * @property-read string $paymentSubject Признак предмета расчета (тег в 54 ФЗ — 1212)
- * @property-read string $payment_subject Признак предмета расчета (тег в 54 ФЗ — 1212)
- * @property-read string $paymentMode Признак способа расчета (тег в 54 ФЗ — 1214)
- * @property-read string $payment_mode Признак способа расчета (тег в 54 ФЗ — 1214)
- * @property-read string $countryOfOriginCode Код страны происхождения товара (тег в 54 ФЗ — 1230)
- * @property-read string $country_of_origin_code Код страны происхождения товара (тег в 54 ФЗ — 1230)
- * @property-read string $customsDeclarationNumber Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231
- * @property-read string $customs_declaration_number Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231
- * @property-read float $excise Сумма акциза товара с учетом копеек (тег в 54 ФЗ — 1229)
- * @property-read Supplier $supplier Информация о поставщике товара или услуги (тег в 54 ФЗ — 1224)
- * @property-read string $agentType Тип посредника, реализующего товар или услугу
- * @property-read string $agent_type Тип посредника, реализующего товар или услугу
- * @property-read MarkCodeInfo $markCodeInfo Код товара (тег в 54 ФЗ — 1163)
- * @property-read MarkCodeInfo $mark_code_info Код товара (тег в 54 ФЗ — 1163)
- * @property-read string $measure Мера количества предмета расчета (тег в 54 ФЗ — 2108)
- * @property-read string $productCode Код товара — уникальный номер, который присваивается экземпляру товара при маркировке (тег в 54 ФЗ — 1162)
- * @property-read string $product_code Код товара — уникальный номер, который присваивается экземпляру товара при маркировке (тег в 54 ФЗ — 1162)
- * @property-read string $markMode Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
- * @property-read string $mark_mode Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
- * @property-read MarkQuantity $markQuantity Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
- * @property-read MarkQuantity $mark_quantity Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
+ * @property string $description Наименование товара (тег в 54 ФЗ — 1030)
+ * @property float $quantity Количество (тег в 54 ФЗ — 1023)
+ * @property float $amount Суммарная стоимость покупаемого товара в копейках/центах
+ * @property AmountInterface $price Цена товара (тег в 54 ФЗ — 1079)
+ * @property int $vatCode Ставка НДС, число 1-6 (тег в 54 ФЗ — 1199)
+ * @property int $vat_code Ставка НДС, число 1-6 (тег в 54 ФЗ — 1199)
+ * @property string $paymentSubject Признак предмета расчета (тег в 54 ФЗ — 1212)
+ * @property string $payment_subject Признак предмета расчета (тег в 54 ФЗ — 1212)
+ * @property string $paymentMode Признак способа расчета (тег в 54 ФЗ — 1214)
+ * @property string $payment_mode Признак способа расчета (тег в 54 ФЗ — 1214)
+ * @property string $countryOfOriginCode Код страны происхождения товара (тег в 54 ФЗ — 1230)
+ * @property string $country_of_origin_code Код страны происхождения товара (тег в 54 ФЗ — 1230)
+ * @property string $customsDeclarationNumber Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231
+ * @property string $customs_declaration_number Номер таможенной декларации (от 1 до 32 символов). Тег в 54 ФЗ — 1231
+ * @property float $excise Сумма акциза товара с учетом копеек (тег в 54 ФЗ — 1229)
+ * @property Supplier $supplier Информация о поставщике товара или услуги (тег в 54 ФЗ — 1224)
+ * @property string $agentType Тип посредника, реализующего товар или услугу
+ * @property string $agent_type Тип посредника, реализующего товар или услугу
+ * @property MarkCodeInfo $markCodeInfo Код товара (тег в 54 ФЗ — 1163)
+ * @property MarkCodeInfo $mark_code_info Код товара (тег в 54 ФЗ — 1163)
+ * @property string $measure Мера количества предмета расчета (тег в 54 ФЗ — 2108)
+ * @property string $productCode Код товара — уникальный номер, который присваивается экземпляру товара при маркировке (тег в 54 ФЗ — 1162)
+ * @property string $product_code Код товара — уникальный номер, который присваивается экземпляру товара при маркировке (тег в 54 ФЗ — 1162)
+ * @property string $markMode Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
+ * @property string $mark_mode Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
+ * @property MarkQuantity $markQuantity Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
+ * @property MarkQuantity $mark_quantity Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
  */
 interface ReceiptResponseItemInterface
 {
     /**
-     * Возвращает название товара
-     * @return string Название товара (не более 128 символов).
+     * Возвращает название товара.
+     *
+     * @return string|null Название товара (не более 128 символов)
      */
-    public function getDescription();
+    public function getDescription(): ?string;
 
     /**
-     * Возвращает количество товара
+     * Возвращает количество товара.
+     *
      * @return float Количество купленного товара
      */
-    public function getQuantity();
+    public function getQuantity(): float;
 
     /**
-     * Возвращает общую стоимость покупаемого товара в копейках/центах
-     * @return int Сумма стоимости покупаемого товара
+     * Возвращает общую стоимость покупаемого товара в копейках/центах.
+     *
+     * @return int|null Сумма стоимости покупаемого товара
      */
-    public function getAmount();
+    public function getAmount(): ?int;
 
     /**
-     * Возвращает цену товара
-     * @return AmountInterface Цена товара
+     * Возвращает цену товара.
+     *
+     * @return AmountInterface|null Цена товара
      */
-    public function getPrice();
+    public function getPrice(): ?AmountInterface;
 
     /**
      * Возвращает ставку НДС
-     * @return int|null Ставка НДС, число 1-6, или null, если ставка не задана
+     *
+     * @return null|int Ставка НДС, число 1-6, или null, если ставка не задана
      */
-    public function getVatCode();
+    public function getVatCode(): ?int;
 
     /**
-     * Возвращает признак предмета расчета
-     * @return string|null Признак предмета расчета
+     * Возвращает признак предмета расчета.
+     *
+     * @return null|string Признак предмета расчета
      */
-    public function getPaymentSubject();
+    public function getPaymentSubject(): ?string;
 
     /**
-     * Возвращает признак способа расчета
-     * @return string|null Признак способа расчета
+     * Возвращает признак способа расчета.
+     *
+     * @return null|string Признак способа расчета
      */
-    public function getPaymentMode();
+    public function getPaymentMode(): ?string;
 
     /**
-     * Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке
-     * @return string|null Код товара
+     * Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке.
+     *
+     * @return null|string Код товара
      */
-    public function getProductCode();
+    public function getProductCode(): ?string;
 
     /**
-     * Возвращает код товара
-     * @return MarkCodeInfo Код товара
+     * Возвращает код товара.
+     *
+     * @return MarkCodeInfo|null Код товара
      */
-    public function getMarkCodeInfo();
+    public function getMarkCodeInfo(): ?MarkCodeInfo;
 
     /**
-     * Возвращает меру количества предмета расчета
-     * @return string Мера количества предмета расчета
+     * Возвращает меру количества предмета расчета.
+     *
+     * @return string|null Мера количества предмета расчета
      */
-    public function getMeasure();
+    public function getMeasure(): ?string;
 
     /**
-     * Возвращает режим обработки кода маркировки
-     * @return string Режим обработки кода маркировки
+     * Возвращает режим обработки кода маркировки.
+     *
+     * @return string|null Режим обработки кода маркировки
      */
-    public function getMarkMode();
+    public function getMarkMode(): ?string;
 
     /**
-     * Возвращает дробное количество маркированного товара
-     * @return MarkQuantity Дробное количество маркированного товара
+     * Возвращает дробное количество маркированного товара.
+     *
+     * @return MarkQuantity|null Дробное количество маркированного товара
      */
-    public function getMarkQuantity();
+    public function getMarkQuantity(): ?MarkQuantity;
 
     /**
-     * Возвращает отраслевой реквизит чека
-     * @return IndustryDetails[] Отраслевой реквизит чека
+     * Возвращает отраслевой реквизит чека.
+     *
+     * @return IndustryDetails[]|ListObjectInterface Отраслевой реквизит чека
      */
-    public function getPaymentSubjectIndustryDetails();
+    public function getPaymentSubjectIndustryDetails(): ListObjectInterface;
 
     /**
-     * Возвращает код страны происхождения товара по общероссийскому классификатору стран мира
-     * @return string|null Код страны происхождения товара
+     * Возвращает код страны происхождения товара по общероссийскому классификатору стран мира.
+     *
+     * @return null|string Код страны происхождения товара
      */
-    public function getCountryOfOriginCode();
+    public function getCountryOfOriginCode(): ?string;
 
     /**
-     * Возвращает номер таможенной декларации
-     * @return string|null Номер таможенной декларации (от 1 до 32 символов)
+     * Возвращает номер таможенной декларации.
+     *
+     * @return null|string Номер таможенной декларации (от 1 до 32 символов)
      */
-    public function getCustomsDeclarationNumber();
+    public function getCustomsDeclarationNumber(): ?string;
 
     /**
-     * Возвращает сумму акциза товара с учетом копеек
-     * @return float|null Сумма акциза товара с учетом копеек
+     * Возвращает сумму акциза товара с учетом копеек.
+     *
+     * @return null|float Сумма акциза товара с учетом копеек
      */
-    public function getExcise();
+    public function getExcise(): ?float;
 
     /**
-     * Возвращает информацию о поставщике товара или услуги
-     * @return SupplierInterface Информация о поставщике товара или услуги
+     * Возвращает информацию о поставщике товара или услуги.
+     *
+     * @return SupplierInterface|null Информация о поставщике товара или услуги
      */
-    public function getSupplier();
+    public function getSupplier(): ?SupplierInterface;
 }

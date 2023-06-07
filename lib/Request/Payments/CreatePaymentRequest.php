@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,28 +26,32 @@
 
 namespace YooKassa\Request\Payments;
 
-use YooKassa\Common\AbstractPaymentRequest;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\AirlineInterface;
 use YooKassa\Model\AmountInterface;
-use YooKassa\Model\ConfirmationAttributes\ConfirmationAttributesFactory;
 use YooKassa\Model\Deal\PaymentDealInfo;
-use YooKassa\Model\FraudData;
-use YooKassa\Model\Payment;
-use YooKassa\Model\PaymentData\AbstractPaymentData;
-use YooKassa\Model\ConfirmationAttributes\AbstractConfirmationAttributes;
 use YooKassa\Model\Metadata;
-use YooKassa\Model\ReceiptInterface;
-use YooKassa\Model\RecipientInterface;
+use YooKassa\Model\Payment\Payment;
+use YooKassa\Model\Payment\Recipient;
+use YooKassa\Model\Payment\RecipientInterface;
+use YooKassa\Model\Receipt\ReceiptInterface;
+use YooKassa\Request\Payments\ConfirmationAttributes\AbstractConfirmationAttributes;
+use YooKassa\Request\Payments\ConfirmationAttributes\ConfirmationAttributesFactory;
+use YooKassa\Request\Payments\PaymentData\AbstractPaymentData;
+use YooKassa\Request\Payments\PaymentData\PaymentDataFactory;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс объекта запроса к API на проведение нового платежа
+ * Класс, представляющий модель CreateCaptureRequest.
  *
- * @example 02-builder.php 11 78 Пример использования билдера
+ * Класс объекта запроса к API на проведение нового платежа.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ *
+ * @example 02-builder.php 11 75 Пример использования билдера
  *
  * @property RecipientInterface $recipient Получатель платежа, если задан
  * @property AmountInterface $amount Сумма создаваемого платежа
@@ -74,542 +78,473 @@ use YooKassa\Model\RecipientInterface;
  */
 class CreatePaymentRequest extends AbstractPaymentRequest implements CreatePaymentRequestInterface
 {
-    const MAX_LENGTH_PAYMENT_TOKEN = 10240;
+    public const MAX_LENGTH_PAYMENT_TOKEN = 10240;
 
     /**
-     * @var RecipientInterface Получатель платежа
+     * @var RecipientInterface|null Получатель платежа
      */
-    private $_recipient;
+    #[Assert\Valid]
+    #[Assert\Type(Recipient::class)]
+    private ?RecipientInterface $_recipient = null;
 
     /**
-     * @var string Описание транзакции
+     * @var string|null Описание транзакции
      */
-    private $_description;
+    #[Assert\Type('string')]
+    #[Assert\Length(max: Payment::MAX_LENGTH_DESCRIPTION)]
+    private ?string $_description = null;
 
     /**
-     * @var string Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
+     * @var string|null Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
      */
-    private $_paymentToken;
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::MAX_LENGTH_PAYMENT_TOKEN)]
+    private ?string $_payment_token = null;
 
     /**
-     * @var string Идентификатор записи о сохраненных платежных данных покупателя
+     * @var string|null Идентификатор записи о сохраненных платежных данных покупателя
      */
-    private $_paymentMethodId;
+    #[Assert\Type('string')]
+    private ?string $_payment_method_id = null;
 
     /**
-     * @var AbstractPaymentData Данные используемые для создания метода оплаты
+     * @var AbstractPaymentData|null Данные используемые для создания метода оплаты
      */
-    private $_paymentMethodData;
+    #[Assert\Valid]
+    #[Assert\Type(AbstractPaymentData::class)]
+    private ?AbstractPaymentData $_payment_method_data = null;
 
     /**
-     * @var AbstractConfirmationAttributes Способ подтверждения платежа
+     * @var AbstractConfirmationAttributes|null Способ подтверждения платежа
      */
-    private $_confirmation;
+    #[Assert\Valid]
+    #[Assert\Type(AbstractConfirmationAttributes::class)]
+    private ?AbstractConfirmationAttributes $_confirmation = null;
 
     /**
      * @var bool Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method.
      */
-    private $_savePaymentMethod;
+    #[Assert\NotNull]
+    #[Assert\Type('bool')]
+    private bool $_save_payment_method = false;
 
     /**
      * @var bool Автоматически принять поступившую оплату
      */
-    private $_capture;
+    #[Assert\NotNull]
+    #[Assert\Type('bool')]
+    private bool $_capture = true;
 
     /**
-     * @var string IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения.
+     * @var string|null IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения.
      */
-    private $_clientIp;
+    #[Assert\Type('string')]
+    #[Assert\Ip(Assert\Ip::ALL)]
+    private ?string $_client_ip = null;
 
     /**
-     * @var Metadata Метаданные привязанные к платежу
+     * @var Metadata|null Метаданные привязанные к платежу
      */
-    private $_metadata;
+    #[Assert\Type(Metadata::class)]
+    private ?Metadata $_metadata = null;
 
     /**
-     * @var PaymentDealInfo Данные о сделке, в составе которой проходит платеж. Необходимо передавать, если вы проводите Безопасную сделку
+     * @var PaymentDealInfo|null Данные о сделке, в составе которой проходит платеж. Необходимо передавать, если вы проводите Безопасную сделку
      */
-    private $_deal;
+    #[Assert\Valid]
+    #[Assert\Type(PaymentDealInfo::class)]
+    private ?PaymentDealInfo $_deal = null;
 
     /**
-     * @var FraudData Информация для проверки операции на мошенничество
+     * @var FraudData|null Информация для проверки операции на мошенничество
      */
-    private $_fraud_data;
+    #[Assert\Valid]
+    #[Assert\Type(FraudData::class)]
+    private ?FraudData $_fraud_data = null;
 
     /**
-     * @var string Идентификатор покупателя в вашей системе, например электронная почта или номер телефона. Не более 200 символов.
+     * Идентификатор покупателя в вашей системе, например электронная почта или номер телефона. Не более 200 символов.
+     *
      * Присутствует, если вы хотите запомнить банковскую карту и отобразить ее при повторном платеже в виджете ЮKassa
+     * @var string|null
      */
-    private $_merchant_customer_id;
-
-    /**
-     * Возвращает объект получателя платежа
-     * @return RecipientInterface|null Объект с информацией о получателе платежа или null, если получатель не задан
-     */
-    public function getRecipient()
-    {
-        return $this->_recipient;
-    }
-
-    /**
-     * Проверяет наличие получателя платежа в запросе
-     * @return bool True если получатель платежа задан, false если нет
-     */
-    public function hasRecipient()
-    {
-        return !empty($this->_recipient);
-    }
+    #[Assert\Type('string')]
+    #[Assert\Length(max: Payment::MAX_LENGTH_MERCHANT_CUSTOMER_ID)]
+    private ?string $_merchant_customer_id = null;
 
     /**
      * Возвращает описание транзакции
-     * @return string
+     * @return string|null
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->_description;
     }
 
     /**
      * Устанавливает описание транзакции
-     * @param string $value
+     * @param string|null $description
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение превышает допустимую длину
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
+     * @return CreatePaymentRequest
      */
-    public function setDescription($value)
+    public function setDescription(?string $description): self
     {
-        if ($value === null || $value === '') {
-            $this->_description = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $length = mb_strlen((string)$value, 'utf-8');
-            if ($length > Payment::MAX_LENGTH_DESCRIPTION) {
-                throw new InvalidPropertyValueException(
-                    'The value of the description parameter is too long. Max length is ' . Payment::MAX_LENGTH_DESCRIPTION,
-                    0,
-                    'CreatePaymentRequest.description',
-                    $value
-                );
-            }
-            $this->_description = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid description value type',
-                0,
-                'CreatePaymentRequest.description',
-                $value
-            );
-        }
+        $this->_description = $this->validatePropertyValue('_description', $description);
+        return $this;
     }
 
     /**
-     * Проверяет наличие описания транзакции в создаваемом платеже
+     * Проверяет наличие описания транзакции в создаваемом платеже.
+     *
      * @return bool True если описание транзакции есть, false если нет
      */
-    public function hasDescription()
+    public function hasDescription(): bool
     {
-        return $this->_description !== null;
+        return null !== $this->_description;
     }
 
     /**
-     * Устанавливает объект с информацией о получателе платежа
-     * @param RecipientInterface|null $value Инстанс объекта информации о получателе платежа или null
+     * Возвращает объект получателя платежа.
+     *
+     * @return null|RecipientInterface Объект с информацией о получателе платежа или null, если получатель не задан
      */
-    public function setRecipient($value)
+    public function getRecipient(): ?RecipientInterface
     {
-        if ($value === null || $value === '') {
-            $this->_recipient = null;
-        } elseif (is_object($value) && $value instanceof RecipientInterface) {
-            $this->_recipient = $value;
-        } else {
-            throw new \InvalidArgumentException('Invalid recipient value type');
-        }
+        return $this->_recipient;
     }
 
     /**
-     * Возвращает одноразовый токен для проведения оплаты
-     * @return string Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
+     * Проверяет наличие получателя платежа в запросе.
+     *
+     * @return bool True если получатель платежа задан, false если нет
      */
-    public function getPaymentToken()
+    public function hasRecipient(): bool
     {
-        return $this->_paymentToken;
+        return !empty($this->_recipient);
     }
 
     /**
-     * Проверяет наличие одноразового токена для проведения оплаты
+     * Устанавливает объект с информацией о получателе платежа.
+     *
+     * @param null|array|RecipientInterface $recipient Инстанс объекта информации о получателе платежа или null
+     */
+    public function setRecipient(mixed $recipient): self
+    {
+        $this->_recipient = $this->validatePropertyValue('_recipient', $recipient);
+        return $this;
+    }
+
+    /**
+     * Возвращает одноразовый токен для проведения оплаты.
+     *
+     * @return string|null Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
+     */
+    public function getPaymentToken(): ?string
+    {
+        return $this->_payment_token;
+    }
+
+    /**
+     * Проверяет наличие одноразового токена для проведения оплаты.
+     *
      * @return bool True если токен установлен, false если нет
      */
-    public function hasPaymentToken()
+    public function hasPaymentToken(): bool
     {
-        return !empty($this->_paymentToken);
+        return !empty($this->_payment_token);
     }
 
     /**
-     * Устанавливает одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
-     * @param string $value Одноразовый токен для проведения оплаты
+     * Устанавливает одноразовый токен для проведения оплаты, сформированный YooKassa JS widget.
+     *
+     * @param string|null $payment_token Одноразовый токен для проведения оплаты
      *
      * @throws InvalidPropertyValueException Выбрасывается если переданное значение превышает допустимую длину
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является строкой
      */
-    public function setPaymentToken($value)
+    public function setPaymentToken(?string $payment_token): self
     {
-        if ($value === null || $value === '') {
-            $this->_paymentToken = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $length = mb_strlen((string)$value, 'utf-8');
-            if ($length > self::MAX_LENGTH_PAYMENT_TOKEN) {
-                throw new InvalidPropertyValueException(
-                    'Invalid paymentToken value',
-                    0,
-                    'CreatePaymentRequest.paymentToken',
-                    $value
-                );
-            }
-            $this->_paymentToken = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid paymentToken value type',
-                0,
-                'CreatePaymentRequest.paymentToken',
-                $value
-            );
-        }
+        $this->_payment_token = $this->validatePropertyValue('_payment_token', $payment_token);
+        return $this;
     }
 
     /**
-     * Устанавливает идентификатор записи платёжных данных покупателя
-     * @return string Идентификатор записи о сохраненных платежных данных покупателя
+     * Устанавливает идентификатор записи платёжных данных покупателя.
+     *
+     * @return string|null Идентификатор записи о сохраненных платежных данных покупателя
      */
-    public function getPaymentMethodId()
+    public function getPaymentMethodId(): ?string
     {
-        return $this->_paymentMethodId;
+        return $this->_payment_method_id;
     }
 
     /**
-     * Проверяет наличие идентификатора записи о платёжных данных покупателя
+     * Проверяет наличие идентификатора записи о платёжных данных покупателя.
+     *
      * @return bool True если идентификатор задан, false если нет
      */
-    public function hasPaymentMethodId()
+    public function hasPaymentMethodId(): bool
     {
-        return !empty($this->_paymentMethodId);
+        return !empty($this->_payment_method_id);
     }
 
     /**
-     * Устанавливает идентификатор записи о сохранённых данных покупателя
-     * @param string $value Идентификатор записи о сохраненных платежных данных покупателя
+     * Устанавливает идентификатор записи о сохранённых данных покупателя.
+     *
+     * @param string|null $payment_method_id Идентификатор записи о сохраненных платежных данных покупателя
      *
      * @throws InvalidPropertyValueTypeException Генерируется если переданные значение не является строкой или null
      */
-    public function setPaymentMethodId($value)
+    public function setPaymentMethodId(?string $payment_method_id): self
     {
-        if ($value === null || $value === '') {
-            $this->_paymentMethodId = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $this->_paymentMethodId = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid paymentMethodId value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.CreatePaymentRequest',
-                $value
-            );
-        }
+        $this->_payment_method_id = $this->validatePropertyValue('_payment_method_id', $payment_method_id);
+        return $this;
     }
 
     /**
-     * Возвращает данные для создания метода оплаты
-     * @return AbstractPaymentData Данные используемые для создания метода оплаты
+     * Возвращает данные для создания метода оплаты.
+     *
+     * @return AbstractPaymentData|null Данные используемые для создания метода оплаты
      */
-    public function getPaymentMethodData()
+    public function getPaymentMethodData(): ?AbstractPaymentData
     {
-        return $this->_paymentMethodData;
+        return $this->_payment_method_data;
     }
 
     /**
-     * Проверяет установлен ли объект с методом оплаты
+     * Проверяет установлен ли объект с методом оплаты.
+     *
      * @return bool True если объект метода оплаты установлен, false если нет
      */
-    public function hasPaymentMethodData()
+    public function hasPaymentMethodData(): bool
     {
-        return !empty($this->_paymentMethodData);
+        return !empty($this->_payment_method_data);
     }
 
     /**
-     * Устанавливает объект с информацией для создания метода оплаты
-     * @param AbstractPaymentData|null $value Объект создания метода оплаты или null
+     * Устанавливает объект с информацией для создания метода оплаты.
+     *
+     * @param null|array|AbstractPaymentData $payment_method_data Объект создания метода оплаты или null
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если был передан объект невалидного типа
      */
-    public function setPaymentMethodData($value)
+    public function setPaymentMethodData(mixed $payment_method_data): self
     {
-        if ($value === null || $value === '') {
-            $this->_paymentMethodData = null;
-        } elseif ($value instanceof AbstractPaymentData) {
-            $this->_paymentMethodData = $value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid paymentMethodData value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.paymentMethodData',
-                $value
-            );
+        if (is_array($payment_method_data)) {
+            $payment_method_data = (new PaymentDataFactory())->factoryFromArray($payment_method_data);
         }
+        $this->_payment_method_data = $this->validatePropertyValue('_payment_method_data', $payment_method_data);
+        return $this;
     }
 
     /**
-     * Возвращает способ подтверждения платежа
-     * @return AbstractConfirmationAttributes Способ подтверждения платежа
+     * Возвращает способ подтверждения платежа.
+     *
+     * @return AbstractConfirmationAttributes|null Способ подтверждения платежа
      */
-    public function getConfirmation()
+    public function getConfirmation(): ?AbstractConfirmationAttributes
     {
         return $this->_confirmation;
     }
 
     /**
-     * Проверяет, был ли установлен способ подтверждения платежа
+     * Проверяет, был ли установлен способ подтверждения платежа.
+     *
      * @return bool True если способ подтверждения платежа был установлен, false если нет
      */
-    public function hasConfirmation()
+    public function hasConfirmation(): bool
     {
-        return $this->_confirmation !== null;
+        return null !== $this->_confirmation;
     }
 
     /**
-     * Устанавливает способ подтверждения платежа
-     * @param AbstractConfirmationAttributes|null $value Способ подтверждения платежа
+     * Устанавливает способ подтверждения платежа.
+     *
+     * @param null|array|AbstractConfirmationAttributes $confirmation Способ подтверждения платежа
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданное значение не является объектом типа
-     * AbstractConfirmationAttributes или null
+     *                                           AbstractConfirmationAttributes или null
      */
-    public function setConfirmation($value)
+    public function setConfirmation(mixed $confirmation): self
     {
-        if ($value === null || $value === '') {
-            $this->_confirmation = null;
-        } elseif (is_array($value)) {
+        if (is_array($confirmation)) {
             $factory = new ConfirmationAttributesFactory();
-            $this->_confirmation = $factory->factoryFromArray($value);
-        } elseif ($value instanceof AbstractConfirmationAttributes) {
-            $this->_confirmation = $value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid confirmation value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.confirmation',
-                $value
-            );
+            $confirmation = $factory->factoryFromArray($confirmation);
         }
+        $this->_confirmation = $this->validatePropertyValue('_confirmation', $confirmation);
+        return $this;
     }
 
     /**
-     * Возвращает флаг сохранения платёжных данных
+     * Возвращает флаг сохранения платёжных данных.
+     *
      * @return bool Флаг сохранения платёжных данных
      */
-    public function getSavePaymentMethod()
+    public function getSavePaymentMethod(): bool
     {
-        return $this->_savePaymentMethod;
+        return $this->_save_payment_method;
     }
 
     /**
-     * Проверяет, был ли установлен флаг сохранения платёжных данных
+     * Проверяет, был ли установлен флаг сохранения платёжных данных.
+     *
      * @return bool True если флаг был установлен, false если нет
      */
-    public function hasSavePaymentMethod()
+    public function hasSavePaymentMethod(): bool
     {
-        return $this->_savePaymentMethod !== null;
+        return isset($this->_save_payment_method);
     }
 
     /**
      * Устанавливает флаг сохранения платёжных данных. Значение true инициирует создание многоразового payment_method.
-     * @param bool $value Сохранить платежные данные для последующего использования
+     *
+     * @param bool $save_payment_method Сохранить платежные данные для последующего использования
      *
      * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не кастится в bool
      */
-    public function setSavePaymentMethod($value)
+    public function setSavePaymentMethod(bool $save_payment_method): self
     {
-        if ($value === null || $value === '') {
-            $this->_savePaymentMethod = null;
-        } elseif (TypeCast::canCastToBoolean($value)) {
-            $this->_savePaymentMethod = (bool)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid savePaymentMethod value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.savePaymentMethod',
-                $value
-            );
-        }
+        $this->_save_payment_method = $this->validatePropertyValue('_save_payment_method', $save_payment_method);
+        return $this;
     }
 
     /**
-     * Возвращает флаг автоматического принятия поступившей оплаты
+     * Возвращает флаг автоматического принятия поступившей оплаты.
+     *
      * @return bool True если требуется автоматически принять поступившую оплату, false если нет
      */
-    public function getCapture()
+    public function getCapture(): bool
     {
         return $this->_capture;
     }
 
     /**
-     * Проверяет, был ли установлен флаг автоматического принятия поступившей оплаты
+     * Проверяет, был ли установлен флаг автоматического принятия поступившей оплаты.
+     *
      * @return bool True если флаг автоматического принятия оплаты был установлен, false если нет
      */
-    public function hasCapture()
+    public function hasCapture(): bool
     {
-        return $this->_capture !== null;
+        return isset($this->_capture);
     }
 
     /**
-     * Устанавливает флаг автоматического принятия поступившей оплаты
-     * @param bool $value Автоматически принять поступившую оплату
+     * Устанавливает флаг автоматического принятия поступившей оплаты.
+     *
+     * @param bool $capture Автоматически принять поступившую оплату
      *
      * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не кастится в bool
      */
-    public function setCapture($value)
+    public function setCapture(bool $capture): self
     {
-        if ($value === null || $value === '') {
-            $this->_capture = null;
-        } elseif (TypeCast::canCastToBoolean($value)) {
-            $this->_capture = (bool)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid capture value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.capture',
-                $value
-            );
-        }
+        $this->_capture = $this->validatePropertyValue('_capture', $capture);
+        return $this;
     }
 
     /**
-     * Возвращает IPv4 или IPv6-адрес покупателя
-     * @return string IPv4 или IPv6-адрес покупателя
+     * Возвращает IPv4 или IPv6-адрес покупателя.
+     *
+     * @return string|null IPv4 или IPv6-адрес покупателя
      */
-    public function getClientIp()
+    public function getClientIp(): ?string
     {
-        return $this->_clientIp;
+        return $this->_client_ip;
     }
 
     /**
-     * Проверяет, был ли установлен IPv4 или IPv6-адрес покупателя
+     * Проверяет, был ли установлен IPv4 или IPv6-адрес покупателя.
+     *
      * @return bool True если IP адрес покупателя был установлен, false если нет
      */
-    public function hasClientIp()
+    public function hasClientIp(): bool
     {
-        return $this->_clientIp !== null;
+        return null !== $this->_client_ip;
     }
 
     /**
-     * Устанавливает IP адрес покупателя
-     * @param string $value IPv4 или IPv6-адрес покупателя
+     * Устанавливает IP адрес покупателя.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент не является строкой
+     * @param string|null $client_ip IPv4 или IPv6-адрес покупателя
      */
-    public function setClientIp($value)
+    public function setClientIp(?string $client_ip): self
     {
-        if ($value === null || $value === '') {
-            $this->_clientIp = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $this->_clientIp = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid clientIp value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.clientIp',
-                $value
-            );
-        }
+        $this->_client_ip = $this->validatePropertyValue('_client_ip', $client_ip);
+        return $this;
     }
 
     /**
      * Возвращает данные оплаты установленные мерчантом
-     * @return Metadata Метаданные, привязанные к платежу
+     *
+     * @return Metadata|null Метаданные, привязанные к платежу
      */
-    public function getMetadata()
+    public function getMetadata(): ?Metadata
     {
         return $this->_metadata;
     }
 
     /**
-     * Проверяет, были ли установлены метаданные заказа
+     * Проверяет, были ли установлены метаданные заказа.
+     *
      * @return bool True если метаданные были установлены, false если нет
      */
-    public function hasMetadata()
+    public function hasMetadata(): bool
     {
         return !empty($this->_metadata) && $this->_metadata->count() > 0;
     }
 
     /**
-     * Устанавливает метаданные, привязанные к платежу
-     * @param Metadata|array|null $value Метаданные платежа, устанавливаемые мерчантом
+     * Устанавливает метаданные, привязанные к платежу.
+     *
+     * @param null|array|Metadata $metadata Метаданные платежа, устанавливаемые мерчантом
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданные данные не удалось интерпретировать как
-     * метаданные платежа
+     *                                           метаданные платежа
      */
-    public function setMetadata($value)
+    public function setMetadata(mixed $metadata): self
     {
-        if ($value === null || (is_array($value) && empty($value))) {
-            $this->_metadata = null;
-        } elseif ($value instanceof Metadata) {
-            $this->_metadata = $value;
-        } elseif (is_array($value)) {
-            $this->_metadata = new Metadata($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid metadata value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.metadata',
-                $value
-            );
-        }
+        $this->_metadata = $this->validatePropertyValue('_metadata', $metadata);
+        return $this;
     }
 
     /**
-     * Возвращает данные о сделке, в составе которой проходит платеж
-     * @return PaymentDealInfo Данные о сделке, в составе которой проходит платеж.
+     * Возвращает данные о сделке, в составе которой проходит платеж.
+     *
+     * @return PaymentDealInfo|null Данные о сделке, в составе которой проходит платеж
      */
-    public function getDeal()
+    public function getDeal(): ?PaymentDealInfo
     {
         return $this->_deal;
     }
 
     /**
-     * Проверяет, были ли установлены данные о сделке
+     * Проверяет, были ли установлены данные о сделке.
+     *
      * @return bool True если данные о сделке были установлены, false если нет
      */
-    public function hasDeal()
+    public function hasDeal(): bool
     {
         return !empty($this->_deal);
     }
 
     /**
      * Устанавливает данные о сделке, в составе которой проходит платеж.
-     * @param PaymentDealInfo|array|null $value Данные о сделке, в составе которой проходит платеж
+     *
+     * @param null|array|PaymentDealInfo $deal Данные о сделке, в составе которой проходит платеж
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если переданные данные не удалось интерпретировать как метаданные платежа
      */
-    public function setDeal($value)
+    public function setDeal(mixed $deal): self
     {
-        if ($value === null || (is_array($value) && empty($value))) {
-            $this->_deal = null;
-        } elseif ($value instanceof PaymentDealInfo) {
-            $this->_deal = $value;
-        } elseif (is_array($value)) {
-            $this->_deal = new PaymentDealInfo($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid deal value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.deal',
-                $value
-            );
-        }
+        $this->_deal = $this->validatePropertyValue('_deal', $deal);
+        return $this;
     }
 
     /**
      * Возвращает информацию для проверки операции на мошенничество.
      *
-     * @return FraudData|null Информация для проверки операции на мошенничество
+     * @return null|FraudData Информация для проверки операции на мошенничество
      */
-    public function getFraudData()
+    public function getFraudData(): ?FraudData
     {
         return $this->_fraud_data;
     }
@@ -617,89 +552,61 @@ class CreatePaymentRequest extends AbstractPaymentRequest implements CreatePayme
     /**
      * Устанавливает информацию для проверки операции на мошенничество.
      *
-     * @param FraudData|array|null $value Информация для проверки операции на мошенничество
+     * @param null|array|FraudData $fraud_data Информация для проверки операции на мошенничество
      */
-    public function setFraudData($value = null)
+    public function setFraudData(mixed $fraud_data = null): self
     {
-        if ($value === null || (is_array($value) && empty($value))) {
-            $this->_fraud_data = null;
-        } elseif ($value instanceof FraudData) {
-            $this->_fraud_data = $value;
-        } elseif (is_array($value)) {
-            $this->_fraud_data = new FraudData($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid fraud_data value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.fraud_data',
-                $value
-            );
-        }
+        $this->_fraud_data = $this->validatePropertyValue('_fraud_data', $fraud_data);
+        return $this;
     }
 
     /**
-     * Проверяет, была ли установлена информация для проверки операции на мошенничество
+     * Проверяет, была ли установлена информация для проверки операции на мошенничество.
+     *
      * @return bool True если информация была установлена, false если нет
      */
-    public function hasFraudData()
+    public function hasFraudData(): bool
     {
         return !empty($this->_fraud_data);
     }
 
     /**
-     * Возвращает идентификатор покупателя в вашей системе
-     * @return string Идентификатор покупателя в вашей системе
+     * Возвращает идентификатор покупателя в вашей системе.
+     *
+     * @return string|null Идентификатор покупателя в вашей системе
      */
-    public function getMerchantCustomerId()
+    public function getMerchantCustomerId(): ?string
     {
         return $this->_merchant_customer_id;
     }
 
     /**
-     * Проверяет, был ли установлен идентификатор покупателя в вашей системе
+     * Проверяет, был ли установлен идентификатор покупателя в вашей системе.
+     *
      * @return bool True если идентификатор покупателя был установлен, false если нет
      */
-    public function hasMerchantCustomerId()
+    public function hasMerchantCustomerId(): bool
     {
-        return $this->_merchant_customer_id !== null;
+        return null !== $this->_merchant_customer_id;
     }
 
     /**
-     * Устанавливает идентификатор покупателя в вашей системе
-     * @param string $value Идентификатор покупателя в вашей системе, например электронная почта или номер телефона. Не более 200 символов
+     * Устанавливает идентификатор покупателя в вашей системе.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент не является строкой
+     * @param string|null $merchant_customer_id Идентификатор покупателя в вашей системе, например электронная почта или номер телефона. Не более 200 символов
      */
-    public function setMerchantCustomerId($value)
+    public function setMerchantCustomerId(?string $merchant_customer_id): self
     {
-        if ($value === null || $value === '') {
-            $this->_merchant_customer_id = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $length = mb_strlen((string)$value, 'utf-8');
-            if ($length > Payment::MAX_LENGTH_MERCHANT_CUSTOMER_ID) {
-                throw new InvalidPropertyValueException(
-                    'The value of the merchant_customer_id parameter is too long. Max length is ' . Payment::MAX_LENGTH_MERCHANT_CUSTOMER_ID,
-                    0,
-                    'CreatePaymentRequest.merchant_customer_id',
-                    $value
-                );
-            }
-            $this->_merchant_customer_id = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid merchant_customer_id value type in CreatePaymentRequest',
-                0,
-                'CreatePaymentRequest.merchant_customer_id',
-                $value
-            );
-        }
+        $this->_merchant_customer_id = $this->validatePropertyValue('_merchant_customer_id', $merchant_customer_id);
+        return $this;
     }
 
     /**
      * Проверяет на валидность текущий объект
+     *
      * @return bool True если объект запроса валиден, false если нет
      */
-    public function validate()
+    public function validate(): bool
     {
         if (!parent::validate()) {
             return false;
@@ -707,26 +614,31 @@ class CreatePaymentRequest extends AbstractPaymentRequest implements CreatePayme
         if ($this->hasPaymentToken()) {
             if ($this->hasPaymentMethodId()) {
                 $this->setValidationError('Both paymentToken and paymentMethodID values are specified');
+
                 return false;
             }
             if ($this->hasPaymentMethodData()) {
                 $this->setValidationError('Both paymentToken and paymentData values are specified');
+
                 return false;
             }
         } elseif ($this->hasPaymentMethodId()) {
             if ($this->hasPaymentMethodData()) {
                 $this->setValidationError('Both paymentMethodID and paymentData values are specified');
+
                 return false;
             }
         }
+
         return true;
     }
 
     /**
-     * Возвращает билдер объектов запросов создания платежа
+     * Возвращает билдер объектов запросов создания платежа.
+     *
      * @return CreatePaymentRequestBuilder Инстанс билдера объектов запросов
      */
-    public static function builder()
+    public static function builder(): CreatePaymentRequestBuilder
     {
         return new CreatePaymentRequestBuilder();
     }

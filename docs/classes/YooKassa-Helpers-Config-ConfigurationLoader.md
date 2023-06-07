@@ -3,6 +3,13 @@
 # Class: \YooKassa\Helpers\Config\ConfigurationLoader
 ### Namespace: [\YooKassa\Helpers\Config](../namespaces/yookassa-helpers-config.md)
 ---
+**Summary:**
+
+Класс, представляющий модель ConfigurationLoader.
+
+**Description:**
+
+Класс для загрузки конфига Curl клиента.
 
 ---
 ### Constants
@@ -18,32 +25,42 @@
 ---
 ### Details
 * File: [lib/Helpers/Config/ConfigurationLoader.php](../../lib/Helpers/Config/ConfigurationLoader.php)
-* Package: Default
+* Package: YooKassa\Helpers
 * Class Hierarchy:
   * \YooKassa\Helpers\Config\ConfigurationLoader
 * Implements:
   * [\YooKassa\Helpers\Config\ConfigurationLoaderInterface](../classes/YooKassa-Helpers-Config-ConfigurationLoaderInterface.md)
 
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
+
 ---
 ## Methods
 <a name="method_getConfig" class="anchor"></a>
-#### public getConfig() : mixed
+#### public getConfig() : array
 
 ```php
-public getConfig() : mixed
+public getConfig() : array
 ```
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\Config\ConfigurationLoader](../classes/YooKassa-Helpers-Config-ConfigurationLoader.md)
 
-**Returns:** mixed - 
+**Returns:** array - 
 
 
 <a name="method_load" class="anchor"></a>
-#### public load() : mixed
+#### public load() : self
 
 ```php
-public load(mixed $filePath = null) : mixed
+public load(mixed $filePath = null) : self
 ```
 
 **Details:**
@@ -54,7 +71,12 @@ public load(mixed $filePath = null) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">mixed</code> | filePath  |  |
 
-**Returns:** mixed - 
+##### Throws:
+| Type | Description |
+| ---- | ----------- |
+| \JsonException |  |
+
+**Returns:** self - 
 
 
 
@@ -68,11 +90,11 @@ public load(mixed $filePath = null) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

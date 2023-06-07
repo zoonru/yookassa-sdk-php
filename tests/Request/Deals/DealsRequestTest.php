@@ -2,69 +2,82 @@
 
 namespace Tests\YooKassa\Request\Deals;
 
+use DateTime;
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use TypeError;
 use YooKassa\Helpers\Random;
 use YooKassa\Helpers\StringObject;
 use YooKassa\Model\Deal\DealStatus;
-use YooKassa\Model\SafeDeal;
+use YooKassa\Model\Deal\SafeDeal;
 use YooKassa\Request\Deals\DealsRequest;
 use YooKassa\Request\Deals\DealsRequestBuilder;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
 
+/**
+ * @internal
+ */
 class DealsRequestTest extends TestCase
 {
     /**
-     * @return DealsRequest
+     * @dataProvider validCursorDataProvider
+     *
+     * @param mixed $value
      */
-    protected function getTestInstance()
+    public function testCursor($value): void
     {
-        return new DealsRequest();
-    }
-
-    /**
-     * @dataProvider validNetPageDataProvider
-     * @param $value
-     */
-    public function testCursor($value)
-    {
-        $this->getterAndSetterTest($value, 'cursor', $value === null ? '' : (string)$value);
-    }
-
-    /**
-     * @dataProvider invalidPageDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidCursor($value)
-    {
-        $this->getTestInstance()->setCursor($value);
+        $this->getterAndSetterTest($value, 'cursor', null === $value ? '' : (string) $value);
     }
 
     /**
      * @dataProvider validFullTextSearchDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testFullTextSearch($value)
+    public function testFullTextSearch($value): void
     {
         $this->getterAndSetterTest($value, 'fullTextSearch', $value);
     }
 
     /**
      * @dataProvider invalidFullTextSearchDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidFullTextSearch($value)
+    public function testSetInvalidFullTextSearch(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setFullTextSearch($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setFullTextSearch($value);
+    }
+
+    /**
+     * @dataProvider invalidFullTextSearchDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetterInvalidFullTextSearch(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->full_text_search = $value;
     }
 
     /**
      * @dataProvider validDateDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testDateMethods($value)
+    public function testDateMethods($value): void
     {
-        $properties = array(
+        $properties = [
             'createdAtGte',
             'createdAtGt',
             'createdAtLte',
@@ -73,9 +86,9 @@ class DealsRequestTest extends TestCase
             'expiresAtGt',
             'expiresAtLte',
             'expiresAtLt',
-        );
-        $expected   = null;
-        if ($value instanceof \DateTime) {
+        ];
+        $expected = null;
+        if ($value instanceof DateTime) {
             $expected = $value->format(YOOKASSA_DATE);
         } elseif (is_numeric($value)) {
             $expected = date(YOOKASSA_DATE, $value);
@@ -83,282 +96,512 @@ class DealsRequestTest extends TestCase
             $expected = $value;
         }
         foreach ($properties as $property) {
-            $this->getterAndSetterTest($value, $property, empty($expected) ? null : new \DateTime($expected));
+            $this->getterAndSetterTest($value, $property, empty($expected) ? null : new DateTime($expected));
         }
     }
 
     /**
-     * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidDataTimeDataProvider
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidCreatedAtGte($value)
+    public function testSetInvalidCreatedAtGte(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setCreatedAtGte($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setCreatedAtGte($value);
     }
 
     /**
-     * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidDataTimeDataProvider
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidCreatedAtGt($value)
+    public function testSetterInvalidCreatedAtGte(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setCreatedAtGt($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->createdAtGte = $value;
     }
 
     /**
-     * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidDataTimeDataProvider
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidCreatedAtLte($value)
+    public function testSetInvalidCreatedAtGt(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setCreatedAtLte($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setCreatedAtGt($value);
     }
 
     /**
-     * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidDataTimeDataProvider
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidCreatedAtLt($value)
+    public function testSetterInvalidCreatedAtGt(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setCreatedAtLt($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->createdAtGt = $value;
     }
 
     /**
-     * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidDataTimeDataProvider
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidExpiresAtGte($value)
+    public function testSetInvalidCreatedAtLte(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setExpiresAtGte($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setCreatedAtLte($value);
     }
 
     /**
-     * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidDataTimeDataProvider
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidExpiresAtGt($value)
+    public function testSetterInvalidCreatedAtLte(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setExpiresAtGt($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->createdAtLte = $value;
     }
 
     /**
-     * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidDataTimeDataProvider
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidExpiresAtLte($value)
+    public function testSetInvalidCreatedAtLt(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setExpiresAtLte($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setCreatedAtLt($value);
     }
 
     /**
-     * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidDataTimeDataProvider
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidExpiresAtLt($value)
+    public function testSetterInvalidCreatedAtLt(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setExpiresAtLt($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->createdAtLt = $value;
     }
 
+    /**
+     * @dataProvider invalidDataTimeDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetInvalidExpiresAtGte(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setExpiresAtGte($value);
+    }
+
+    /**
+     * @dataProvider invalidDataTimeDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetterInvalidExpiresAtGte(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->expiresAtGte = $value;
+    }
+
+    /**
+     * @dataProvider invalidDataTimeDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetInvalidExpiresAtGt(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setExpiresAtGt($value);
+    }
+
+    /**
+     * @dataProvider invalidDataTimeDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetterInvalidExpiresAtGt(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->expiresAtGt = $value;
+    }
+
+    /**
+     * @dataProvider invalidDataTimeDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetInvalidExpiresAtLte(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setCreatedAtLte($value);
+    }
+
+    /**
+     * @dataProvider invalidDataTimeDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetterInvalidExpiresAtLte(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->expiresAtLte = $value;
+    }
+
+    /**
+     * @dataProvider invalidDataTimeDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetInvalidExpiresAtLt(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setExpiresAtLt($value);
+    }
+
+    /**
+     * @dataProvider invalidDataTimeDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetterInvalidExpiresAtLt(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->expiresAtLt = $value;
+    }
 
     /**
      * @dataProvider validLimitDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testLimit($value)
+    public function testLimit($value): void
     {
         $this->getterAndSetterTest($value, 'limit', $value);
     }
 
     /**
-     * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     * @dataProvider invalidLimitDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidLimit($value)
+    public function testSetInvalidLimit(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setLimit($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setLimit($value);
+    }
+
+    /**
+     * @dataProvider invalidLimitDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
+     */
+    public function testSetterInvalidLimit(mixed $value, string $exceptionClassName): void
+    {
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->limit = $value;
     }
 
     /**
      * @dataProvider validStatusDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testStatus($value)
+    public function testStatus($value): void
     {
-        $this->getterAndSetterTest($value, 'status', $value === null ? '' : (string)$value);
+        $this->getterAndSetterTest($value, 'status', (string) $value);
     }
 
     /**
      * @dataProvider invalidDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidStatus($value)
+    public function testSetInvalidStatus($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setStatus($value);
     }
 
-    public function testValidate()
+    /**
+     * @return void
+     */
+    public function testValidate(): void
     {
         $instance = new DealsRequest();
         self::assertTrue($instance->validate());
     }
 
-    public function testBuilder()
+    /**
+     * @return void
+     */
+    public function testBuilder(): void
     {
         $builder = DealsRequest::builder();
-        self::assertTrue($builder instanceof DealsRequestBuilder);
+        self::assertInstanceOf(DealsRequestBuilder::class, $builder);
     }
 
-    public function validNetPageDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function validCursorDataProvider(): array
     {
-        return array(
-            array(''),
-            array(null),
-            array(Random::str(1)),
-            array(Random::str(2, 64)),
-            array(new StringObject(Random::str(1))),
-            array(new StringObject(Random::str(2, 64))),
-        );
+        return [
+            [Random::str(1)],
+            [Random::str(2, 64)],
+            [new StringObject(Random::str(1))],
+            [new StringObject(Random::str(2, 64))],
+        ];
     }
 
-    public function validFullTextSearchDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function validFullTextSearchDataProvider(): array
     {
-        $result = array(
-            array(null),
-            array(''),
-            array(Random::str(DealsRequest::MIN_LENGTH_DESCRIPTION, SafeDeal::MAX_LENGTH_DESCRIPTION)),
-            array(new StringObject(Random::str(DealsRequest::MIN_LENGTH_DESCRIPTION, SafeDeal::MAX_LENGTH_DESCRIPTION))),
-        );
-        return $result;
+        return [
+            [null],
+            ['1234'],
+            [Random::str(DealsRequest::MIN_LENGTH_DESCRIPTION, SafeDeal::MAX_LENGTH_DESCRIPTION)],
+            [new StringObject(Random::str(DealsRequest::MIN_LENGTH_DESCRIPTION, SafeDeal::MAX_LENGTH_DESCRIPTION))],
+        ];
     }
 
-    public function validIdDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function validIdDataProvider(): array
     {
-        return array(
-            array(null),
-            array(''),
-            array('123'),
-            array(Random::str(1, 64)),
-            array(new StringObject(Random::str(1, 64))),
-        );
+        return [
+            [null],
+            [''],
+            ['123'],
+            [Random::str(1, 64)],
+            [new StringObject(Random::str(1, 64))],
+        ];
     }
 
-    public function validDateDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function validDateDataProvider(): array
     {
-        return array(
-            array(null),
-            array(''),
-            array(Random::int(0, time())),
-            array(date(YOOKASSA_DATE, Random::int(0, time()))),
-            array(new \DateTime()),
-        );
+        return [
+            [date(YOOKASSA_DATE, Random::int(0, time()))],
+            [new DateTime()],
+        ];
     }
 
-    public function validStatusDataProvider()
+    /**
+     * @return array
+     */
+    public static function validStatusDataProvider(): array
     {
-        $result = array(
-            array(null),
-            array(''),
-        );
+        $result = [];
         foreach (DealStatus::getValidValues() as $value) {
-            $result[] = array($value);
-            $result[] = array(new StringObject($value));
+            $result[] = [$value];
         }
+
         return $result;
     }
 
-    public function validLimitDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function validLimitDataProvider(): array
     {
-        return array(
-            array(null),
-            array(Random::int(1, DealsRequest::MAX_LIMIT_VALUE)),
-        );
+        return [
+            [10],
+            [Random::int(1, DealsRequest::MAX_LIMIT_VALUE)],
+        ];
     }
 
-    public function invalidIdDataProvider()
+    /**
+     * @return array
+     */
+    public function invalidIdDataProvider(): array
     {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array(true),
-            array(false),
-        );
+        return [
+            [[]],
+            [new stdClass()],
+            [true],
+            [false],
+        ];
     }
 
-    public function invalidDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function invalidDataProvider(): array
     {
-        $result = array(
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(10)),
-            array(Random::bytes(10)),
-            array(-1),
-            array(DealsRequest::MAX_LIMIT_VALUE + 1),
-        );
-        return $result;
+        return [
+            [Random::str(10)],
+            [Random::bytes(10)],
+            [-1],
+            [DealsRequest::MAX_LIMIT_VALUE + 1],
+        ];
     }
 
-    public function invalidFullTextSearchDataProvider()
+    /**
+     * @return array[]
+     * @throws Exception
+     */
+    public static function invalidFullTextSearchDataProvider(): array
     {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(DealsRequest::MIN_LENGTH_DESCRIPTION - 1)),
-            array(new StringObject(Random::str(SafeDeal::MAX_LENGTH_DESCRIPTION + 1))),
-        );
+        return [
+            [true, InvalidPropertyValueException::class],
+            [Random::str(DealsRequest::MIN_LENGTH_DESCRIPTION - 1), InvalidPropertyValueException::class],
+            [new StringObject(Random::str(SafeDeal::MAX_LENGTH_DESCRIPTION + 1)), InvalidPropertyValueException::class],
+            [[], TypeError::class],
+            [new \stdClass(), TypeError::class],
+        ];
     }
 
-    public function invalidDateDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function invalidDateDataProvider(): array
     {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(35)),
-            array(Random::str(37)),
-            array(new StringObject(Random::str(10))),
-            array(-123),
-        );
+        return [
+            [true],
+            [false],
+            [[]],
+            [new stdClass()],
+            [Random::str(35)],
+            [Random::str(37)],
+            [new StringObject(Random::str(10))],
+            [-123],
+        ];
     }
 
-    public function invalidPageDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function invalidDataTimeDataProvider(): array
     {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array(true),
-            array(false),
-        );
+        return [
+            [[], TypeError::class],
+            [new \stdClass(), TypeError::class],
+            [Random::int(), InvalidPropertyValueException::class],
+            [Random::str(100), InvalidPropertyValueException::class],
+        ];
     }
 
-    private function getterAndSetterTest($value, $property, $expected, $testHas = true)
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function invalidLimitDataProvider(): array
+    {
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', TypeError::class],
+            [[], TypeError::class],
+            [new \stdClass(), TypeError::class],
+            [Random::int(DealsRequest::MAX_LIMIT_VALUE + 1), InvalidPropertyValueException::class],
+            [Random::str(100), TypeError::class],
+        ];
+    }
+
+    /**
+     * @return DealsRequest
+     */
+    protected function getTestInstance(): DealsRequest
+    {
+        return new DealsRequest();
+    }
+
+    /**
+     * @param $value
+     * @param string $property
+     * @param $expected
+     * @param bool $testHas
+     * @return void
+     */
+    private function getterAndSetterTest(mixed $value, string $property, mixed $expected, bool $testHas = true): void
     {
         $getter = 'get' . ucfirst($property);
         $setter = 'set' . ucfirst($property);
-        $has    = 'has' . ucfirst($property);
+        $has = 'has' . ucfirst($property);
 
         $instance = $this->getTestInstance();
 
-        if ($testHas) {
+        if ($testHas && !$instance->{$has}()) {
             self::assertFalse($instance->{$has}());
+            self::assertNull($instance->{$getter}());
+            self::assertNull($instance->{$property});
         }
-        self::assertNull($instance->{$getter}());
-        self::assertNull($instance->{$property});
 
         $instance->{$setter}($value);
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             if ($testHas) {
                 self::assertFalse($instance->{$has}());
             }
@@ -368,7 +611,7 @@ class DealsRequestTest extends TestCase
             if ($testHas) {
                 self::assertTrue($instance->{$has}());
             }
-            if ($expected instanceof \DateTime) {
+            if ($expected instanceof DateTime) {
                 self::assertEquals($expected->getTimestamp(), $instance->{$getter}()->getTimestamp());
                 self::assertEquals($expected->getTimestamp(), $instance->{$property}->getTimestamp());
             } else {
@@ -377,15 +620,8 @@ class DealsRequestTest extends TestCase
             }
         }
 
-        $instance->{$setter}(null);
-        if ($testHas) {
-            self::assertFalse($instance->{$has}());
-        }
-        self::assertNull($instance->{$getter}());
-        self::assertNull($instance->{$property});
-
         $instance->{$property} = $value;
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             if ($testHas) {
                 self::assertFalse($instance->{$has}());
             }
@@ -395,7 +631,7 @@ class DealsRequestTest extends TestCase
             if ($testHas) {
                 self::assertTrue($instance->{$has}());
             }
-            if ($expected instanceof \DateTime) {
+            if ($expected instanceof DateTime) {
                 self::assertEquals($expected->getTimestamp(), $instance->{$getter}()->getTimestamp());
                 self::assertEquals($expected->getTimestamp(), $instance->{$property}->getTimestamp());
             } else {

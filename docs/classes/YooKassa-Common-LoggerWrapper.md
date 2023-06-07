@@ -3,6 +3,13 @@
 # Class: \YooKassa\Common\LoggerWrapper
 ### Namespace: [\YooKassa\Common](../namespaces/yookassa-common.md)
 ---
+**Summary:**
+
+Класс, представляющий модель LoggerWrapper.
+
+**Description:**
+
+Класс логгера по умолчанию.
 
 ---
 ### Constants
@@ -26,11 +33,21 @@
 ---
 ### Details
 * File: [lib/Common/LoggerWrapper.php](../../lib/Common/LoggerWrapper.php)
-* Package: Default
+* Package: YooKassa
 * Class Hierarchy:
   * \YooKassa\Common\LoggerWrapper
 * Implements:
   * [](\Psr\Log\LoggerInterface)
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -38,7 +55,7 @@
 #### public __construct() : mixed
 
 ```php
-public __construct(object|callable $wrapped) : mixed
+public __construct(callable|mixed|object $wrapped) : mixed
 ```
 
 **Summary**
@@ -51,7 +68,7 @@ LoggerWrapper constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">object OR callable</code> | wrapped  |  |
+| <code lang="php">callable OR mixed OR object</code> | wrapped  |  |
 
 **Returns:** mixed - 
 
@@ -60,7 +77,7 @@ LoggerWrapper constructor.
 #### public alert() : void
 
 ```php
-public alert(string $message, array $context = array()) : void
+public alert(string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -78,7 +95,7 @@ trigger the SMS alerts and wake you up.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -88,7 +105,7 @@ trigger the SMS alerts and wake you up.
 #### public critical() : void
 
 ```php
-public critical(string $message, array $context = array()) : void
+public critical(string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -105,7 +122,7 @@ Example: Application component unavailable, unexpected exception.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -115,7 +132,7 @@ Example: Application component unavailable, unexpected exception.
 #### public debug() : void
 
 ```php
-public debug(string $message, array $context = array()) : void
+public debug(string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -128,7 +145,7 @@ Detailed debug information.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -138,7 +155,7 @@ Detailed debug information.
 #### public emergency() : void
 
 ```php
-public emergency(string $message, array $context = array()) : void
+public emergency(string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -151,7 +168,7 @@ System is unusable.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -161,7 +178,7 @@ System is unusable.
 #### public error() : void
 
 ```php
-public error(string $message, array $context = array()) : void
+public error(string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -175,7 +192,7 @@ be logged and monitored.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -185,7 +202,7 @@ be logged and monitored.
 #### public info() : void
 
 ```php
-public info(string $message, array $context = array()) : void
+public info(string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -202,7 +219,7 @@ Example: User logs in, SQL logs.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -212,7 +229,7 @@ Example: User logs in, SQL logs.
 #### public log() : void
 
 ```php
-public log(mixed $level, string $message, array $context = array()) : void
+public log(mixed $level, string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -226,7 +243,7 @@ Logs with an arbitrary level.
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">mixed</code> | level  |  |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -236,7 +253,7 @@ Logs with an arbitrary level.
 #### public notice() : void
 
 ```php
-public notice(string $message, array $context = array()) : void
+public notice(string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -249,7 +266,7 @@ Normal but significant events.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -259,7 +276,7 @@ Normal but significant events.
 #### public warning() : void
 
 ```php
-public warning(string $message, array $context = array()) : void
+public warning(string|\Stringable $message, array $context = []) : void
 ```
 
 **Summary**
@@ -277,7 +294,7 @@ that are not necessarily wrong.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | message  |  |
+| <code lang="php">string OR \Stringable</code> | message  |  |
 | <code lang="php">array</code> | context  |  |
 
 **Returns:** void - 
@@ -294,11 +311,11 @@ that are not necessarily wrong.
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

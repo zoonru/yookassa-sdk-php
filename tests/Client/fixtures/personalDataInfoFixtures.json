@@ -8,6 +8,6 @@
   },
   "cancellation_details": {
     "party": "yoo_money",
-    "reason": "general_decline"
+    "reason": "expired_by_timeout"
   }
 }

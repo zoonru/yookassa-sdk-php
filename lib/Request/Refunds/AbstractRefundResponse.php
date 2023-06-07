@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,43 +26,18 @@
 
 namespace YooKassa\Request\Refunds;
 
-use YooKassa\Model\MonetaryAmount;
-use YooKassa\Model\Refund;
+use YooKassa\Model\Refund\Refund;
 
 /**
- * Абстрактный класс ответа от API с информацией о возврате
+ * Класс, представляющий модель AbstractRefundResponse.
  *
- * @package YooKassa
+ * Абстрактный класс ответа от API с информацией о возврате.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 abstract class AbstractRefundResponse extends Refund
 {
-    /**
-     * Конструктор
-     * @param array $options Ассоциативный массив с информацией, вернувшейся от API
-     * @throws \Exception
-     */
-    public function __construct($options)
-    {
-        $this->setId(empty($options['id']) ? null : $options['id']);
-        $this->setPaymentId(empty($options['payment_id']) ? null : $options['payment_id']);
-        $this->setStatus(empty($options['status']) ? null : $options['status']);
-        $this->setCreatedAt(empty($options['created_at']) ? null : $options['created_at']);
-        $this->setAmount(new MonetaryAmount($options['amount']['value'], $options['amount']['currency']));
-
-        if (!empty($options['sources'])) {
-            $this->setSources($options['sources']);
-        }
-
-        if (!empty($options['receipt_registration'])) {
-            $this->setReceiptRegistration($options['receipt_registration']);
-        }
-
-        if (!empty($options['description'])) {
-            $this->setDescription($options['description']);
-        }
-
-        if (!empty($options['deal'])) {
-            $this->setDeal($options['deal']);
-        }
-    }
 }

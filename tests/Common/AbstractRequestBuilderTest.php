@@ -2,60 +2,70 @@
 
 namespace Tests\YooKassa\Common;
 
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Common\AbstractRequest;
 use YooKassa\Common\AbstractRequestBuilder;
 use YooKassa\Common\Exceptions\InvalidRequestException;
 
+/**
+ * @internal
+ */
 class AbstractRequestBuilderTest extends TestCase
 {
-    public function testBuild()
+    public function testBuild(): void
     {
         $builder = new TestAbstractRequestBuilder();
+
         try {
-            $builder->build(array());
+            $builder->build([]);
         } catch (InvalidRequestException $e) {
-            $request = $builder->build(array(
+            $request = $builder->build([
                 'isValid' => true,
-            ));
+            ]);
             self::assertTrue($request->isValid());
 
             $mess = 'test message';
+
             try {
-                $builder->build(array(
-                    'throwException' => new \Exception($mess),
-                ));
-            } catch (\Exception $e) {
+                $builder->build([
+                    'throwException' => new Exception($mess),
+                ]);
+            } catch (Exception $e) {
                 self::assertEquals($mess, $e->getPrevious()->getMessage());
+
                 return;
             }
             self::fail('Exception not thrown in setThrowException method');
+
             return;
         }
         self::fail('Exception not thrown in build method');
     }
 
-    public function testSetOptions()
+    public function testSetOptions(): void
     {
         $builder = new TestAbstractRequestBuilder();
 
-        $builder->setOptions(array());
+        $builder->setOptions([]);
+
         try {
             $builder->build();
         } catch (InvalidRequestException $e) {
-            $builder->setOptions(array(
+            $builder->setOptions([
                 'is_valid' => true,
-            ));
+            ]);
             self::assertTrue($builder->build()->isValid());
 
             try {
                 $builder->setOptions('test');
-            } catch (\Exception $e) {
-                self::assertTrue($e instanceof \InvalidArgumentException);
+            } catch (Exception $e) {
+                self::assertInstanceOf(InvalidArgumentException::class, $e);
+
                 return;
             }
             self::fail('Exception not thrown in setOptions method');
-            return;
         }
         self::fail('Exception not thrown in build method');
     }
@@ -63,77 +73,73 @@ class AbstractRequestBuilderTest extends TestCase
 
 class TestAbstractRequestBuilder extends AbstractRequestBuilder
 {
-    /**
-     * Инициализирует пустой запрос
-     * @return TestAbstractRequestClass Инстанс запроса, который будем собирать
-     */
-    protected function initCurrentObject()
-    {
-        return new TestAbstractRequestClass();
-    }
-
     public function setIsValid($value)
     {
         $this->currentObject->setIsValid($value);
+
         return $this;
     }
 
     /**
-     * @param \Exception $e
-     * @return TestAbstractRequestBuilder
-     * @throws \Exception
+     * @throws Exception
      */
-    public function setThrowException(\Exception $e)
+    public function setThrowException(Exception $e): TestAbstractRequestBuilder
     {
         $this->currentObject->setThrowException($e);
+
         return $this;
+    }
+
+    /**
+     * Инициализирует пустой запрос
+     *
+     * @return TestAbstractRequestClass Инстанс запроса, который будем собирать
+     */
+    protected function initCurrentObject(): TestAbstractRequestClass
+    {
+        return new TestAbstractRequestClass();
     }
 }
 
 class TestAbstractRequestClass extends AbstractRequest
 {
-    private $valid = false;
+    private bool $valid = false;
+
+    private ?Exception $exception = null;
 
     /**
-     * @var \Exception|null
+     * @throws Exception
      */
-    private $exception = null;
-
-    /**
-     * @param \Exception $e
-     * @throws \Exception
-     */
-    public function setThrowException(\Exception $e)
+    public function setThrowException(Exception $e): void
     {
         $this->exception = $e;
     }
 
-    /**
-     * @param bool $value
-     */
-    public function setIsValid($value)
+    public function setIsValid(bool $value): void
     {
-        $this->valid = $value ? true : false;
+        $this->valid = $value;
     }
 
-    /**
-     * @return bool
-     */
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->valid;
     }
 
     /**
-     * Валидирует текущий запрос, проверяет все ли нужные свойства установлены
+     * Валидирует текущий запрос, проверяет все ли нужные свойства установлены.
+     *
      * @return bool True если запрос валиден, false если нет
+     *
+     * @throws Exception
      */
-    public function validate()
+    public function validate(): bool
     {
-        if ($this->exception !== null) {
+        if (null !== $this->exception) {
             $this->setValidationError($this->exception->getMessage());
+
             throw $this->exception;
         }
+
         return $this->valid;
     }
 }

@@ -5,23 +5,25 @@ namespace Tests\YooKassa\Helpers;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\StringObject;
 
+/**
+ * @internal
+ */
 class StringObjectTest extends TestCase
 {
     /**
      * @dataProvider dataProvider
-     * @param string $value
      */
-    public function testToString($value)
+    public function testToString(string $value): void
     {
         $instance = new StringObject($value);
         self::assertEquals($value, $instance->__toString());
     }
 
-    public function dataProvider()
+    public static function dataProvider(): array
     {
-        return array(
-            array(''),
-            array('value'),
-        );
+        return [
+            [''],
+            ['value'],
+        ];
     }
 }

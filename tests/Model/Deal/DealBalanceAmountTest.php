@@ -6,42 +6,39 @@ use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\Deal\DealBalanceAmount;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueTypeException;
 
+/**
+ * @internal
+ */
 class DealBalanceAmountTest extends TestCase
 {
-    const DEFAULT_CURRENCY = CurrencyCode::RUB;
-    const DEFAULT_VALUE = '0.00';
-
-    protected static function getInstance($value = null, $currency = null)
-    {
-        return new DealBalanceAmount($value, $currency);
-    }
+    public const DEFAULT_CURRENCY = CurrencyCode::RUB;
+    public const DEFAULT_VALUE = '0.00';
 
     /**
      * @dataProvider validDataProvider
      *
-     * @param $value
-     * @param $currency
+     * @param mixed $value
+     * @param mixed $currency
      */
-    public function testConstructor($value, $currency)
+    public function testConstructor($value, $currency): void
     {
-        $instance = new DealBalanceAmount();
-
-        self::assertEquals(self::DEFAULT_VALUE, $instance->getValue());
-        self::assertEquals(self::DEFAULT_CURRENCY, $instance->getCurrency());
-
         $instance = new DealBalanceAmount($value, $currency);
 
         self::assertEquals(number_format($value, 2, '.', ''), $instance->getValue());
         self::assertEquals(strtoupper($currency), $instance->getCurrency());
+        self::assertNotNull($instance->getIntegerValue());
     }
 
     /**
      * @dataProvider validArrayDataProvider
      *
-     * @param $data
+     * @param mixed $data
      */
-    public function testArrayConstructor($data)
+    public function testArrayConstructor($data): void
     {
         $instance = new DealBalanceAmount();
 
@@ -57,9 +54,9 @@ class DealBalanceAmountTest extends TestCase
     /**
      * @dataProvider validValueDataProvider
      *
-     * @param $value
+     * @param mixed $value
      */
-    public function testGetSetValue($value)
+    public function testGetSetValue($value): void
     {
         $expected = number_format($value, 2, '.', '');
 
@@ -78,39 +75,34 @@ class DealBalanceAmountTest extends TestCase
 
     /**
      * @dataProvider invalidValueDataProvider
+     *
      * @param mixed $value
-     * @param string $exceptionClassName
      */
-    public function testSetInvalidValue($value, $exceptionClassName)
+    public function testSetInvalidValue($value, string $exceptionClassName): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setValue($value);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassName, $e);
-        }
+
+        $this->expectException($exceptionClassName);
+        $instance->setValue($value);
     }
 
     /**
      * @dataProvider invalidValueDataProvider
+     *
      * @param mixed $value
-     * @param string $exceptionClassName
      */
-    public function testSetterInvalidValue($value, $exceptionClassName)
+    public function testSetterInvalidValue($value, string $exceptionClassName): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->value = $value;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassName, $e);
-        }
+
+        $this->expectException($exceptionClassName);
+        $instance->value = $value;
     }
 
     /**
      * @dataProvider validCurrencyDataProvider
-     * @param string $currency
      */
-    public function testGetSetCurrency($currency)
+    public function testGetSetCurrency(string $currency): void
     {
         $instance = self::getInstance();
 
@@ -123,35 +115,27 @@ class DealBalanceAmountTest extends TestCase
 
     /**
      * @dataProvider invalidCurrencyDataProvider
-     * @param string $currency
-     * @param string $exceptionClassName
      */
-    public function testSetInvalidCurrency($currency, $exceptionClassName)
+    public function testSetInvalidCurrency(mixed $currency, string $exceptionClassName): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setCurrency($currency);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassName, $e);
-        }
+
+        $this->expectException($exceptionClassName);
+        $instance->setCurrency($currency);
     }
 
     /**
      * @dataProvider invalidCurrencyDataProvider
-     * @param string $currency
-     * @param string $exceptionClassName
      */
-    public function testSetterInvalidCurrency($currency, $exceptionClassName)
+    public function testSetterInvalidCurrency(mixed $currency, string $exceptionClassName): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->currency = $currency;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassName, $e);
-        }
+
+        $this->expectException($exceptionClassName);
+        $instance->currency = $currency;
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
         $result = $this->validValueDataProvider();
         foreach ($this->validCurrencyDataProvider() as $index => $tmp) {
@@ -159,104 +143,90 @@ class DealBalanceAmountTest extends TestCase
                 $result[$index][] = $tmp[0];
             }
         }
+
         return $result;
     }
 
-    public function validArrayDataProvider()
+    public static function validArrayDataProvider(): array
     {
-        $result = array();
+        $result = [];
         foreach (range(1, 10) as $i) {
-            $result[$i][] = array(
-                'value' => Random::value(array('-', '')) . Random::float(0, 9999.99),
+            $result[$i][] = [
+                'value' => Random::value(['-', '']) . Random::float(0, 9999.99),
                 'currency' => Random::value(CurrencyCode::getValidValues()),
-            );
+            ];
         }
+
         return $result;
     }
 
-    public function validValueDataProvider()
+    public static function validValueDataProvider(): array
     {
-        $result = array(
-            array(0.01),
-            array(0.1),
-            array(0.11),
-            array(0.1111),
-            array(0.1166),
-            array('0.01'),
-            array(1),
-            array(0),
-            array(-1),
-            array('100'),
-            array('-100'),
-        );
-        for ($i = 0; $i < 10; $i++) {
-            $result[] = array(Random::value(array('-', '')) . Random::float(0, 9999999));
-        }
-        return $result;
+        return [
+            [0.01],
+            [0.1],
+            [0.11],
+            [0.1111],
+            [0.1166],
+            ['0.01'],
+            [1],
+            [0],
+            [-1],
+            ['100'],
+            ['-100'],
+        ];
     }
 
-    public function validCurrencyDataProvider()
+    public static function validCurrencyDataProvider(): array
     {
-        $result = array();
+        $result = [];
         foreach (CurrencyCode::getValidValues() as $value) {
-            $result[] = array($value);
-            $result[] = array(strtolower($value[0]) . $value[1] . $value[2]);
-            $result[] = array($value[0] . strtolower($value[1]) . $value[2]);
-            $result[] = array($value[0] . $value[1] . strtolower($value[2]));
-            $result[] = array(strtolower($value[0]) . strtolower($value[1]) . $value[2]);
-            $result[] = array(strtolower($value[0]) . $value[1] . strtolower($value[2]));
-            $result[] = array(strtolower($value));
+            $result[] = [$value];
         }
+
         return $result;
     }
 
-    public function invalidValueDataProvider()
+    public static function invalidValueDataProvider(): array
     {
-        $exceptionNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array('invalid_value',      $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.001,                $exceptionNamespace . 'InvalidPropertyValueException'),
-            array(true,                 $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+            [[], EmptyPropertyValueException::class],
+            [fopen(__FILE__, 'r'), InvalidPropertyValueTypeException::class],
+            ['invalid_value', InvalidPropertyValueTypeException::class],
+            [true, InvalidPropertyValueTypeException::class],
+            [false, EmptyPropertyValueException::class],
+        ];
     }
 
-    public function invalidCurrencyDataProvider()
+    public static function invalidCurrencyDataProvider(): array
     {
-        $exceptionNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array('invalid_value',      $exceptionNamespace . 'InvalidPropertyValueException'),
-            array('III',                $exceptionNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.0,                  $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(0,                    $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.01,                 $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(true,                 $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['invalid_value', InvalidPropertyValueException::class],
+            ['III', InvalidPropertyValueException::class],
+        ];
     }
 
     /**
      * @dataProvider validDataProvider
      *
-     * @param $value
-     * @param $currency
+     * @param mixed $value
+     * @param mixed $currency
      */
-    public function testJsonSerialize($value, $currency)
+    public function testJsonSerialize($value, $currency): void
     {
         $instance = new DealBalanceAmount($value, $currency);
-        $expected = array(
+        $expected = [
             'value' => number_format($value, 2, '.', ''),
             'currency' => strtoupper($currency),
-        );
+        ];
         self::assertEquals($expected, $instance->jsonSerialize());
+    }
+
+    protected static function getInstance($value = null, $currency = null): DealBalanceAmount
+    {
+        return new DealBalanceAmount($value, $currency);
     }
 }

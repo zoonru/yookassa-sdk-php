@@ -2,20 +2,26 @@
 
 namespace Tests\YooKassa\Request\Webhook;
 
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
-use YooKassa\Model\NotificationEventType;
+use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Webhook\Webhook;
 use YooKassa\Request\Webhook\WebhookListResponse;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
 
+/**
+ * @internal
+ */
 class WebhookListResponseTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param array $options
-     * @throws \Exception
+     *
+     * @throws Exception
      */
-    public function testGetType($options)
+    public function testGetType(array $options): void
     {
         $instance = new WebhookListResponse($options);
 
@@ -24,17 +30,17 @@ class WebhookListResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
-     * @throws \Exception
+     *
+     * @throws Exception
      */
-    public function testGetItems($options)
+    public function testGetItems(array $options): void
     {
         $instance = new WebhookListResponse($options);
 
         self::assertEquals(count($options['items']), count($instance->getItems()));
 
         foreach ($instance->getItems() as $index => $item) {
-            self::assertTrue($item instanceof Webhook);
+            self::assertInstanceOf(Webhook::class, $item);
             self::assertArrayHasKey($index, $options['items']);
             self::assertEquals($options['items'][$index]['id'], $item->getId());
             self::assertEquals($options['items'][$index]['event'], $item->getEvent());
@@ -42,21 +48,32 @@ class WebhookListResponseTest extends TestCase
         }
     }
 
+    /**
+     * @dataProvider invalidDataProvider
+     *
+     * @throws Exception
+     */
+    public function testInvalidData(array $options, string $exception)
+    {
+        $this->expectException($exception);
+        new WebhookListResponse($options);
+    }
+
     public function validDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'type' => 'list',
                     'items' => $this->generateWebhooks(),
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     private function generateWebhooks()
     {
-        $return = array();
+        $return = [];
         $count = Random::int(1, 10);
 
         for ($i = 0; $i < $count; $i++) {
@@ -68,10 +85,44 @@ class WebhookListResponseTest extends TestCase
 
     private function generateWebhook()
     {
-        return array(
+        return [
             'id' => Random::str(39),
             'event' => Random::value(NotificationEventType::getValidValues()),
-            'url' => Random::str(20)
-        );
+            'url' => 'https://merchant-site.ru/notification_url',
+        ];
+    }
+
+    public function invalidDataProvider()
+    {
+        return [
+            [
+                [
+                    'type' => 'list',
+                    'items' => [new Webhook()],
+                ],
+                EmptyPropertyValueException::class
+            ],
+            [
+                [
+                    'type' => 'test',
+                    'items' => [],
+                ],
+                InvalidArgumentException::class
+            ],
+            [
+                [
+                    'type' => 'list',
+                    'items' => [new Webhook(
+                        [
+                            'id' => Random::str(20),
+                            'event' => NotificationEventType::REFUND_SUCCEEDED,
+                            'url' => 'https://merchant-site.ru/notification_url',
+                        ],
+                    )],
+                    'next_cursor' => 123
+                ],
+                InvalidArgumentException::class
+            ]
+        ];
     }
 }

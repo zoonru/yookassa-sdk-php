@@ -6,18 +6,17 @@ use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Deal\PayoutDealInfo;
 
+/**
+ * @internal
+ */
 class PayoutDealInfoTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSetId($options)
+    public function testGetSetId(array $options): void
     {
         $instance = new PayoutDealInfo();
-
-        self::assertNull($instance->getId());
-        self::assertNull($instance->id);
 
         $instance->setId($options['id']);
         self::assertEquals($options['id'], $instance->getId());
@@ -31,10 +30,8 @@ class PayoutDealInfoTest extends TestCase
 
     /**
      * @dataProvider fromArrayDataProvider
-     * @param array $source
-     * @param PayoutDealInfo $expected
      */
-    public function testFromArray($source, $expected)
+    public function testFromArray(array $source, PayoutDealInfo $expected): void
     {
         $deal = new PayoutDealInfo($source);
         $dealArray = $expected->toArray();
@@ -46,54 +43,56 @@ class PayoutDealInfoTest extends TestCase
         }
     }
 
-    public function validDataProvider()
+    public static function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         for ($i = 0; $i < 10; $i++) {
-            $payment = array(
+            $payment = [
                 'id' => Random::str(36, 50),
-            );
-            $result[] = array($payment);
+            ];
+            $result[] = [$payment];
         }
+
         return $result;
     }
 
-    public function invalidDataProvider()
+    public function invalidDataProvider(): array
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'id' => null,
-                )
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'id' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         for ($i = 0; $i < 9; $i++) {
-            $payment = array(
-                'id' => Random::str($i < 5 ? mt_rand(1, 35) : mt_rand(51, 64)),
-            );
-            $result[] = array($payment);
+            $payment = [
+                'id' => Random::str($i < 5 ? Random::int(1, 35) : Random::int(51, 64)),
+            ];
+            $result[] = [$payment];
         }
+
         return $result;
     }
 
-    public function fromArrayDataProvider()
+    public static function fromArrayDataProvider(): array
     {
         $customer = new PayoutDealInfo();
         $customer->setId('dl-285e5ee7-0022-5000-8000-01516a44b147');
 
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'id' => 'dl-285e5ee7-0022-5000-8000-01516a44b147',
-                ),
-                $customer
-            ),
-        );
+                ],
+                $customer,
+            ],
+        ];
     }
 }

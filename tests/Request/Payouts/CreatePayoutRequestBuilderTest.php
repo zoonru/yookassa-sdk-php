@@ -5,56 +5,35 @@ namespace Tests\YooKassa\Request\Payouts;
 use Exception;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\MonetaryAmount;
-use YooKassa\Model\PaymentMethodType;
-use YooKassa\Model\Payout;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Model\Payout\Payout;
 use YooKassa\Model\Payout\PayoutDestinationType;
 use YooKassa\Request\Payouts\CreatePayoutRequestBuilder;
 use YooKassa\Request\Payouts\IncomeReceiptData;
 use YooKassa\Request\Payouts\PayoutDestinationData\PayoutDestinationDataFactory;
 use YooKassa\Request\Payouts\PayoutSelfEmployedInfo;
 
+/**
+ * @internal
+ */
 class CreatePayoutRequestBuilderTest extends TestCase
 {
     /**
-     * @param null $testingProperty
-     * @param null $paymentType
-     * @return array
-     * @throws Exception
-     */
-    protected function getRequiredData($testingProperty = null, $paymentType = null)
-    {
-        $result = array();
-        $even = Random::bool();
-        if ($testingProperty !== 'amount') {
-            $result['amount'] = Random::int(1, 100);
-        }
-        if ($testingProperty !== 'payoutToken') {
-            $result['payoutToken'] = $even ? Random::str(36, 50) : null;
-        }
-        $factory = new PayoutDestinationDataFactory();
-        if ($testingProperty !== 'payoutDestinationData') {
-            $result['payoutDestinationData'] = $even ? null : $factory->factory(Random::value(PayoutDestinationType::getValidValues()));
-        }
-
-        return $result;
-    }
-
-    /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetDeal($options)
+    public function testSetDeal($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
-        $builder->setOptions($this->getRequiredData('deal'));
-        $builder->setAmount($options['amount']);
-        $builder->setDeal($options['deal']);
+        $builder->setOptions($options);
         $instance = $builder->build();
 
         if (empty($options['deal'])) {
@@ -68,15 +47,14 @@ class CreatePayoutRequestBuilderTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetSelfEmployed($options)
+    public function testSetSelfEmployed($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
-        $builder->setOptions($this->getRequiredData('self_employed'));
-        $builder->setAmount($options['amount']);
-        $builder->setSelfEmployed($options['self_employed']);
+        $builder->setOptions($options);
         $instance = $builder->build();
 
         if (empty($options['self_employed'])) {
@@ -94,15 +72,14 @@ class CreatePayoutRequestBuilderTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetReceiptData($options)
+    public function testSetReceiptData($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
-        $builder->setOptions($this->getRequiredData('receipt_data'));
-        $builder->setAmount($options['amount']);
-        $builder->setReceiptData($options['receipt_data']);
+        $builder->setOptions($options);
         $instance = $builder->build();
 
         if (empty($options['receipt_data'])) {
@@ -120,52 +97,43 @@ class CreatePayoutRequestBuilderTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetAmount($options)
+    public function testSetAmount($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
-        $builder->setOptions($this->getRequiredData('amount'));
-        $instance = $builder->build($this->getRequiredData());
+        $builder->setOptions($options);
+        $instance = $builder->build();
         self::assertNotNull($instance->getAmount());
 
-        $builder->setAmount($options['amount']);
-        $instance = $builder->build($this->getRequiredData('amount'));
-
         if ($options['amount'] instanceof AmountInterface) {
             self::assertEquals($options['amount']->getValue(), $instance->getAmount()->getValue());
         } else {
-            self::assertEquals($options['amount'], $instance->getAmount()->getValue());
+            self::assertEquals($options['amount']['value'], $instance->getAmount()->getValue());
         }
 
-        $builder->setAmount(10000)->setAmount($options['amount']);
-        $instance = $builder->build($this->getRequiredData('amount'));
-
-        if ($options['amount'] instanceof AmountInterface) {
-            self::assertEquals($options['amount']->getValue(), $instance->getAmount()->getValue());
-        } else {
-            self::assertEquals($options['amount'], $instance->getAmount()->getValue());
-        }
-
-        if (!($options['amount'] instanceof AmountInterface)) {
-            $builder->setAmount(array(
-                'value'    => $options['amount'],
+        if (!$options['amount'] instanceof AmountInterface) {
+            $builder->setAmount([
+                'value' => $options['amount']['value'],
                 'currency' => 'EUR',
-            ));
-            $instance = $builder->build($this->getRequiredData('amount'));
-            self::assertEquals($options['amount'], $instance->getAmount()->getValue());
+            ]);
+            $builder->setPayoutToken($options['payoutDestinationData'] ? null : uniqid('', true));
+            $builder->setPayoutDestinationData($options['payoutDestinationData']);
+            $instance = $builder->build();
+            self::assertEquals($options['amount']['value'], $instance->getAmount()->getValue());
         }
     }
 
     /**
-     * @expectedException InvalidArgumentException
      * @dataProvider invalidAmountDataProvider
      *
-     * @param $value
+     * @param mixed $value
      */
-    public function testSetInvalidAmount($value)
+    public function testSetInvalidAmount($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $builder = new CreatePayoutRequestBuilder();
         $builder->setAmount($value);
     }
@@ -173,15 +141,14 @@ class CreatePayoutRequestBuilderTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetPayoutToken($options)
+    public function testSetPayoutToken($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
         $builder->setOptions($options);
-        $builder->setAmount($options['amount']);
-        $builder->setPayoutToken($options['payoutToken']);
         $instance = $builder->build();
 
         if (empty($options['payoutToken'])) {
@@ -195,15 +162,14 @@ class CreatePayoutRequestBuilderTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetPaymentMethodId($options)
+    public function testSetPaymentMethodId($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
-        $builder->setOptions($this->getRequiredData('paymentMethodId'));
-        $builder->setAmount($options['amount']);
-        $builder->setPaymentMethodId($options['paymentMethodId']);
+        $builder->setOptions($options);
         $instance = $builder->build();
 
         if (empty($options['paymentMethodId'])) {
@@ -217,15 +183,14 @@ class CreatePayoutRequestBuilderTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetPayoutDestinationData($options)
+    public function testSetPayoutDestinationData($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
         $builder->setOptions($options);
-        $builder->setAmount($options['amount']);
-        $builder->setPayoutDestinationData($options['payoutDestinationData']);
         $instance = $builder->build();
 
         if (empty($options['payoutDestinationData'])) {
@@ -243,18 +208,15 @@ class CreatePayoutRequestBuilderTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetMetadata($options)
+    public function testSetMetadata($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
-
-        $instance = $builder->build($this->getRequiredData());
-        self::assertNull($instance->getMetadata());
-
-        $builder->setMetadata($options['metadata']);
-        $instance = $builder->build($this->getRequiredData());
+        $builder->setOptions($options);
+        $instance = $builder->build();
 
         if (empty($options['metadata'])) {
             self::assertNull($instance->getMetadata());
@@ -263,136 +225,137 @@ class CreatePayoutRequestBuilderTest extends TestCase
         }
     }
 
-    public function invalidRecipientDataProvider()
+    public function invalidRecipientDataProvider(): array
     {
-        return array(
-            array(null),
-            array(true),
-            array(false),
-            array(1),
-            array(1.1),
-            array('test'),
-            array(new \stdClass()),
-        );
+        return [
+            [null],
+            [true],
+            [false],
+            [1],
+            [1.1],
+            ['test'],
+            [new stdClass()],
+        ];
     }
 
     /**
-     * @return array
      * @throws Exception
      */
-    public function validDataProvider()
+    public static function validDataProvider(): array
     {
-        $payoutDestinationData = array(
-            array(
-                'type' => PaymentMethodType::YOO_MONEY,
-                'account_number' => Random::str(11, 33, '0123456789')
-            ),
-            array(
-                'type' => PaymentMethodType::BANK_CARD,
-                'card' => array(
-                    'number' => Random::str(16, 16, '0123456789'),
-                ),
-            ),
-            array(
-                'type' => PaymentMethodType::SBP,
-                'phone' => Random::str(4, 11, '0123456789'),
-                'bank_id' => Random::str(4, 12, '0123456789'),
-            ),
-        );
+        $payoutDestinationData = self::payoutDestinationData();
 
-        $result = array(
-            array(
-                array(
-                    'description'       => null,
-                    'amount'            => new MonetaryAmount(Random::int(1, 1000)),
-                    'currency'          => Random::value(CurrencyCode::getValidValues()),
-                    'payoutToken'       => uniqid('', true),
-                    'paymentMethodId'   => null,
-                    'payoutDestinationData' => null,
-                    'confirmation'      => null,
-                    'metadata'          => null,
-                    'deal' => array(
+        $result = [
+            [
+                [
+                    'description' => null,
+                    'amount' => new MonetaryAmount(Random::int(1, 1000)),
+                    'currency' => Random::value(CurrencyCode::getValidValues()),
+                    'payoutToken' => null,
+                    'paymentMethodId' => null,
+                    'payoutDestinationData' => Random::value($payoutDestinationData),
+                    'confirmation' => null,
+                    'metadata' => null,
+                    'deal' => [
                         'id' => Random::str(36, 50),
-                    ),
+                    ],
                     'self_employed' => null,
                     'receipt_data' => null,
-                ),
-            ),
-            array(
-                array(
-                    'description'       => '',
-                    'amount'            => new MonetaryAmount(Random::int(1, 1000)),
-                    'currency'          => Random::value(CurrencyCode::getValidValues()),
-                    'payoutToken'      => null,
-                    'paymentMethodId'   => '',
-                    'payoutDestinationData' => Random::value($payoutDestinationData),
-                    'metadata'          => array(),
-                    'deal' => array(
+                ],
+            ],
+            [
+                [
+                    'description' => '',
+                    'amount' => new MonetaryAmount(Random::int(1, 1000)),
+                    'currency' => Random::value(CurrencyCode::getValidValues()),
+                    'payoutToken' => uniqid('', true),
+                    'paymentMethodId' => '',
+                    'payoutDestinationData' => null,
+                    'metadata' => [[]],
+                    'deal' => [
                         'id' => Random::str(36, 50),
-                    ),
-                    'self_employed' => new PayoutSelfEmployedInfo(array(
+                    ],
+                    'self_employed' => new PayoutSelfEmployedInfo([
                         'id' => Random::str(36, 50),
-                    )),
-                    'receipt_data' => new IncomeReceiptData(array(
+                    ]),
+                    'receipt_data' => new IncomeReceiptData([
                         'service_name' => Random::str(36, 50),
                         'amount' => new MonetaryAmount(Random::int(1, 99)),
-                    )),
-                ),
-            ),
-        );
+                    ]),
+                ],
+            ],
+        ];
         for ($i = 0; $i < 10; $i++) {
-            $even = (bool)($i % 2);
-            $request  = array(
-                'description'       => uniqid('', true),
-                'amount'            => mt_rand(1, 100000),
-                'currency'          => CurrencyCode::RUB,
-                'paymentMethodId'   => uniqid('', true),
-                'payoutToken'      => $even ? null : uniqid('', true),
-                'payoutDestinationData' => $even ? Random::value($payoutDestinationData) : null,
-                'metadata'          => array('test' => 'test'),
-                'deal' => array(
+            $even = $i % 3;
+            $request = [
+                'description' => uniqid('', true),
+                'amount' => ['value' => Random::int(1, 99)],
+                'currency' => CurrencyCode::RUB,
+                'paymentMethodId' => $even === 0 ? uniqid('', true) : null,
+                'payoutToken' => $even === 1 ? uniqid('', true) : null,
+                'payoutDestinationData' => $even === 2 ? Random::value($payoutDestinationData) : null,
+                'metadata' => ['test' => 'test'],
+                'deal' => [
                     'id' => Random::str(36, 50),
-                ),
-                'self_employed' => new PayoutSelfEmployedInfo(array(
+                ],
+                'self_employed' => new PayoutSelfEmployedInfo([
                     'id' => Random::str(36, 50),
-                )),
-                'receipt_data' => array(
+                ]),
+                'receipt_data' => [
                     'service_name' => Random::str(36, 50),
-                    'amount' => array('value' => Random::int(1, 99), 'currency' => CurrencyCode::RUB),
-                ),
-            );
-            $result[] = array($request);
+                    'amount' => ['value' => Random::int(1, 99), 'currency' => CurrencyCode::RUB],
+                ],
+            ];
+            $result[] = [$request];
         }
 
         return $result;
     }
 
-    /**
-     * @return array
-     */
-    public function invalidAmountDataProvider()
+    public static function payoutDestinationData(): array
     {
-        return array(
-            array(-1),
-            array(true),
-            array(false),
-            array(new \stdClass()),
-            array(0),
-        );
+        return [
+            [
+                'type' => PaymentMethodType::YOO_MONEY,
+                'account_number' => Random::str(11, 33, '0123456789'),
+            ],
+            [
+                'type' => PaymentMethodType::BANK_CARD,
+                'card' => [
+                    'number' => Random::str(16, 16, '0123456789'),
+                ],
+            ],
+            [
+                'type' => PaymentMethodType::SBP,
+                'phone' => Random::str(4, 15, '0123456789'),
+                'bank_id' => Random::str(4, 12, '0123456789'),
+            ],
+        ];
+    }
+
+    public static function invalidAmountDataProvider(): array
+    {
+        return [
+            [-1],
+            [true],
+            [false],
+            [new stdClass()],
+            [0],
+        ];
     }
 
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
+     *
      * @throws Exception
      */
-    public function testSetDescription($options)
+    public function testSetDescription($options): void
     {
         $builder = new CreatePayoutRequestBuilder();
-
-        $builder->setDescription($options['description']);
-        $instance = $builder->build($this->getRequiredData());
+        $builder->setOptions($options);
+        $instance = $builder->build();
 
         if (empty($options['description'])) {
             self::assertNull($instance->getDescription());
@@ -401,78 +364,92 @@ class CreatePayoutRequestBuilderTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetInvalidTypeDescription()
+    public function testSetInvalidLengthDescription(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $builder = new CreatePayoutRequestBuilder();
-        $builder->setDescription(true);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetInvalidLengthDescription()
-    {
-        $builder     = new CreatePayoutRequestBuilder();
         $description = Random::str(Payout::MAX_LENGTH_DESCRIPTION + 1);
         $builder->setDescription($description);
     }
 
     /**
-     * @return array
      * @throws Exception
      */
-    public function invalidDealDataProvider()
+    public static function invalidDealDataProvider(): array
     {
-        return array(
-            array(true),
-            array(false),
-            array(new \stdClass()),
-            array(0),
-            array(7),
-            array(Random::int(-100, -1)),
-            array(Random::int(7, 100)),
-        );
+        return [
+            [true],
+            [false],
+            [new stdClass()],
+            [0],
+            [7],
+            [Random::int(-100, -1)],
+            [Random::int(7, 100)],
+        ];
     }
 
     /**
      * @dataProvider invalidDealDataProvider
-     * @expectedException InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidDeal($value)
+    public function testSetInvalidDeal($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $builder = new CreatePayoutRequestBuilder();
         $builder->setDeal($value);
     }
 
     /**
-     * @return array
      * @throws Exception
      */
-    public function invalidSelfEmployedProvider()
+    public static function invalidSelfEmployedProvider(): array
     {
-        return array(
-            array(true),
-            array(false),
-            array(new \stdClass()),
-            array(0),
-            array(7),
-            array(Random::int(-100, -1)),
-            array(Random::int(7, 100)),
-        );
+        return [
+            [true],
+            [false],
+            [new stdClass()],
+            [0],
+            [7],
+            [Random::int(-100, -1)],
+            [Random::int(7, 100)],
+        ];
     }
 
     /**
      * @dataProvider invalidSelfEmployedProvider
-     * @expectedException InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidSelfEmployed($value)
+    public function testSetInvalidSelfEmployed($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $builder = new CreatePayoutRequestBuilder();
         $builder->setSelfEmployed($value);
+    }
+
+    /**
+     * @param null $testingProperty
+     *
+     * @throws Exception
+     */
+    protected function getRequiredData($testingProperty = null): array
+    {
+        $result = [];
+        $even = Random::bool();
+        if ('amount' !== $testingProperty) {
+            $result['amount'] = new MonetaryAmount(Random::int(1, 1000));
+        }
+        if ('payoutToken' !== $testingProperty) {
+            $result['payoutToken'] = $even ? Random::str(36, 50) : null;
+        }
+        $factory = new PayoutDestinationDataFactory();
+        if ('payoutDestinationData' !== $testingProperty) {
+            $type = Random::value(PayoutDestinationType::getValidValues());
+            $payoutDestination = self::payoutDestinationData();
+            $result['payoutDestinationData'] = $even ? null : $factory->factory($type);
+        }
+
+        return $result;
     }
 }

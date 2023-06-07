@@ -5,11 +5,13 @@
 ---
 **Summary:**
 
-Мера количества предмета расчета передается в массиве `items`, в параметре `measure`.
+Класс, представляющий модель ReceiptItemMeasure.
 
 **Description:**
 
-Параметр нужно передавать, начиная с ФФД 1.2.
+Мера количества предмета расчета передается в массиве `items`, в параметре `measure`.
+
+Обязательный параметр, если используете Чеки от ЮKassa или онлайн-кассу, обновленную до ФФД 1.2.
 
 ---
 ### Constants
@@ -50,17 +52,27 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [getEnabledValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getEnabledValues) |  | Возвращает значения в enum'е значения которых разрешены |
-| public | [getValidValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getValidValues) |  | Возвращает все значения в enum'e |
-| public | [valueExists()](../classes/YooKassa-Common-AbstractEnum.md#method_valueExists) |  | Проверяет наличие значения в enum'e |
+| public | [getEnabledValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getEnabledValues) |  | Возвращает значения в enum'е значения которых разрешены. |
+| public | [getValidValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getValidValues) |  | Возвращает все значения в enum'e. |
+| public | [valueExists()](../classes/YooKassa-Common-AbstractEnum.md#method_valueExists) |  | Проверяет наличие значения в enum'e. |
 
 ---
 ### Details
 * File: [lib/Model/Receipt/ReceiptItemMeasure.php](../../lib/Model/Receipt/ReceiptItemMeasure.php)
-* Package: Default
+* Package: YooKassa\Model
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
   * \YooKassa\Model\Receipt\ReceiptItemMeasure
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -303,7 +315,7 @@ Static public getEnabledValues() : string[]
 
 **Summary**
 
-Возвращает значения в enum'е значения которых разрешены
+Возвращает значения в enum'е значения которых разрешены.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -320,7 +332,7 @@ Static public getValidValues() : array
 
 **Summary**
 
-Возвращает все значения в enum'e
+Возвращает все значения в enum'e.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -337,7 +349,7 @@ Static public valueExists(mixed $value) : bool
 
 **Summary**
 
-Проверяет наличие значения в enum'e
+Проверяет наличие значения в enum'e.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -361,11 +373,11 @@ Static public valueExists(mixed $value) : bool
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

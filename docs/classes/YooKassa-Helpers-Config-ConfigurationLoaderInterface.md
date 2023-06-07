@@ -3,6 +3,10 @@
 # Interface: ConfigurationLoaderInterface
 ### Namespace: [\YooKassa\Helpers\Config](../namespaces/yookassa-helpers-config.md)
 ---
+**Summary:**
+
+Interface ConfigurationLoaderInterface.
+
 ---
 ### Constants
 * No constants found
@@ -17,34 +21,43 @@
 ---
 ### Details
 * File: [lib/Helpers/Config/ConfigurationLoaderInterface.php](../../lib/Helpers/Config/ConfigurationLoaderInterface.php)
-* Package: \Default
+* Package: \YooKassa\Helpers
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Interface |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
 <a name="method_getConfig" class="anchor"></a>
-#### public getConfig() : mixed
+#### public getConfig() : array
 
 ```php
-public getConfig() : mixed
+public getConfig() : array
 ```
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\Config\ConfigurationLoaderInterface](../classes/YooKassa-Helpers-Config-ConfigurationLoaderInterface.md)
 
-**Returns:** mixed - 
+**Returns:** array - 
 
 
 <a name="method_load" class="anchor"></a>
-#### public load() : mixed
+#### public load() : \YooKassa\Helpers\Config\ConfigurationLoaderInterface
 
 ```php
-public load() : mixed
+public load() : \YooKassa\Helpers\Config\ConfigurationLoaderInterface
 ```
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\Config\ConfigurationLoaderInterface](../classes/YooKassa-Helpers-Config-ConfigurationLoaderInterface.md)
 
-**Returns:** mixed - 
+**Returns:** \YooKassa\Helpers\Config\ConfigurationLoaderInterface - 
 
 
 
@@ -59,11 +72,11 @@ public load() : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

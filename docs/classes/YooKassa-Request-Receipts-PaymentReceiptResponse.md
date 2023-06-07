@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Класс описывающий чек, привязанный к платежу
+Класс описывающий чек, привязанный к платежу.
 
 
 ---
@@ -46,69 +46,96 @@
 | public | [$tax_system_code](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_tax_system_code) |  | Код системы налогообложения. Число 1-6. |
 | public | [$taxSystemCode](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_taxSystemCode) |  | Код системы налогообложения. Число 1-6. |
 | public | [$type](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property_type) |  | Тип чека в онлайн-кассе: приход "payment" или возврат "refund". |
+| protected | [$_fiscal_attribute](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__fiscal_attribute) |  |  |
+| protected | [$_fiscal_document_number](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__fiscal_document_number) |  |  |
+| protected | [$_fiscal_provider_id](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__fiscal_provider_id) |  |  |
+| protected | [$_fiscal_storage_number](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__fiscal_storage_number) |  |  |
+| protected | [$_id](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__id) |  |  |
+| protected | [$_items](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__items) |  |  |
+| protected | [$_object_id](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__object_id) |  |  |
+| protected | [$_on_behalf_of](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__on_behalf_of) |  |  |
+| protected | [$_receipt_industry_details](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__receipt_industry_details) |  |  |
+| protected | [$_receipt_operational_details](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__receipt_operational_details) |  |  |
+| protected | [$_registered_at](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__registered_at) |  |  |
+| protected | [$_settlements](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__settlements) |  |  |
+| protected | [$_status](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__status) |  |  |
+| protected | [$_tax_system_code](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__tax_system_code) |  |  |
+| protected | [$_type](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#property__type) |  |  |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [addItem()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_addItem) |  | Добавляет товар в чек |
-| public | [addSettlement()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_addSettlement) |  | Добавляет оплату в массив |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getFiscalAttribute()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getFiscalAttribute) |  | Возвращает фискальный признак чека |
-| public | [getFiscalDocumentNumber()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getFiscalDocumentNumber) |  | Возвращает номер фискального документа |
-| public | [getFiscalProviderId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getFiscalProviderId) |  | Возвращает идентификатор чека в онлайн-кассе |
-| public | [getFiscalStorageNumber()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getFiscalStorageNumber) |  | Возвращает номер фискального накопителя в кассовом аппарате |
-| public | [getId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getId) |  | Возвращает идентификатор чека в ЮKassa |
-| public | [getItems()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getItems) |  | Возвращает список товаров в заказ |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [addItem()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_addItem) |  | Добавляет товар в чек. |
+| public | [addSettlement()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_addSettlement) |  | Добавляет оплату в массив. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
+| public | [getFiscalAttribute()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getFiscalAttribute) |  | Возвращает фискальный признак чека. |
+| public | [getFiscalDocumentNumber()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getFiscalDocumentNumber) |  | Возвращает номер фискального документа. |
+| public | [getFiscalProviderId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getFiscalProviderId) |  | Возвращает идентификатор чека в онлайн-кассе. |
+| public | [getFiscalStorageNumber()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getFiscalStorageNumber) |  | Возвращает номер фискального накопителя в кассовом аппарате. |
+| public | [getId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getId) |  | Возвращает идентификатор чека в ЮKassa. |
+| public | [getItems()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getItems) |  | Возвращает список товаров в заказ. |
 | public | [getObjectId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getObjectId) |  | Возвращает идентификатор платежа или возврата, для которого был сформирован чек. |
 | public | [getOnBehalfOf()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getOnBehalfOf) |  | Возвращает идентификатор магазин |
-| public | [getPaymentId()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_getPaymentId) |  | Возвращает идентификатор платежа |
-| public | [getReceiptIndustryDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getReceiptIndustryDetails) |  | Возвращает отраслевой реквизит чека |
-| public | [getReceiptOperationalDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getReceiptOperationalDetails) |  | Возвращает операционный реквизит чека |
-| public | [getRegisteredAt()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getRegisteredAt) |  | Возвращает дату и время формирования чека в фискальном накопителе |
-| public | [getSettlements()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getSettlements) |  | Возвращает Массив оплат, обеспечивающих выдачу товара |
-| public | [getStatus()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getStatus) |  | Возвращает статус доставки данных для чека в онлайн-кассу |
-| public | [getTaxSystemCode()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getTaxSystemCode) |  | Возвращает код системы налогообложения |
-| public | [getType()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getType) |  | Возвращает тип чека в онлайн-кассе |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [notEmpty()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_notEmpty) |  | Проверяет есть ли в чеке хотя бы одна позиция |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
-| public | [setFiscalAttribute()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalAttribute) |  | Устанавливает фискальный признак чека |
+| public | [getPaymentId()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_getPaymentId) |  | Возвращает идентификатор платежа. |
+| public | [getReceiptIndustryDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getReceiptIndustryDetails) |  | Возвращает отраслевой реквизит чека. |
+| public | [getReceiptOperationalDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getReceiptOperationalDetails) |  | Возвращает операционный реквизит чека. |
+| public | [getRegisteredAt()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getRegisteredAt) |  | Возвращает дату и время формирования чека в фискальном накопителе. |
+| public | [getSettlements()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getSettlements) |  | Возвращает Массив оплат, обеспечивающих выдачу товара. |
+| public | [getStatus()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getStatus) |  | Возвращает статус доставки данных для чека в онлайн-кассу. |
+| public | [getTaxSystemCode()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getTaxSystemCode) |  | Возвращает код системы налогообложения. |
+| public | [getType()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_getType) |  | Возвращает тип чека в онлайн-кассе. |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [notEmpty()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_notEmpty) |  | Проверяет есть ли в чеке хотя бы одна позиция. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
+| public | [setFiscalAttribute()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalAttribute) |  | Устанавливает фискальный признак чека. |
 | public | [setFiscalDocumentNumber()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalDocumentNumber) |  | Устанавливает номер фискального документа |
-| public | [setFiscalProviderId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalProviderId) |  | Устанавливает идентификатор чека в онлайн-кассе |
-| public | [setFiscalStorageNumber()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalStorageNumber) |  | Устанавливает номер фискального накопителя в кассовом аппарате |
-| public | [setId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setId) |  | Устанавливает идентификатор чека |
-| public | [setItems()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setItems) |  | Устанавливает список позиций в чеке |
-| public | [setObjectId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setObjectId) |  | Устанавливает идентификатор платежа или возврата, для которого был сформирован чек |
-| public | [setOnBehalfOf()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setOnBehalfOf) |  | Возвращает идентификатор магазина, от имени которого нужно отправить чек |
-| public | [setPaymentId()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_setPaymentId) |  | Устанавливает идентификатор платежа в ЮKassa |
-| public | [setReceiptIndustryDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setReceiptIndustryDetails) |  | Устанавливает отраслевой реквизит чека |
-| public | [setReceiptOperationalDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setReceiptOperationalDetails) |  | Устанавливает операционный реквизит чека |
-| public | [setRegisteredAt()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setRegisteredAt) |  | Устанавливает дату и время формирования чека в фискальном накопителе |
-| public | [setSettlements()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setSettlements) |  | Устанавливает массив оплат, обеспечивающих выдачу товара |
-| public | [setSpecificProperties()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_setSpecificProperties) |  | Установка свойств, присущих конкретному объекту |
-| public | [setStatus()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setStatus) |  | Устанавливает состояние регистрации фискального чека |
-| public | [setTaxSystemCode()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setTaxSystemCode) |  | Устанавливает код системы налогообложения |
-| public | [setType()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setType) |  | Устанавливает типа чека |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
+| public | [setFiscalProviderId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalProviderId) |  | Устанавливает идентификатор чека в онлайн-кассе. |
+| public | [setFiscalStorageNumber()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setFiscalStorageNumber) |  | Устанавливает номер фискального накопителя в кассовом аппарате. |
+| public | [setId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setId) |  | Устанавливает идентификатор чека. |
+| public | [setItems()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setItems) |  | Устанавливает список позиций в чеке. |
+| public | [setObjectId()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setObjectId) |  | Устанавливает идентификатор платежа или возврата, для которого был сформирован чек. |
+| public | [setOnBehalfOf()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setOnBehalfOf) |  | Возвращает идентификатор магазина, от имени которого нужно отправить чек. |
+| public | [setPaymentId()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_setPaymentId) |  | Устанавливает идентификатор платежа в ЮKassa. |
+| public | [setReceiptIndustryDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setReceiptIndustryDetails) |  | Устанавливает отраслевой реквизит чека. |
+| public | [setReceiptOperationalDetails()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setReceiptOperationalDetails) |  | Устанавливает операционный реквизит чека. |
+| public | [setRegisteredAt()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setRegisteredAt) |  | Устанавливает дату и время формирования чека в фискальном накопителе. |
+| public | [setSettlements()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setSettlements) |  | Устанавливает массив оплат, обеспечивающих выдачу товара. |
+| public | [setSpecificProperties()](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md#method_setSpecificProperties) |  | Установка свойств, присущих конкретному объекту. |
+| public | [setStatus()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setStatus) |  | Устанавливает состояние регистрации фискального чека. |
+| public | [setTaxSystemCode()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setTaxSystemCode) |  | Устанавливает код системы налогообложения. |
+| public | [setType()](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md#method_setType) |  | Устанавливает типа чека. |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Request/Receipts/PaymentReceiptResponse.php](../../lib/Request/Receipts/PaymentReceiptResponse.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy:  
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
   * \YooKassa\Request\Receipts\PaymentReceiptResponse
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -253,13 +280,13 @@ LENGTH_PAYMENT_ID = 36
 
 
 <a name="property_items"></a>
-#### public $items : \YooKassa\Request\Receipts\ReceiptResponseItemInterface[]
+#### public $items : \YooKassa\Common\ListObjectInterface|\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]
 ---
 ***Description***
 
 Список товаров в заказе.
 
-**Type:** <a href="../\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]"><abbr title="\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]">ReceiptResponseItemInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Common\ListObjectInterface|\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]"><abbr title="\YooKassa\Common\ListObjectInterface|\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]">ReceiptResponseItemInterface[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -342,13 +369,13 @@ LENGTH_PAYMENT_ID = 36
 
 
 <a name="property_receipt_industry_details"></a>
-#### public $receipt_industry_details : \YooKassa\Model\Receipt\IndustryDetails[]
+#### public $receipt_industry_details : \YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]
 ---
 ***Description***
 
 Отраслевой реквизит чека.
 
-**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -368,13 +395,13 @@ LENGTH_PAYMENT_ID = 36
 
 
 <a name="property_receiptIndustryDetails"></a>
-#### public $receiptIndustryDetails : \YooKassa\Model\Receipt\IndustryDetails[]
+#### public $receiptIndustryDetails : \YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]
 ---
 ***Description***
 
 Отраслевой реквизит чека.
 
-**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -420,13 +447,13 @@ LENGTH_PAYMENT_ID = 36
 
 
 <a name="property_settlements"></a>
-#### public $settlements : \YooKassa\Model\SettlementInterface[]
+#### public $settlements : \YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\SettlementInterface[]
 ---
 ***Description***
 
 Перечень совершенных расчетов.
 
-**Type:** <a href="../\YooKassa\Model\SettlementInterface[]"><abbr title="\YooKassa\Model\SettlementInterface[]">SettlementInterface[]</abbr></a>
+**Type:** <a href="../\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\SettlementInterface[]"><abbr title="\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\SettlementInterface[]">SettlementInterface[]</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -484,6 +511,143 @@ LENGTH_PAYMENT_ID = 36
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
 
+<a name="property__fiscal_attribute"></a>
+#### protected $_fiscal_attribute : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Фискальный признак чека.
+Формируется фискальным накопителем на основе данных, переданных для регистрации чека.
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__fiscal_document_number"></a>
+#### protected $_fiscal_document_number : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Номер фискального документа.
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__fiscal_provider_id"></a>
+#### protected $_fiscal_provider_id : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать.
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__fiscal_storage_number"></a>
+#### protected $_fiscal_storage_number : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Номер фискального накопителя в кассовом аппарате.
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__id"></a>
+#### protected $_id : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Идентификатор чека в ЮKassa.
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__items"></a>
+#### protected $_items : ?\YooKassa\Common\ListObject
+---
+**Type:** <a href="../?\YooKassa\Common\ListObject"><abbr title="?\YooKassa\Common\ListObject">ListObject</abbr></a>
+Список товаров в заказе
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__object_id"></a>
+#### protected $_object_id : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Идентификатор объекта чека
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__on_behalf_of"></a>
+#### protected $_on_behalf_of : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Идентификатор магазина
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__receipt_industry_details"></a>
+#### protected $_receipt_industry_details : ?\YooKassa\Common\ListObject
+---
+**Type:** <a href="../?\YooKassa\Common\ListObject"><abbr title="?\YooKassa\Common\ListObject">ListObject</abbr></a>
+Отраслевой реквизит предмета расчета
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__receipt_operational_details"></a>
+#### protected $_receipt_operational_details : ?\YooKassa\Model\Receipt\OperationalDetails
+---
+**Type:** <a href="../?\YooKassa\Model\Receipt\OperationalDetails"><abbr title="?\YooKassa\Model\Receipt\OperationalDetails">OperationalDetails</abbr></a>
+Операционный реквизит чека
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__registered_at"></a>
+#### protected $_registered_at : ?\DateTime
+---
+**Type:** <a href="../?\DateTime"><abbr title="?\DateTime">DateTime</abbr></a>
+Дата и время формирования чека в фискальном накопителе.
+Указывается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__settlements"></a>
+#### protected $_settlements : ?\YooKassa\Common\ListObject
+---
+**Type:** <a href="../?\YooKassa\Common\ListObject"><abbr title="?\YooKassa\Common\ListObject">ListObject</abbr></a>
+Список оплат
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__status"></a>
+#### protected $_status : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Статус доставки данных для чека в онлайн-кассу &quot;pending&quot;, &quot;succeeded&quot; или &quot;canceled&quot;.
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__tax_system_code"></a>
+#### protected $_tax_system_code : ?int
+---
+**Type:** <a href="../?int"><abbr title="?int">?int</abbr></a>
+Код системы налогообложения. Число 1-6.
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
+<a name="property__type"></a>
+#### protected $_type : ?string
+---
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+Тип чека в онлайн-кассе: приход &quot;payment&quot; или возврат &quot;refund&quot;.
+**Details:**
+* Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
+
+
 
 ---
 ## Methods
@@ -491,7 +655,7 @@ LENGTH_PAYMENT_ID = 36
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -504,7 +668,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -518,7 +682,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -540,7 +704,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -554,15 +718,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -573,19 +737,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -595,19 +759,19 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_addItem" class="anchor"></a>
-#### public addItem() : mixed
+#### public addItem() : void
 
 ```php
-public addItem(\YooKassa\Request\Receipts\ReceiptResponseItemInterface $value) : mixed
+public addItem(\YooKassa\Request\Receipts\ReceiptResponseItemInterface $value) : void
 ```
 
 **Summary**
 
-Добавляет товар в чек
+Добавляет товар в чек.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -617,19 +781,19 @@ public addItem(\YooKassa\Request\Receipts\ReceiptResponseItemInterface $value) :
 | ---- | ---- | ----------- |
 | <code lang="php">\YooKassa\Request\Receipts\ReceiptResponseItemInterface</code> | value  | Объект добавляемой в чек позиции |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_addSettlement" class="anchor"></a>
-#### public addSettlement() : mixed
+#### public addSettlement() : void
 
 ```php
-public addSettlement(\YooKassa\Model\SettlementInterface $value) : mixed
+public addSettlement(\YooKassa\Model\Receipt\SettlementInterface $value) : void
 ```
 
 **Summary**
 
-Добавляет оплату в массив
+Добавляет оплату в массив.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -637,21 +801,21 @@ public addSettlement(\YooKassa\Model\SettlementInterface $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SettlementInterface</code> | value  |  |
+| <code lang="php">\YooKassa\Model\Receipt\SettlementInterface</code> | value  |  |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -661,124 +825,116 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getFiscalAttribute" class="anchor"></a>
-#### public getFiscalAttribute() : string
+#### public getFiscalAttribute() : string|null
 
 ```php
-public getFiscalAttribute() : string
+public getFiscalAttribute() : string|null
 ```
 
 **Summary**
 
-Возвращает фискальный признак чека
+Возвращает фискальный признак чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** string - Фискальный признак чека
+**Returns:** string|null - Фискальный признак чека
 
 
 <a name="method_getFiscalDocumentNumber" class="anchor"></a>
-#### public getFiscalDocumentNumber() : string
+#### public getFiscalDocumentNumber() : string|null
 
 ```php
-public getFiscalDocumentNumber() : string
+public getFiscalDocumentNumber() : string|null
 ```
 
 **Summary**
 
-Возвращает номер фискального документа
+Возвращает номер фискального документа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** string - Номер фискального документа
+**Returns:** string|null - Номер фискального документа
 
 
 <a name="method_getFiscalProviderId" class="anchor"></a>
-#### public getFiscalProviderId() : string
+#### public getFiscalProviderId() : string|null
 
 ```php
-public getFiscalProviderId() : string
+public getFiscalProviderId() : string|null
 ```
 
 **Summary**
 
-Возвращает идентификатор чека в онлайн-кассе
+Возвращает идентификатор чека в онлайн-кассе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** string - Идентификатор чека в онлайн-кассе
+**Returns:** string|null - Идентификатор чека в онлайн-кассе
 
 
 <a name="method_getFiscalStorageNumber" class="anchor"></a>
-#### public getFiscalStorageNumber() : string
+#### public getFiscalStorageNumber() : string|null
 
 ```php
-public getFiscalStorageNumber() : string
+public getFiscalStorageNumber() : string|null
 ```
 
 **Summary**
 
-Возвращает номер фискального накопителя в кассовом аппарате
+Возвращает номер фискального накопителя в кассовом аппарате.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** string - Номер фискального накопителя в кассовом аппарате
+**Returns:** string|null - Номер фискального накопителя в кассовом аппарате
 
 
 <a name="method_getId" class="anchor"></a>
-#### public getId() : string
+#### public getId() : string|null
 
 ```php
-public getId() : string
+public getId() : string|null
 ```
 
 **Summary**
 
-Возвращает идентификатор чека в ЮKassa
+Возвращает идентификатор чека в ЮKassa.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** string - 
+**Returns:** string|null - Идентификатор чека в ЮKassa
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| inheritdoc |  |  |
 
 <a name="method_getItems" class="anchor"></a>
-#### public getItems() : \YooKassa\Request\Receipts\ReceiptResponseItem[]|\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]
+#### public getItems() : \YooKassa\Request\Receipts\ReceiptResponseItemInterface[]|\YooKassa\Common\ListObjectInterface
 
 ```php
-public getItems() : \YooKassa\Request\Receipts\ReceiptResponseItem[]|\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]
+public getItems() : \YooKassa\Request\Receipts\ReceiptResponseItemInterface[]|\YooKassa\Common\ListObjectInterface
 ```
 
 **Summary**
 
-Возвращает список товаров в заказ
+Возвращает список товаров в заказ.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** \YooKassa\Request\Receipts\ReceiptResponseItem[]|\YooKassa\Request\Receipts\ReceiptResponseItemInterface[] - 
+**Returns:** \YooKassa\Request\Receipts\ReceiptResponseItemInterface[]|\YooKassa\Common\ListObjectInterface - 
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| inheritdoc |  |  |
 
 <a name="method_getObjectId" class="anchor"></a>
-#### public getObjectId() : string
+#### public getObjectId() : string|null
 
 ```php
-public getObjectId() : string
+public getObjectId() : string|null
 ```
 
 **Summary**
@@ -788,7 +944,7 @@ public getObjectId() : string
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** string - 
+**Returns:** string|null - 
 
 
 <a name="method_getOnBehalfOf" class="anchor"></a>
@@ -807,158 +963,155 @@ public getOnBehalfOf() : string|null
 
 **Returns:** string|null - 
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| inheritdoc |  |  |
 
 <a name="method_getPaymentId" class="anchor"></a>
-#### public getPaymentId() : string
+#### public getPaymentId() : string|null
 
 ```php
-public getPaymentId() : string
+public getPaymentId() : string|null
 ```
 
 **Summary**
 
-Возвращает идентификатор платежа
+Возвращает идентификатор платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\PaymentReceiptResponse](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md)
 
-**Returns:** string - Идентификатор платежа
+**Returns:** string|null - Идентификатор платежа
 
 
 <a name="method_getReceiptIndustryDetails" class="anchor"></a>
-#### public getReceiptIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+#### public getReceiptIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]|\YooKassa\Common\ListObjectInterface
 
 ```php
-public getReceiptIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+public getReceiptIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]|\YooKassa\Common\ListObjectInterface
 ```
 
 **Summary**
 
-Возвращает отраслевой реквизит чека
+Возвращает отраслевой реквизит чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** \YooKassa\Model\Receipt\IndustryDetails[] - Отраслевой реквизит чека
+**Returns:** \YooKassa\Model\Receipt\IndustryDetails[]|\YooKassa\Common\ListObjectInterface - Отраслевой реквизит чека
 
 
 <a name="method_getReceiptOperationalDetails" class="anchor"></a>
-#### public getReceiptOperationalDetails() : \YooKassa\Model\Receipt\OperationalDetails
+#### public getReceiptOperationalDetails() : \YooKassa\Model\Receipt\OperationalDetails|null
 
 ```php
-public getReceiptOperationalDetails() : \YooKassa\Model\Receipt\OperationalDetails
+public getReceiptOperationalDetails() : \YooKassa\Model\Receipt\OperationalDetails|null
 ```
 
 **Summary**
 
-Возвращает операционный реквизит чека
+Возвращает операционный реквизит чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** \YooKassa\Model\Receipt\OperationalDetails - Операционный реквизит чека
+**Returns:** \YooKassa\Model\Receipt\OperationalDetails|null - Операционный реквизит чека
 
 
 <a name="method_getRegisteredAt" class="anchor"></a>
-#### public getRegisteredAt() : \DateTime
+#### public getRegisteredAt() : \DateTime|null
 
 ```php
-public getRegisteredAt() : \DateTime
+public getRegisteredAt() : \DateTime|null
 ```
 
 **Summary**
 
-Возвращает дату и время формирования чека в фискальном накопителе
+Возвращает дату и время формирования чека в фискальном накопителе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** \DateTime - Дата и время формирования чека в фискальном накопителе
+**Returns:** \DateTime|null - Дата и время формирования чека в фискальном накопителе
 
 
 <a name="method_getSettlements" class="anchor"></a>
-#### public getSettlements() : \YooKassa\Model\SettlementInterface[]
+#### public getSettlements() : \YooKassa\Model\Receipt\SettlementInterface[]|\YooKassa\Common\ListObjectInterface
 
 ```php
-public getSettlements() : \YooKassa\Model\SettlementInterface[]
+public getSettlements() : \YooKassa\Model\Receipt\SettlementInterface[]|\YooKassa\Common\ListObjectInterface
 ```
 
 **Summary**
 
-Возвращает Массив оплат, обеспечивающих выдачу товара
+Возвращает Массив оплат, обеспечивающих выдачу товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** \YooKassa\Model\SettlementInterface[] - 
+**Returns:** \YooKassa\Model\Receipt\SettlementInterface[]|\YooKassa\Common\ListObjectInterface - 
 
 
 <a name="method_getStatus" class="anchor"></a>
-#### public getStatus() : string
+#### public getStatus() : string|null
 
 ```php
-public getStatus() : string
+public getStatus() : string|null
 ```
 
 **Summary**
 
-Возвращает статус доставки данных для чека в онлайн-кассу
+Возвращает статус доставки данных для чека в онлайн-кассу.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** string - 
+**Returns:** string|null - Статус доставки данных для чека в онлайн-кассу ("pending", "succeeded" или "canceled")
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| inheritdoc |  |  |
 
 <a name="method_getTaxSystemCode" class="anchor"></a>
-#### public getTaxSystemCode() : int
+#### public getTaxSystemCode() : int|null
 
 ```php
-public getTaxSystemCode() : int
+public getTaxSystemCode() : int|null
 ```
 
 **Summary**
 
-Возвращает код системы налогообложения
+Возвращает код системы налогообложения.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** int - 
+**Returns:** int|null - Код системы налогообложения. Число 1-6.
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| inheritdoc |  |  |
 
 <a name="method_getType" class="anchor"></a>
-#### public getType() : string
+#### public getType() : string|null
 
 ```php
-public getType() : string
+public getType() : string|null
 ```
 
 **Summary**
 
-Возвращает тип чека в онлайн-кассе
+Возвращает тип чека в онлайн-кассе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
 
-**Returns:** string - 
+**Returns:** string|null - Тип чека в онлайн-кассе: приход "payment" или возврат "refund"
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| inheritdoc |  |  |
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
+
 
 <a name="method_jsonSerialize" class="anchor"></a>
 #### public jsonSerialize() : array
@@ -969,7 +1122,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -986,7 +1139,7 @@ public notEmpty() : bool
 
 **Summary**
 
-Проверяет есть ли в чеке хотя бы одна позиция
+Проверяет есть ли в чеке хотя бы одна позиция.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1003,7 +1156,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1025,7 +1178,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1047,7 +1200,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1070,7 +1223,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1084,15 +1237,15 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setFiscalAttribute" class="anchor"></a>
-#### public setFiscalAttribute() : mixed
+#### public setFiscalAttribute() : self
 
 ```php
-public setFiscalAttribute(string $fiscal_attribute) : mixed
+public setFiscalAttribute(string|null $fiscal_attribute = null) : self
 ```
 
 **Summary**
 
-Устанавливает фискальный признак чека
+Устанавливает фискальный признак чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1100,16 +1253,16 @@ public setFiscalAttribute(string $fiscal_attribute) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | fiscal_attribute  | Фискальный признак чека |
+| <code lang="php">string OR null</code> | fiscal_attribute  | Фискальный признак чека. Формируется фискальным накопителем на основе данных, переданных для регистрации чека. |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setFiscalDocumentNumber" class="anchor"></a>
-#### public setFiscalDocumentNumber() : mixed
+#### public setFiscalDocumentNumber() : self
 
 ```php
-public setFiscalDocumentNumber(string $value) : mixed
+public setFiscalDocumentNumber(string|null $fiscal_document_number = null) : self
 ```
 
 **Summary**
@@ -1122,26 +1275,21 @@ public setFiscalDocumentNumber(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Номер фискального документа |
+| <code lang="php">string OR null</code> | fiscal_document_number  | Номер фискального документа. |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setFiscalProviderId" class="anchor"></a>
-#### public setFiscalProviderId() : mixed
+#### public setFiscalProviderId() : self
 
 ```php
-public setFiscalProviderId(string $fiscal_provider_id) : mixed
+public setFiscalProviderId(string|null $fiscal_provider_id = null) : self
 ```
 
 **Summary**
 
-Устанавливает идентификатор чека в онлайн-кассе
+Устанавливает идентификатор чека в онлайн-кассе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1149,21 +1297,21 @@ public setFiscalProviderId(string $fiscal_provider_id) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | fiscal_provider_id  | Идентификатор чека в онлайн-кассе |
+| <code lang="php">string OR null</code> | fiscal_provider_id  | Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать. |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setFiscalStorageNumber" class="anchor"></a>
-#### public setFiscalStorageNumber() : mixed
+#### public setFiscalStorageNumber() : self
 
 ```php
-public setFiscalStorageNumber(string $fiscal_storage_number) : mixed
+public setFiscalStorageNumber(string|null $fiscal_storage_number = null) : self
 ```
 
 **Summary**
 
-Устанавливает номер фискального накопителя в кассовом аппарате
+Устанавливает номер фискального накопителя в кассовом аппарате.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1171,21 +1319,21 @@ public setFiscalStorageNumber(string $fiscal_storage_number) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | fiscal_storage_number  | Номер фискального накопителя в кассовом аппарате |
+| <code lang="php">string OR null</code> | fiscal_storage_number  | Номер фискального накопителя в кассовом аппарате. |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setId" class="anchor"></a>
-#### public setId() : mixed
+#### public setId() : self
 
 ```php
-public setId(string $value) : mixed
+public setId(string $id) : self
 ```
 
 **Summary**
 
-Устанавливает идентификатор чека
+Устанавливает идентификатор чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1193,33 +1341,21 @@ public setId(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Идентификатор чека |
+| <code lang="php">string</code> | id  | Идентификатор чека |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если длина переданной строки не равна 40 |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setItems" class="anchor"></a>
-#### public setItems() : mixed
+#### public setItems() : self
 
 ```php
-public setItems(\YooKassa\Request\Receipts\ReceiptResponseItemInterface[] $value) : mixed
+public setItems(\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]|null $items) : self
 ```
 
 **Summary**
 
-Устанавливает список позиций в чеке
-
-**Description**
-
-Если до этого в чеке уже были установлены значения, они удаляются и полностью заменяются переданным списком
-позиций. Все передаваемые значения в массиве позиций должны быть объектами класса, реализующего интерфейс
-ReceiptItemInterface, в противном случае будет выброшено исключение InvalidPropertyValueTypeException.
+Устанавливает список позиций в чеке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1227,27 +1363,21 @@ ReceiptItemInterface, в противном случае будет выброш
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Request\Receipts\ReceiptResponseItemInterface[]</code> | value  | Список товаров в заказе |
+| <code lang="php">\YooKassa\Request\Receipts\ReceiptResponseItemInterface[] OR null</code> | items  | Список товаров в заказе |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\EmptyPropertyValueException | Выбрасывается если передали пустой массив значений |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве значения был передан не массив и не итератор, либо если одно из переданных значений не реализует интерфейс ReceiptItemInterface |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setObjectId" class="anchor"></a>
-#### public setObjectId() : mixed
+#### public setObjectId() : self
 
 ```php
-public setObjectId($value) : mixed
+public setObjectId(string|null $object_id) : self
 ```
 
 **Summary**
 
-Устанавливает идентификатор платежа или возврата, для которого был сформирован чек
+Устанавливает идентификатор платежа или возврата, для которого был сформирован чек.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1255,21 +1385,21 @@ public setObjectId($value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php"></code> | value  |  |
+| <code lang="php">string OR null</code> | object_id  |  |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setOnBehalfOf" class="anchor"></a>
-#### public setOnBehalfOf() : mixed
+#### public setOnBehalfOf() : self
 
 ```php
-public setOnBehalfOf(string $value) : mixed
+public setOnBehalfOf(string|null $on_behalf_of = null) : self
 ```
 
 **Summary**
 
-Возвращает идентификатор магазина, от имени которого нужно отправить чек
+Возвращает идентификатор магазина, от имени которого нужно отправить чек.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1277,21 +1407,21 @@ public setOnBehalfOf(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Идентификатор магазина, от имени которого нужно отправить чек |
+| <code lang="php">string OR null</code> | on_behalf_of  | Идентификатор магазина, от имени которого нужно отправить чек |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setPaymentId" class="anchor"></a>
-#### public setPaymentId() : mixed
+#### public setPaymentId() : self
 
 ```php
-public setPaymentId(string $value) : mixed
+public setPaymentId(string|null $payment_id = null) : self
 ```
 
 **Summary**
 
-Устанавливает идентификатор платежа в ЮKassa
+Устанавливает идентификатор платежа в ЮKassa.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\PaymentReceiptResponse](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md)
@@ -1299,27 +1429,21 @@ public setPaymentId(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Идентификатор платежа в ЮKassa |
+| <code lang="php">string OR null</code> | payment_id  | Идентификатор платежа в ЮKassa |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве значения была передана не строка |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если длина переданной строки не равна 36 |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setReceiptIndustryDetails" class="anchor"></a>
-#### public setReceiptIndustryDetails() : mixed
+#### public setReceiptIndustryDetails() : self
 
 ```php
-public setReceiptIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[] $value) : mixed
+public setReceiptIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[]|null $receipt_industry_details = null) : self
 ```
 
 **Summary**
 
-Устанавливает отраслевой реквизит чека
+Устанавливает отраслевой реквизит чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1327,26 +1451,21 @@ public setReceiptIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[]
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[]</code> | value  | Отраслевой реквизит чека |
+| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[] OR null</code> | receipt_industry_details  | Отраслевой реквизит чека |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент - не массив |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setReceiptOperationalDetails" class="anchor"></a>
-#### public setReceiptOperationalDetails() : mixed
+#### public setReceiptOperationalDetails() : self
 
 ```php
-public setReceiptOperationalDetails(array|\YooKassa\Model\Receipt\OperationalDetails $value) : mixed
+public setReceiptOperationalDetails(array|\YooKassa\Model\Receipt\OperationalDetails|null $receipt_operational_details = null) : self
 ```
 
 **Summary**
 
-Устанавливает операционный реквизит чека
+Устанавливает операционный реквизит чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1354,26 +1473,21 @@ public setReceiptOperationalDetails(array|\YooKassa\Model\Receipt\OperationalDet
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \YooKassa\Model\Receipt\OperationalDetails</code> | value  | Операционный реквизит чека |
+| <code lang="php">array OR \YooKassa\Model\Receipt\OperationalDetails OR null</code> | receipt_operational_details  | Операционный реквизит чека |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент - не массив |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setRegisteredAt" class="anchor"></a>
-#### public setRegisteredAt() : mixed
+#### public setRegisteredAt() : self
 
 ```php
-public setRegisteredAt(\DateTime $registered_at) : mixed
+public setRegisteredAt(\DateTime|string|null $registered_at = null) : self
 ```
 
 **Summary**
 
-Устанавливает дату и время формирования чека в фискальном накопителе
+Устанавливает дату и время формирования чека в фискальном накопителе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1381,21 +1495,21 @@ public setRegisteredAt(\DateTime $registered_at) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | registered_at  | Дата и время формирования чека в фискальном накопителе |
+| <code lang="php">\DateTime OR string OR null</code> | registered_at  | Дата и время формирования чека в фискальном накопителе. Указывается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setSettlements" class="anchor"></a>
-#### public setSettlements() : mixed
+#### public setSettlements() : self
 
 ```php
-public setSettlements(\YooKassa\Model\SettlementInterface[] $value) : mixed
+public setSettlements(\YooKassa\Model\Receipt\SettlementInterface[]|null $settlements) : self
 ```
 
 **Summary**
 
-Устанавливает массив оплат, обеспечивающих выдачу товара
+Устанавливает массив оплат, обеспечивающих выдачу товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1403,9 +1517,9 @@ public setSettlements(\YooKassa\Model\SettlementInterface[] $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SettlementInterface[]</code> | value  |  |
+| <code lang="php">\YooKassa\Model\Receipt\SettlementInterface[] OR null</code> | settlements  |  |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setSpecificProperties" class="anchor"></a>
@@ -1417,7 +1531,7 @@ public setSpecificProperties(array $receiptData) : void
 
 **Summary**
 
-Установка свойств, присущих конкретному объекту
+Установка свойств, присущих конкретному объекту.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\PaymentReceiptResponse](../classes/YooKassa-Request-Receipts-PaymentReceiptResponse.md)
@@ -1431,15 +1545,15 @@ public setSpecificProperties(array $receiptData) : void
 
 
 <a name="method_setStatus" class="anchor"></a>
-#### public setStatus() : \YooKassa\Request\Receipts\AbstractReceiptResponse
+#### public setStatus() : self
 
 ```php
-public setStatus(string $value) : \YooKassa\Request\Receipts\AbstractReceiptResponse
+public setStatus(string|null $status) : self
 ```
 
 **Summary**
 
-Устанавливает состояние регистрации фискального чека
+Устанавливает состояние регистрации фискального чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1447,27 +1561,21 @@ public setStatus(string $value) : \YooKassa\Request\Receipts\AbstractReceiptResp
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Состояние регистрации фискального чека |
+| <code lang="php">string OR null</code> | status  | Состояние регистрации фискального чека |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданное состояние регистрации не существует |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент не строка |
-
-**Returns:** \YooKassa\Request\Receipts\AbstractReceiptResponse - 
+**Returns:** self - 
 
 
 <a name="method_setTaxSystemCode" class="anchor"></a>
-#### public setTaxSystemCode() : mixed
+#### public setTaxSystemCode() : self
 
 ```php
-public setTaxSystemCode(int $value) : mixed
+public setTaxSystemCode(int|null $tax_system_code) : self
 ```
 
 **Summary**
 
-Устанавливает код системы налогообложения
+Устанавливает код системы налогообложения.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1475,27 +1583,21 @@ public setTaxSystemCode(int $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">int</code> | value  | Код системы налогообложения. Число 1-6 |
+| <code lang="php">int OR null</code> | tax_system_code  | Код системы налогообложения. Число 1-6 |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданный аргумент - не число |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданный аргумент меньше одного или больше шести |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setType" class="anchor"></a>
-#### public setType() : mixed
+#### public setType() : self
 
 ```php
-public setType(string $value) : mixed
+public setType(string $type) : self
 ```
 
 **Summary**
 
-Устанавливает типа чека
+Устанавливает типа чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\AbstractReceiptResponse](../classes/YooKassa-Request-Receipts-AbstractReceiptResponse.md)
@@ -1503,15 +1605,9 @@ public setType(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Тип чека |
+| <code lang="php">string</code> | type  | Тип чека |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданная строка не является валидным типом |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -1524,7 +1620,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1541,12 +1637,31 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
 **Returns:** array - Ассоциативный массив с не существующими у текущего объекта свойствами
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
+
+**Returns:** mixed - 
 
 
 
@@ -1560,11 +1675,11 @@ protected getUnknownProperties() : array
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

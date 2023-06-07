@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,99 +27,89 @@
 namespace YooKassa\Model\PersonalData;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
  * Класс, представляющий модель PersonalDataCancellationDetails.
  *
  * Комментарий к статусу ~`canceled`: кто и по какой причине аннулировал хранение данных.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property string $party Участник процесса, который принял решение о прекращении хранения персональных данных
+ * @property string $reason Причина прекращения хранения персональных данных
  */
-
 class PersonalDataCancellationDetails extends AbstractObject
 {
     /**
      * Участник процесса, который принял решение о прекращении хранения персональных данных.
-     *
      * Возможное значение:
      * * `yoo_money` — ЮKassa.
      *
-     * @var string
+     * @var string|null
      */
-    private $_party;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [PersonalDataCancellationDetailsPartyCode::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private ?string $_party = null;
 
     /**
      * Причина прекращения хранения персональных данных.
-     *
      * Возможное значение:
      * * `expired_by_timeout` — истек срок хранения или использования персональных данных.
      *
-     * @var string
+     * @var string|null
      */
-    private $_reason;
-
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [PersonalDataCancellationDetailsReasonCode::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private ?string $_reason = null;
 
     /**
-     * Возвращает party.
+     * Возвращает участника процесса выплаты, который принял решение о прекращении хранения персональных данных.
      *
-     * @return string
+     * @return string|null Инициатор отмены о хранения персональных данных.
      */
-    public function getParty()
+    public function getParty(): ?string
     {
         return $this->_party;
     }
 
     /**
-     * Устанавливает участника процесса, который принял решение о прекращении хранения персональных данных.
+     * Устанавливает участника процесса выплаты, который принял решение о прекращении хранения персональных данных.
      *
-     * @param string $value Участник процесса, который принял решение о прекращении хранения персональных данных
+     * @param string|null $party Участник процесса выплаты, который принял решение о прекращении хранения персональных данных.
      *
      * @return self
      */
-    public function setParty($value)
+    public function setParty(?string $party = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty party value', 0, 'PersonalDataCancellationDetails.party');
-        }
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid party value type', 0, 'PersonalDataCancellationDetails.party', $value);
-        }
-        $this->_party = strtolower((string)$value);
-
+        $this->_party = $this->validatePropertyValue('_party', $party);
         return $this;
     }
 
     /**
-     * Возвращает reason.
+     * Возвращает причину прекращения хранения персональных данных.
      *
-     * @return string
+     * @return string|null Причина прекращения хранения персональных данных.
      */
-    public function getReason()
+    public function getReason(): ?string
     {
         return $this->_reason;
     }
 
     /**
-     * Устанавливает причину прекращения хранения персональных данных.
+     * Устанавливает прекращения хранения персональных данных.
      *
-     * @param string $value Причина прекращения хранения персональных данных
+     * @param string|null $reason Причина прекращения хранения персональных данных
      *
      * @return self
      */
-    public function setReason($value)
+    public function setReason(?string $reason = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty reason value', 0, 'PersonalDataCancellationDetails.reason');
-        }
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid reason value type', 0, 'PersonalDataCancellationDetails.reason');
-        }
-        $this->_reason = strtolower((string)$value);
-
+        $this->_reason = $this->validatePropertyValue('_reason', $reason);
         return $this;
     }
 }

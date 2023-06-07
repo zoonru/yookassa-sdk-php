@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,21 +28,19 @@ namespace YooKassa\Common\Exceptions;
 
 /**
  * Секретный ключ или OAuth-токен верный, но не хватает прав для совершения операции.
- *
- * @package YooKassa
  */
 class ForbiddenException extends ApiException
 {
-    const HTTP_CODE = 403;
+    public const HTTP_CODE = 403;
 
-    public $type;
+    public mixed $type = null;
 
-    public $retryAfter;
+    public mixed $retryAfter = null;
 
-    public function __construct($responseHeaders = array(), $responseBody = null)
+    public function __construct($responseHeaders = [], $responseBody = '')
     {
         $errorData = json_decode($responseBody, true);
-        $message   = '';
+        $message = '';
 
         if (isset($errorData['description'])) {
             $message .= $errorData['description'] . '. ';

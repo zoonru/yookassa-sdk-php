@@ -33,36 +33,36 @@ $client->setAuth('xxxxxx', 'test_XXXXXXX');
 try {
     $idempotenceKey = uniqid('', true);
     $response = $client->createPayment(
-        array(
-            'amount' => array(
+        [
+            'amount' => [
                 'value' => '1000.00',
                 'currency' => 'RUB',
-            ),
-            'confirmation' => array(
+            ],
+            'confirmation' => [
                 'type' => 'redirect',
                 'locale' => 'ru_RU',
                 'return_url' => 'https://merchant-site.ru/return_url',
-            ),
+            ],
             'capture' => true,
             'description' => 'Заказ №72',
-            'metadata' => array(
+            'metadata' => [
                 'orderNumber' => 1001
-            ),
-            'receipt' => array(
-                'customer' => array(
+            ],
+            'receipt' => [
+                'customer' => [
                     'full_name' => 'Ivanov Ivan Ivanovich',
                     'email' => 'email@email.ru',
                     'phone' => '79211234567',
                     'inn' => '6321341814'
-                ),
-                'items' => array(
-                    array(
+                ],
+                'items' => [
+                    [
                         'description' => 'Переносное зарядное устройство Хувей',
                         'quantity' => '1.00',
-                        'amount' => array(
+                        'amount' => [
                             'value' => 1000,
                             'currency' => 'RUB'
-                        ),
+                        ],
                         'vat_code' => '2',
                         'payment_mode' => 'full_payment',
                         'payment_subject' => 'commodity',
@@ -70,15 +70,15 @@ try {
                         'product_code' => '44 4D 01 00 21 FA 41 00 23 05 41 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 12 00 AB 00',
                         'customs_declaration_number' => '10714040/140917/0090376',
                         'excise' => '20.00',
-                        'supplier' => array(
+                        'supplier' => [
                             'name' => 'string',
                             'phone' => 'string',
                             'inn' => 'string'
-                        )
-                    ),
-                )
-            )
-        ),
+                        ]
+                    ],
+                ]
+            ]
+        ],
         $idempotenceKey
     );
     
@@ -112,21 +112,21 @@ try {
             ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
             ->setCapture(true)
             ->setDescription('Оплата заказа 112233')
-            ->setMetadata(array(
+            ->setMetadata([
                 'cms_name'       => 'yoo_api_test',
                 'order_id'       => '112233',
                 'language'       => 'ru',
                 'transaction_id' => '123-456-789',
-            ));
+            ]);
 
     // Устанавливаем страницу для редиректа после оплаты
-    $builder->setConfirmation(array(
-        'type'      => \YooKassa\Model\ConfirmationType::REDIRECT,
+    $builder->setConfirmation([
+        'type'      => \YooKassa\Model\Payment\ConfirmationType::REDIRECT,
         'returnUrl' => 'https://merchant-site.ru/payment-return-page',
-    ));
+    ]);
 
     // Можем установить конкретный способ оплаты
-    $builder->setPaymentMethodData(\YooKassa\Model\PaymentMethodType::BANK_CARD);
+    $builder->setPaymentMethodData(\YooKassa\Model\Payment\PaymentMethodType::BANK_CARD);
 
     // Составляем чек
     $builder->setReceiptEmail('john.doe@merchant.com');
@@ -150,22 +150,22 @@ try {
     );
 
     // Можно добавить распределение денег по магазинам
-    $builder->setTransfers(array(
-        array(
+    $builder->setTransfers([
+        [
             'account_id' => 123456,
-            'amount' => array(
+            'amount' => [
                 'value' => 1000,
                 'currency' => \YooKassa\Model\CurrencyCode::RUB
-            ),
-        ),
-        array(
+            ],
+        ],
+        [
             'account_id' => 654321,
-            'amount' => array(
+            'amount' => [
                 'value' => 2000,
                 'currency' => \YooKassa\Model\CurrencyCode::RUB
-            ),
-        )
-    ));
+            ],
+        ]
+    ]);
 
     // Создаем объект запроса
     $request = $builder->build();
@@ -205,28 +205,28 @@ $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 $paymentId = '21b23b5b-000f-5061-a000-0674e49a8c10';
-$request = array(
-    "amount" => array(
+$request = [
+    "amount" => [
         "value" => "1000.00",
         "currency" => "RUB"
-    ),
-    "transfers" => array(
-        array(
+    ],
+    "transfers" => [
+        [
             "account_id" => "123",
-            "amount" => array(
+            "amount" => [
                 "value" => "300.00",
                 "currency" => "RUB"
-            )
-        ),
-        array(
+            ]
+        ],
+        [
             "account_id" => "456",
-            "amount" => array(
+            "amount" => [
                 "value" => "700.00",
                 "currency" => "RUB"
-            )
-        )
-    )
-);
+            ]
+        ]
+    ]
+];
 $idempotenceKey = uniqid('', true);
 try {
     $response = $client->capturePayment($request, $paymentId, $idempotenceKey);
@@ -312,13 +312,13 @@ $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 $cursor = null;
-$params = array(
+$params = [
     'limit' => 30,
-    'status' => \YooKassa\Model\PaymentStatus::CANCELED,
-    'payment_method' => \YooKassa\Model\PaymentMethodType::BANK_CARD,
+    'status' => \YooKassa\Model\Payment\PaymentStatus::CANCELED,
+    'payment_method' => \YooKassa\Model\Payment\PaymentMethodType::BANK_CARD,
     'created_at_gte' => '2021-01-01T00:00:00.000Z',
     'created_at_lt' => '2021-03-30T23:59:59.999Z',
-);
+];
 try {
     do {
         $params['cursor'] = $cursor;

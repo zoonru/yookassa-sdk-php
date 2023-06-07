@@ -30,14 +30,14 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [__construct()](../classes/YooKassa-Common-Exceptions-InternalServerError.md#method___construct) |  | Constructor |
+| public | [__construct()](../classes/YooKassa-Common-Exceptions-InternalServerError.md#method___construct) |  | Constructor. |
 | public | [getResponseBody()](../classes/YooKassa-Common-Exceptions-ApiException.md#method_getResponseBody) |  |  |
 | public | [getResponseHeaders()](../classes/YooKassa-Common-Exceptions-ApiException.md#method_getResponseHeaders) |  |  |
 
 ---
 ### Details
 * File: [lib/Common/Exceptions/InternalServerError.php](../../lib/Common/Exceptions/InternalServerError.php)
-* Package: YooKassa
+* Package: Default
 * Class Hierarchy:  
   * [\Exception](\Exception)
   * [\YooKassa\Common\Exceptions\ApiException](../classes/YooKassa-Common-Exceptions-ApiException.md)
@@ -56,32 +56,34 @@ HTTP_CODE = 500
 ---
 ## Properties
 <a name="property_retryAfter"></a>
-#### public $retryAfter
+#### public $retryAfter : mixed
 ---
+**Type:** <a href="../mixed"><abbr title="mixed">mixed</abbr></a>
 
 **Details:**
 
 
 <a name="property_type"></a>
-#### public $type
+#### public $type : mixed
 ---
+**Type:** <a href="../mixed"><abbr title="mixed">mixed</abbr></a>
 
 **Details:**
 
 
 <a name="property_responseBody"></a>
-#### protected $responseBody : mixed
+#### protected $responseBody : ?string
 ---
-**Type:** <a href="../mixed"><abbr title="mixed">mixed</abbr></a>
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\Exceptions\ApiException](../classes/YooKassa-Common-Exceptions-ApiException.md)
 
 
 <a name="property_responseHeaders"></a>
-#### protected $responseHeaders : string[]
+#### protected $responseHeaders : array
 ---
-**Type:** <a href="../string[]"><abbr title="string[]">string[]</abbr></a>
+**Type:** <a href="../array"><abbr title="array">array</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Common\Exceptions\ApiException](../classes/YooKassa-Common-Exceptions-ApiException.md)
@@ -94,12 +96,12 @@ HTTP_CODE = 500
 #### public __construct() : mixed
 
 ```php
-public __construct(mixed $responseHeaders = array(), mixed $responseBody = null) : mixed
+public __construct(mixed $responseHeaders = [], mixed $responseBody = &#039;&#039;) : mixed
 ```
 
 **Summary**
 
-Constructor
+Constructor.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\Exceptions\InternalServerError](../classes/YooKassa-Common-Exceptions-InternalServerError.md)
@@ -114,16 +116,16 @@ Constructor
 
 
 <a name="method_getResponseBody" class="anchor"></a>
-#### public getResponseBody() : mixed
+#### public getResponseBody() : ?string
 
 ```php
-public getResponseBody() : mixed
+public getResponseBody() : ?string
 ```
 
 **Details:**
 * Inherited From: [\YooKassa\Common\Exceptions\ApiException](../classes/YooKassa-Common-Exceptions-ApiException.md)
 
-**Returns:** mixed - 
+**Returns:** ?string - 
 
 
 <a name="method_getResponseHeaders" class="anchor"></a>
@@ -150,11 +152,11 @@ public getResponseHeaders() : string[]
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

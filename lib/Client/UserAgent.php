@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,41 +29,46 @@ namespace YooKassa\Client;
 use YooKassa\Client;
 
 /**
- * Класс для создания заголовка User-Agent в запросах к API
+ * Класс, представляющий модель UserAgent.
  *
- * @package YooKassa
+ * Класс для создания заголовка User-Agent в запросах к API.
+ *
+ * @category Class
+ * @package  YooKassa
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class UserAgent
 {
     /** Имя заголовка для User-Agent */
-    const HEADER            = 'YM-User-Agent';
+    public const HEADER = 'YM-User-Agent';
 
     /** Разделитель части заголовка и её версии */
-    const VERSION_DELIMITER = '/';
+    public const VERSION_DELIMITER = '/';
 
     /** Разделитель между частями заголовка */
-    const PART_DELIMITER    = ' ';
+    public const PART_DELIMITER = ' ';
 
-    /** @var string|null Версия операционной системы */
-    private $_os = null;
+    /** @var null|string Версия операционной системы */
+    private ?string $_os = null;
 
-    /** @var string|null Версия PHP */
-    private $_php = null;
+    /** @var null|string Версия PHP */
+    private ?string $_php = null;
 
-    /** @var string|null Версия фреймворка */
-    private $_framework = null;
+    /** @var null|string Версия фреймворка */
+    private ?string $_framework = null;
 
-    /** @var string|null Версия CMS */
-    private $_cms = null;
+    /** @var null|string Версия CMS */
+    private ?string $_cms = null;
 
-    /** @var string|null Версия модуля */
-    private $_module = null;
+    /** @var null|string Версия модуля */
+    private ?string $_module = null;
 
-    /** @var string|null Версия SDK */
-    private $_sdk = null;
+    /** @var null|string Версия SDK */
+    private ?string $_sdk = null;
 
     /**
-     * Конструктор UserAgent
+     * Конструктор UserAgent.
      */
     public function __construct()
     {
@@ -77,12 +82,11 @@ class UserAgent
     }
 
     /**
-     * Формирует конечную строку из составных частей
-     * @return string
+     * Формирует конечную строку из составных частей.
      */
-    public function getHeaderString()
+    public function getHeaderString(): string
     {
-        $result = array();
+        $result = [];
 
         $result[] = $this->getOs();
         $result[] = $this->getPhp();
@@ -103,151 +107,142 @@ class UserAgent
     }
 
     /**
-     * Возвращает версию операционной системы
-     * @return string
+     * Возвращает версию операционной системы.
      */
-    public function getOs()
+    public function getOs(): ?string
     {
         return $this->_os;
     }
 
     /**
-     * Устанавливает версию операционной системы
-     * @param string $name
-     * @param string $version
+     * Возвращает версию PHP.
      */
-    private function setOs($name, $version)
-    {
-        $this->_os = $this->createVersion($name, $version);
-    }
-
-    /**
-     * Возвращает версию PHP
-     * @return string
-     */
-    public function getPhp()
+    public function getPhp(): ?string
     {
         return $this->_php;
     }
 
     /**
-     * Устанавливает версию PHP
-     * @param string $name
-     * @param string $version
+     * Возвращает версию фреймворка.
      */
-    private function setPhp($name, $version)
-    {
-        $this->_php = $this->createVersion($name, $version);
-    }
-
-    /**
-     * Возвращает версию фреймворка
-     * @return string|null
-     */
-    public function getFramework()
+    public function getFramework(): ?string
     {
         return $this->_framework;
     }
 
     /**
-     * Устанавливает версию фреймворка
-     * @param string $name
-     * @param string $version
+     * Устанавливает версию фреймворка.
      */
-    public function setFramework($name, $version)
+    public function setFramework(string $name, string $version): void
     {
         $this->_framework = $this->createVersion($name, $version);
     }
 
     /**
-     * Возвращает версию CMS
-     * @return null
+     * Возвращает версию CMS.
      */
-    public function getCms()
+    public function getCms(): ?string
     {
         return $this->_cms;
     }
 
     /**
-     * Устанавливает версию CMS
-     * @param string $name
-     * @param string $version
+     * Устанавливает версию CMS.
      */
-    public function setCms($name, $version)
+    public function setCms(string $name, string $version): void
     {
         $this->_cms = $this->createVersion($name, $version);
     }
 
     /**
-     * Возвращает версию модуля
-     * @return string
+     * Возвращает версию модуля.
      */
-    public function getModule()
+    public function getModule(): ?string
     {
         return $this->_module;
     }
 
     /**
-     * Устанавливает версию модуля
-     * @param string $name
-     * @param string $version
+     * Устанавливает версию модуля.
      */
-    public function setModule($name, $version)
+    public function setModule(string $name, string $version): void
     {
         $this->_module = $this->createVersion($name, $version);
     }
 
     /**
-     * Возвращает версию SDK
-     * @return string
+     * Возвращает версию SDK.
      */
-    public function getSdk()
+    public function getSdk(): ?string
     {
         return $this->_sdk;
     }
 
     /**
-     * Устанавливает версию SDK
-     * @param string $name
-     * @param string $version
+     * Создание строки версии компонента.
      */
-    private function setSdk($name, $version)
+    public function createVersion(string $name, string $version): string
+    {
+        return str_replace([self::PART_DELIMITER, self::VERSION_DELIMITER], '.', trim($name))
+             . self::VERSION_DELIMITER
+             . str_replace([self::PART_DELIMITER, self::VERSION_DELIMITER], '.', trim($version));
+    }
+
+    /**
+     * Устанавливает версию операционной системы.
+     */
+    private function setOs(string $name, string $version): void
+    {
+        $this->_os = $this->createVersion($name, $version);
+    }
+
+    /**
+     * Устанавливает версию PHP.
+     */
+    private function setPhp(string $name, string $version): void
+    {
+        $this->_php = $this->createVersion($name, $version);
+    }
+
+    /**
+     * Устанавливает версию SDK.
+     */
+    private function setSdk(string $name, string $version): void
     {
         $this->_sdk = $this->createVersion($name, $version);
     }
 
     /**
-     * Попытка определить систему
-     * @return array
+     * Попытка определить систему.
      */
-    private function defineOs()
+    private function defineOs(): array
     {
-        if (strtolower(substr(PHP_OS, 0, 5)) === 'linux') {
+        if (PHP_OS_FAMILY === 'Linux') {
             if ($result = $this->parseSimpleLinuxRelease()) {
                 return $result;
-            } elseif ($result = $this->parseSmartLinuxRelease()) {
+            }
+            if ($result = $this->parseSmartLinuxRelease()) {
                 return $result;
             }
         } else {
-            return array( 'name' => php_uname('s'), 'version' => php_uname('r') );
+            return ['name' => php_uname('s'), 'version' => php_uname('r')];
         }
 
-        return array( 'name' => 'Undefined', 'version' => '0.0.0' );
+        return ['name' => 'Undefined', 'version' => '0.0.0'];
     }
 
     /**
      * Возвращает информацию о версии системы
      * Используется сложный вариант
-     * @return array|null
      */
-    private function parseSmartLinuxRelease()
+    private function parseSmartLinuxRelease(): ?array
     {
-        $vars = array();
+        $vars = [];
 
         if ($files = glob('/etc/*elease')) {
             foreach ($files as $file) {
                 if (is_file($file)) {
-                    $lines = array_filter(array_map(array($this, 'callbackSmartLinux'), file($file)));
+                    $lines = array_filter(array_map([$this, 'callbackSmartLinux'], file($file)));
                     if (is_array($lines)) {
                         foreach ($lines as $line) {
                             $vars[strtoupper($line[0])] = trim($line[1]);
@@ -257,7 +252,7 @@ class UserAgent
             }
 
             if (!empty($vars['NAME']) && !empty($vars['VERSION_ID'])) {
-                return array('name' => $vars['NAME'], 'version' => $vars['VERSION_ID']);
+                return ['name' => $vars['NAME'], 'version' => $vars['VERSION_ID']];
             }
         }
 
@@ -268,29 +263,30 @@ class UserAgent
      * @param string $line
      * @return array|bool
      */
-    private static function callbackSmartLinux($line)
+    private static function callbackSmartLinux(string $line): bool|array
     {
         $parts = explode('=', $line);
-        if (count($parts) !== 2) {
+        if (2 !== count($parts)) {
             return false;
         }
-        $parts[1] = trim(str_replace(array('"', "'"), '', $parts[1]));
+        $parts[1] = trim(str_replace(['"', "'"], '', $parts[1]));
+
         return $parts;
     }
 
     /**
-     * Возвращает информацию о версии системы
+     * Возвращает информацию о версии системы.
+     *
      * Используется простой вариант
-     * @return array|null
      */
-    private function parseSimpleLinuxRelease()
+    private function parseSimpleLinuxRelease(): ?array
     {
-        $vars = array();
+        $vars = [];
 
         if ($files = glob('/etc/*elease')) {
             foreach ($files as $file) {
                 if (is_file($file)) {
-                    $data = array_map(array($this, 'callbackSimpleLinux'), file($file));
+                    $data = array_map([$this, 'callbackSimpleLinux'], file($file));
                     if (!empty($data)) {
                         $array = array_shift($data);
                         if (!empty($array) && is_array($array)) {
@@ -304,13 +300,9 @@ class UserAgent
         return !empty($vars['name']) && !empty($vars['version']) ? $vars : null;
     }
 
-    /**
-     * @param string $line
-     * @return array
-     */
-    private static function callbackSimpleLinux($line)
+    private static function callbackSimpleLinux(string $line): array
     {
-        $parse = array();
+        $parse = [];
         preg_match('/(.+) release (.+) (.+)/iu', $line, $parts);
         if (!empty($parts[1])) {
             $parse['name'] = str_replace(' ', '.', trim($parts[1]));
@@ -318,31 +310,18 @@ class UserAgent
         if (!empty($parts[2])) {
             $parse['version'] = trim($parts[2]);
         }
+
         return $parse;
     }
 
     /**
-     * Определение версии PHP
-     * @return array
+     * Определение версии PHP.
      */
-    private function definePhp()
+    private function definePhp(): array
     {
-        return array(
-            'name'    => 'PHP',
-            'version' => PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION  . '.' . PHP_RELEASE_VERSION
-        );
-    }
-
-    /**
-     * Создание строки версии компонента
-     * @param string $name
-     * @param string $version
-     * @return string
-     */
-    public function createVersion($name, $version)
-    {
-        return str_replace(array(self::PART_DELIMITER, self::VERSION_DELIMITER), '.', trim($name))
-             . self::VERSION_DELIMITER
-             . str_replace(array(self::PART_DELIMITER, self::VERSION_DELIMITER), '.', trim($version));
+        return [
+            'name' => 'PHP',
+            'version' => PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION,
+        ];
     }
 }

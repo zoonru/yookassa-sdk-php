@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,13 +26,17 @@
 
 namespace YooKassa\Request\Payouts;
 
-use YooKassa\Model\Payout;
-use YooKassa\Model\PayoutInterface;
+use YooKassa\Model\Payout\Payout;
 
 /**
- * Абстрактный класс ответа от API, возвращающего информацию о выплате
+ * Класс, представляющий AbstractPayoutResponse.
  *
- * @package YooKassa
+ * Абстрактный класс ответа от API, возвращающего информацию о выплате.
+ *
+ * @category Abstract Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 abstract class AbstractPayoutResponse extends Payout
 {

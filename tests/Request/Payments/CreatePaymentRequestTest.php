@@ -2,33 +2,43 @@
 
 namespace Tests\YooKassa\Request\Payments;
 
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
-use YooKassa\Model\ConfirmationAttributes\ConfirmationAttributesExternal;
-use YooKassa\Model\ConfirmationType;
 use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\Deal\PaymentDealInfo;
-use YooKassa\Model\FraudData;
-use YooKassa\Model\Locale;
+use YooKassa\Model\Deal\SettlementPayoutPaymentType;
 use YooKassa\Model\Metadata;
 use YooKassa\Model\MonetaryAmount;
-use YooKassa\Model\Payment;
-use YooKassa\Model\PaymentData\PaymentDataQiwi;
-use YooKassa\Model\Receipt;
-use YooKassa\Model\ReceiptItem;
-use YooKassa\Model\Recipient;
-use YooKassa\Model\Transfer;
-use YooKassa\Model\TransferStatus;
+use YooKassa\Model\Payment\ConfirmationType;
+use YooKassa\Model\Payment\Payment;
+use YooKassa\Model\Payment\Recipient;
+use YooKassa\Model\Receipt\PaymentMode;
+use YooKassa\Model\Receipt\PaymentSubject;
+use YooKassa\Model\Receipt\Receipt;
+use YooKassa\Model\Receipt\ReceiptItem;
+use YooKassa\Model\Receipt\ReceiptItemAmount;
+use YooKassa\Request\Payments\ConfirmationAttributes\ConfirmationAttributesExternal;
 use YooKassa\Request\Payments\CreatePaymentRequest;
 use YooKassa\Request\Payments\CreatePaymentRequestBuilder;
+use YooKassa\Request\Payments\FraudData;
+use YooKassa\Request\Payments\Locale;
+use YooKassa\Request\Payments\PaymentData\PaymentDataQiwi;
+use YooKassa\Request\Payments\TransferData;
 
+/**
+ * @internal
+ */
 class CreatePaymentRequestTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testRecipient($options)
+    public function testRecipient($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -43,8 +53,13 @@ class CreatePaymentRequestTest extends TestCase
             self::assertNull($instance->recipient);
         } else {
             self::assertTrue($instance->hasRecipient());
-            self::assertSame($options['recipient'], $instance->getRecipient());
-            self::assertSame($options['recipient'], $instance->recipient);
+            if (is_array($options['recipient'])) {
+                self::assertSame($options['recipient'], $instance->getRecipient()->toArray());
+                self::assertSame($options['recipient'], $instance->recipient->toArray());
+            } else {
+                self::assertSame($options['recipient'], $instance->getRecipient());
+                self::assertSame($options['recipient'], $instance->recipient);
+            }
         }
 
         $instance->setRecipient(null);
@@ -59,67 +74,37 @@ class CreatePaymentRequestTest extends TestCase
             self::assertNull($instance->recipient);
         } else {
             self::assertTrue($instance->hasRecipient());
-            self::assertSame($options['recipient'], $instance->getRecipient());
-            self::assertSame($options['recipient'], $instance->recipient);
-        }
-    }
-
-    /**
-     * @dataProvider invalidRecipientDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidRecipient($value)
-    {
-        $instance = new CreatePaymentRequest();
-        $instance->setRecipient($value);
-    }
-
-    /**
-     * @dataProvider validDataProvider
-     * @param $options
-     */
-    public function testAmount($options)
-    {
-        $instance = new CreatePaymentRequest();
-
-        self::assertNull($instance->getAmount());
-        self::assertNull($instance->amount);
-
-        $instance->setAmount($options['amount']);
-
-        self::assertEquals($options['amount'], $instance->getAmount());
-        self::assertEquals($options['amount'], $instance->amount);
-    }
-
-    /**
-     * @dataProvider validDataProvider
-     * @param $options
-     */
-    public function testAirline($options)
-    {
-        $instance = new CreatePaymentRequest();
-
-        self::assertNull($instance->getAirline());
-        self::assertNull($instance->airline);
-
-        if (!empty($options['airline'])) {
-            $instance->setAirline($options['airline']);
-            if (is_array($options['airline'])) {
-                self::assertSame($options['airline'], $instance->getAirline()->toArray());
-                self::assertSame($options['airline'], $instance->airline->toArray());
+            if (is_array($options['recipient'])) {
+                self::assertSame($options['recipient'], $instance->getRecipient()->toArray());
+                self::assertSame($options['recipient'], $instance->recipient->toArray());
             } else {
-                self::assertSame($options['airline'], $instance->getAirline());
-                self::assertSame($options['airline'], $instance->airline);
+                self::assertSame($options['recipient'], $instance->getRecipient());
+                self::assertSame($options['recipient'], $instance->recipient);
             }
         }
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testPaymentToken($options)
+    public function testAmount($options): void
+    {
+        $instance = new CreatePaymentRequest();
+
+        $instance->setAmount($options['amount']);
+
+        self::assertSame($options['amount'], $instance->getAmount());
+        self::assertSame($options['amount'], $instance->amount);
+    }
+
+    /**
+     * @dataProvider validDataProvider
+     *
+     * @param mixed $options
+     */
+    public function testPaymentToken($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -179,42 +164,46 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPaymentTokenDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidPaymentToken($value)
+    public function testSetInvalidPaymentToken($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setPaymentToken($value);
     }
 
     /**
      * @dataProvider invalidPaymentTokenDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetterInvalidPaymentToken($value)
+    public function testSetterInvalidPaymentToken($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->paymentToken = $value;
     }
 
     /**
      * @dataProvider invalidPaymentTokenDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetterInvalidPayment_token($value)
+    public function testSetterInvalidSnakePaymentToken($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->payment_token = $value;
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testPaymentMethodId($options)
+    public function testPaymentMethodId($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -274,43 +263,11 @@ class CreatePaymentRequestTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidPaymentMethodIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidPaymentMethodId($value)
-    {
-        $instance = new CreatePaymentRequest();
-        $instance->setPaymentMethodId($value);
-    }
-
-    /**
-     * @dataProvider invalidPaymentMethodIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetterInvalidPaymentMethodId($value)
-    {
-        $instance = new CreatePaymentRequest();
-        $instance->paymentMethodId = $value;
-    }
-
-    /**
-     * @dataProvider invalidPaymentMethodIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetterInvalidPayment_method_id($value)
-    {
-        $instance = new CreatePaymentRequest();
-        $instance->payment_method_id = $value;
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testPaymentData($options)
+    public function testPaymentData($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -325,8 +282,13 @@ class CreatePaymentRequestTest extends TestCase
             self::assertNull($instance->paymentMethodData);
         } else {
             self::assertTrue($instance->hasPaymentMethodData());
-            self::assertSame($options['paymentMethodData'], $instance->getPaymentMethodData());
-            self::assertSame($options['paymentMethodData'], $instance->paymentMethodData);
+            if (is_array($options['paymentMethodData'])) {
+                self::assertSame($options['paymentMethodData'], $instance->getPaymentMethodData()->toArray());
+                self::assertSame($options['paymentMethodData'], $instance->paymentMethodData->toArray());
+            } else {
+                self::assertSame($options['paymentMethodData'], $instance->getPaymentMethodData());
+                self::assertSame($options['paymentMethodData'], $instance->paymentMethodData);
+            }
         }
 
         $instance->setPaymentMethodData(null);
@@ -340,28 +302,22 @@ class CreatePaymentRequestTest extends TestCase
             self::assertNull($instance->getPaymentMethodData());
             self::assertNull($instance->paymentMethodData);
         } else {
-            self::assertTrue($instance->hasPaymentMethodData());
-            self::assertSame($options['paymentMethodData'], $instance->getPaymentMethodData());
-            self::assertSame($options['paymentMethodData'], $instance->paymentMethodData);
+            if (is_array($options['paymentMethodData'])) {
+                self::assertSame($options['paymentMethodData'], $instance->getPaymentMethodData()->toArray());
+                self::assertSame($options['paymentMethodData'], $instance->paymentMethodData->toArray());
+            } else {
+                self::assertSame($options['paymentMethodData'], $instance->getPaymentMethodData());
+                self::assertSame($options['paymentMethodData'], $instance->paymentMethodData);
+            }
         }
     }
 
     /**
-     * @dataProvider invalidPaymentDataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidPaymentData($value)
-    {
-        $instance = new CreatePaymentRequest();
-        $instance->setPaymentMethodData($value);
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testConfirmationAttributes($options)
+    public function testConfirmationAttributes($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -409,48 +365,45 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidConfirmationAttributesDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidConfirmationAttributes($value)
+    public function testSetInvalidConfirmationAttributes($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setConfirmation($value);
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testCreateRecurring($options)
+    public function testCreateRecurring($options): void
     {
         $instance = new CreatePaymentRequest();
 
-        self::assertFalse($instance->hasSavePaymentMethod());
-        self::assertNull($instance->getSavePaymentMethod());
-        self::assertNull($instance->savePaymentMethod);
+        self::assertTrue($instance->hasSavePaymentMethod());
+        self::assertFalse($instance->getSavePaymentMethod());
+        self::assertFalse($instance->savePaymentMethod);
 
         $instance->setSavePaymentMethod($options['savePaymentMethod']);
-        if ($options['savePaymentMethod'] === null || $options['savePaymentMethod'] === '') {
-            self::assertFalse($instance->hasSavePaymentMethod());
-            self::assertNull($instance->getSavePaymentMethod());
-            self::assertNull($instance->savePaymentMethod);
+        if (null === $options['savePaymentMethod'] || '' === $options['savePaymentMethod']) {
+            self::assertTrue($instance->hasSavePaymentMethod());
+            self::assertFalse($instance->getSavePaymentMethod());
+            self::assertFalse($instance->savePaymentMethod);
         } else {
             self::assertTrue($instance->hasSavePaymentMethod());
             self::assertSame($options['savePaymentMethod'], $instance->getSavePaymentMethod());
             self::assertSame($options['savePaymentMethod'], $instance->savePaymentMethod);
         }
-
-        $instance->setSavePaymentMethod(null);
-        self::assertFalse($instance->hasSavePaymentMethod());
-        self::assertNull($instance->getSavePaymentMethod());
-        self::assertNull($instance->savePaymentMethod);
 
         $instance->savePaymentMethod = $options['savePaymentMethod'];
-        if ($options['savePaymentMethod'] === null || $options['savePaymentMethod'] === '') {
-            self::assertFalse($instance->hasSavePaymentMethod());
-            self::assertNull($instance->getSavePaymentMethod());
-            self::assertNull($instance->savePaymentMethod);
+        if (null === $options['savePaymentMethod'] || '' === $options['savePaymentMethod']) {
+            self::assertTrue($instance->hasSavePaymentMethod());
+            self::assertFalse($instance->getSavePaymentMethod());
+            self::assertFalse($instance->savePaymentMethod);
         } else {
             self::assertTrue($instance->hasSavePaymentMethod());
             self::assertSame($options['savePaymentMethod'], $instance->getSavePaymentMethod());
@@ -459,72 +412,47 @@ class CreatePaymentRequestTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidBooleanDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidCreateRecurring($value)
-    {
-        $instance = new CreatePaymentRequest();
-        $instance->setSavePaymentMethod($value);
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testCapture($options)
+    public function testCapture($options): void
     {
         $instance = new CreatePaymentRequest();
 
-        self::assertFalse($instance->hasCapture());
-        self::assertNull($instance->getCapture());
-        self::assertNull($instance->capture);
+        self::assertTrue($instance->hasCapture());
+        self::assertTrue($instance->getCapture());
+        self::assertTrue($instance->capture);
 
         $instance->setCapture($options['capture']);
-        if ($options['capture'] === null || $options['capture'] === '') {
-            self::assertFalse($instance->hasCapture());
-            self::assertNull($instance->getCapture());
-            self::assertNull($instance->capture);
+        if (null === $options['capture'] || '' === $options['capture']) {
+            self::assertTrue($instance->hasCapture());
+            self::assertTrue($instance->getCapture());
+            self::assertTrue($instance->capture);
         } else {
             self::assertTrue($instance->hasCapture());
             self::assertSame($options['capture'], $instance->getCapture());
             self::assertSame($options['capture'], $instance->capture);
         }
-
-        $instance->setCapture(null);
-        self::assertFalse($instance->hasCapture());
-        self::assertNull($instance->getCapture());
-        self::assertNull($instance->capture);
 
         $instance->capture = $options['capture'];
-        if ($options['capture'] === null || $options['capture'] === '') {
-            self::assertFalse($instance->hasCapture());
-            self::assertNull($instance->getCapture());
-            self::assertNull($instance->capture);
+        if (null === $options['capture'] || '' === $options['capture']) {
+            self::assertTrue($instance->hasCapture());
+            self::assertTrue($instance->getCapture());
+            self::assertTrue($instance->capture);
         } else {
             self::assertTrue($instance->hasCapture());
             self::assertSame($options['capture'], $instance->getCapture());
             self::assertSame($options['capture'], $instance->capture);
         }
-    }
-
-    /**
-     * @dataProvider invalidBooleanDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidCapture($value)
-    {
-        $instance = new CreatePaymentRequest();
-        $instance->setCapture($value);
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testClientIp($options)
+    public function testClientIp($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -561,31 +489,11 @@ class CreatePaymentRequestTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidClientIpDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidClientIp($value)
-    {
-        $instance = new CreatePaymentRequest();
-        $instance->setClientIp($value);
-    }
-
-    public function invalidClientIpDataProvider()
-    {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array(true),
-            array(false),
-        );
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testMerchantCustomerId($options)
+    public function testMerchantCustomerId($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -629,75 +537,76 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider invalidMerchantCustomerIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidMerchantCustomerId($value)
+    public function testSetInvalidMerchantCustomerId($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setMerchantCustomerId($value);
     }
 
-    public function invalidMerchantCustomerIdDataProvider()
+    public static function invalidMerchantCustomerIdDataProvider()
     {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array(true),
-            array(false),
-            array(Random::str(Payment::MAX_LENGTH_MERCHANT_CUSTOMER_ID + 1)),
-        );
+        return [
+            [Random::str(Payment::MAX_LENGTH_MERCHANT_CUSTOMER_ID + 1)],
+        ];
     }
 
     /**
      * @dataProvider validTransfers
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetTransfer($value)
+    public function testSetTransfer($value): void
     {
         $instance = new CreatePaymentRequest();
         $instance->setTransfers($value);
-        if (is_array($value)) {
-            $value = array(new Transfer($value[0]));
+        if (is_array($value[0])) {
+            $expected = [new TransferData($value[0])];
+            self::assertEquals($expected[0]->toArray(), $instance->getTransfers()[0]->toArray());
+        } else {
+            self::assertEquals($value[0], $instance->getTransfers()[0]);
         }
-        self::assertEquals($value, $instance->getTransfers());
     }
 
     /**
      * @return array[]
-     * @throws \Exception
+     *
+     * @throws Exception
      */
-    public function validTransfers()
+    public static function validTransfers(): array
     {
-        $metadata = new Metadata();
-        $metadata->test = 'test';
-        $transfers = array();
+        $transfers = [];
         for ($i = 0; $i < 10; $i++) {
-            $transfers[$i][] = array(
-                'account_id' => (string)Random::int(11111111, 99999999),
-                'amount' => array(
-                    'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
-                    'currency' => Random::value(CurrencyCode::getValidValues())
-                ),
-                'status' => Random::value(TransferStatus::getValidValues()),
-                'platform_fee_amount' => array(
-                    'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
-                    'currency' => Random::value(CurrencyCode::getValidValues())
-                ),
-                'description' => Random::str(1, Transfer::MAX_LENGTH_DESCRIPTION),
-                'metadata' => $i == 0 ? $metadata : array('test' => 'test'),
-            );
+            foreach (range(0, Random::int(1, 3)) as $item) {
+                $transfers[$i][$item] = [
+                    'account_id' => (string)Random::int(11111111, 99999999),
+                    'amount' => [
+                        'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
+                        'currency' => Random::value(CurrencyCode::getValidValues()),
+                    ],
+                    'platform_fee_amount' => [
+                        'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
+                        'currency' => Random::value(CurrencyCode::getValidValues()),
+                    ],
+                    'description' => Random::str(1, TransferData::MAX_LENGTH_DESCRIPTION),
+                    'metadata' => ['test' => 'test'],
+                ];
+            }
         }
-        $transfers[$i][] = array(new Transfer($transfers[0]));
+        $transfers[0][0] = Random::bool() ? $transfers[0][0] : new TransferData($transfers[0][0]);
 
-        return array($transfers);
+        return [$transfers];
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testMetadata($options)
+    public function testMetadata($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -740,9 +649,10 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testDeal($options)
+    public function testDeal($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -785,9 +695,10 @@ class CreatePaymentRequestTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testFraudData($options)
+    public function testFraudData($options): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -828,7 +739,7 @@ class CreatePaymentRequestTest extends TestCase
         }
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $instance = new CreatePaymentRequest();
 
@@ -847,7 +758,7 @@ class CreatePaymentRequestTest extends TestCase
         self::assertFalse($instance->validate());
         $instance->setPaymentMethodId(null);
         self::assertTrue($instance->validate());
-        $instance->setPaymentMethodData(new PaymentDataQiwi());
+        $instance->setPaymentMethodData(new PaymentDataQiwi(['phone' => Random::str(11, '0123456789')]));
         self::assertFalse($instance->validate());
         $instance->setPaymentToken(null);
         self::assertTrue($instance->validate());
@@ -857,9 +768,22 @@ class CreatePaymentRequestTest extends TestCase
         self::assertTrue($instance->validate());
 
         $receipt = new Receipt();
+        $receipt->setItems([
+            [
+                'description' => Random::str(10),
+                'quantity' => (float) Random::int(1, 10),
+                'amount' => [
+                    'value' => round(Random::float(1, 100), 2),
+                    'currency' => CurrencyCode::RUB,
+                ],
+                'vat_code' => Random::int(1, 6),
+                'payment_subject' => PaymentSubject::COMMODITY,
+                'payment_mode' => PaymentMode::PARTIAL_PREPAYMENT,
+            ],
+        ]);
         $instance->setReceipt($receipt);
         $item = new ReceiptItem();
-        $item->setPrice(new MonetaryAmount(10, CurrencyCode::RUB));
+        $item->setPrice(new ReceiptItemAmount(10));
         $item->setDescription('test');
         $receipt->addItem($item);
         self::assertFalse($instance->validate());
@@ -879,52 +803,55 @@ class CreatePaymentRequestTest extends TestCase
         self::assertFalse($instance->validate());
     }
 
-    public function testBuilder()
+    public function testBuilder(): void
     {
         $builder = CreatePaymentRequest::builder();
-        self::assertTrue($builder instanceof CreatePaymentRequestBuilder);
+        self::assertInstanceOf(CreatePaymentRequestBuilder::class, $builder);
     }
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidMetadata($value)
+    public function testSetInvalidMetadata($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setMetadata($value);
     }
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidDeal($value)
+    public function testSetInvalidDeal($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setDeal($value);
     }
 
     /**
      * @dataProvider invalidFraudDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidFraudData($value)
+    public function testSetInvalidFraudData($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePaymentRequest();
         $instance->setFraudData($value);
     }
 
-    public function validDataProvider()
+    public static function validDataProvider()
     {
         $metadata = new Metadata();
         $metadata->test = 'test';
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'recipient' => null,
                     'amount' => new MonetaryAmount(Random::int(1, 1000000)),
                     'referenceId' => null,
@@ -932,237 +859,197 @@ class CreatePaymentRequestTest extends TestCase
                     'paymentMethodId' => null,
                     'paymentMethodData' => null,
                     'confirmation' => null,
-                    'savePaymentMethod' => null,
-                    'capture' => null,
+                    'savePaymentMethod' => false,
+                    'capture' => true,
                     'clientIp' => null,
                     'metadata' => null,
                     'deal' => null,
                     'fraud_data' => null,
                     'merchant_customer_id' => null,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'recipient' => null,
                     'amount' => new MonetaryAmount(Random::int(1, 1000000)),
                     'referenceId' => '',
                     'paymentToken' => '',
                     'paymentMethodId' => '',
-                    'paymentMethodData' => '',
-                    'confirmation' => '',
-                    'savePaymentMethod' => '',
-                    'capture' => '',
+                    'paymentMethodData' => null,
+                    'confirmation' => null,
+                    'savePaymentMethod' => true,
+                    'capture' => true,
                     'clientIp' => '',
-                    'metadata' => array(),
-                    'deal' => new PaymentDealInfo(array(
+                    'metadata' => [],
+                    'deal' => new PaymentDealInfo([
                         'id' => Random::str(36, 50),
-                        'settlements' => array()
-                    )),
-                    'fraud_data' => new FraudData(array(
+                        'settlements' => [
+                            [
+                                'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
+                                'amount' => [
+                                    'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
+                                    'currency' => Random::value(CurrencyCode::getValidValues()),
+                                ],
+                            ]
+                        ],
+                    ]),
+                    'fraud_data' => new FraudData([
                         'topped_up_phone' => Random::str(11, 15, '0123456789'),
-                    )),
+                    ]),
                     'merchant_customer_id' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         for ($i = 0; $i < 10; $i++) {
-            $request = array(
-                'recipient' => new Recipient(),
+            $request = [
+                'recipient' => new Recipient(['account_id' => Random::str(11, '0123456789')]),
                 'amount' => new MonetaryAmount(Random::int(1, 1000000)),
-                'referenceId' => uniqid(),
-                'paymentToken' => uniqid(),
-                'paymentMethodId' => uniqid(),
-                'paymentMethodData' => new PaymentDataQiwi(),
+                'referenceId' => uniqid('', true),
+                'paymentToken' => uniqid('', true),
+                'paymentMethodId' => uniqid('', true),
+                'paymentMethodData' => new PaymentDataQiwi(['phone' => Random::str(11, '0123456789')]),
                 'confirmation' => new ConfirmationAttributesExternal(),
                 'savePaymentMethod' => Random::bool(),
                 'capture' => Random::bool(),
-                'clientIp' => long2ip(mt_rand(0, pow(2, 32))),
-                'metadata' => $i == 0 ? $metadata : array('test' => 'test'),
-                'transfers' => array(
-                    array(
-                        'account_id' => (string)Random::int(11111111, 99999999),
-                        'amount' => array(
+                'clientIp' => long2ip(Random::int(0, 2 ** 32)),
+                'metadata' => 0 === $i ? $metadata : ['test' => 'test'],
+                'transfers' => [
+                    [
+                        'account_id' => (string) Random::int(11111111, 99999999),
+                        'amount' => [
                             'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
-                            'currency' => Random::value(CurrencyCode::getValidValues())
-                        ),
-                        'status' => Random::value(TransferStatus::getValidValues()),
-                        'platform_fee_amount' => array(
+                            'currency' => Random::value(CurrencyCode::getValidValues()),
+                        ],
+                        'platform_fee_amount' => [
                             'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
-                            'currency' => Random::value(CurrencyCode::getValidValues())
-                        ),
-                        'description' => Random::str(1, Transfer::MAX_LENGTH_DESCRIPTION),
-                        'metadata' => $i == 0 ? $metadata : array('test' => 'test'),
-                    )
-                ),
-                'airline' => array(
-                    'booking_reference' => 'IIIKRV',
-                    'ticket_number'     => '12342123413',
-                    'passengers'        => array(
-                        array(
-                            'first_name' => 'SERGEI',
-                            'last_name'  => 'IVANOV',
-                        ),
-                    ),
-                    'legs'              => array(
-                        array(
-                            'departure_airport'   => 'LED',
-                            'destination_airport' => 'AMS',
-                            'departure_date'      => '2018-06-20',
-                        ),
-                    ),
-                ),
-                'deal' => array(
+                            'currency' => Random::value(CurrencyCode::getValidValues()),
+                        ],
+                        'description' => Random::str(1, TransferData::MAX_LENGTH_DESCRIPTION),
+                        'metadata' => 0 === $i ? $metadata : ['test' => 'test'],
+                    ],
+                ],
+                'deal' => [
                     'id' => Random::str(36, 50),
-                    'settlements' => array()
-                ),
-                'fraud_data' => array(
+                    'settlements' => [
+                        [
+                            'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
+                            'amount' => [
+                                'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
+                                'currency' => Random::value(CurrencyCode::getValidValues()),
+                            ],
+                        ]
+                    ],
+                ],
+                'fraud_data' => [
                     'topped_up_phone' => Random::str(11, 15, '0123456789'),
-                ),
+                ],
                 'merchant_customer_id' => Random::str(36, 50),
-            );
-            $result[] = array($request);
+            ];
+            $result[] = [$request];
         }
 
-        $result[] = array(
-            array(
-                'recipient' => new Recipient(),
+        $result[] = [
+            [
+                'recipient' => ['account_id' => Random::str(11, '0123456789')],
                 'amount' => new MonetaryAmount(Random::int(1, 1000000)),
-                'referenceId' => uniqid(),
-                'paymentToken' => uniqid(),
-                'paymentMethodId' => uniqid(),
-                'paymentMethodData' => new PaymentDataQiwi(),
-                'confirmation' => array(
-                    'return_url' => Random::str(10),
+                'referenceId' => uniqid('', true),
+                'paymentToken' => uniqid('', true),
+                'paymentMethodId' => uniqid('', true),
+                'paymentMethodData' => ['phone' => Random::str(11, '0123456789'), 'type' => 'qiwi', ],
+                'confirmation' => [
+                    'return_url' => 'https://test.com',
                     'type' => ConfirmationType::MOBILE_APPLICATION,
                     'locale' => Locale::RUSSIAN,
-                ),
+                ],
                 'savePaymentMethod' => Random::bool(),
                 'capture' => Random::bool(),
-                'clientIp' => long2ip(mt_rand(0, pow(2, 32))),
-                'metadata' => $i == 0 ? $metadata : array('test' => 'test'),
-                'transfers' => array(
-                    array(
-                        'account_id' => (string)Random::int(11111111, 99999999),
-                        'amount' => array(
+                'clientIp' => long2ip(Random::int(0, 2 ** 32)),
+                'metadata' => Random::bool() ? $metadata : ['test' => 'test'],
+                'transfers' => [
+                    [
+                        'account_id' => (string) Random::int(11111111, 99999999),
+                        'amount' => [
                             'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
-                            'currency' => Random::value(CurrencyCode::getValidValues())
-                        ),
-                        'status' => Random::value(TransferStatus::getValidValues()),
-                        'platform_fee_amount' => array(
+                            'currency' => Random::value(CurrencyCode::getValidValues()),
+                        ],
+                        'platform_fee_amount' => [
                             'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
-                            'currency' => Random::value(CurrencyCode::getValidValues())
-                        ),
-                        'description' => Random::str(1, Transfer::MAX_LENGTH_DESCRIPTION),
-                        'metadata' => $i == 0 ? $metadata : array('test' => 'test'),
-                    )
-                ),
-                'deal' => array(
+                            'currency' => Random::value(CurrencyCode::getValidValues()),
+                        ],
+                        'description' => Random::str(1, TransferData::MAX_LENGTH_DESCRIPTION),
+                        'metadata' => Random::bool() ? $metadata : ['test' => 'test'],
+                    ],
+                ],
+                'deal' => [
                     'id' => Random::str(36, 50),
-                    'settlements' => array()
-                ),
-                'fraud_data' => new FraudData(array(
+                    'settlements' => [
+                        [
+                            'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
+                            'amount' => [
+                                'value' => sprintf('%.2f', round(Random::float(0.1, 99.99), 2)),
+                                'currency' => Random::value(CurrencyCode::getValidValues()),
+                            ],
+                        ]
+                    ],
+                ],
+                'fraud_data' => new FraudData([
                     'topped_up_phone' => Random::str(11, 15, '0123456789'),
-                )),
+                ]),
                 'merchant_customer_id' => Random::str(36, 50),
-            )
-        );
+            ],
+        ];
 
         return $result;
     }
 
-    public function invalidRecipientDataProvider()
-    {
-        return array(
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-            array(new \stdClass()),
-        );
-    }
-
     public function invalidReferenceIdDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(array()),
-            array(Random::str(32)),
-        );
+        return [
+            [false],
+            [true],
+            [new stdClass()],
+            [[]],
+            [Random::str(32)],
+        ];
     }
 
-    public function invalidPaymentTokenDataProvider()
+    public static function invalidPaymentTokenDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(array()),
-            array(Random::str(CreatePaymentRequest::MAX_LENGTH_PAYMENT_TOKEN + 1)),
-        );
+        return [
+            [Random::str(CreatePaymentRequest::MAX_LENGTH_PAYMENT_TOKEN + 1)],
+        ];
     }
 
-    public function invalidPaymentMethodIdDataProvider()
+    public static function invalidConfirmationAttributesDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(array()),
-        );
+        return [
+            [[]],
+            [false],
+            [true],
+            [1],
+            [Random::str(10)],
+            [new stdClass()],
+        ];
     }
 
-    public function invalidPaymentDataDataProvider()
+    public static function invalidMetadataDataProvider()
     {
-        return array(
-            array(array()),
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-            array(new \stdClass()),
-        );
+        return [
+            [false],
+            [true],
+            [1],
+            [Random::str(10)],
+        ];
     }
 
-    public function invalidConfirmationAttributesDataProvider()
+    public static function invalidFraudDataProvider()
     {
-        return array(
-            array(array()),
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-            array(new \stdClass()),
-        );
+        return [
+            [false],
+            [true],
+            [new stdClass()],
+            [Random::str(16, 30, '0123456789')],
+        ];
     }
 
-    public function invalidMetadataDataProvider()
-    {
-        return array(
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-        );
-    }
-
-    public function invalidFraudDataProvider()
-    {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(Random::str(16, 30, '0123456789')),
-        );
-    }
-
-    public function invalidBooleanDataProvider()
-    {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array('test'),
-        );
-    }
 }

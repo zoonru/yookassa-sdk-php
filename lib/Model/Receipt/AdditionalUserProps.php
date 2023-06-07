@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,17 +27,17 @@
 namespace YooKassa\Model\Receipt;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Class AdditionalUserProps
+ * Class AdditionalUserProps.
  *
- * Дополнительный реквизит пользователя
+ * Дополнительный реквизит пользователя (тег в 54 ФЗ — 1084). <br/>Можно передавать, если вы отправляете данные для формирования чека по сценарию [Сначала платеж, потом чек](/developers/payment-acceptance/receipts/54fz/other-services/basics#receipt-after-payment)
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @property string $name Наименование дополнительного реквизита пользователя (тег в 54 ФЗ — 1085). Не более 64 символов.
  * @property string $value Значение дополнительного реквизита пользователя (тег в 54 ФЗ — 1086). Не более 234 символов.
@@ -45,77 +45,74 @@ use YooKassa\Helpers\TypeCast;
 class AdditionalUserProps extends AbstractObject
 {
     /** @var int Максимальная длинна наименования реквизита */
-    const NAME_MAX_LENGTH = 64;
+    public const NAME_MAX_LENGTH = 64;
+
     /** @var int Максимальная длинна значение наименования реквизита */
-    const VALUE_MAX_LENGTH = 234;
+    public const VALUE_MAX_LENGTH = 234;
 
     /**
-     * @var string Наименование дополнительного реквизита пользователя (тег в 54 ФЗ — 1085). Не более 64 символов
+     * Наименование дополнительного реквизита пользователя (тег в 54 ФЗ — 1085). Не более 64 символов.
+     *
+     * @var string|null
      */
-    private $_name;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::NAME_MAX_LENGTH)]
+    private ?string $_name = null;
 
     /**
-     * @var string Значение дополнительного реквизита пользователя (тег в 54 ФЗ — 1086). Не более 234 символов
+     * Значение дополнительного реквизита пользователя (тег в 54 ФЗ — 1086). Не более 234 символов.
+     *
+     * @var string|null
      */
-    private $_value;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::VALUE_MAX_LENGTH)]
+    private ?string $_value = null;
 
     /**
-     * Возвращает наименование дополнительного реквизита пользователя
-     * @return string Наименование дополнительного реквизита пользователя
+     * Возвращает наименование дополнительного реквизита пользователя.
+     *
+     * @return string|null Наименование дополнительного реквизита пользователя
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->_name;
     }
 
     /**
-     * Устанавливает наименование дополнительного реквизита пользователя
-     * @param string $value Наименование дополнительного реквизита пользователя
+     * Устанавливает наименование дополнительного реквизита пользователя.
+     *
+     * @param string|null $name Наименование дополнительного реквизита пользователя
+     *
+     * @return self
      */
-    public function setName($value)
+    public function setName(?string $name = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty name value', 0, 'AdditionalUserProps.name');
-        }
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid name value type', 0, 'AdditionalUserProps.name', $value);
-        }
-        if (mb_strlen((string)$value) > self::NAME_MAX_LENGTH) {
-            throw new InvalidPropertyValueException('Invalid name value length: "' . $value . '"', 0, 'AdditionalUserProps.name', $value);
-        }
-
-        $this->_name = (string)$value;
-
+        $this->_name = $this->validatePropertyValue('_name', $name);
         return $this;
     }
 
     /**
-     * Возвращает значение дополнительного реквизита пользователя
-     * @return string Значение дополнительного реквизита пользователя
+     * Возвращает значение дополнительного реквизита пользователя.
+     *
+     * @return string|null Значение дополнительного реквизита пользователя
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->_value;
     }
 
     /**
-     * Устанавливает значение дополнительного реквизита пользователя
-     * @param string $value Значение дополнительного реквизита пользователя
+     * Устанавливает значение дополнительного реквизита пользователя.
+     *
+     * @param string|null $value Значение дополнительного реквизита пользователя
+     *
+     * @return self
      */
-    public function setValue($value)
+    public function setValue(?string $value = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty value', 0, 'AdditionalUserProps.value');
-        }
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid value type', 0, 'AdditionalUserProps.value', $value);
-        }
-        if (mb_strlen((string)$value) > self::VALUE_MAX_LENGTH) {
-            throw new InvalidPropertyValueException('Invalid value length: "' . $value . '"', 0, 'AdditionalUserProps.value', $value);
-        }
-
-        $this->_value = (string)$value;
-
+        $this->_value = $this->validatePropertyValue('_value', $value);
         return $this;
     }
 }

@@ -2,34 +2,27 @@
 
 namespace Tests\YooKassa\Model\Payout;
 
+use Exception;
+use stdClass;
 use YooKassa\Helpers\Random;
+use YooKassa\Model\Payment\PaymentMethod\BankCardType;
+use YooKassa\Model\Payment\PaymentMethodType;
 use YooKassa\Model\Payout\PayoutDestinationBankCard;
 use YooKassa\Model\Payout\PayoutDestinationBankCardCard;
-use YooKassa\Model\PaymentMethodType;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueTypeException;
+use YooKassa\Validator\Exceptions\ValidatorParameterException;
 
-class PayoutDestinationBankCardTest extends AbstractPayoutDestinationTest
+/**
+ * @internal
+ */
+class PayoutDestinationBankCardTest extends AbstractTestPayoutDestination
 {
     /**
-     * @return PayoutDestinationBankCard
-     */
-    protected function getTestInstance()
-    {
-        return new PayoutDestinationBankCard();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedType()
-    {
-        return PaymentMethodType::BANK_CARD;
-    }
-
-    /**
      * @dataProvider validCardDataProvider
-     * @param PayoutDestinationBankCardCard $value
      */
-    public function testGetSetBankCard($value)
+    public function testGetSetBankCard(mixed $value): void
     {
         $instance = $this->getTestInstance();
 
@@ -37,7 +30,7 @@ class PayoutDestinationBankCardTest extends AbstractPayoutDestinationTest
         self::assertNull($instance->card);
 
         $instance->setCard($value);
-        if ($value === null || $value === '' || $value === array()) {
+        if (null === $value) {
             self::assertNull($instance->getCard());
             self::assertNull($instance->card);
         } else {
@@ -55,7 +48,7 @@ class PayoutDestinationBankCardTest extends AbstractPayoutDestinationTest
 
         $instance = $this->getTestInstance();
         $instance->card = $value;
-        if ($value === null || $value === '' || $value === array()) {
+        if (null === $value) {
             self::assertNull($instance->getCard());
             self::assertNull($instance->card);
         } else {
@@ -74,50 +67,86 @@ class PayoutDestinationBankCardTest extends AbstractPayoutDestinationTest
 
     /**
      * @dataProvider invalidCardDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetInvalidCard($value)
+    public function testSetInvalidCard(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->setCard($value);
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->setCard($value);
     }
 
     /**
      * @dataProvider invalidCardDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testSetterInvalidCard($value)
+    public function testSetterInvalidCard(mixed $value, string $exceptionClassName): void
     {
-        $this->getTestInstance()->card = $value;
+        $instance = $this->getTestInstance();
+
+        $this->expectException($exceptionClassName);
+        $instance->card = $value;
     }
 
-    public function validCardDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function validCardDataProvider(): array
     {
-        return array(
-            array(null),
-            array(new PayoutDestinationBankCardCard()),
-            array(array()),
-            array(''),
-            array(array(
+        return [
+            [null],
+            [new PayoutDestinationBankCardCard([
                 'first6' => Random::str(6, '0123456789'),
                 'last4' => Random::str(4, '0123456789'),
-                'card_type' => 'Visa',
+                'card_type' => Random::value(BankCardType::getValidValues()),
+            ])],
+            [[
+                'first6' => Random::str(6, '0123456789'),
+                'last4' => Random::str(4, '0123456789'),
+                'card_type' => Random::value(BankCardType::getValidValues()),
                 'issuer_country' => 'RU',
                 'issuer_name' => 'SberBank',
-            )),
-        );
+            ]],
+        ];
     }
 
-    public function invalidCardDataProvider()
+    /**
+     * @return array
+     */
+    public static function invalidCardDataProvider(): array
     {
-        return array(
-            array(0),
-            array(1),
-            array(-1),
-            array('5'),
-            array(true),
-            array(new \stdClass()),
-        );
+        return [
+            [[''], EmptyPropertyValueException::class],
+            ['5', ValidatorParameterException::class],
+            [[
+                'first6' => Random::str(100),
+                'last4'  => Random::str(100),
+                'card_type'  => Random::str(100),
+            ], InvalidPropertyValueException::class],
+            [new stdClass(), InvalidPropertyValueTypeException::class],
+            [[new stdClass()], EmptyPropertyValueException::class],
+        ];
+    }
+
+    /**
+     * @return PayoutDestinationBankCard
+     */
+    protected function getTestInstance(): PayoutDestinationBankCard
+    {
+        return new PayoutDestinationBankCard();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getExpectedType(): string
+    {
+        return PaymentMethodType::BANK_CARD;
     }
 }

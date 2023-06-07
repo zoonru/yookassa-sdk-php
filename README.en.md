@@ -1,6 +1,5 @@
 # The YooKassa API PHP Client Library
 
-[![Build Status](https://img.shields.io/travis/yoomoney/yookassa-sdk-php)](https://travis-ci.org/yoomoney/yookassa-sdk-php)
 [![Latest Stable Version](https://img.shields.io/packagist/v/yoomoney/yookassa-sdk-php?label=stable)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
 [![Total Downloads](https://img.shields.io/packagist/dt/yoomoney/yookassa-sdk-php)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/yoomoney/yookassa-sdk-php)](https://packagist.org/packages/yoomoney/yookassa-sdk-php)
@@ -12,7 +11,7 @@ This product is used for managing payments under [The YooKassa API](https://yook
 For usage by those who implemented YooKassa using the API method.
 
 ## Requirements
-PHP 5.3.2 (or later version) with the libcurl library
+PHP 8.0 (or later version) with the libcurl library
 
 ## Installation
 ### Under console using Composer
@@ -24,12 +23,12 @@ composer require yoomoney/yookassa-sdk-php
 ```
 
 ### Do the following for the composer.json file of your project:
-1. Add a string `"yoomoney/yookassa-sdk-php": "^2.8"` to the list of dependencies of your project in the composer.json file
+1. Add a string `"yoomoney/yookassa-sdk-php": "^3.0"` to the list of dependencies of your project in the composer.json file
 ```
 ...
    "require": {
-        "php": ">=5.3.2",
-        "yoomoney/yookassa-sdk-php": "^2.8"
+        "php": ">=8.0",
+        "yoomoney/yookassa-sdk-php": "^3.0"
 ...
 ```
 2. Refresh the project's dependencies. In the console, navigate to the catalog with composer.json and run the following command:

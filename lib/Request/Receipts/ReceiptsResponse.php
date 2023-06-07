@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,96 +26,69 @@
 
 namespace YooKassa\Request\Receipts;
 
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
+use YooKassa\Request\AbstractListResponse;
+use YooKassa\Validator\Constraints as Assert;
+
 /**
- * Класс для работы со списком чеков
+ * Класс для работы со списком чеков.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ *
+ * @property AbstractReceiptResponse[]|ListObjectInterface|null $items Список чеков. Чеки отсортированы по времени создания в порядке убывания (desc)
  */
-class ReceiptsResponse
+class ReceiptsResponse extends AbstractListResponse
 {
     /**
-     * Формат выдачи результатов запроса. Возможное значение: `list` (список).
+     * Список чеков.
      *
-     * @var string Формат выдачи результатов запроса.
+     * @var AbstractReceiptResponse[]|ListObjectInterface|null Список чеков
      */
-    private $type;
+    #[Assert\Valid]
+    #[Assert\Type(ListObject::class)]
+    #[Assert\AllType(AbstractReceiptResponse::class)]
+    protected ?ListObject $_items = null;
 
     /**
-     * Список чеков
-     *
-     * @var ReceiptResponseInterface[] Список чеков
+     * @param iterable $sourceArray
+     * @return void
      */
-    private $items;
-
-    /**
-     * @var string|null Токен следующей страницы
-     */
-    private $nextCursor;
-
-    /**
-     * @var ReceiptResponseFactory Фабрика для создания чеков
-     */
-    private $factory;
-
-    /**
-     * Конструктор, устанавливает список полученых от API чеков
-     *
-     * @param array $response Разобранный ответ от API в виде чеков
-     * @throws \Exception
-     */
-    public function __construct($response)
+    public function fromArray(iterable $sourceArray): void
     {
-        $this->factory = new ReceiptResponseFactory();
-
-        if (!empty($response['type'])) {
-            $this->type = $response['type'];
+        if (!empty($sourceArray['type'])) {
+            $this->_type = $this->validatePropertyValue('_type', $sourceArray['type']);
         }
+        if (!empty($sourceArray['items'])) {
+            $factory = new ReceiptResponseFactory();
 
-        $this->items = array();
-        foreach ($response['items'] as $item) {
-            if ($receipt = $this->factory->factory($item)) {
-                $this->items[] = $receipt;
+            $itemsObj = [];
+            foreach ($sourceArray['items'] as $item) {
+                if ($receipt = $factory->factory($item)) {
+                    $itemsObj[] = $receipt;
+                }
             }
+
+            $this->_items = $this->validatePropertyValue('_items', $itemsObj);
         }
-
-        if (!empty($response['next_cursor'])) {
-            $this->nextCursor = $response['next_cursor'];
+        if (!empty($sourceArray['next_cursor'])) {
+            $this->_next_cursor = $this->validatePropertyValue('_next_cursor', $sourceArray['next_cursor']);
         }
     }
 
     /**
-     * Возвращает формат выдачи результатов запроса. Возможное значение: `list` (список).
-     * @return string Формат выдачи результатов запроса.
+     * Возвращает список чеков.
+     *
+     * @return AbstractReceiptResponse[]|ListObjectInterface Список чеков
      */
-    public function getType()
+    public function getItems(): ListObjectInterface
     {
-        return $this->type;
-    }
-
-    /**
-     * Возаращает список чеков
-     * @return ReceiptResponseInterface[] Список чеков
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-     * Возвращает токен следующей страницы, если он задан, или null
-     * @return string|null Токен следующей страницы
-     */
-    public function getNextCursor()
-    {
-        return $this->nextCursor;
-    }
-
-    /**
-     * Проверяет имееотся ли в ответе токен следующей страницы
-     * @return bool True если токен следующей страницы есть, false если нет
-     */
-    public function hasNextCursor()
-    {
-        return $this->nextCursor !== null;
+        if($this->_items === null) {
+            $this->_items = new ListObject(AbstractReceiptResponse::class);
+        }
+        return $this->_items;
     }
 }

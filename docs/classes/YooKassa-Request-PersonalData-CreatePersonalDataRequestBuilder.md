@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс билдера объектов запросов к API на создание платежа
+Класс, представляющий модель CreatePersonalDataRequestBuilder.
 
+**Description:**
+
+Класс билдера объектов запросов к API на создание платежа.
 
 ---
 ### Examples
@@ -14,79 +17,21 @@
 
 ```php
 try {
-    $builder = \YooKassa\Request\Payments\CreatePaymentRequest::builder();
-    $builder->setAmount(100)
-            ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
-            ->setCapture(true)
-            ->setDescription('Оплата заказа 112233')
-            ->setMetadata(array(
-                'cms_name'       => 'yoo_api_test',
-                'order_id'       => '112233',
-                'language'       => 'ru',
-                'transaction_id' => '123-456-789',
-            ));
-
-    // Устанавливаем страницу для редиректа после оплаты
-    $builder->setConfirmation(array(
-        'type'      => \YooKassa\Model\ConfirmationType::REDIRECT,
-        'returnUrl' => 'https://merchant-site.ru/payment-return-page',
-    ));
-
-    // Можем установить конкретный способ оплаты
-    $builder->setPaymentMethodData(\YooKassa\Model\PaymentMethodType::BANK_CARD);
-
-    // Составляем чек
-    $builder->setReceiptEmail('john.doe@merchant.com');
-    $builder->setReceiptPhone('71111111111');
-    // Добавим товар
-    $builder->addReceiptItem(
-        'Платок Gucci',
-        3000,
-        1.0,
-        2,
-        'full_payment',
-        'commodity'
-    );
-    // Добавим доставку
-    $builder->addReceiptShipping(
-        'Delivery/Shipping/Доставка',
-        100,
-        1,
-        \YooKassa\Model\Receipt\PaymentMode::FULL_PAYMENT,
-        \YooKassa\Model\Receipt\PaymentSubject::SERVICE
-    );
-
-    // Можно добавить распределение денег по магазинам
-    $builder->setTransfers(array(
-        array(
-            'account_id' => 123456,
-            'amount' => array(
-                array(
-                    'value' => 1000,
-                    'currency' => \YooKassa\Model\CurrencyCode::RUB
-                )
-            ),
-        ),
-        array(
-            'account_id' => 654321,
-            'amount' => array(
-                array(
-                    'value' => 2000,
-                    'currency' => \YooKassa\Model\CurrencyCode::RUB
-                )
-            ),
-        )
-    ));
+    $personalDataBuilder = \YooKassa\Request\PersonalData\CreatePersonalDataRequest::builder();
+    $personalDataBuilder
+        ->setType(\YooKassa\Model\PersonalData\PersonalDataType::SBP_PAYOUT_RECIPIENT)
+        ->setFirstName('Иван')
+        ->setLastName('Иванов')
+        ->setMiddleName('Иванович')
+        ->setMetadata(['recipient_id' => '37'])
+    ;
 
     // Создаем объект запроса
-    $request = $builder->build();
-
-    // Можно изменить данные, если нужно
-    $request->setDescription($request->getDescription() . ' - merchant comment');
+    $request = $personalDataBuilder->build();
 
     $idempotenceKey = uniqid('', true);
-    $response = $client->createPayment($request, $idempotenceKey);
-} catch (\Exception $e) {
+    $response = $client->createPersonalData($request, $idempotenceKey);
+} catch (Exception $e) {
     $response = $e;
 }
 
@@ -102,40 +47,50 @@ var_dump($response);
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| protected | [$currentObject](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#property_currentObject) |  | Собираемый объект запроса |
+| protected | [$currentObject](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#property_currentObject) |  | Собираемый объект запроса. |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать |
-| public | [build()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_build) |  | Строит и возвращает объект запроса для отправки в API ЮKassa |
+| public | [__construct()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method___construct) |  | Конструктор, инициализирует пустой запрос, который в будущем начнём собирать. |
+| public | [build()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_build) |  | Строит и возвращает объект запроса для отправки в API ЮKassa. |
 | public | [setFirstName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_setFirstName) |  | Устанавливает имя пользователя. |
 | public | [setLastName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_setLastName) |  | Устанавливает фамилию пользователя. |
-| public | [setMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_setMetadata) |  | Устанавливает метаданные, привязанные к платежу |
+| public | [setMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_setMetadata) |  | Устанавливает метаданные, привязанные к платежу. |
 | public | [setMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_setMiddleName) |  | Устанавливает отчество пользователя. |
-| public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива |
+| public | [setOptions()](../classes/YooKassa-Common-AbstractRequestBuilder.md#method_setOptions) |  | Устанавливает свойства запроса из массива. |
 | public | [setType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_setType) |  | Устанавливает тип персональных данных. |
 | protected | [initCurrentObject()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md#method_initCurrentObject) |  | Инициализирует объект запроса, который в дальнейшем будет собираться билдером |
 
 ---
 ### Details
 * File: [lib/Request/PersonalData/CreatePersonalDataRequestBuilder.php](../../lib/Request/PersonalData/CreatePersonalDataRequestBuilder.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
   * \YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder
 
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
+
 ---
 ## Properties
 <a name="property_currentObject"></a>
-#### protected $currentObject : \YooKassa\Request\PersonalData\CreatePersonalDataRequest
+#### protected $currentObject : ?\YooKassa\Common\AbstractRequestInterface
 ---
 **Summary**
 
-Собираемый объект запроса
+Собираемый объект запроса.
 
-**Type:** <a href="../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.html"><abbr title="\YooKassa\Request\PersonalData\CreatePersonalDataRequest">CreatePersonalDataRequest</abbr></a>
+**Type:** <a href="../?\YooKassa\Common\AbstractRequestInterface"><abbr title="?\YooKassa\Common\AbstractRequestInterface">AbstractRequestInterface</abbr></a>
 
 **Details:**
 
@@ -152,7 +107,7 @@ public __construct() : mixed
 
 **Summary**
 
-Конструктор, инициализирует пустой запрос, который в будущем начнём собирать
+Конструктор, инициализирует пустой запрос, который в будущем начнём собирать.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -161,15 +116,15 @@ public __construct() : mixed
 
 
 <a name="method_build" class="anchor"></a>
-#### public build() : \YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface|\YooKassa\Request\PersonalData\CreatePersonalDataRequest|\YooKassa\Common\AbstractRequest
+#### public build() : \YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface|\YooKassa\Common\AbstractRequestInterface
 
 ```php
-public build(array|null $options = null) : \YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface|\YooKassa\Request\PersonalData\CreatePersonalDataRequest|\YooKassa\Common\AbstractRequest
+public build(null|array $options = null) : \YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface|\YooKassa\Common\AbstractRequestInterface
 ```
 
 **Summary**
 
-Строит и возвращает объект запроса для отправки в API ЮKassa
+Строит и возвращает объект запроса для отправки в API ЮKassa.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md)
@@ -177,14 +132,9 @@ public build(array|null $options = null) : \YooKassa\Request\PersonalData\Create
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR null</code> | options  | Массив параметров для установки в объект запроса |
+| <code lang="php">null OR array</code> | options  | Массив параметров для установки в объект запроса |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidRequestException | Выбрасывается если собрать объект запроса не удалось |
-
-**Returns:** \YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface|\YooKassa\Request\PersonalData\CreatePersonalDataRequest|\YooKassa\Common\AbstractRequest - Инстанс объекта запроса
+**Returns:** \YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface|\YooKassa\Common\AbstractRequestInterface - Инстанс объекта запроса
 
 
 <a name="method_setFirstName" class="anchor"></a>
@@ -204,7 +154,7 @@ public setFirstName(string $value) : self
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Имя пользователя. |
+| <code lang="php">string</code> | value  | имя пользователя |
 
 **Returns:** self - 
 
@@ -226,7 +176,7 @@ public setLastName(string $value) : self
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Фамилия пользователя. |
+| <code lang="php">string</code> | value  | фамилия пользователя |
 
 **Returns:** self - 
 
@@ -235,12 +185,12 @@ public setLastName(string $value) : self
 #### public setMetadata() : \YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder
 
 ```php
-public setMetadata(\YooKassa\Model\Metadata|array|null $value) : \YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder
+public setMetadata(null|array|\YooKassa\Model\Metadata $value) : \YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает метаданные, привязанные к платежу
+Устанавливает метаданные, привязанные к платежу.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md)
@@ -248,12 +198,7 @@ public setMetadata(\YooKassa\Model\Metadata|array|null $value) : \YooKassa\Reque
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\Metadata OR array OR null</code> | value  | Метаданные платежа, устанавливаемые мерчантом |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданные данные не удалось интерпретировать как метаданные платежа |
+| <code lang="php">null OR array OR \YooKassa\Model\Metadata</code> | value  | Метаданные платежа, устанавливаемые мерчантом |
 
 **Returns:** \YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder - Инстанс текущего билдера
 
@@ -262,7 +207,7 @@ public setMetadata(\YooKassa\Model\Metadata|array|null $value) : \YooKassa\Reque
 #### public setMiddleName() : self
 
 ```php
-public setMiddleName(string $value) : self
+public setMiddleName(null|string $value) : self
 ```
 
 **Summary**
@@ -275,7 +220,7 @@ public setMiddleName(string $value) : self
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Отчество пользователя. |
+| <code lang="php">null OR string</code> | value  | Отчество пользователя |
 
 **Returns:** self - 
 
@@ -284,12 +229,12 @@ public setMiddleName(string $value) : self
 #### public setOptions() : \YooKassa\Common\AbstractRequestBuilder
 
 ```php
-public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractRequestBuilder
+public setOptions(iterable|null $options) : \YooKassa\Common\AbstractRequestBuilder
 ```
 
 **Summary**
 
-Устанавливает свойства запроса из массива
+Устанавливает свойства запроса из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequestBuilder](../classes/YooKassa-Common-AbstractRequestBuilder.md)
@@ -297,13 +242,13 @@ public setOptions(array|\Traversable $options) : \YooKassa\Common\AbstractReques
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \Traversable</code> | options  | Массив свойств запроса |
+| <code lang="php">iterable OR null</code> | options  | Массив свойств запроса |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \InvalidArgumentException | Выбрасывается если аргумент не массив и не итерируемый объект |
-| \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданныч в массиве настроек |
+| \YooKassa\Common\Exceptions\InvalidPropertyException | Выбрасывается если не удалось установить один из параметров, переданных в массиве настроек |
 
 **Returns:** \YooKassa\Common\AbstractRequestBuilder - Инстанс текущего билдера запросов
 
@@ -358,11 +303,11 @@ protected initCurrentObject() : \YooKassa\Request\PersonalData\CreatePersonalDat
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

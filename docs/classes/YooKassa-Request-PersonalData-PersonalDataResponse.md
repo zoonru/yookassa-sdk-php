@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Класс, представляющий модель PersonalData.
+Класс, представляющий модель PersonalDataResponse.
 
 **Description:**
 
@@ -29,52 +29,65 @@
 | public | [$metadata](../classes/YooKassa-Model-PersonalData-PersonalData.md#property_metadata) |  | Метаданные выплаты указанные мерчантом |
 | public | [$status](../classes/YooKassa-Model-PersonalData-PersonalData.md#property_status) |  | Текущий статус персональных данных |
 | public | [$type](../classes/YooKassa-Model-PersonalData-PersonalData.md#property_type) |  | Тип персональных данных |
+| protected | [$_cancellation_details](../classes/YooKassa-Model-PersonalData-PersonalData.md#property__cancellation_details) |  | Комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных. |
+| protected | [$_created_at](../classes/YooKassa-Model-PersonalData-PersonalData.md#property__created_at) |  | Время создания персональных данных. |
+| protected | [$_expires_at](../classes/YooKassa-Model-PersonalData-PersonalData.md#property__expires_at) |  | Срок жизни объекта персональных данных — время, до которого вы можете использовать персональные данные при проведении операций. |
+| protected | [$_id](../classes/YooKassa-Model-PersonalData-PersonalData.md#property__id) |  | Идентификатор персональных данных, сохраненных в ЮKassa. |
+| protected | [$_metadata](../classes/YooKassa-Model-PersonalData-PersonalData.md#property__metadata) |  | Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа). |
+| protected | [$_status](../classes/YooKassa-Model-PersonalData-PersonalData.md#property__status) |  | Статус персональных данных. |
+| protected | [$_type](../classes/YooKassa-Model-PersonalData-PersonalData.md#property__type) |  | Тип персональных данных — цель, для которой вы будете использовать данные. |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getCancellationDetails()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getCancellationDetails) |  | Возвращает cancellation_details. |
-| public | [getCreatedAt()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getCreatedAt) |  | Возвращает created_at. |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
+| public | [getCancellationDetails()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getCancellationDetails) |  | Возвращает комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных. |
+| public | [getCreatedAt()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getCreatedAt) |  | Возвращает время создания персональных данных. |
 | public | [getExpiresAt()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getExpiresAt) |  | Возвращает срок жизни объекта персональных данных. |
-| public | [getId()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getId) |  | Возвращает id. |
+| public | [getId()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getId) |  | Возвращает идентификатор персональных данных, сохраненных в ЮKassa. |
 | public | [getMetadata()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getMetadata) |  | Возвращает любые дополнительные данные. |
 | public | [getStatus()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getStatus) |  | Возвращает статус персональных данных. |
 | public | [getType()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_getType) |  | Возвращает тип персональных данных. |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
-| public | [setCancellationDetails()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setCancellationDetails) |  | Устанавливает cancellation_details. |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
+| public | [setCancellationDetails()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setCancellationDetails) |  | Устанавливает Комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных. |
 | public | [setCreatedAt()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setCreatedAt) |  | Устанавливает время создания персональных данных. |
 | public | [setExpiresAt()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setExpiresAt) |  | Устанавливает срок жизни объекта персональных данных. |
-| public | [setId()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setId) |  | Устанавливает id. |
+| public | [setId()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setId) |  | Устанавливает идентификатор персональных данных, сохраненных в ЮKassa. |
 | public | [setMetadata()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setMetadata) |  | Устанавливает любые дополнительные данные. |
 | public | [setStatus()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setStatus) |  | Устанавливает статус персональных данных. |
 | public | [setType()](../classes/YooKassa-Model-PersonalData-PersonalData.md#method_setType) |  | Устанавливает тип персональных данных. |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Request/PersonalData/PersonalDataResponse.php](../../lib/Request/PersonalData/PersonalDataResponse.php)
-* Package: YooKassa\Model
+* Package: YooKassa\Request
 * Class Hierarchy:  
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
   * \YooKassa\Request\PersonalData\PersonalDataResponse
 
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
+| category |  | Class |
 | author |  | cms@yoomoney.ru |
 
 ---
@@ -132,26 +145,26 @@
 
 
 <a name="property_expires_at"></a>
-#### public $expires_at : \DateTime|null
+#### public $expires_at : null|\DateTime
 ---
 ***Description***
 
 Срок жизни объекта персональных данных
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
 
 
 <a name="property_expiresAt"></a>
-#### public $expiresAt : \DateTime|null
+#### public $expiresAt : null|\DateTime
 ---
 ***Description***
 
 Срок жизни объекта персональных данных
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
@@ -209,6 +222,125 @@
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
 
 
+<a name="property__cancellation_details"></a>
+#### protected $_cancellation_details : ?\YooKassa\Model\PersonalData\PersonalDataCancellationDetails
+---
+**Summary**
+
+Комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных.
+
+**Type:** <a href="../?\YooKassa\Model\PersonalData\PersonalDataCancellationDetails"><abbr title="?\YooKassa\Model\PersonalData\PersonalDataCancellationDetails">PersonalDataCancellationDetails</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
+
+
+<a name="property__created_at"></a>
+#### protected $_created_at : ?\DateTime
+---
+**Summary**
+
+Время создания персональных данных.
+
+***Description***
+
+Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время) и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+Пример: ~`2017-11-03T11:52:31.827Z`
+
+**Type:** <a href="../?\DateTime"><abbr title="?\DateTime">DateTime</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
+
+
+<a name="property__expires_at"></a>
+#### protected $_expires_at : ?\DateTime
+---
+**Summary**
+
+Срок жизни объекта персональных данных — время, до которого вы можете использовать персональные данные при проведении операций.
+
+***Description***
+
+Указывается только для объекта в статусе ~`active`. Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время)
+и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+Пример: ~`2017-11-03T11:52:31.827Z`
+
+**Type:** <a href="../?\DateTime"><abbr title="?\DateTime">DateTime</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
+
+
+<a name="property__id"></a>
+#### protected $_id : ?string
+---
+**Summary**
+
+Идентификатор персональных данных, сохраненных в ЮKassa.
+
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
+
+
+<a name="property__metadata"></a>
+#### protected $_metadata : ?\YooKassa\Model\Metadata
+---
+**Summary**
+
+Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа).
+
+***Description***
+
+Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от ЮKassa.
+Ограничения: максимум 16 ключей, имя ключа не больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
+
+**Type:** <a href="../?\YooKassa\Model\Metadata"><abbr title="?\YooKassa\Model\Metadata">Metadata</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
+
+
+<a name="property__status"></a>
+#### protected $_status : ?string
+---
+**Summary**
+
+Статус персональных данных.
+
+***Description***
+
+Возможные значения:
+* `waiting_for_operation` — данные сохранены, но не использованы при проведении выплаты;
+* `active` — данные сохранены и использованы при проведении выплаты; данные можно использовать повторно до срока, указанного в параметре `expires_at`;
+* `canceled` — хранение данных отменено, данные удалены, инициатор и причина отмены указаны в объекте `cancellation_details` (финальный и неизменяемый статус).
+
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
+
+
+<a name="property__type"></a>
+#### protected $_type : ?string
+---
+**Summary**
+
+Тип персональных данных — цель, для которой вы будете использовать данные.
+
+***Description***
+
+Возможное значение:
+`sbp_payout_recipient` — выплаты с [проверкой получателя](/developers/payouts/scenario-extensions/recipient-check).
+
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
+
+**Details:**
+* Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
+
+
 
 ---
 ## Methods
@@ -216,7 +348,7 @@
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -229,7 +361,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -243,7 +375,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -265,7 +397,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -279,15 +411,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -298,19 +430,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -320,19 +452,19 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -342,7 +474,7 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getCancellationDetails" class="anchor"></a>
@@ -354,29 +486,29 @@ public getCancellationDetails() : \YooKassa\Model\PersonalData\PersonalDataCance
 
 **Summary**
 
-Возвращает cancellation_details.
+Возвращает комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
 
-**Returns:** \YooKassa\Model\PersonalData\PersonalDataCancellationDetails|null - 
+**Returns:** \YooKassa\Model\PersonalData\PersonalDataCancellationDetails|null - Комментарий к статусу canceled
 
 
 <a name="method_getCreatedAt" class="anchor"></a>
-#### public getCreatedAt() : \DateTime
+#### public getCreatedAt() : \DateTime|null
 
 ```php
-public getCreatedAt() : \DateTime
+public getCreatedAt() : \DateTime|null
 ```
 
 **Summary**
 
-Возвращает created_at.
+Возвращает время создания персональных данных.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
 
-**Returns:** \DateTime - 
+**Returns:** \DateTime|null - Время создания персональных данных
 
 
 <a name="method_getExpiresAt" class="anchor"></a>
@@ -397,27 +529,27 @@ public getExpiresAt() : \DateTime|null
 
 
 <a name="method_getId" class="anchor"></a>
-#### public getId() : string
+#### public getId() : string|null
 
 ```php
-public getId() : string
+public getId() : string|null
 ```
 
 **Summary**
 
-Возвращает id.
+Возвращает идентификатор персональных данных, сохраненных в ЮKassa.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
 
-**Returns:** string - 
+**Returns:** string|null - 
 
 
 <a name="method_getMetadata" class="anchor"></a>
-#### public getMetadata() : array|null
+#### public getMetadata() : \YooKassa\Model\Metadata|null
 
 ```php
-public getMetadata() : array|null
+public getMetadata() : \YooKassa\Model\Metadata|null
 ```
 
 **Summary**
@@ -427,14 +559,14 @@ public getMetadata() : array|null
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
 
-**Returns:** array|null - Любые дополнительные данные
+**Returns:** \YooKassa\Model\Metadata|null - Любые дополнительные данные
 
 
 <a name="method_getStatus" class="anchor"></a>
-#### public getStatus() : string
+#### public getStatus() : string|null
 
 ```php
-public getStatus() : string
+public getStatus() : string|null
 ```
 
 **Summary**
@@ -444,14 +576,14 @@ public getStatus() : string
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
 
-**Returns:** string - Статус персональных данных
+**Returns:** string|null - Статус персональных данных
 
 
 <a name="method_getType" class="anchor"></a>
-#### public getType() : string
+#### public getType() : string|null
 
 ```php
-public getType() : string
+public getType() : string|null
 ```
 
 **Summary**
@@ -461,7 +593,20 @@ public getType() : string
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
 
-**Returns:** string - Тип персональных данных
+**Returns:** string|null - Тип персональных данных
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
@@ -473,7 +618,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -490,7 +635,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -512,7 +657,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -534,7 +679,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -557,7 +702,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -571,15 +716,15 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setCancellationDetails" class="anchor"></a>
-#### public setCancellationDetails() : $this
+#### public setCancellationDetails() : self
 
 ```php
-public setCancellationDetails(\YooKassa\Model\PersonalData\PersonalDataCancellationDetails|array|null $cancellation_details) : $this
+public setCancellationDetails(\YooKassa\Model\PersonalData\PersonalDataCancellationDetails|array|null $cancellation_details = null) : self
 ```
 
 **Summary**
 
-Устанавливает cancellation_details.
+Устанавливает Комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
@@ -587,16 +732,16 @@ public setCancellationDetails(\YooKassa\Model\PersonalData\PersonalDataCancellat
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\PersonalData\PersonalDataCancellationDetails OR array OR null</code> | cancellation_details  |  |
+| <code lang="php">\YooKassa\Model\PersonalData\PersonalDataCancellationDetails OR array OR null</code> | cancellation_details  | Комментарий к статусу canceled |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setCreatedAt" class="anchor"></a>
-#### public setCreatedAt() : $this
+#### public setCreatedAt() : self
 
 ```php
-public setCreatedAt(\DateTime|string|int $created_at) : $this
+public setCreatedAt(\DateTime|string|null $created_at = null) : self
 ```
 
 **Summary**
@@ -609,21 +754,16 @@ public setCreatedAt(\DateTime|string|int $created_at) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int</code> | created_at  | Время создания персональных данных |
+| <code lang="php">\DateTime OR string OR null</code> | created_at  | Время создания персональных данных. |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
-
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setExpiresAt" class="anchor"></a>
-#### public setExpiresAt() : $this
+#### public setExpiresAt() : self
 
 ```php
-public setExpiresAt(\DateTime|string|int|null $expires_at = null) : $this
+public setExpiresAt(\DateTime|string|null $expires_at = null) : self
 ```
 
 **Summary**
@@ -636,26 +776,21 @@ public setExpiresAt(\DateTime|string|int|null $expires_at = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | expires_at  | Срок жизни объекта персональных данных |
+| <code lang="php">\DateTime OR string OR null</code> | expires_at  | Срок жизни объекта персональных данных |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
-
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setId" class="anchor"></a>
-#### public setId() : $this
+#### public setId() : self
 
 ```php
-public setId(string $id) : $this
+public setId(string|null $id = null) : self
 ```
 
 **Summary**
 
-Устанавливает id.
+Устанавливает идентификатор персональных данных, сохраненных в ЮKassa.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md)
@@ -663,16 +798,16 @@ public setId(string $id) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | id  | Идентификатор персональных данных, сохраненных в ЮKassa. |
+| <code lang="php">string OR null</code> | id  | Идентификатор персональных данных, сохраненных в ЮKassa. |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setMetadata" class="anchor"></a>
-#### public setMetadata() : $this
+#### public setMetadata() : self
 
 ```php
-public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
+public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : self
 ```
 
 **Summary**
@@ -687,14 +822,14 @@ public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
 | ---- | ---- | ----------- |
 | <code lang="php">\YooKassa\Model\Metadata OR array OR null</code> | metadata  | Любые дополнительные данные |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setStatus" class="anchor"></a>
 #### public setStatus() : $this
 
 ```php
-public setStatus(string $status) : $this
+public setStatus(string|null $status = null) : $this
 ```
 
 **Summary**
@@ -707,16 +842,16 @@ public setStatus(string $status) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | status  | Статус персональных данных |
+| <code lang="php">string OR null</code> | status  | Статус персональных данных |
 
 **Returns:** $this - 
 
 
 <a name="method_setType" class="anchor"></a>
-#### public setType() : $this
+#### public setType() : self
 
 ```php
-public setType(string $type) : $this
+public setType(?string $type = null) : self
 ```
 
 **Summary**
@@ -729,9 +864,9 @@ public setType(string $type) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | type  | Тип персональных данных |
+| <code lang="php">?string</code> | type  | Тип персональных данных |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -744,7 +879,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -761,12 +896,31 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
 **Returns:** array - Ассоциативный массив с не существующими у текущего объекта свойствами
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
+
+**Returns:** mixed - 
 
 
 
@@ -780,11 +934,11 @@ protected getUnknownProperties() : array
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

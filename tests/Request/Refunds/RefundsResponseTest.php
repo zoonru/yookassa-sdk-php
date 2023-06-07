@@ -5,23 +5,25 @@ namespace Tests\YooKassa\Request\Refunds;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\CurrencyCode;
-use YooKassa\Model\ReceiptRegistrationStatus;
-use YooKassa\Model\RefundInterface;
-use YooKassa\Model\RefundStatus;
+use YooKassa\Model\Payment\ReceiptRegistrationStatus;
+use YooKassa\Model\Refund\RefundInterface;
+use YooKassa\Model\Refund\RefundStatus;
 use YooKassa\Request\Refunds\RefundsResponse;
 
+/**
+ * @internal
+ */
 class RefundsResponseTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetItems($options)
+    public function testGetItems(array $options): void
     {
         $instance = new RefundsResponse($options);
-        self::assertEquals(count($options['items']), count($instance->getItems()));
+        self::assertSameSize($options['items'], $instance->getItems());
         foreach ($instance->getItems() as $index => $item) {
-            self::assertTrue($item instanceof RefundInterface);
+            self::assertInstanceOf(RefundInterface::class, $item);
             self::assertArrayHasKey($index, $options['items']);
             self::assertEquals($options['items'][$index]['id'], $item->getId());
             self::assertEquals($options['items'][$index]['payment_id'], $item->getPaymentId());
@@ -34,9 +36,8 @@ class RefundsResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetNextCursor($options)
+    public function testGetNextCursor(array $options): void
     {
         $instance = new RefundsResponse($options);
         if (empty($options['next_cursor'])) {
@@ -48,9 +49,8 @@ class RefundsResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testHasNextCursor($options)
+    public function testHasNextCursor(array $options): void
     {
         $instance = new RefundsResponse($options);
         if (empty($options['next_cursor'])) {
@@ -60,61 +60,64 @@ class RefundsResponseTest extends TestCase
         }
     }
 
-    public function validDataProvider()
+    public static function validDataProvider()
     {
-        return array(
-            array(
-                array(
-                    'items' => array(),
-                ),
-            ),
-            array(
-                array(
-                    'items' => array(
-                        array(
+        return [
+            [
+                [
+                    'type' => 'list',
+                    'items' => [],
+                ],
+            ],
+            [
+                [
+                    'type' => 'list',
+                    'items' => [
+                        [
                             'id' => Random::str(36),
                             'payment_id' => Random::str(36),
                             'status' => RefundStatus::SUCCEEDED,
-                            'amount' => array(
+                            'amount' => [
                                 'value' => Random::int(1, 100),
                                 'currency' => Random::value(CurrencyCode::getValidValues()),
-                            ),
+                            ],
                             'created_at' => date(YOOKASSA_DATE, Random::int(0, time())),
-                        )
-                    ),
+                        ],
+                    ],
                     'next_cursor' => Random::str(1, 64),
-                ),
-            ),
-            array(
-                array(
-                    'items' => array(
-                        array(
+                ],
+            ],
+            [
+                [
+                    'type' => 'list',
+                    'items' => [
+                        [
                             'id' => Random::str(36),
                             'payment_id' => Random::str(36),
                             'status' => RefundStatus::SUCCEEDED,
-                            'amount' => array(
+                            'amount' => [
                                 'value' => Random::int(1, 100),
                                 'currency' => Random::value(CurrencyCode::getValidValues()),
-                            ),
+                            ],
                             'created_at' => date(YOOKASSA_DATE),
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => Random::str(36),
                             'payment_id' => Random::str(36),
                             'status' => RefundStatus::SUCCEEDED,
-                            'amount' => array(
+                            'amount' => [
                                 'value' => Random::int(1, 100),
                                 'currency' => Random::value(CurrencyCode::getValidValues()),
-                            ),
+                            ],
                             'created_at' => date(YOOKASSA_DATE, Random::int(0, time())),
                             'authorized_at' => date(YOOKASSA_DATE, Random::int(0, time())),
                             'receipt_registered' => Random::value(ReceiptRegistrationStatus::getValidValues()),
                             'description' => Random::str(64, 250),
-                        ),
-                    ),
+                        ],
+                    ],
                     'next_cursor' => Random::str(1, 64),
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

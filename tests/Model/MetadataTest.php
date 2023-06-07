@@ -5,13 +5,15 @@ namespace Tests\YooKassa\Model;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Model\Metadata;
 
+/**
+ * @internal
+ */
 class MetadataTest extends TestCase
 {
     /**
      * @dataProvider dataProvider
-     * @param array $source
      */
-    public function testToArray($source)
+    public function testToArray(array $source): void
     {
         $instance = new Metadata();
         foreach ($source as $key => $value) {
@@ -22,25 +24,23 @@ class MetadataTest extends TestCase
 
     /**
      * @dataProvider dataProvider
-     * @param array $source
      */
-    public function testCount($source)
+    public function testCount(array $source): void
     {
         $instance = new Metadata();
         $count = 0;
         self::assertEquals($count, $instance->count());
         foreach ($source as $key => $value) {
             $instance->offsetSet($key, $value);
-            $count++;
+            ++$count;
             self::assertEquals($count, $instance->count());
         }
     }
 
     /**
      * @dataProvider dataProvider
-     * @param array $source
      */
-    public function testGetIterator($source)
+    public function testGetIterator(array $source): void
     {
         $instance = new Metadata();
         foreach ($source as $key => $value) {
@@ -54,7 +54,7 @@ class MetadataTest extends TestCase
             self::assertEquals($source[$iterator->key()], $iterator->current());
             unset($tmp[$iterator->key()]);
         }
-        self::assertEquals(0, count($tmp));
+        self::assertCount(0, $tmp);
 
         $tmp = $source;
         foreach ($instance as $key => $value) {
@@ -62,28 +62,28 @@ class MetadataTest extends TestCase
             self::assertEquals($source[$key], $value);
             unset($tmp[$key]);
         }
-        self::assertEquals(0, count($tmp));
+        self::assertCount(0, $tmp);
     }
 
-    public function dataProvider()
+    public static function dataProvider()
     {
-        return array(
-            array(
-                array('testKey' => 'testValue'),
-            ),
-            array(
-                array(
+        return [
+            [
+                ['testKey' => 'testValue'],
+            ],
+            [
+                [
                     'testKey1' => 'testValue1',
                     'testKey2' => 'testValue2',
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'testKey1' => 'testValue1',
                     'testKey2' => 'testValue2',
                     'testKey3' => 'testValue3',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

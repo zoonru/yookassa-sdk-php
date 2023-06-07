@@ -2,126 +2,124 @@
 
 namespace Tests\YooKassa\Model\Notification;
 
+use Exception;
 use YooKassa\Helpers\Random;
+use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Notification\NotificationPayoutCanceled;
-use YooKassa\Model\NotificationEventType;
-use YooKassa\Model\NotificationType;
-use YooKassa\Model\PayoutInterface;
-use YooKassa\Model\PaymentMethodType;
-use YooKassa\Model\Payout;
+use YooKassa\Model\Notification\NotificationType;
+use YooKassa\Model\Payment\PaymentMethod\BankCardType;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Model\Payout\Payout;
 use YooKassa\Model\Payout\PayoutCancellationDetailsPartyCode;
 use YooKassa\Model\Payout\PayoutCancellationDetailsReasonCode;
-use YooKassa\Model\PayoutStatus;
+use YooKassa\Model\Payout\PayoutInterface;
+use YooKassa\Model\Payout\PayoutStatus;
 
-class NotificationPayoutCanceledTest extends AbstractNotificationTest
+/**
+ * @internal
+ */
+class NotificationPayoutCanceledTest extends AbstractTestNotification
 {
     /**
-     * @param array $source
-     * @return NotificationPayoutCanceled
-     * @throws \Exception
-     */
-    protected function getTestInstance(array $source)
-    {
-        return new NotificationPayoutCanceled($source);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedType()
-    {
-        return NotificationType::NOTIFICATION;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedEvent()
-    {
-        return NotificationEventType::PAYOUT_CANCELED;
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param array $value
      */
-    public function testGetObject(array $value)
+    public function testGetObject(array $value): void
     {
         $instance = $this->getTestInstance($value);
-        self::assertTrue($instance->getObject() instanceof PayoutInterface);
+        self::assertInstanceOf(PayoutInterface::class, $instance->getObject());
         self::assertEquals($value['object']['id'], $instance->getObject()->getId());
     }
 
     /**
-     * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         $cancellationDetailsParties = PayoutCancellationDetailsPartyCode::getValidValues();
         $countCancellationDetailsParties = count($cancellationDetailsParties);
         $cancellationDetailsReasons = PayoutCancellationDetailsReasonCode::getValidValues();
         $countCancellationDetailsReasons = count($cancellationDetailsReasons);
-        $payoutDestinations = array(
-            PaymentMethodType::YOO_MONEY => array(
+        $payoutDestinations = [
+            PaymentMethodType::YOO_MONEY => [
                 'type' => PaymentMethodType::YOO_MONEY,
-                'account_number' => Random::str(11, 33, '1234567890')
-            ),
-            PaymentMethodType::BANK_CARD => array(
+                'account_number' => Random::str(11, 33, '1234567890'),
+            ],
+            PaymentMethodType::BANK_CARD => [
                 'type' => PaymentMethodType::BANK_CARD,
-                'card' => array(
-                    'number' => Random::str(16, 18, '1234567890')
-                )
-            ),
-        );
+                'card' => [
+                    'first6' => Random::str(6, 6, '1234567890'),
+                    'last4' => Random::str(4, 4, '1234567890'),
+                    'card_type' => Random::value(BankCardType::getValidValues())
+                ],
+            ],
+        ];
 
-        $result[] = array(
-            array(
+        $result[] = [
+            [
                 'type' => $this->getExpectedType(),
                 'event' => $this->getExpectedEvent(),
-                    'object' => array(
+                'object' => [
                     'id' => Random::str(36, 50),
                     'status' => Random::value(PayoutStatus::getValidValues()),
-                    'amount' => array('value' => Random::int(1, 10000), 'currency' => 'RUB'),
+                    'amount' => ['value' => Random::int(1, 10000), 'currency' => 'RUB'],
                     'description' => Random::str(1, Payout::MAX_LENGTH_DESCRIPTION),
-                    'payout_destination' => $payoutDestinations[Random::value(array(PaymentMethodType::YOO_MONEY,PaymentMethodType::BANK_CARD))],
-                    'created_at' => date(YOOKASSA_DATE, mt_rand(111111111, time())),
+                    'payout_destination' => $payoutDestinations[Random::value([PaymentMethodType::YOO_MONEY, PaymentMethodType::BANK_CARD])],
+                    'created_at' => date(YOOKASSA_DATE, Random::int(111111111, time())),
                     'test' => true,
-                    'deal' => array('id' => Random::str(36, 50)),
-                    'metadata' => array('order_id' => '37'),
-                    'cancellation_details' => array(
+                    'deal' => ['id' => Random::str(36, 50)],
+                    'metadata' => ['order_id' => '37'],
+                    'cancellation_details' => [
                         'party' => Random::value($cancellationDetailsParties),
-                        'reason' => Random::value($cancellationDetailsReasons)
-                    ),
-                ),
-            ),
-        );
+                        'reason' => Random::value($cancellationDetailsReasons),
+                    ],
+                ],
+            ],
+        ];
 
         for ($i = 0; $i < 20; $i++) {
-            $object = array(
+            $object = [
                 'id' => Random::str(36, 50),
                 'status' => Random::value(PayoutStatus::getValidValues()),
-                'amount' =>  array('value' => Random::int(1, 10000), 'currency' => 'RUB'),
-                'description' => ($i == 0 ? null : ($i == 1 ? '' : ($i == 2 ? Random::str(Payout::MAX_LENGTH_DESCRIPTION)
+                'amount' => ['value' => Random::int(1, 10000), 'currency' => 'RUB'],
+                'description' => (0 === $i ? null : (1 === $i ? '' : (2 === $i ? Random::str(Payout::MAX_LENGTH_DESCRIPTION)
                     : Random::str(1, Payout::MAX_LENGTH_DESCRIPTION)))),
-                'payout_destination' => $payoutDestinations[Random::value(array(PaymentMethodType::YOO_MONEY,PaymentMethodType::BANK_CARD))],
-                'created_at' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'test' => (bool)($i % 2),
-                'metadata' => array(Random::str(3, 128, 'abcdefghijklmnopqrstuvwxyz') => Random::str(1, 512)),
-                'cancellation_details' => array(
+                'payout_destination' => $payoutDestinations[Random::value([PaymentMethodType::YOO_MONEY, PaymentMethodType::BANK_CARD])],
+                'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'test' => (bool) ($i % 2),
+                'metadata' => [Random::str(3, 128, 'abcdefghijklmnopqrstuvwxyz') => Random::str(1, 512)],
+                'cancellation_details' => [
                     'party' => $cancellationDetailsParties[$i % $countCancellationDetailsParties],
-                    'reason' => $cancellationDetailsReasons[$i % $countCancellationDetailsReasons]
-                ),
-            );
-            $result[] = array(
-                array(
+                    'reason' => $cancellationDetailsReasons[$i % $countCancellationDetailsReasons],
+                ],
+            ];
+            $result[] = [
+                [
                     'type' => $this->getExpectedType(),
                     'event' => $this->getExpectedEvent(),
                     'object' => $object,
-                ),
-            );
+                ],
+            ];
         }
+
         return $result;
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function getTestInstance(array $source): NotificationPayoutCanceled
+    {
+        return new NotificationPayoutCanceled($source);
+    }
+
+    protected function getExpectedType(): string
+    {
+        return NotificationType::NOTIFICATION;
+    }
+
+    protected function getExpectedEvent(): string
+    {
+        return NotificationEventType::PAYOUT_CANCELED;
     }
 }

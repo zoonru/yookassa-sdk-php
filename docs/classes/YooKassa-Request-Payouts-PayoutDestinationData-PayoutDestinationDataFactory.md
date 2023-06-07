@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Класс PayoutDestinationDataFactory
+Класс, представляющий модель PayoutDestinationDataFactory.
 
 **Description:**
 
@@ -19,15 +19,25 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [factory()](../classes/YooKassa-Request-Payouts-PayoutDestinationData-PayoutDestinationDataFactory.md#method_factory) |  | Фабричный метод создания объекта платежных данных по типу |
-| public | [factoryFromArray()](../classes/YooKassa-Request-Payouts-PayoutDestinationData-PayoutDestinationDataFactory.md#method_factoryFromArray) |  | Фабричный метод создания объекта платежных данных из массива |
+| public | [factory()](../classes/YooKassa-Request-Payouts-PayoutDestinationData-PayoutDestinationDataFactory.md#method_factory) |  | Фабричный метод создания объекта платежных данных по типу. |
+| public | [factoryFromArray()](../classes/YooKassa-Request-Payouts-PayoutDestinationData-PayoutDestinationDataFactory.md#method_factoryFromArray) |  | Фабричный метод создания объекта платежных данных из массива. |
 
 ---
 ### Details
 * File: [lib/Request/Payouts/PayoutDestinationData/PayoutDestinationDataFactory.php](../../lib/Request/Payouts/PayoutDestinationData/PayoutDestinationDataFactory.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy:
   * \YooKassa\Request\Payouts\PayoutDestinationData\PayoutDestinationDataFactory
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -40,7 +50,7 @@ public factory(string $type) : \YooKassa\Request\Payouts\PayoutDestinationData\A
 
 **Summary**
 
-Фабричный метод создания объекта платежных данных по типу
+Фабричный метод создания объекта платежных данных по типу.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payouts\PayoutDestinationData\PayoutDestinationDataFactory](../classes/YooKassa-Request-Payouts-PayoutDestinationData-PayoutDestinationDataFactory.md)
@@ -57,12 +67,12 @@ public factory(string $type) : \YooKassa\Request\Payouts\PayoutDestinationData\A
 #### public factoryFromArray() : \YooKassa\Request\Payouts\PayoutDestinationData\AbstractPayoutDestinationData
 
 ```php
-public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Request\Payouts\PayoutDestinationData\AbstractPayoutDestinationData
+public factoryFromArray(array $data, null|string $type = null) : \YooKassa\Request\Payouts\PayoutDestinationData\AbstractPayoutDestinationData
 ```
 
 **Summary**
 
-Фабричный метод создания объекта платежных данных из массива
+Фабричный метод создания объекта платежных данных из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payouts\PayoutDestinationData\PayoutDestinationDataFactory](../classes/YooKassa-Request-Payouts-PayoutDestinationData-PayoutDestinationDataFactory.md)
@@ -71,7 +81,7 @@ public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Reque
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">array</code> | data  | Массив платежных данных |
-| <code lang="php">string OR null</code> | type  | Тип платежных данных |
+| <code lang="php">null OR string</code> | type  | Тип платежных данных |
 
 **Returns:** \YooKassa\Request\Payouts\PayoutDestinationData\AbstractPayoutDestinationData - 
 
@@ -87,11 +97,11 @@ public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Reque
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

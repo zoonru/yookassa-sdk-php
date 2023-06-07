@@ -3,6 +3,13 @@
 # Class: \YooKassa\Client\BaseClient
 ### Namespace: [\YooKassa\Client](../namespaces/yookassa-client.md)
 ---
+**Summary:**
+
+Класс, представляющий модель BaseClient.
+
+**Description:**
+
+Базовый класс Curl клиента.
 
 ---
 ### Constants
@@ -19,7 +26,7 @@
 | public | [SBP_BANKS_PATH](../classes/YooKassa-Client-BaseClient.md#constant_SBP_BANKS_PATH) |  | Точка входа для запросов к API по участникам СБП |
 | public | [SELF_EMPLOYED_PATH](../classes/YooKassa-Client-BaseClient.md#constant_SELF_EMPLOYED_PATH) |  | Точка входа для запросов к API по самозанятым |
 | public | [IDEMPOTENCY_KEY_HEADER](../classes/YooKassa-Client-BaseClient.md#constant_IDEMPOTENCY_KEY_HEADER) |  | Имя HTTP заголовка, используемого для передачи idempotence key |
-| public | [DEFAULT_DELAY](../classes/YooKassa-Client-BaseClient.md#constant_DEFAULT_DELAY) |  | Значение по умолчанию времени ожидания между запросами при отправке повторного запроса в случае получения ответа с HTTP статусом 202 |
+| public | [DEFAULT_DELAY](../classes/YooKassa-Client-BaseClient.md#constant_DEFAULT_DELAY) |  | Значение по умолчанию времени ожидания между запросами при отправке повторного запроса в случае получения ответа с HTTP статусом 202. |
 | public | [DEFAULT_TRIES_COUNT](../classes/YooKassa-Client-BaseClient.md#constant_DEFAULT_TRIES_COUNT) |  | Значение по умолчанию количества попыток получения информации от API если пришёл ответ с HTTP статусом 202 |
 | public | [DEFAULT_ATTEMPTS_COUNT](../classes/YooKassa-Client-BaseClient.md#constant_DEFAULT_ATTEMPTS_COUNT) |  | Значение по умолчанию количества попыток получения информации от API если пришёл ответ с HTTP статусом 202 |
 
@@ -28,40 +35,50 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | protected | [$apiClient](../classes/YooKassa-Client-BaseClient.md#property_apiClient) |  | CURL клиент |
-| protected | [$attempts](../classes/YooKassa-Client-BaseClient.md#property_attempts) |  | Количество повторных запросов при ответе API статусом 202 |
-| protected | [$config](../classes/YooKassa-Client-BaseClient.md#property_config) |  | Настройки для CURL клиента |
-| protected | [$logger](../classes/YooKassa-Client-BaseClient.md#property_logger) |  | Объект для логирования работы SDK |
-| protected | [$login](../classes/YooKassa-Client-BaseClient.md#property_login) |  | shopId магазина |
-| protected | [$password](../classes/YooKassa-Client-BaseClient.md#property_password) |  | Секретный ключ магазина |
-| protected | [$timeout](../classes/YooKassa-Client-BaseClient.md#property_timeout) |  | Время через которое будут осуществляться повторные запросы |
+| protected | [$attempts](../classes/YooKassa-Client-BaseClient.md#property_attempts) |  | Количество повторных запросов при ответе API статусом 202. |
+| protected | [$config](../classes/YooKassa-Client-BaseClient.md#property_config) |  | Настройки для CURL клиента. |
+| protected | [$logger](../classes/YooKassa-Client-BaseClient.md#property_logger) |  | Объект для логирования работы SDK. |
+| protected | [$login](../classes/YooKassa-Client-BaseClient.md#property_login) |  | shopId магазина. |
+| protected | [$password](../classes/YooKassa-Client-BaseClient.md#property_password) |  | Секретный ключ магазина. |
+| protected | [$timeout](../classes/YooKassa-Client-BaseClient.md#property_timeout) |  | Время через которое будут осуществляться повторные запросы. |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [__construct()](../classes/YooKassa-Client-BaseClient.md#method___construct) |  | Constructor |
-| public | [getApiClient()](../classes/YooKassa-Client-BaseClient.md#method_getApiClient) |  | Возвращает CURL клиента для работы с API |
-| public | [getConfig()](../classes/YooKassa-Client-BaseClient.md#method_getConfig) |  | Возвращает настройки клиента |
-| public | [isNotificationIPTrusted()](../classes/YooKassa-Client-BaseClient.md#method_isNotificationIPTrusted) |  | Метод проверяет, находится ли IP адрес среди IP адресов Юkassa, с которых отправляются уведомления |
-| public | [setApiClient()](../classes/YooKassa-Client-BaseClient.md#method_setApiClient) |  | Устанавливает CURL клиента для работы с API |
-| public | [setAuth()](../classes/YooKassa-Client-BaseClient.md#method_setAuth) |  | Устанавливает авторизацию по логин/паролю |
-| public | [setAuthToken()](../classes/YooKassa-Client-BaseClient.md#method_setAuthToken) |  | Устанавливает авторизацию по Oauth-токену |
-| public | [setConfig()](../classes/YooKassa-Client-BaseClient.md#method_setConfig) |  | Устанавливает настройки клиента |
-| public | [setLogger()](../classes/YooKassa-Client-BaseClient.md#method_setLogger) |  | Устанавливает логгер приложения |
-| public | [setMaxRequestAttempts()](../classes/YooKassa-Client-BaseClient.md#method_setMaxRequestAttempts) |  | Установка значения количества попыток повторных запросов при статусе 202 |
-| public | [setRetryTimeout()](../classes/YooKassa-Client-BaseClient.md#method_setRetryTimeout) |  | Установка значения задержки между повторными запросами |
-| protected | [decodeData()](../classes/YooKassa-Client-BaseClient.md#method_decodeData) |  | Декодирует JSON строку в массив данных |
-| protected | [delay()](../classes/YooKassa-Client-BaseClient.md#method_delay) |  | Задержка между повторными запросами |
-| protected | [encodeData()](../classes/YooKassa-Client-BaseClient.md#method_encodeData) |  | Кодирует массив данных в JSON строку |
-| protected | [execute()](../classes/YooKassa-Client-BaseClient.md#method_execute) |  | Выполнение запроса и обработка 202 статуса |
-| protected | [handleError()](../classes/YooKassa-Client-BaseClient.md#method_handleError) |  | Выбрасывает исключение по коду ошибки |
+| public | [__construct()](../classes/YooKassa-Client-BaseClient.md#method___construct) |  | Constructor. |
+| public | [getApiClient()](../classes/YooKassa-Client-BaseClient.md#method_getApiClient) |  | Возвращает CURL клиента для работы с API. |
+| public | [getConfig()](../classes/YooKassa-Client-BaseClient.md#method_getConfig) |  | Возвращает настройки клиента. |
+| public | [isNotificationIPTrusted()](../classes/YooKassa-Client-BaseClient.md#method_isNotificationIPTrusted) |  | Метод проверяет, находится ли IP адрес среди IP адресов Юkassa, с которых отправляются уведомления. |
+| public | [setApiClient()](../classes/YooKassa-Client-BaseClient.md#method_setApiClient) |  | Устанавливает CURL клиента для работы с API. |
+| public | [setAuth()](../classes/YooKassa-Client-BaseClient.md#method_setAuth) |  | Устанавливает авторизацию по логин/паролю. |
+| public | [setAuthToken()](../classes/YooKassa-Client-BaseClient.md#method_setAuthToken) |  | Устанавливает авторизацию по Oauth-токену. |
+| public | [setConfig()](../classes/YooKassa-Client-BaseClient.md#method_setConfig) |  | Устанавливает настройки клиента. |
+| public | [setLogger()](../classes/YooKassa-Client-BaseClient.md#method_setLogger) |  | Устанавливает логгер приложения. |
+| public | [setMaxRequestAttempts()](../classes/YooKassa-Client-BaseClient.md#method_setMaxRequestAttempts) |  | Установка значения количества попыток повторных запросов при статусе 202. |
+| public | [setRetryTimeout()](../classes/YooKassa-Client-BaseClient.md#method_setRetryTimeout) |  | Установка значения задержки между повторными запросами. |
+| protected | [decodeData()](../classes/YooKassa-Client-BaseClient.md#method_decodeData) |  | Декодирует JSON строку в массив данных. |
+| protected | [delay()](../classes/YooKassa-Client-BaseClient.md#method_delay) |  | Задержка между повторными запросами. |
+| protected | [encodeData()](../classes/YooKassa-Client-BaseClient.md#method_encodeData) |  | Кодирует массив данных в JSON строку. |
+| protected | [execute()](../classes/YooKassa-Client-BaseClient.md#method_execute) |  | Выполнение запроса и обработка 202 статуса. |
+| protected | [handleError()](../classes/YooKassa-Client-BaseClient.md#method_handleError) |  | Выбрасывает исключение по коду ошибки. |
 
 ---
 ### Details
 * File: [lib/Client/BaseClient.php](../../lib/Client/BaseClient.php)
-* Package: Default
+* Package: YooKassa
 * Class Hierarchy:
   * \YooKassa\Client\BaseClient
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -166,7 +183,7 @@ IDEMPOTENCY_KEY_HEADER = 'Idempotence-Key'
 
 <a name="constant_DEFAULT_DELAY" class="anchor"></a>
 ###### DEFAULT_DELAY
-Значение по умолчанию времени ожидания между запросами при отправке повторного запроса в случае получения ответа с HTTP статусом 202
+Значение по умолчанию времени ожидания между запросами при отправке повторного запроса в случае получения ответа с HTTP статусом 202.
 
 ```php
 DEFAULT_DELAY = 1800
@@ -195,13 +212,13 @@ DEFAULT_ATTEMPTS_COUNT = 3
 ---
 ## Properties
 <a name="property_apiClient"></a>
-#### protected $apiClient : null|\YooKassa\Client\ApiClientInterface
+#### protected $apiClient : ?\YooKassa\Client\ApiClientInterface
 ---
 **Summary**
 
 CURL клиент
 
-**Type:** <a href="../null|\YooKassa\Client\ApiClientInterface"><abbr title="null|\YooKassa\Client\ApiClientInterface">ApiClientInterface</abbr></a>
+**Type:** <a href="../?\YooKassa\Client\ApiClientInterface"><abbr title="?\YooKassa\Client\ApiClientInterface">ApiClientInterface</abbr></a>
 
 **Details:**
 
@@ -211,7 +228,7 @@ CURL клиент
 ---
 **Summary**
 
-Количество повторных запросов при ответе API статусом 202
+Количество повторных запросов при ответе API статусом 202.
 
 ***Description***
 
@@ -227,7 +244,7 @@ CURL клиент
 ---
 **Summary**
 
-Настройки для CURL клиента
+Настройки для CURL клиента.
 
 **Type:** <a href="../array"><abbr title="array">array</abbr></a>
 
@@ -235,37 +252,37 @@ CURL клиент
 
 
 <a name="property_logger"></a>
-#### protected $logger : \Psr\Log\LoggerInterface|null
+#### protected $logger : ?\Psr\Log\LoggerInterface
 ---
 **Summary**
 
-Объект для логирования работы SDK
+Объект для логирования работы SDK.
 
-**Type:** <a href="../\Psr\Log\LoggerInterface|null"><abbr title="\Psr\Log\LoggerInterface|null">LoggerInterface|null</abbr></a>
+**Type:** <a href="../?\Psr\Log\LoggerInterface"><abbr title="?\Psr\Log\LoggerInterface">LoggerInterface</abbr></a>
 
 **Details:**
 
 
 <a name="property_login"></a>
-#### protected $login : string|int
+#### protected $login : ?int
 ---
 **Summary**
 
-shopId магазина
+shopId магазина.
 
-**Type:** <a href="../string|int"><abbr title="string|int">string|int</abbr></a>
+**Type:** <a href="../?int"><abbr title="?int">?int</abbr></a>
 
 **Details:**
 
 
 <a name="property_password"></a>
-#### protected $password : string
+#### protected $password : ?string
 ---
 **Summary**
 
-Секретный ключ магазина
+Секретный ключ магазина.
 
-**Type:** <a href="../string"><abbr title="string">string</abbr></a>
+**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
 
 **Details:**
 
@@ -275,7 +292,7 @@ shopId магазина
 ---
 **Summary**
 
-Время через которое будут осуществляться повторные запросы
+Время через которое будут осуществляться повторные запросы.
 
 ***Description***
 
@@ -293,12 +310,12 @@ shopId магазина
 #### public __construct() : mixed
 
 ```php
-public __construct(\YooKassa\Client\ApiClientInterface|null $apiClient = null, \YooKassa\Helpers\Config\ConfigurationLoaderInterface|null $configLoader = null) : mixed
+public __construct(\YooKassa\Client\ApiClientInterface $apiClient = null, \YooKassa\Helpers\Config\ConfigurationLoaderInterface $configLoader = null) : mixed
 ```
 
 **Summary**
 
-Constructor
+Constructor.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -306,8 +323,8 @@ Constructor
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Client\ApiClientInterface OR null</code> | apiClient  |  |
-| <code lang="php">\YooKassa\Helpers\Config\ConfigurationLoaderInterface OR null</code> | configLoader  |  |
+| <code lang="php">\YooKassa\Client\ApiClientInterface</code> | apiClient  |  |
+| <code lang="php">\YooKassa\Helpers\Config\ConfigurationLoaderInterface</code> | configLoader  |  |
 
 **Returns:** mixed - 
 
@@ -321,7 +338,7 @@ public getApiClient() : \YooKassa\Client\ApiClientInterface
 
 **Summary**
 
-Возвращает CURL клиента для работы с API
+Возвращает CURL клиента для работы с API.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -338,7 +355,7 @@ public getConfig() : array
 
 **Summary**
 
-Возвращает настройки клиента
+Возвращает настройки клиента.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -355,7 +372,7 @@ public isNotificationIPTrusted(string $ip) : bool
 
 **Summary**
 
-Метод проверяет, находится ли IP адрес среди IP адресов Юkassa, с которых отправляются уведомления
+Метод проверяет, находится ли IP адрес среди IP адресов Юkassa, с которых отправляются уведомления.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -382,7 +399,7 @@ public setApiClient(\YooKassa\Client\ApiClientInterface $apiClient) : $this
 
 **Summary**
 
-Устанавливает CURL клиента для работы с API
+Устанавливает CURL клиента для работы с API.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -399,12 +416,12 @@ public setApiClient(\YooKassa\Client\ApiClientInterface $apiClient) : $this
 #### public setAuth() : $this
 
 ```php
-public setAuth(string $login, string $password) : $this
+public setAuth(string|int $login, string $password) : $this
 ```
 
 **Summary**
 
-Устанавливает авторизацию по логин/паролю
+Устанавливает авторизацию по логин/паролю.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -412,7 +429,7 @@ public setAuth(string $login, string $password) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | login  |  |
+| <code lang="php">string OR int</code> | login  |  |
 | <code lang="php">string</code> | password  |  |
 
 **Returns:** $this - 
@@ -434,7 +451,7 @@ public setAuthToken(string $token) : $this
 
 **Summary**
 
-Устанавливает авторизацию по Oauth-токену
+Устанавливает авторизацию по Oauth-токену.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -455,15 +472,15 @@ $client->setAuthToken('token_XXXXXXX');
 
 
 <a name="method_setConfig" class="anchor"></a>
-#### public setConfig() : mixed
+#### public setConfig() : void
 
 ```php
-public setConfig(array $config) : mixed
+public setConfig(array $config) : void
 ```
 
 **Summary**
 
-Устанавливает настройки клиента
+Устанавливает настройки клиента.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -473,19 +490,19 @@ public setConfig(array $config) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array</code> | config  |  |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setLogger" class="anchor"></a>
-#### public setLogger() : mixed
+#### public setLogger() : self
 
 ```php
-public setLogger(null|callable|object|\Psr\Log\LoggerInterface $value) : mixed
+public setLogger(null|callable|\Psr\Log\LoggerInterface|object $value) : self
 ```
 
 **Summary**
 
-Устанавливает логгер приложения
+Устанавливает логгер приложения.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -493,21 +510,21 @@ public setLogger(null|callable|object|\Psr\Log\LoggerInterface $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">null OR callable OR object OR \Psr\Log\LoggerInterface</code> | value  | Инстанс логгера |
+| <code lang="php">null OR callable OR \Psr\Log\LoggerInterface OR object</code> | value  | Инстанс логгера |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setMaxRequestAttempts" class="anchor"></a>
 #### public setMaxRequestAttempts() : $this
 
 ```php
-public setMaxRequestAttempts(int $attempts) : $this
+public setMaxRequestAttempts(int $attempts = self::DEFAULT_ATTEMPTS_COUNT) : $this
 ```
 
 **Summary**
 
-Установка значения количества попыток повторных запросов при статусе 202
+Установка значения количества попыток повторных запросов при статусе 202.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -524,12 +541,12 @@ public setMaxRequestAttempts(int $attempts) : $this
 #### public setRetryTimeout() : $this
 
 ```php
-public setRetryTimeout(int $timeout) : $this
+public setRetryTimeout(int $timeout = self::DEFAULT_DELAY) : $this
 ```
 
 **Summary**
 
-Установка значения задержки между повторными запросами
+Установка значения задержки между повторными запросами.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -551,7 +568,7 @@ protected decodeData(\YooKassa\Common\ResponseObject $response) : array
 
 **Summary**
 
-Декодирует JSON строку в массив данных
+Декодирует JSON строку в массив данных.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -560,20 +577,25 @@ protected decodeData(\YooKassa\Common\ResponseObject $response) : array
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">\YooKassa\Common\ResponseObject</code> | response  | Объект ответа на запрос к API |
+
+##### Throws:
+| Type | Description |
+| ---- | ----------- |
+| \JsonException |  |
 
 **Returns:** array - Массив данных
 
 
 <a name="method_delay" class="anchor"></a>
-#### protected delay() : mixed
+#### protected delay() : void
 
 ```php
-protected delay(\YooKassa\Common\ResponseObject $response) : mixed
+protected delay(\YooKassa\Common\ResponseObject $response) : void
 ```
 
 **Summary**
 
-Задержка между повторными запросами
+Задержка между повторными запросами.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -583,7 +605,12 @@ protected delay(\YooKassa\Common\ResponseObject $response) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">\YooKassa\Common\ResponseObject</code> | response  | Объект ответа на запрос к API |
 
-**Returns:** mixed - 
+##### Throws:
+| Type | Description |
+| ---- | ----------- |
+| \JsonException |  |
+
+**Returns:** void - 
 
 
 <a name="method_encodeData" class="anchor"></a>
@@ -595,7 +622,7 @@ protected encodeData(array $serializedData) : string
 
 **Summary**
 
-Кодирует массив данных в JSON строку
+Кодирует массив данных в JSON строку.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -608,7 +635,7 @@ protected encodeData(array $serializedData) : string
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
-| \Exception | Выбрасывается, если не удалось конвертировать данные в строку JSON |
+| \JsonException | Выбрасывается, если не удалось конвертировать данные в строку JSON |
 
 **Returns:** string - Строка JSON
 
@@ -617,12 +644,12 @@ protected encodeData(array $serializedData) : string
 #### protected execute() : mixed|\YooKassa\Common\ResponseObject
 
 ```php
-protected execute(string $path, string $method, array $queryParams, string|null $httpBody = null, array $headers = array()) : mixed|\YooKassa\Common\ResponseObject
+protected execute(string $path, string $method, array $queryParams, null|string $httpBody = null, array $headers = []) : mixed|\YooKassa\Common\ResponseObject
 ```
 
 **Summary**
 
-Выполнение запроса и обработка 202 статуса
+Выполнение запроса и обработка 202 статуса.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -633,7 +660,7 @@ protected execute(string $path, string $method, array $queryParams, string|null 
 | <code lang="php">string</code> | path  | URL запроса |
 | <code lang="php">string</code> | method  | HTTP метод |
 | <code lang="php">array</code> | queryParams  | Массив GET параметров запроса |
-| <code lang="php">string OR null</code> | httpBody  | Тело запроса |
+| <code lang="php">null OR string</code> | httpBody  | Тело запроса |
 | <code lang="php">array</code> | headers  | Массив заголовков запроса |
 
 ##### Throws:
@@ -648,15 +675,15 @@ protected execute(string $path, string $method, array $queryParams, string|null 
 
 
 <a name="method_handleError" class="anchor"></a>
-#### protected handleError() : mixed
+#### protected handleError() : void
 
 ```php
-protected handleError(\YooKassa\Common\ResponseObject $response) : mixed
+protected handleError(\YooKassa\Common\ResponseObject $response) : void
 ```
 
 **Summary**
 
-Выбрасывает исключение по коду ошибки
+Выбрасывает исключение по коду ошибки.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\BaseClient](../classes/YooKassa-Client-BaseClient.md)
@@ -669,17 +696,17 @@ protected handleError(\YooKassa\Common\ResponseObject $response) : mixed
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
-| \YooKassa\Common\Exceptions\ApiException | Неожиданный код ошибки. |
+| \YooKassa\Common\Exceptions\ApiException | неожиданный код ошибки |
 | \YooKassa\Common\Exceptions\BadApiRequestException | Неправильный запрос. Чаще всего этот статус выдается из-за нарушения правил взаимодействия с API. |
-| \YooKassa\Common\Exceptions\ForbiddenException | Секретный ключ или OAuth-токен верный, но не хватает прав для совершения операции. |
+| \YooKassa\Common\Exceptions\ForbiddenException | секретный ключ или OAuth-токен верный, но не хватает прав для совершения операции |
 | \YooKassa\Common\Exceptions\InternalServerError | Технические неполадки на стороне ЮKassa. Результат обработки запроса неизвестен. Повторите запрос позднее с тем же ключом идемпотентности. |
-| \YooKassa\Common\Exceptions\NotFoundException | Ресурс не найден. |
-| \YooKassa\Common\Exceptions\ResponseProcessingException | Запрос был принят на обработку, но она не завершена. |
+| \YooKassa\Common\Exceptions\NotFoundException | ресурс не найден |
+| \YooKassa\Common\Exceptions\ResponseProcessingException | запрос был принят на обработку, но она не завершена |
 | \YooKassa\Common\Exceptions\TooManyRequestsException | Превышен лимит запросов в единицу времени. Попробуйте снизить интенсивность запросов. |
-| \YooKassa\Common\Exceptions\UnauthorizedException | Неверное имя пользователя или пароль или невалидный OAuth-токен при аутентификации. |
+| \YooKassa\Common\Exceptions\UnauthorizedException | неверное имя пользователя или пароль или невалидный OAuth-токен при аутентификации |
 | \YooKassa\Common\Exceptions\AuthorizeException | Ошибка авторизации. Не установлен заголовок. |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 
@@ -693,11 +720,11 @@ protected handleError(\YooKassa\Common\ResponseObject $response) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -2,46 +2,28 @@
 
 namespace Tests\YooKassa\Request\Receipts;
 
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
+use InvalidArgumentException;
+use TypeError;
+use YooKassa\Common\Exceptions\InvalidPropertyException;
+use YooKassa\Request\Receipts\AbstractReceiptResponse;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
 use YooKassa\Helpers\Random;
-use YooKassa\Model\Airline;
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Model\Receipt\SettlementInterface;
 use YooKassa\Request\Receipts\PaymentReceiptResponse;
 use YooKassa\Request\Receipts\ReceiptResponseItemInterface;
 
-class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
+/**
+ * @internal
+ */
+class PaymentReceiptResponseTest extends AbstractTestReceiptResponse
 {
-    protected $type = 'payment';
-
-    protected function getTestInstance($options)
-    {
-        return new PaymentReceiptResponse($options);
-    }
-
-    protected function addSpecificProperties($options, $i)
-    {
-        $array = array(
-            Random::str(30),
-            new \stdClass(),
-            array(),
-            new \stdClass(),
-            new \Exception(),
-            new Airline(),
-            Random::str(40),
-            array(new Airline()),
-        );
-        $options['payment_id'] = !$this->valid
-            ? (Random::value($array))
-            : Random::value(array( null, '', Random::str(PaymentReceiptResponse::LENGTH_PAYMENT_ID)));
-        return $options;
-    }
+    protected string $type = 'payment';
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testSpecificProperties($options)
+    public function testSpecificProperties(array $options): void
     {
         $instance = $this->getTestInstance($options);
         self::assertEquals($options['payment_id'], $instance->getPaymentId());
@@ -49,41 +31,18 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
 
     /**
      * @dataProvider invalidDataProvider
-     * @param array $options
      */
-    public function testInvalidSpecificProperties($options)
+    public function testInvalidSpecificProperties(array $options): void
     {
-        $this->valid = false;
-        $catch = false;
-        try {
-            $instance = $this->getTestInstance($options);
-            $instance->setPaymentId($options['payment_id']);
-        } catch (InvalidPropertyValueException $e) {
-            $catch = true;
-        } catch (InvalidPropertyValueTypeException $e) {
-            $catch = true;
-        }
-        self::assertTrue($catch);
-
-        $catch = false;
-        try {
-            $paymentId = $options['payment_id'];
-            $options['payment_id'] = Random::str(PaymentReceiptResponse::LENGTH_PAYMENT_ID);
-            $instance = $this->getTestInstance($options);
-            $instance->setPaymentId($paymentId);
-        } catch (InvalidPropertyValueException $e) {
-            $catch = true;
-        } catch (InvalidPropertyValueTypeException $e) {
-            $catch = true;
-        }
-        self::assertTrue($catch);
+        $this->expectException(InvalidPropertyValueException::class);
+        $instance = $this->getTestInstance($options);
+        $instance->setPaymentId($options['payment_id']);
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetsValidData($options)
+    public function testGetsValidData(array $options): void
     {
         $instance = $this->getTestInstance($options);
 
@@ -106,12 +65,12 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
 
         self::assertNotNull($instance->getItems());
         foreach ($instance->getItems() as $item) {
-            self::assertTrue($item instanceof ReceiptResponseItemInterface);
+            self::assertInstanceOf(ReceiptResponseItemInterface::class, $item);
         }
 
         self::assertNotNull($instance->getSettlements());
         foreach ($instance->getSettlements() as $settlements) {
-            self::assertTrue($settlements instanceof SettlementInterface);
+            self::assertInstanceOf(SettlementInterface::class, $settlements);
         }
 
         self::assertNotNull($instance->getOnBehalfOf());
@@ -120,124 +79,96 @@ class PaymentReceiptResponseTest extends AbstractReceiptResponseTest
         self::assertTrue($instance->notEmpty());
     }
 
-    public function testSetFiscalDocumentNumber()
+    public function testSetFiscalDocumentNumber(): void
     {
-        $instance = $this->getTestInstance(null);
+        $instance = $this->getTestInstance([]);
         $instance->setFiscalDocumentNumber(null);
+
+        self::assertNull($instance->getFiscalStorageNumber());
     }
 
-    public function testSetTaxSystemCode()
+    public function testSetTaxSystemCode(): void
     {
-        $instance = $this->getTestInstance(null);
+        $instance = $this->getTestInstance([]);
         $instance->setTaxSystemCode(null);
+
+        self::assertNull($instance->getTaxSystemCode());
+    }
+
+    public function testInvalidIdData(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $instance = $this->getTestInstance([]);
+        $instance->setId(Random::str(AbstractReceiptResponse::LENGTH_RECEIPT_ID + 1));
+    }
+
+    public function testInvalidTypeData(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $instance = $this->getTestInstance([]);
+        $instance->setType(Random::str(10));
+    }
+
+    public function testInvalidStatusIdData(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $instance = $this->getTestInstance([]);
+        $instance->setStatus(Random::str(10));
     }
 
     /**
-     * @dataProvider invalidAllDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidItemsDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testInvalidIdData($options)
+    public function testInvalidItemsData(mixed $value, string $exceptionClassName): void
     {
-        $instance = $this->getTestInstance(null);
-        $instance->setId($options);
+        $instance = $this->getTestInstance([]);
+
+        $this->expectException($exceptionClassName);
+        $instance->setItems($value);
     }
 
     /**
-     * @dataProvider invalidAllDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidSettlementsDataProvider
+     *
+     * @param mixed $value
+     * @param string $exceptionClassName
      */
-    public function testInvalidTypeData($options)
+    public function testInvalidSettlementsData(mixed $value, string $exceptionClassName): void
     {
-        $instance = $this->getTestInstance(null);
-        $instance->setType($options);
-    }
+        $instance = $this->getTestInstance([]);
 
-    /**
-     * @dataProvider invalidBoolDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidObjectIdData($options)
-    {
-        $instance = $this->getTestInstance(null);
-        $instance->setObjectId($options);
-    }
-
-    /**
-     * @dataProvider invalidAllDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidStatusIdData($options)
-    {
-        $instance = $this->getTestInstance(null);
-        $instance->setStatus($options);
-    }
-
-    /**
-     * @dataProvider invalidBoolDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidFiscalDocumentNumberData($options)
-    {
-        $instance = $this->getTestInstance(null);
-        $instance->setFiscalDocumentNumber($options);
-    }
-
-    /**
-     * @dataProvider invalidItemsSettlementsDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidItemsData($options)
-    {
-        $instance = $this->getTestInstance(null);
-        $instance->setItems($options);
-    }
-
-    /**
-     * @dataProvider invalidItemsSettlementsDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidSettlementsData($options)
-    {
-        $instance = $this->getTestInstance(null);
-        $instance->setSettlements($options);
-    }
-
-    /**
-     * @dataProvider invalidAllDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidTaxSystemCodeData($options)
-    {
-        $instance = $this->getTestInstance(null);
-        $instance->setTaxSystemCode($options);
+        $this->expectException($exceptionClassName);
+        $instance->setSettlements($value);
     }
 
     /**
      * @dataProvider invalidBoolNullDataProvider
-     * @param array $options
-     * @expectedException \InvalidArgumentException
      */
-    public function testInvalidOnBehalfOfData($options)
+    public function testInvalidOnBehalfOfData(mixed $options): void
     {
-        $instance = $this->getTestInstance(null);
+        $this->expectException(TypeError::class);
+        $instance = $this->getTestInstance([]);
         $instance->setOnBehalfOf($options);
     }
 
-    /**
-     * @dataProvider invalidFromArray
-     * @param array $options
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidFromArray($options)
+    protected function getTestInstance($options): PaymentReceiptResponse
     {
-        $this->getTestInstance($options);
+        return new PaymentReceiptResponse($options);
+    }
+
+    protected function addSpecificProperties($options, $i): array
+    {
+        $array = [
+            Random::str(30),
+            Random::str(40),
+        ];
+        $options['payment_id'] = !$this->valid
+            ? (Random::value($array))
+            : Random::value([null, '', Random::str(PaymentReceiptResponse::LENGTH_PAYMENT_ID)]);
+
+        return $options;
     }
 }

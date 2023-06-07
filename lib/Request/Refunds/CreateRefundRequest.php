@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,185 +26,337 @@
 
 namespace YooKassa\Request\Refunds;
 
-use YooKassa\Common\AbstractRefundRequest;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Common\AbstractRequest;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\Deal\RefundDealData;
-use YooKassa\Model\ReceiptInterface;
-use YooKassa\Model\Source;
-use YooKassa\Model\SourceInterface;
+use YooKassa\Model\MonetaryAmount;
+use YooKassa\Model\Receipt\Receipt;
+use YooKassa\Model\Receipt\ReceiptInterface;
+use YooKassa\Model\Refund\Source;
+use YooKassa\Model\Refund\SourceInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс объекта запроса для создания возврата
+ * Класс, представляющий модель CreateRefundRequest.
  *
- * @example 02-builder.php 148 35 Пример использования билдера
+ * Класс объекта запроса для создания возврата.
+ *
+ * @example 02-builder.php 147 33 Пример использования билдера
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @property string $paymentId Айди платежа для которого создаётся возврат
  * @property AmountInterface $amount Сумма возврата
  * @property string $description Комментарий к операции возврата, основание для возврата средств покупателю.
- * @property ReceiptInterface|null $receipt Инстанс чека или null
- * @property SourceInterface[]|null $sources Информация о распределении денег — сколько и в какой магазин нужно перевести
- * @property RefundDealData|null $deal Информация о сделке
+ * @property null|ReceiptInterface $receipt Инстанс чека или null
+ * @property null|ListObjectInterface|SourceInterface[] $sources Информация о распределении денег — сколько и в какой магазин нужно перевести
+ * @property null|RefundDealData $deal Информация о сделке
  */
-class CreateRefundRequest extends AbstractRefundRequest implements CreateRefundRequestInterface
+class CreateRefundRequest extends AbstractRequest implements CreateRefundRequestInterface
 {
     /**
-     * @var string Комментарий к операции возврата, основание для возврата средств покупателю.
+     * @var string|null Идентификатор платежа для которого создаётся возврат
      */
-    private $_description;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: 36)]
+    #[Assert\Length(min: 36)]
+    private ?string $_payment_id = null;
 
     /**
-     * @var SourceInterface[]
+     * @var AmountInterface|null Сумма возврата
      */
-    private $_sources;
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[Assert\Type(MonetaryAmount::class)]
+    private ?AmountInterface $_amount = null;
 
     /**
-     * @var RefundDealData
+     * @var ReceiptInterface|null Чек возврата
      */
-    private $_deal;
+    #[Assert\Valid]
+    #[Assert\Type(Receipt::class)]
+    private ?ReceiptInterface $_receipt = null;
 
     /**
-     * Возвращает комментарий к возврату или null, если комментарий не задан
-     * @return string Комментарий к операции возврата, основание для возврата средств покупателю.
+     * @var string|null Комментарий к операции возврата, основание для возврата средств покупателю
      */
-    public function getDescription()
-    {
-        return $this->_description;
-    }
+    #[Assert\Type('string')]
+    #[Assert\Length(max: 250)]
+    private ?string $_description = null;
 
     /**
-     * Проверяет задан ли комментарий к создаваемому возврату
-     * @return bool True если комментарий установлен, false если нет
+     * @var SourceInterface[]|ListObjectInterface|null Информация о распределении денег
      */
-    public function hasDescription()
-    {
-        return $this->_description !== null;
-    }
+    #[Assert\Valid]
+    #[Assert\Type(ListObject::class)]
+    #[Assert\AllType(Source::class)]
+    private ?ListObject $_sources = null;
 
     /**
-     * Устанавливает комментарий к возврату
-     * @param string $value Комментарий к операции возврата, основание для возврата средств покупателю
+     * @var RefundDealData|null Данные о сделке, в составе которой проходит возврат
+     */
+    #[Assert\Valid]
+    #[Assert\Type(RefundDealData::class)]
+    private ?RefundDealData $_deal = null;
+    /**
+     * Возвращает идентификатор платежа для которого создаётся возврат средств.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если была передана не строка
+     * @return string|null Идентификатор платежа для которого создаётся возврат
      */
-    public function setDescription($value)
+    public function getPaymentId(): ?string
     {
-        if ($value === null || $value === '') {
-            $this->_description = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $this->_description = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid description value type in CreateRefundRequest',
-                0,
-                'CreateRefundRequest.description',
-                $value
-            );
-        }
+        return $this->_payment_id;
     }
 
     /**
-     * Удаляет чек из запроса
+     * Проверяет, был ли установлена идентификатор платежа.
+     *
+     * @return bool True если идентификатор платежа был установлен, false если нет
      */
-    public function removeReceipt()
+    public function hasPaymentId(): bool
+    {
+        return !empty($this->_payment_id);
+    }
+
+    /**
+     * Устанавливает идентификатор платежа для которого создаётся возврат
+     *
+     * @param string|null $payment_id Идентификатор платежа
+     *
+     * @return self
+     */
+    public function setPaymentId(?string $payment_id = null): self
+    {
+        $this->_payment_id = $this->validatePropertyValue('_payment_id', $payment_id);
+        return $this;
+    }
+
+    /**
+     * Возвращает сумму возврата.
+     *
+     * @return AmountInterface|null Сумма возврата
+     */
+    public function getAmount(): ?AmountInterface
+    {
+        return $this->_amount;
+    }
+
+    /**
+     * Проверяет, была ли установлена сумма возврата.
+     *
+     * @return bool True если сумма возврата была установлена, false если нет
+     */
+    public function hasAmount(): bool
+    {
+        return !empty($this->_amount);
+    }
+
+    /**
+     * Устанавливает сумму.
+     *
+     * @param AmountInterface|array|string $amount Сумма возврата
+     *
+     * @return self
+     */
+    public function setAmount(mixed $amount = null): self
+    {
+        $this->_amount = $this->validatePropertyValue('_amount', $amount);
+        return $this;
+    }
+
+    /**
+     * Возвращает чек, если он есть.
+     *
+     * @return null|ReceiptInterface Данные фискального чека 54-ФЗ или null, если чека нет
+     */
+    public function getReceipt(): ?ReceiptInterface
+    {
+        return $this->_receipt;
+    }
+
+    /**
+     * Устанавливает чек.
+     *
+     * @param null|array|ReceiptInterface $receipt Инстанс чека или null для удаления информации о чеке
+     *
+     * @return self
+     */
+    public function setReceipt(mixed $receipt = null): self
+    {
+        $this->_receipt = $this->validatePropertyValue('_receipt', $receipt);
+        return $this;
+    }
+
+    /**
+     * Проверяет наличие чека.
+     *
+     * @return bool True если чек есть, false если нет
+     */
+    public function hasReceipt(): bool
+    {
+        return null !== $this->_receipt && $this->_receipt->notEmpty();
+    }
+
+    /**
+     * Удаляет чек из запроса.
+     */
+    public function removeReceipt(): void
     {
         $this->setReceipt(null);
     }
 
     /**
-     * Устанавливает sources (массив распределения денег между магазинами)
-     * @param SourceInterface[]|array $value Массив распределения денег между магазинами
+     * Возвращает комментарий к возврату или null, если комментарий не задан.
+     *
+     * @return string|null Комментарий к операции возврата, основание для возврата средств покупателю
      */
-    public function setSources($value)
+    public function getDescription(): ?string
     {
-        if (!is_array($value)) {
-            $message = 'Sources must be an array of SourceInterface';
-            throw new InvalidPropertyValueTypeException($message, 0, 'CreateRefundRequest.sources', $value);
-        }
-
-        $sources = array();
-        foreach ($value as $item) {
-            if (is_array($item)) {
-                $item = new Source($item);
-            }
-
-            if (!($item instanceof SourceInterface)) {
-                $message = 'Source must be instance of SourceInterface';
-                throw new InvalidPropertyValueTypeException($message, 0, 'CreateRefundRequest.sources', $value);
-            }
-            $sources[] = $item;
-        }
-
-        $this->_sources = $sources;
+        return $this->_description;
     }
 
     /**
-     * Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести
-     * @return SourceInterface[] Информация о распределении денег
+     * Проверяет задан ли комментарий к создаваемому возврату.
+     *
+     * @return bool True если комментарий установлен, false если нет
      */
-    public function getSources()
+    public function hasDescription(): bool
     {
+        return null !== $this->_description;
+    }
+
+    /**
+     * Устанавливает комментарий к возврату.
+     *
+     * @param string|null $description Комментарий к операции возврата, основание для возврата средств покупателю
+     *
+     * @return self
+     */
+    public function setDescription(?string $description = null): self
+    {
+        $this->_description = $this->validatePropertyValue('_description', $description);
+        return $this;
+    }
+
+    /**
+     * Устанавливает sources (массив распределения денег между магазинами).
+     *
+     * @param array|ListObjectInterface|null $sources Массив распределения денег между магазинами
+     *
+     * @return self
+     */
+    public function setSources(mixed $sources = null): self
+    {
+        $this->_sources = $this->validatePropertyValue('_sources', $sources);
+        return $this;
+    }
+
+    /**
+     * Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести.
+     *
+     * @return SourceInterface[]|ListObjectInterface Информация о распределении денег
+     */
+    public function getSources(): ListObjectInterface
+    {
+        if ($this->_sources === null) {
+            $this->_sources = new ListObject(Source::class);
+        }
         return $this->_sources;
     }
 
     /**
-     * Проверяет наличие информации о распределении денег
-     * @return bool
+     * Проверяет наличие информации о распределении денег.
      */
-    public function hasSources()
+    public function hasSources(): bool
     {
         return !empty($this->_sources);
     }
 
     /**
-     * Возвращает билдер объектов текущего типа
-     * @return CreateRefundRequestBuilder Инстанс билдера запросов
-     */
-    public static function builder()
-    {
-        return new CreateRefundRequestBuilder();
-    }
-
-    /**
      * Возвращает данные о сделке, в составе которой проходит возврат
-     * @return RefundDealData Данные о сделке, в составе которой проходит возврат
+     *
+     * @return RefundDealData|null Данные о сделке, в составе которой проходит возврат
      */
-    public function getDeal()
+    public function getDeal(): ?RefundDealData
     {
         return $this->_deal;
     }
 
     /**
-     * Проверяет, были ли установлены данные о сделке
+     * Проверяет, были ли установлены данные о сделке.
+     *
      * @return bool True если данные о сделке были установлены, false если нет
      */
-    public function hasDeal()
+    public function hasDeal(): bool
     {
         return !empty($this->_deal);
     }
 
     /**
      * Устанавливает данные о сделке, в составе которой проходит возврат
-     * @param RefundDealData|array|null $value Данные о сделке, в составе которой проходит возврат
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданные данные не удалось интерпретировать как данные сделки
+     * @param null|array|RefundDealData $deal Данные о сделке, в составе которой проходит возврат
+     *
+     * @return self
      */
-    public function setDeal($value)
+    public function setDeal(mixed $deal = null): self
     {
-        if ($value === null || $value === '' || (is_array($value) && empty($value))) {
-            $this->_deal = null;
-        } elseif ($value instanceof RefundDealData) {
-            $this->_deal = $value;
-        } elseif (is_array($value)) {
-            $this->_deal = new RefundDealData($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid deal value type in CreateRefundRequest',
-                0,
-                'CreateRefundRequest.deal',
-                $value
-            );
+        $this->_deal = $this->validatePropertyValue('_deal', $deal);
+        return $this;
+    }
+
+    /**
+     * Валидирует объект запроса.
+     *
+     * @return bool True если запрос валиден и его можно отправить в API, false если нет
+     */
+    public function validate(): bool
+    {
+        if (!$this->hasPaymentId()) {
+            $this->setValidationError('Payment id not specified');
+
+            return false;
         }
+
+        if (!$this->hasAmount()) {
+            $this->setValidationError('Refund amount not specified');
+
+            return false;
+        }
+
+        $value = $this->_amount->getValue();
+        if (empty($value) || $value <= 0.0) {
+            $this->setValidationError('Invalid refund amount value: ' . $value);
+
+            return false;
+        }
+
+        if ($this->hasReceipt() && $this->getReceipt()?->notEmpty()) {
+            $email = $this->getReceipt()?->getCustomer()?->getEmail();
+            $phone = $this->getReceipt()?->getCustomer()?->getPhone();
+            if (empty($email) && empty($phone)) {
+                $this->setValidationError('Both email and phone values are empty in receipt');
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Возвращает билдер объектов текущего типа.
+     *
+     * @return CreateRefundRequestBuilder Инстанс билдера запросов
+     */
+    public static function builder(): CreateRefundRequestBuilder
+    {
+        return new CreateRefundRequestBuilder();
     }
 }

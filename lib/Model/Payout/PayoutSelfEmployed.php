@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,32 +27,42 @@
 namespace YooKassa\Model\Payout;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\SelfEmployed\SelfEmployedInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
  * Класс, представляющий модель PayoutSelfEmployed.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
- *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $id Идентификатор самозанятого в ЮKassa.
  */
 class PayoutSelfEmployed extends AbstractObject
 {
+    /** @var int Максимальная длина идентификатора самозанятого. */
+    public const MAX_LENGTH_ID = 50;
+
+    /** @var int Минимальная длина идентификатора самозанятого. */
+    public const MIN_LENGTH_ID = 36;
+
     /**
-     * @var string Идентификатор самозанятого в ЮKassa.
+     * Идентификатор самозанятого в ЮKassa.
+     *
+     * @var string|null
      */
-    private $_id;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::MAX_LENGTH_ID)]
+    #[Assert\Length(min: self::MIN_LENGTH_ID)]
+    private ?string $_id = null;
 
     /**
      * Возвращает идентификатор самозанятого в ЮKassa.
      *
-     * @return string Идентификатор самозанятого в ЮKassa
+     * @return string|null Идентификатор самозанятого в ЮKassa
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->_id;
     }
@@ -60,21 +70,13 @@ class PayoutSelfEmployed extends AbstractObject
     /**
      * Устанавливает идентификатор самозанятого в ЮKassa.
      *
-     * @param string $id Идентификатор самозанятого в ЮKassa.
+     * @param string|null $id Идентификатор самозанятого в ЮKassa.
      *
-     * @return $this
+     * @return self
      */
-    public function setId($id)
+    public function setId(?string $id = null): self
     {
-        if (!TypeCast::canCastToString($id)) {
-            throw new InvalidPropertyValueTypeException('Invalid PayoutSelfEmployed id value type', 0, 'PayoutSelfEmployed.id', $id);
-        }
-        $length = mb_strlen($id, 'utf-8');
-        if ($length < SelfEmployedInterface::MIN_LENGTH_ID || $length > SelfEmployedInterface::MAX_LENGTH_ID) {
-            throw new InvalidPropertyValueException('Invalid PayoutSelfEmployed id value', 0, 'PayoutSelfEmployed.id', $id);
-        }
-        $this->_id = (string)$id;
-
+        $this->_id = $this->validatePropertyValue('_id', $id);
         return $this;
     }
 }

@@ -2,38 +2,44 @@
 
 namespace Tests\YooKassa\Common\Exceptions;
 
+use DateTime;
+use stdClass;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 
+/**
+ * @internal
+ */
 class InvalidPropertyValueExceptionTest extends InvalidPropertyExceptionTest
 {
-    protected function getTestInstance($message, $property, $value = null)
-    {
-        return new InvalidPropertyValueException($message, 0, $property, $value);
-    }
-
     /**
      * @dataProvider validValueDataProvider
+     *
      * @param mixed $value
      */
-    public function testGetValue($value)
+    public function testGetValue($value): void
     {
         $instance = $this->getTestInstance('', '', $value);
-        if ($value !== null) {
+        if (null !== $value) {
             self::assertEquals($value, $instance->getValue());
         } else {
             self::assertNull($instance->getValue());
         }
     }
 
-    public function validValueDataProvider()
+    public static function validValueDataProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array('value'),
-            array(array('test')),
-            array(new \stdClass()),
-            array(new \DateTime()),
-        );
+        return [
+            [null],
+            [''],
+            ['value'],
+            [['test']],
+            [new stdClass()],
+            [new DateTime()],
+        ];
+    }
+
+    protected function getTestInstance($message, $property, $value = null): InvalidPropertyValueException
+    {
+        return new InvalidPropertyValueException($message, 0, $property, $value);
     }
 }

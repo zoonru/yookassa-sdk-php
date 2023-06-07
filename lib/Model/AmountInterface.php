@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,48 +27,52 @@
 namespace YooKassa\Model;
 
 /**
- * Interface AmountInterface
+ * Interface AmountInterface.
  *
- * @package YooKassa
- *
- * @property-read string $value Сумма
- * @property-read string $currency Код валюты
+ * @property string $value Сумма
+ * @property string $currency Код валюты
  */
 interface AmountInterface
 {
     /**
-     * Возвращает значение суммы
+     * Возвращает значение суммы.
+     *
      * @return string Сумма
      */
-    public function getValue();
+    public function getValue(): string;
 
     /**
-     * Устанавливает значение суммы
-     * @param numeric $value Сумма
+     * Устанавливает значение суммы.
+     *
+     * @param numeric|string $value Сумма
      */
-    public function setValue($value);
+    public function setValue(mixed $value);
 
     /**
-     * Возвращает сумму в копейках в виде целого числа
+     * Возвращает сумму в копейках в виде целого числа.
+     *
      * @return int Сумма в копейках/центах
      */
-    public function getIntegerValue();
+    public function getIntegerValue(): int;
 
     /**
-     * Возвращает валюту
+     * Возвращает валюту.
+     *
      * @return string Код валюты
      */
-    public function getCurrency();
+    public function getCurrency(): string;
 
     /**
-     * Устанавливает код валюты
-     * @param string $value Код валюты
+     * Устанавливает код валюты.
+     *
+     * @param string $currency Код валюты
      */
-    public function setCurrency($value);
+    public function setCurrency(string $currency);
 
     /**
-     * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+     * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
+     *
      * @return array Ассоциативный массив со свойствами текущего объекта
      */
-    public function toArray();
+    public function toArray(): array;
 }

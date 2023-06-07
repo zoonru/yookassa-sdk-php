@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,31 +26,35 @@
 
 namespace YooKassa\Model\SelfEmployed;
 
+use InvalidArgumentException;
+
 /**
- * Class ConfirmationFactory
+ * Фабрика создания объекта сценария подтверждения пользователем заявки ЮMoney
+ * на получение прав для регистрации чеков в сервисе Мой налог.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class SelfEmployedConfirmationFactory
 {
-    private $typeClassMap = array(
+    /**
+     * @var string[]
+     */
+    private array $typeClassMap = [
         SelfEmployedConfirmationType::REDIRECT => 'SelfEmployedConfirmationRedirect',
-    );
+    ];
 
     /**
-     * Возвращает объект, соответствующий типу подтверждения платежа
+     * Возвращает объект, соответствующий типу подтверждения платежа.
      *
      * @param string $type Тип подтверждения платежа
-     *
-     * @return SelfEmployedConfirmation
      */
-    public function factory($type)
+    public function factory(string $type): SelfEmployedConfirmation
     {
-        if (!is_string($type)) {
-            throw new \InvalidArgumentException('Invalid confirmation value in confirmation factory');
-        }
         if (!array_key_exists($type, $this->typeClassMap)) {
-            throw new \InvalidArgumentException('Invalid confirmation value type "' . $type . '"');
+            throw new InvalidArgumentException('Invalid confirmation value type "' . $type . '"');
         }
         $className = __NAMESPACE__ . '\\' . $this->typeClassMap[$type];
 
@@ -58,21 +62,19 @@ class SelfEmployedConfirmationFactory
     }
 
     /**
-     * Возвращает объект, соответствующий типу подтверждения платежа, из массива данных
+     * Возвращает объект, соответствующий типу подтверждения платежа, из массива данных.
      *
      * @param array $data Массив данных подтверждения платежа
-     * @param string|null $type Тип подтверждения платежа
-     *
-     * @return SelfEmployedConfirmation
+     * @param null|string $type Тип подтверждения платежа
      */
-    public function factoryFromArray(array $data, $type = null)
+    public function factoryFromArray(array $data, ?string $type = null): SelfEmployedConfirmation
     {
-        if ($type === null) {
+        if (null === $type) {
             if (array_key_exists('type', $data)) {
                 $type = $data['type'];
                 unset($data['type']);
             } else {
-                throw new \InvalidArgumentException(
+                throw new InvalidArgumentException(
                     'Parameter type not specified in SelfEmployedConfirmation.factoryFromArray()'
                 );
             }

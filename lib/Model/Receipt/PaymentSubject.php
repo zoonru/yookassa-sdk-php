@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,112 +29,150 @@ namespace YooKassa\Model\Receipt;
 use YooKassa\Common\AbstractEnum;
 
 /**
- * Признак предмета расчета передается в параметре `payment_subject`.
+ * Класс, представляющий модель PaymentSubject.
+ *
+ * Признак предмета расчета (тег в 54 ФЗ — 1212) — это то, за что принимается оплата, например товар, услуга.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class PaymentSubject extends AbstractEnum
 {
     /** Товар */
-    const COMMODITY = 'commodity';
+    public const COMMODITY = 'commodity';
+
     /** Подакцизный товар */
-    const EXCISE = 'excise';
+    public const EXCISE = 'excise';
+
     /** Работа */
-    const JOB = 'job';
+    public const JOB = 'job';
+
     /** Услуга */
-    const SERVICE = 'service';
+    public const SERVICE = 'service';
+
     /** Ставка в азартной игре */
-    const GAMBLING_BET = 'gambling_bet';
+    public const GAMBLING_BET = 'gambling_bet';
+
     /** Выигрыш азартной игры */
-    const GAMBLING_PRIZE = 'gambling_prize';
+    public const GAMBLING_PRIZE = 'gambling_prize';
+
     /** Лотерейный билет */
-    const LOTTERY = 'lottery';
+    public const LOTTERY = 'lottery';
+
     /** Выигрыш в лотерею */
-    const LOTTERY_PRIZE = 'lottery_prize';
+    public const LOTTERY_PRIZE = 'lottery_prize';
+
     /** Результаты интеллектуальной деятельности */
-    const INTELLECTUAL_ACTIVITY = 'intellectual_activity';
+    public const INTELLECTUAL_ACTIVITY = 'intellectual_activity';
+
     /** Платеж */
-    const PAYMENT = 'payment';
+    public const PAYMENT = 'payment';
+
     /** Агентское вознаграждение */
-    const AGENT_COMMISSION = 'agent_commission';
+    public const AGENT_COMMISSION = 'agent_commission';
+
     /** Имущественное право */
-    const PROPERTY_RIGHT = 'property_right';
+    public const PROPERTY_RIGHT = 'property_right';
+
     /** Внереализационный доход */
-    const NON_OPERATING_GAIN = 'non_operating_gain';
+    public const NON_OPERATING_GAIN = 'non_operating_gain';
+
     /** Страховой сбор */
-    const INSURANCE_PREMIUM = 'insurance_premium';
+    public const INSURANCE_PREMIUM = 'insurance_premium';
+
     /** Торговый сбор */
-    const SALES_TAX = 'sales_tax';
+    public const SALES_TAX = 'sales_tax';
+
     /** Курортный сбор */
-    const RESORT_FEE = 'resort_fee';
+    public const RESORT_FEE = 'resort_fee';
+
     /** Несколько вариантов */
-    const COMPOSITE = 'composite';
+    public const COMPOSITE = 'composite';
+
     /** Другое */
-    const ANOTHER = 'another';
+    public const ANOTHER = 'another';
 
     /** Выплата */
-    const FINE = 'fine';
+    public const FINE = 'fine';
+
     /** Страховые взносы */
-    const TAX = 'tax';
+    public const TAX = 'tax';
+
     /** Залог */
-    const LIEN = 'lien';
+    public const LIEN = 'lien';
+
     /** Расход */
-    const COST = 'cost';
+    public const COST = 'cost';
+
     /** Взносы на обязательное пенсионное страхование ИП */
-    const PENSION_INSURANCE_WITHOUT_PAYOUTS = 'pension_insurance_without_payouts';
+    public const PENSION_INSURANCE_WITHOUT_PAYOUTS = 'pension_insurance_without_payouts';
+
     /** Взносы на обязательное пенсионное страхование */
-    const PENSION_INSURANCE_WITH_PAYOUTS = 'pension_insurance_with_payouts';
+    public const PENSION_INSURANCE_WITH_PAYOUTS = 'pension_insurance_with_payouts';
+
     /** Взносы на обязательное медицинское страхование ИП */
-    const HEALTH_INSURANCE_WITHOUT_PAYOUTS = 'health_insurance_without_payouts';
+    public const HEALTH_INSURANCE_WITHOUT_PAYOUTS = 'health_insurance_without_payouts';
+
     /** Взносы на обязательное медицинское страхование */
-    const HEALTH_INSURANCE_WITH_PAYOUTS = 'health_insurance_with_payouts';
+    public const HEALTH_INSURANCE_WITH_PAYOUTS = 'health_insurance_with_payouts';
+
     /** Взносы на обязательное социальное страхование */
-    const HEALTH_INSURANCE = 'health_insurance';
+    public const HEALTH_INSURANCE = 'health_insurance';
+
     /** Платеж казино */
-    const CASINO = 'casino';
+    public const CASINO = 'casino';
+
     /** Выдача денежных средств */
-    const AGENT_WITHDRAWALS = 'agent_withdrawals';
+    public const AGENT_WITHDRAWALS = 'agent_withdrawals';
+
     /** Подакцизный товар, подлежащий маркировке средством идентификации, не имеющим кода маркировки (в чеке — АТНМ). Пример: алкогольная продукция */
-    const NON_MARKED_EXCISE = 'non_marked_excise';
+    public const NON_MARKED_EXCISE = 'non_marked_excise';
+
     /** Подакцизный товар, подлежащий маркировке средством идентификации, имеющим код маркировки (в чеке — АТМ). Пример: табак */
-    const MARKED_EXCISE = 'marked_excise';
+    public const MARKED_EXCISE = 'marked_excise';
+
     /** Товар, подлежащий маркировке средством идентификации, имеющим код маркировки, за исключением подакцизного товара (в чеке — ТМ). Пример: обувь, духи, товары легкой промышленности */
-    const MARKED = 'marked';
+    public const MARKED = 'marked';
+
     /** Товар, подлежащий маркировке средством идентификации, не имеющим кода маркировки, за исключением подакцизного товара (в чеке — ТНМ). Пример: меховые изделия */
-    const NON_MARKED = 'non_marked';
+    public const NON_MARKED = 'non_marked';
 
-    protected static $validValues = array(
-        self::COMMODITY             => true,
-        self::EXCISE                => true,
-        self::JOB                   => true,
-        self::SERVICE               => true,
-        self::GAMBLING_BET          => true,
-        self::GAMBLING_PRIZE        => true,
-        self::LOTTERY               => true,
-        self::LOTTERY_PRIZE         => true,
+    protected static array $validValues = [
+        self::COMMODITY => true,
+        self::EXCISE => true,
+        self::JOB => true,
+        self::SERVICE => true,
+        self::GAMBLING_BET => true,
+        self::GAMBLING_PRIZE => true,
+        self::LOTTERY => true,
+        self::LOTTERY_PRIZE => true,
         self::INTELLECTUAL_ACTIVITY => true,
-        self::PAYMENT               => true,
-        self::AGENT_COMMISSION      => true,
-        self::PROPERTY_RIGHT        => true,
-        self::NON_OPERATING_GAIN    => true,
-        self::INSURANCE_PREMIUM     => true,
-        self::SALES_TAX             => true,
-        self::RESORT_FEE            => true,
-        self::COMPOSITE             => true,
-        self::ANOTHER               => true,
+        self::PAYMENT => true,
+        self::AGENT_COMMISSION => true,
+        self::PROPERTY_RIGHT => true,
+        self::NON_OPERATING_GAIN => true,
+        self::INSURANCE_PREMIUM => true,
+        self::SALES_TAX => true,
+        self::RESORT_FEE => true,
+        self::COMPOSITE => true,
+        self::ANOTHER => true,
 
-        self::FINE                              => true,
-        self::TAX                               => true,
-        self::LIEN                              => true,
-        self::COST                              => true,
+        self::FINE => true,
+        self::TAX => true,
+        self::LIEN => true,
+        self::COST => true,
         self::PENSION_INSURANCE_WITHOUT_PAYOUTS => true,
-        self::PENSION_INSURANCE_WITH_PAYOUTS    => true,
-        self::HEALTH_INSURANCE_WITHOUT_PAYOUTS  => true,
-        self::HEALTH_INSURANCE_WITH_PAYOUTS     => true,
-        self::HEALTH_INSURANCE                  => true,
-        self::CASINO                            => true,
-        self::AGENT_WITHDRAWALS                 => true,
-        self::NON_MARKED_EXCISE                 => true,
-        self::MARKED_EXCISE                     => true,
-        self::MARKED                            => true,
-        self::NON_MARKED                        => true,
-    );
+        self::PENSION_INSURANCE_WITH_PAYOUTS => true,
+        self::HEALTH_INSURANCE_WITHOUT_PAYOUTS => true,
+        self::HEALTH_INSURANCE_WITH_PAYOUTS => true,
+        self::HEALTH_INSURANCE => true,
+        self::CASINO => true,
+        self::AGENT_WITHDRAWALS => true,
+        self::NON_MARKED_EXCISE => true,
+        self::MARKED_EXCISE => true,
+        self::MARKED => true,
+        self::NON_MARKED => true,
+    ];
 }

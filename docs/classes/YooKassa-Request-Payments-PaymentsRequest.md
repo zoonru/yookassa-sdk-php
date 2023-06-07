@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс объекта запроса к API для получения списка платежей магазина
+Класс, представляющий модель PaymentsRequest.
 
+**Description:**
+
+Класс объекта запроса к API для получения списка платежей магазина.
 
 ---
 ### Constants
@@ -36,70 +39,82 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [builder()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_builder) |  | Возвращает инстанс билдера объектов запросов списка платежей магазина |
-| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCapturedAtGt) |  | Возвращает дату подтверждения от которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCapturedAtGte) |  | Возвращает дату подтверждения от которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCapturedAtLt) |  | Возвращает дату подтверждения до которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCapturedAtLte) |  | Возвращает дату подтверждения до которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCreatedAtGt) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCreatedAtGte) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCreatedAtLt) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCreatedAtLte) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCursor()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCursor) |  | Страница выдачи результатов, которую необходимо отобразить |
-| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации |
-| public | [getLimit()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getLimit) |  | Ограничение количества объектов платежа |
-| public | [getPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getPaymentMethod) |  | Возвращает платежный метод выбираемых платежей или null, если он до этого не был установлен |
-| public | [getStatus()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getStatus) |  | Возвращает статус выбираемых платежей или null, если он до этого не был установлен |
-| public | [hasCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCapturedAtGt) |  | Проверяет, была ли установлена дата подтверждения от которой выбираются платежи |
-| public | [hasCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCapturedAtGte) |  | Проверяет, была ли установлена дата подтверждения от которой выбираются платежи |
-| public | [hasCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCapturedAtLt) |  | Проверяет, была ли установлена дата подтверждения до которой выбираются платежи |
-| public | [hasCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCapturedAtLte) |  | Проверяет, была ли установлена дата подтверждения до которой выбираются платежи |
-| public | [hasCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCreatedAtGt) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи |
-| public | [hasCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCreatedAtGte) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи |
-| public | [hasCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCreatedAtLt) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи |
-| public | [hasCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCreatedAtLte) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи |
-| public | [hasCursor()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCursor) |  | Проверяет, была ли установлена страница выдачи результатов, которую необходимо отобразить |
-| public | [hasLimit()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasLimit) |  | Проверяет, было ли установлено ограничение количества объектов платежа |
-| public | [hasPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasPaymentMethod) |  | Проверяет, был ли установлен платежный метод выбираемых платежей |
-| public | [hasStatus()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasStatus) |  | Проверяет, был ли установлен статус выбираемых платежей |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
-| public | [setCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCapturedAtGt) |  | Устанавливает дату подтверждения от которой выбираются платежи |
-| public | [setCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCapturedAtGte) |  | Устанавливает дату подтверждения от которой выбираются платежи |
-| public | [setCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCapturedAtLt) |  | Устанавливает дату подтверждения до которой выбираются платежи |
-| public | [setCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCapturedAtLte) |  | Устанавливает дату подтверждения до которой выбираются платежи |
-| public | [setCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCreatedAtGt) |  | Устанавливает дату создания от которой выбираются платежи |
-| public | [setCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCreatedAtGte) |  | Устанавливает дату создания от которой выбираются платежи |
-| public | [setCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCreatedAtLt) |  | Устанавливает дату создания до которой выбираются платежи |
-| public | [setCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCreatedAtLte) |  | Устанавливает дату создания до которой выбираются платежи |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [builder()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_builder) |  | Возвращает инстанс билдера объектов запросов списка платежей магазина. |
+| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
+| public | [getCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCapturedAtGt) |  | Возвращает дату подтверждения от которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCapturedAtGte) |  | Возвращает дату подтверждения от которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCapturedAtLt) |  | Возвращает дату подтверждения до которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCapturedAtLte) |  | Возвращает дату подтверждения до которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCreatedAtGt) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCreatedAtGte) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCreatedAtLt) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCreatedAtLte) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCursor()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getCursor) |  | Страница выдачи результатов, которую необходимо отобразить. |
+| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации. |
+| public | [getLimit()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getLimit) |  | Ограничение количества объектов платежа. |
+| public | [getPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getPaymentMethod) |  | Возвращает платежный метод выбираемых платежей или null, если он до этого не был установлен. |
+| public | [getStatus()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_getStatus) |  | Возвращает статус выбираемых платежей или null, если он до этого не был установлен. |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [hasCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCapturedAtGt) |  | Проверяет, была ли установлена дата подтверждения от которой выбираются платежи. |
+| public | [hasCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCapturedAtGte) |  | Проверяет, была ли установлена дата подтверждения от которой выбираются платежи. |
+| public | [hasCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCapturedAtLt) |  | Проверяет, была ли установлена дата подтверждения до которой выбираются платежи. |
+| public | [hasCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCapturedAtLte) |  | Проверяет, была ли установлена дата подтверждения до которой выбираются платежи. |
+| public | [hasCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCreatedAtGt) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи. |
+| public | [hasCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCreatedAtGte) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи. |
+| public | [hasCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCreatedAtLt) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи. |
+| public | [hasCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCreatedAtLte) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи. |
+| public | [hasCursor()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasCursor) |  | Проверяет, была ли установлена страница выдачи результатов, которую необходимо отобразить. |
+| public | [hasLimit()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasLimit) |  | Проверяет, было ли установлено ограничение количества объектов платежа. |
+| public | [hasPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasPaymentMethod) |  | Проверяет, был ли установлен платежный метод выбираемых платежей. |
+| public | [hasStatus()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_hasStatus) |  | Проверяет, был ли установлен статус выбираемых платежей. |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
+| public | [setCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCapturedAtGt) |  | Устанавливает дату подтверждения от которой выбираются платежи. |
+| public | [setCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCapturedAtGte) |  | Устанавливает дату подтверждения от которой выбираются платежи. |
+| public | [setCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCapturedAtLt) |  | Устанавливает дату подтверждения до которой выбираются платежи. |
+| public | [setCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCapturedAtLte) |  | Устанавливает дату подтверждения до которой выбираются платежи. |
+| public | [setCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCreatedAtGt) |  | Устанавливает дату создания от которой выбираются платежи. |
+| public | [setCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCreatedAtGte) |  | Устанавливает дату создания от которой выбираются платежи. |
+| public | [setCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCreatedAtLt) |  | Устанавливает дату создания до которой выбираются платежи. |
+| public | [setCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCreatedAtLte) |  | Устанавливает дату создания до которой выбираются платежи. |
 | public | [setCursor()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setCursor) |  | Устанавливает страницу выдачи результатов, которую необходимо отобразить |
-| public | [setLimit()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setLimit) |  | Устанавливает ограничение количества объектов платежа |
-| public | [setPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setPaymentMethod) |  | Устанавливает платежный метод выбираемых платежей |
-| public | [setStatus()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setStatus) |  | Устанавливает статус выбираемых платежей |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
-| public | [validate()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_validate) |  | Проверяет валидность текущего объекта запроса |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
-| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации |
+| public | [setLimit()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setLimit) |  | Устанавливает ограничение количества объектов платежа. |
+| public | [setPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setPaymentMethod) |  | Устанавливает платежный метод выбираемых платежей. |
+| public | [setStatus()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_setStatus) |  | Устанавливает статус выбираемых платежей. |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
+| public | [validate()](../classes/YooKassa-Request-Payments-PaymentsRequest.md#method_validate) |  | Проверяет валидность текущего объекта запроса. |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Request/Payments/PaymentsRequest.php](../../lib/Request/Payments/PaymentsRequest.php)
-* Package: Default
+* Package: YooKassa\Request
 * Class Hierarchy:  
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
   * \YooKassa\Request\Payments\PaymentsRequest
 * Implements:
   * [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -116,145 +131,145 @@ MAX_LIMIT_VALUE = 100
 ---
 ## Properties
 <a name="property_capturedAtGt"></a>
-#### public $capturedAtGt : \DateTime|null
+#### public $capturedAtGt : null|\DateTime
 ---
 ***Description***
 
 Время подтверждения, от (не включая)
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 
 
 <a name="property_capturedAtGte"></a>
-#### public $capturedAtGte : \DateTime|null
+#### public $capturedAtGte : null|\DateTime
 ---
 ***Description***
 
 Время подтверждения, от (включительно)
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 
 
 <a name="property_capturedAtLt"></a>
-#### public $capturedAtLt : \DateTime|null
+#### public $capturedAtLt : null|\DateTime
 ---
 ***Description***
 
 Время подтверждения, до (не включая)
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 
 
 <a name="property_capturedAtLte"></a>
-#### public $capturedAtLte : \DateTime|null
+#### public $capturedAtLte : null|\DateTime
 ---
 ***Description***
 
 Время подтверждения, до (включительно)
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 
 
 <a name="property_createdAtGt"></a>
-#### public $createdAtGt : \DateTime|null
+#### public $createdAtGt : null|\DateTime
 ---
 ***Description***
 
 Время создания, от (не включая)
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 
 
 <a name="property_createdAtGte"></a>
-#### public $createdAtGte : \DateTime|null
+#### public $createdAtGte : null|\DateTime
 ---
 ***Description***
 
 Время создания, от (включительно)
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 
 
 <a name="property_createdAtLt"></a>
-#### public $createdAtLt : \DateTime|null
+#### public $createdAtLt : null|\DateTime
 ---
 ***Description***
 
 Время создания, до (не включая)
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 
 
 <a name="property_createdAtLte"></a>
-#### public $createdAtLte : \DateTime|null
+#### public $createdAtLte : null|\DateTime
 ---
 ***Description***
 
 Время создания, до (включительно)
 
-**Type:** <a href="../\DateTime|null"><abbr title="\DateTime|null">DateTime|null</abbr></a>
+**Type:** <a href="../null|\DateTime"><abbr title="null|\DateTime">DateTime</abbr></a>
 
 **Details:**
 
 
 <a name="property_cursor"></a>
-#### public $cursor : string|null
+#### public $cursor : null|string
 ---
 ***Description***
 
 Страница выдачи результатов, которую необходимо отобразить
 
-**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../null|string"><abbr title="null|string">null|string</abbr></a>
 
 **Details:**
 
 
 <a name="property_limit"></a>
-#### public $limit : int|null
+#### public $limit : null|int
 ---
 ***Description***
 
 Ограничение количества объектов платежа, отображаемых на одной странице выдачи
 
-**Type:** <a href="../int|null"><abbr title="int|null">int|null</abbr></a>
+**Type:** <a href="../null|int"><abbr title="null|int">null|int</abbr></a>
 
 **Details:**
 
 
 <a name="property_paymentMethod"></a>
-#### public $paymentMethod : string|null
+#### public $paymentMethod : null|string
 ---
 ***Description***
 
 Платежный метод
 
-**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../null|string"><abbr title="null|string">null|string</abbr></a>
 
 **Details:**
 
 
 <a name="property_status"></a>
-#### public $status : string|null
+#### public $status : null|string
 ---
 ***Description***
 
 Статус платежа
 
-**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../null|string"><abbr title="null|string">null|string</abbr></a>
 
 **Details:**
 
@@ -266,7 +281,7 @@ MAX_LIMIT_VALUE = 100
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -279,7 +294,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -293,7 +308,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -315,7 +330,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -329,15 +344,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -348,19 +363,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -370,7 +385,7 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_builder" class="anchor"></a>
@@ -382,7 +397,7 @@ Static public builder() : \YooKassa\Request\Payments\PaymentsRequestBuilder
 
 **Summary**
 
-Возвращает инстанс билдера объектов запросов списка платежей магазина
+Возвращает инстанс билдера объектов запросов списка платежей магазина.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -391,32 +406,32 @@ Static public builder() : \YooKassa\Request\Payments\PaymentsRequestBuilder
 
 
 <a name="method_clearValidationError" class="anchor"></a>
-#### public clearValidationError() : mixed
+#### public clearValidationError() : void
 
 ```php
-public clearValidationError() : mixed
+public clearValidationError() : void
 ```
 
 **Summary**
 
-Очищает статус валидации текущего запроса
+Очищает статус валидации текущего запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -426,228 +441,241 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getCapturedAtGt" class="anchor"></a>
-#### public getCapturedAtGt() : \DateTime|null
+#### public getCapturedAtGt() : null|\DateTime
 
 ```php
-public getCapturedAtGt() : \DateTime|null
+public getCapturedAtGt() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату подтверждения от которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату подтверждения от которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** \DateTime|null - Время подтверждения, от (не включая)
+**Returns:** null|\DateTime - Время подтверждения, от (не включая)
 
 
 <a name="method_getCapturedAtGte" class="anchor"></a>
-#### public getCapturedAtGte() : \DateTime|null
+#### public getCapturedAtGte() : null|\DateTime
 
 ```php
-public getCapturedAtGte() : \DateTime|null
+public getCapturedAtGte() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату подтверждения от которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату подтверждения от которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** \DateTime|null - Время подтверждения, от (включительно)
+**Returns:** null|\DateTime - Время подтверждения, от (включительно)
 
 
 <a name="method_getCapturedAtLt" class="anchor"></a>
-#### public getCapturedAtLt() : \DateTime|null
+#### public getCapturedAtLt() : null|\DateTime
 
 ```php
-public getCapturedAtLt() : \DateTime|null
+public getCapturedAtLt() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату подтверждения до которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату подтверждения до которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** \DateTime|null - Время подтверждения, до (не включая)
+**Returns:** null|\DateTime - Время подтверждения, до (не включая)
 
 
 <a name="method_getCapturedAtLte" class="anchor"></a>
-#### public getCapturedAtLte() : \DateTime|null
+#### public getCapturedAtLte() : null|\DateTime
 
 ```php
-public getCapturedAtLte() : \DateTime|null
+public getCapturedAtLte() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату подтверждения до которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату подтверждения до которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** \DateTime|null - Время подтверждения, до (включительно)
+**Returns:** null|\DateTime - Время подтверждения, до (включительно)
 
 
 <a name="method_getCreatedAtGt" class="anchor"></a>
-#### public getCreatedAtGt() : \DateTime|null
+#### public getCreatedAtGt() : null|\DateTime
 
 ```php
-public getCreatedAtGt() : \DateTime|null
+public getCreatedAtGt() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** \DateTime|null - Время создания, от (не включая)
+**Returns:** null|\DateTime - Время создания, от (не включая)
 
 
 <a name="method_getCreatedAtGte" class="anchor"></a>
-#### public getCreatedAtGte() : \DateTime|null
+#### public getCreatedAtGte() : null|\DateTime
 
 ```php
-public getCreatedAtGte() : \DateTime|null
+public getCreatedAtGte() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** \DateTime|null - Время создания, от (включительно)
+**Returns:** null|\DateTime - Время создания, от (включительно)
 
 
 <a name="method_getCreatedAtLt" class="anchor"></a>
-#### public getCreatedAtLt() : \DateTime|null
+#### public getCreatedAtLt() : null|\DateTime
 
 ```php
-public getCreatedAtLt() : \DateTime|null
+public getCreatedAtLt() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** \DateTime|null - Время создания, до (не включая)
+**Returns:** null|\DateTime - Время создания, до (не включая)
 
 
 <a name="method_getCreatedAtLte" class="anchor"></a>
-#### public getCreatedAtLte() : \DateTime|null
+#### public getCreatedAtLte() : null|\DateTime
 
 ```php
-public getCreatedAtLte() : \DateTime|null
+public getCreatedAtLte() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** \DateTime|null - Время создания, до (включительно)
+**Returns:** null|\DateTime - Время создания, до (включительно)
 
 
 <a name="method_getCursor" class="anchor"></a>
-#### public getCursor() : string|null
+#### public getCursor() : null|string
 
 ```php
-public getCursor() : string|null
+public getCursor() : null|string
 ```
 
 **Summary**
 
-Страница выдачи результатов, которую необходимо отобразить
+Страница выдачи результатов, которую необходимо отобразить.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** string|null - 
+**Returns:** null|string - Страница выдачи результатов
 
 
 <a name="method_getLastValidationError" class="anchor"></a>
-#### public getLastValidationError() : string
+#### public getLastValidationError() : string|null
 
 ```php
-public getLastValidationError() : string
+public getLastValidationError() : string|null
 ```
 
 **Summary**
 
-Возвращает последнюю ошибку валидации
+Возвращает последнюю ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** string - Последняя произошедшая ошибка валидации
+**Returns:** string|null - Последняя произошедшая ошибка валидации
 
 
 <a name="method_getLimit" class="anchor"></a>
-#### public getLimit() : int|null
+#### public getLimit() : null|int
 
 ```php
-public getLimit() : int|null
+public getLimit() : null|int
 ```
 
 **Summary**
 
-Ограничение количества объектов платежа
+Ограничение количества объектов платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** int|null - Ограничение количества объектов платежа
+**Returns:** null|int - Ограничение количества объектов платежа
 
 
 <a name="method_getPaymentMethod" class="anchor"></a>
-#### public getPaymentMethod() : string|null
+#### public getPaymentMethod() : null|string
 
 ```php
-public getPaymentMethod() : string|null
+public getPaymentMethod() : null|string
 ```
 
 **Summary**
 
-Возвращает платежный метод выбираемых платежей или null, если он до этого не был установлен
+Возвращает платежный метод выбираемых платежей или null, если он до этого не был установлен.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** string|null - Платежный метод выбираемых платежей
+**Returns:** null|string - Платежный метод выбираемых платежей
 
 
 <a name="method_getStatus" class="anchor"></a>
-#### public getStatus() : string|null
+#### public getStatus() : null|string
 
 ```php
-public getStatus() : string|null
+public getStatus() : null|string
 ```
 
 **Summary**
 
-Возвращает статус выбираемых платежей или null, если он до этого не был установлен
+Возвращает статус выбираемых платежей или null, если он до этого не был установлен.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
 
-**Returns:** string|null - Статус выбираемых платежей
+**Returns:** null|string - Статус выбираемых платежей
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_hasCapturedAtGt" class="anchor"></a>
@@ -659,7 +687,7 @@ public hasCapturedAtGt() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата подтверждения от которой выбираются платежи
+Проверяет, была ли установлена дата подтверждения от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -676,7 +704,7 @@ public hasCapturedAtGte() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата подтверждения от которой выбираются платежи
+Проверяет, была ли установлена дата подтверждения от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -693,7 +721,7 @@ public hasCapturedAtLt() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата подтверждения до которой выбираются платежи
+Проверяет, была ли установлена дата подтверждения до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -710,7 +738,7 @@ public hasCapturedAtLte() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата подтверждения до которой выбираются платежи
+Проверяет, была ли установлена дата подтверждения до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -727,7 +755,7 @@ public hasCreatedAtGt() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания от которой выбираются платежи
+Проверяет, была ли установлена дата создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -744,7 +772,7 @@ public hasCreatedAtGte() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания от которой выбираются платежи
+Проверяет, была ли установлена дата создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -761,7 +789,7 @@ public hasCreatedAtLt() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания до которой выбираются платежи
+Проверяет, была ли установлена дата создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -778,7 +806,7 @@ public hasCreatedAtLte() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания до которой выбираются платежи
+Проверяет, была ли установлена дата создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -795,7 +823,7 @@ public hasCursor() : bool
 
 **Summary**
 
-Проверяет, была ли установлена страница выдачи результатов, которую необходимо отобразить
+Проверяет, была ли установлена страница выдачи результатов, которую необходимо отобразить.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -812,7 +840,7 @@ public hasLimit() : bool
 
 **Summary**
 
-Проверяет, было ли установлено ограничение количества объектов платежа
+Проверяет, было ли установлено ограничение количества объектов платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -829,7 +857,7 @@ public hasPaymentMethod() : bool
 
 **Summary**
 
-Проверяет, был ли установлен платежный метод выбираемых платежей
+Проверяет, был ли установлен платежный метод выбираемых платежей.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -846,7 +874,7 @@ public hasStatus() : bool
 
 **Summary**
 
-Проверяет, был ли установлен статус выбираемых платежей
+Проверяет, был ли установлен статус выбираемых платежей.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -863,7 +891,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -880,7 +908,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -902,7 +930,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -924,7 +952,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -947,7 +975,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -961,15 +989,15 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setCapturedAtGt" class="anchor"></a>
-#### public setCapturedAtGt() : void
+#### public setCapturedAtGt() : self
 
 ```php
-public setCapturedAtGt(\DateTime|string|int|null $value) : void
+public setCapturedAtGt(null|\DateTime|int|string $captured_at_gt) : self
 ```
 
 **Summary**
 
-Устанавливает дату подтверждения от которой выбираются платежи
+Устанавливает дату подтверждения от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -977,27 +1005,21 @@ public setCapturedAtGt(\DateTime|string|int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время подтверждения, от (не включая) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | captured_at_gt  | Время подтверждения, от (не включая) или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setCapturedAtGte" class="anchor"></a>
-#### public setCapturedAtGte() : void
+#### public setCapturedAtGte() : self
 
 ```php
-public setCapturedAtGte(\DateTime|string|int|null $value) : void
+public setCapturedAtGte(null|\DateTime|int|string $captured_at_gte) : self
 ```
 
 **Summary**
 
-Устанавливает дату подтверждения от которой выбираются платежи
+Устанавливает дату подтверждения от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1005,27 +1027,21 @@ public setCapturedAtGte(\DateTime|string|int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время подтверждения, от (включительно) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | captured_at_gte  | Время подтверждения, от (включительно) или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setCapturedAtLt" class="anchor"></a>
-#### public setCapturedAtLt() : void
+#### public setCapturedAtLt() : self
 
 ```php
-public setCapturedAtLt(\DateTime|string|int|null $value) : void
+public setCapturedAtLt(null|\DateTime|int|string $captured_at_lt) : self
 ```
 
 **Summary**
 
-Устанавливает дату подтверждения до которой выбираются платежи
+Устанавливает дату подтверждения до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1033,27 +1049,21 @@ public setCapturedAtLt(\DateTime|string|int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время подтверждения, до (не включая) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | captured_at_lt  | Время подтверждения, до (не включая) или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setCapturedAtLte" class="anchor"></a>
-#### public setCapturedAtLte() : void
+#### public setCapturedAtLte() : self
 
 ```php
-public setCapturedAtLte(\DateTime|string|int|null $value) : void
+public setCapturedAtLte(null|\DateTime|int|string $captured_at_lte) : self
 ```
 
 **Summary**
 
-Устанавливает дату подтверждения до которой выбираются платежи
+Устанавливает дату подтверждения до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1061,27 +1071,21 @@ public setCapturedAtLte(\DateTime|string|int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время подтверждения, до (включительно) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | captured_at_lte  | Время подтверждения, до (включительно) или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setCreatedAtGt" class="anchor"></a>
-#### public setCreatedAtGt() : void
+#### public setCreatedAtGt() : self
 
 ```php
-public setCreatedAtGt(\DateTime|string|int|null $value) : void
+public setCreatedAtGt(null|\DateTime|int|string $created_at_gt) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются платежи
+Устанавливает дату создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1089,27 +1093,21 @@ public setCreatedAtGt(\DateTime|string|int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, от (не включая) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | created_at_gt  | Время создания, от (не включая) или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setCreatedAtGte" class="anchor"></a>
-#### public setCreatedAtGte() : void
+#### public setCreatedAtGte() : self
 
 ```php
-public setCreatedAtGte(\DateTime|string|int|null $value) : void
+public setCreatedAtGte(\DateTime|string|null $_created_at_gte = null) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются платежи
+Устанавливает дату создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1117,27 +1115,21 @@ public setCreatedAtGte(\DateTime|string|int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, от (включительно) или null, чтобы удалить значение |
+| <code lang="php">\DateTime OR string OR null</code> | _created_at_gte  | Время создания, от (включительно) или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setCreatedAtLt" class="anchor"></a>
-#### public setCreatedAtLt() : void
+#### public setCreatedAtLt() : self
 
 ```php
-public setCreatedAtLt(\DateTime|string|int|null $value) : void
+public setCreatedAtLt(null|\DateTime|int|string $created_at_lt) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются платежи
+Устанавливает дату создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1145,27 +1137,21 @@ public setCreatedAtLt(\DateTime|string|int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, до (не включая) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | created_at_lt  | Время создания, до (не включая) или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setCreatedAtLte" class="anchor"></a>
-#### public setCreatedAtLte() : void
+#### public setCreatedAtLte() : self
 
 ```php
-public setCreatedAtLte(\DateTime|string|int|null $value) : void
+public setCreatedAtLte(null|\DateTime|int|string $created_at_lte) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются платежи
+Устанавливает дату создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1173,22 +1159,16 @@ public setCreatedAtLte(\DateTime|string|int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int OR null</code> | value  | Время создания, до (включительно) или null, чтобы удалить значение |
+| <code lang="php">null OR \DateTime OR int OR string</code> | created_at_lte  | Время создания, до (включительно) или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Генерируется если была передана дата в невалидном формате (была передана строка или число, которые не удалось преобразовать в валидную дату) |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Генерируется если была передана дата с не тем типом (передана не строка, не число и не значение типа \DateTime) |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setCursor" class="anchor"></a>
-#### public setCursor() : void
+#### public setCursor() : self
 
 ```php
-public setCursor(string $value) : void
+public setCursor(string|null $cursor) : self
 ```
 
 **Summary**
@@ -1201,26 +1181,21 @@ public setCursor(string $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Страница выдачи результатов или null, чтобы удалить значение |
+| <code lang="php">string OR null</code> | cursor  | Страница выдачи результатов или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод была передана не строка |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setLimit" class="anchor"></a>
-#### public setLimit() : void
+#### public setLimit() : self
 
 ```php
-public setLimit(int|null $value) : void
+public setLimit(null|int|string $limit) : self
 ```
 
 **Summary**
 
-Устанавливает ограничение количества объектов платежа
+Устанавливает ограничение количества объектов платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1228,26 +1203,21 @@ public setLimit(int|null $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">int OR null</code> | value  | Ограничение количества объектов платежа или null, чтобы удалить значение |
+| <code lang="php">null OR int OR string</code> | limit  | Ограничение количества объектов платежа или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается, если в метод было передано не целое число |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setPaymentMethod" class="anchor"></a>
-#### public setPaymentMethod() : void
+#### public setPaymentMethod() : self
 
 ```php
-public setPaymentMethod(string $value) : void
+public setPaymentMethod(string|null $payment_method) : self
 ```
 
 **Summary**
 
-Устанавливает платежный метод выбираемых платежей
+Устанавливает платежный метод выбираемых платежей.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1255,27 +1225,21 @@ public setPaymentMethod(string $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Платежный метод выбираемых платежей или null, чтобы удалить значение |
+| <code lang="php">string OR null</code> | payment_method  | Платежный метод выбираемых платежей или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданное значение не является валидным статусом |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод была передана не строка |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_setStatus" class="anchor"></a>
-#### public setStatus() : void
+#### public setStatus() : self
 
 ```php
-public setStatus(string $value) : void
+public setStatus(string|null $status) : self
 ```
 
 **Summary**
 
-Устанавливает статус выбираемых платежей
+Устанавливает статус выбираемых платежей.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1283,15 +1247,9 @@ public setStatus(string $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Статус выбираемых платежей или null, чтобы удалить значение |
+| <code lang="php">string OR null</code> | status  | Статус выбираемых платежей или null, чтобы удалить значение |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданное значение не является валидным статусом |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в метод была передана не строка |
-
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -1304,7 +1262,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1321,7 +1279,7 @@ public validate() : bool
 
 **Summary**
 
-Проверяет валидность текущего объекта запроса
+Проверяет валидность текущего объекта запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequest](../classes/YooKassa-Request-Payments-PaymentsRequest.md)
@@ -1338,7 +1296,7 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1347,15 +1305,15 @@ protected getUnknownProperties() : array
 
 
 <a name="method_setValidationError" class="anchor"></a>
-#### protected setValidationError() : mixed
+#### protected setValidationError() : void
 
 ```php
-protected setValidationError(string $value) : mixed
+protected setValidationError(string $value) : void
 ```
 
 **Summary**
 
-Устанавливает ошибку валидации
+Устанавливает ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
@@ -1364,6 +1322,25 @@ protected setValidationError(string $value) : mixed
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | value  | Ошибка, произошедшая при валидации объекта |
+
+**Returns:** void - 
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
 
 **Returns:** mixed - 
 
@@ -1379,11 +1356,11 @@ protected setValidationError(string $value) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

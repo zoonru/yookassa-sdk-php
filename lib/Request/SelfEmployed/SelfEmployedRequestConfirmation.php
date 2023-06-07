@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,64 +27,50 @@
 namespace YooKassa\Request\SelfEmployed;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
 use YooKassa\Model\SelfEmployed\SelfEmployedConfirmationType;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
  * Класс, представляющий модель SelfEmployedRequestConfirmation.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property string $type Тип сценария подтверждения.
  */
 class SelfEmployedRequestConfirmation extends AbstractObject
 {
     /**
-     * Тип сценария подтверждения
-     * @var string
+     * Тип сценария подтверждения.
+     *
+     * @var string|null
      */
-    private $_type;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [SelfEmployedConfirmationType::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    protected ?string $_type = null;
 
     /**
-     * Возвращает тип сценария подтверждения
-     * @return string
+     * Возвращает тип сценария подтверждения.
+     *
+     * @return string|null
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->_type;
     }
 
     /**
-     * Устанавливает тип сценария подтверждения
-     * @param string $value
+     * Устанавливает тип сценария подтверждения.
+     *
+     * @param string|null $type Тип сценария подтверждения
+     *
+     * @return self
      */
-    protected function setType($value)
+    public function setType(?string $type = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty value for "type" parameter in SelfEmployedRequestConfirmation',
-                0,
-                'confirmation.type'
-            );
-        }
-        if (!TypeCast::canCastToEnumString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "type" parameter in SelfEmployedRequestConfirmation',
-                0,
-                'confirmation.type',
-                $value
-            );
-        }
-        if (!SelfEmployedConfirmationType::valueExists($value)) {
-            throw new InvalidPropertyValueException(
-                'Invalid value for "type" parameter in SelfEmployedRequestConfirmation',
-                0,
-                'confirmation.type',
-                $value
-            );
-        }
-        $this->_type = (string)$value;
+        $this->_type = $this->validatePropertyValue('_type', $type);
+        return $this;
     }
 }

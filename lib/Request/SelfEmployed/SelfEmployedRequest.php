@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,73 +27,78 @@
 namespace YooKassa\Request\SelfEmployed;
 
 use YooKassa\Common\AbstractRequest;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
 use YooKassa\Model\SelfEmployed\SelfEmployedConfirmation;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
  * Класс, представляющий модель SelfEmployedRequest.
  *
  * Запрос на создание объекта самозанятого.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
- * @property string|null $itn ИНН самозанятого.
- * @property string|null $phone Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
- * @property SelfEmployedRequestConfirmation|null $confirmation Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
+ * @example 02-builder.php 232 18 Пример использования билдера
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property null|string $itn ИНН самозанятого. Формат: 12 цифр без пробелов. Обязательный параметр, если не передан phone.
+ * @property null|string $phone Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
+ * @property null|SelfEmployedRequestConfirmation $confirmation Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
  */
-class SelfEmployedRequest extends AbstractRequest
+class SelfEmployedRequest extends AbstractRequest implements SelfEmployedRequestInterface
 {
     /**
+     * ИНН самозанятого.
+     *
      * @var string|null
      */
-    private $_itn;
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^\d{12}$/")]
+    private ?string $_itn = null;
 
     /**
      * @var string|null
      */
-    private $_phone;
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^[0-9]{4,15}$/")]
+    private ?string $_phone = null;
 
     /**
      * @var SelfEmployedRequestConfirmation|null
      */
-    private $_confirmation;
+    #[Assert\Valid]
+    #[Assert\Type(SelfEmployedRequestConfirmation::class)]
+    private ?SelfEmployedRequestConfirmation $_confirmation = null;
 
     /**
-     * Возвращает ИНН самозанятого
+     * Возвращает ИНН самозанятого.
      *
      * @return string|null ИНН самозанятого
      */
-    public function getItn()
+    public function getItn(): ?string
     {
         return $this->_itn;
     }
 
     /**
-     * Устанавливает ИНН самозанятого
+     * Устанавливает ИНН самозанятого.
      *
      * @param string|null $itn ИНН самозанятого
      *
-     * @return $this
+     * @return self
      */
-    public function setItn($itn = null)
+    public function setItn(?string $itn = null): self
     {
-        if ($itn === null || $itn === '') {
-            $this->_itn = null;
-        } elseif (!TypeCast::canCastToString($itn)) {
-            throw new InvalidPropertyValueTypeException('Invalid itn value type', 0, 'SelfEmployed.itn');
-        } else {
-            $this->_itn = (string)preg_replace('/\D/', '', $itn);
-        }
-
+        $this->_itn = $this->validatePropertyValue('_itn', $itn);
         return $this;
     }
 
     /**
-     * Проверяет наличие ИНН самозанятого в запросе
+     * Проверяет наличие ИНН самозанятого в запросе.
+     *
      * @return bool True если ИНН самозанятого задан, false если нет
      */
-    public function hasItn()
+    public function hasItn(): bool
     {
         return !empty($this->_itn);
     }
@@ -103,7 +108,7 @@ class SelfEmployedRequest extends AbstractRequest
      *
      * @return string|null Телефон самозанятого
      */
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->_phone;
     }
@@ -111,28 +116,22 @@ class SelfEmployedRequest extends AbstractRequest
     /**
      * Устанавливает телефон самозанятого.
      *
-     * @param string|null $phone Телефон самозанятого
+     * @param string|array|null $phone Телефон самозанятого
      *
-     * @return $this
+     * @return self
      */
-    public function setPhone($phone = null)
+    public function setPhone(mixed $phone = null): self
     {
-        if ($phone === null || $phone === '') {
-            $this->_phone = null;
-        } elseif (!TypeCast::canCastToString($phone)) {
-            throw new InvalidPropertyValueTypeException('Invalid phone value type', 0, 'SelfEmployedRequest.phone');
-        } else {
-            $this->_phone = (string)preg_replace('/\D/', '', $phone);
-        }
-
+        $this->_phone = $this->validatePropertyValue('_phone', $phone);
         return $this;
     }
 
     /**
-     * Проверяет наличие телефона самозанятого в запросе
+     * Проверяет наличие телефона самозанятого в запросе.
+     *
      * @return bool True если телефон самозанятого задан, false если нет
      */
-    public function hasPhone()
+    public function hasPhone(): bool
     {
         return !empty($this->_phone);
     }
@@ -142,7 +141,7 @@ class SelfEmployedRequest extends AbstractRequest
      *
      * @return SelfEmployedRequestConfirmation|null Сценарий подтверждения
      */
-    public function getConfirmation()
+    public function getConfirmation(): ?SelfEmployedRequestConfirmation
     {
         return $this->_confirmation;
     }
@@ -150,48 +149,39 @@ class SelfEmployedRequest extends AbstractRequest
     /**
      * Устанавливает сценарий подтверждения.
      *
-     * @param SelfEmployedConfirmation|array|null $confirmation Сценарий подтверждения
+     * @param null|array|SelfEmployedConfirmation $confirmation Сценарий подтверждения
      *
      * @return $this
      */
-    public function setConfirmation($confirmation = null)
+    public function setConfirmation(mixed $confirmation = null): self
     {
-        if ($confirmation === null || $confirmation === '') {
-            $this->_confirmation = null;
-        } elseif (is_array($confirmation)) {
-            $factory = new SelfEmployedRequestConfirmationFactory();
-            $this->_confirmation = $factory->factoryFromArray($confirmation);
-        } elseif ($confirmation instanceof SelfEmployedRequestConfirmation) {
-            $this->_confirmation = $confirmation;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "confirmation" parameter in SelfEmployedRequest',
-                0,
-                'SelfEmployedRequest.confirmation',
-                $confirmation
-            );
+        if (is_array($confirmation)) {
+            $confirmation = (new SelfEmployedRequestConfirmationFactory)->factoryFromArray($confirmation);
         }
-
+        $this->_confirmation = $this->validatePropertyValue('_payout_destination_data', $confirmation);
         return $this;
     }
 
     /**
-     * Проверяет наличие сценария подтверждения самозанятого в запросе
+     * Проверяет наличие сценария подтверждения самозанятого в запросе.
+     *
      * @return bool True если сценарий подтверждения самозанятого задан, false если нет
      */
-    public function hasConfirmation()
+    public function hasConfirmation(): bool
     {
         return !empty($this->_confirmation);
     }
 
     /**
      * Проверяет на валидность текущий объект
+     *
      * @return bool True если объект запроса валиден, false если нет
      */
-    public function validate()
+    public function validate(): bool
     {
         if (!$this->hasPhone() && !$this->hasItn()) {
             $this->setValidationError('Both itn and phone values are empty in SelfEmployedRequest');
+
             return false;
         }
 
@@ -199,10 +189,11 @@ class SelfEmployedRequest extends AbstractRequest
     }
 
     /**
-     * Возвращает билдер объектов запросов создания платежа
-     * @return SelfEmployedRequestBuilder Инстанс билдера объектов запросов
+     * Возвращает билдер объектов запросов создания платежа.
+     *
+     * @return SelfEmployedRequestBuilder
      */
-    public static function builder()
+    public static function builder(): SelfEmployedRequestBuilder
     {
         return new SelfEmployedRequestBuilder();
     }
