@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,29 +27,26 @@
 namespace YooKassa\Model\PersonalData;
 
 use DateTime;
-use Exception;
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
 use YooKassa\Model\Metadata;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
  * Класс, представляющий модель PersonalData.
  *
  * Информация о персональных данных
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
- *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $id Идентификатор персональных данных
  * @property string $type Тип персональных данных
  * @property string $status Текущий статус персональных данных
  * @property DateTime $createdAt Время создания персональных данных
  * @property DateTime $created_at Время создания персональных данных
- * @property DateTime|null $expiresAt Срок жизни объекта персональных данных
- * @property DateTime|null $expires_at Срок жизни объекта персональных данных
+ * @property null|DateTime $expiresAt Срок жизни объекта персональных данных
+ * @property null|DateTime $expires_at Срок жизни объекта персональных данных
  * @property PersonalDataCancellationDetails $cancellationDetails Комментарий к отмене выплаты
  * @property PersonalDataCancellationDetails $cancellation_details Комментарий к отмене выплаты
  * @property Metadata $metadata Метаданные выплаты указанные мерчантом
@@ -59,58 +56,72 @@ class PersonalData extends AbstractObject implements PersonalDataInterface
     /**
      * Идентификатор персональных данных, сохраненных в ЮKassa.
      *
-     * @var string
+     * @var string|null
      */
-    private $_id;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::MAX_LENGTH_ID)]
+    #[Assert\Length(min: self::MIN_LENGTH_ID)]
+    protected ?string $_id = null;
 
     /**
      * Тип персональных данных — цель, для которой вы будете использовать данные.
-     *
      * Возможное значение:
-     * * `sbp_payout_recipient` — выплаты с [проверкой получателя](/developers/payouts/scenario-extensions/recipient-check).
+     * `sbp_payout_recipient` — выплаты с [проверкой получателя](/developers/payouts/scenario-extensions/recipient-check).
      *
-     * @var string
+     * @var string|null
      */
-    private $_type;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [PersonalDataType::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    protected ?string $_type = null;
 
     /**
      * Статус персональных данных.
-     *
      * Возможные значения:
      *  * `waiting_for_operation` — данные сохранены, но не использованы при проведении выплаты;
      *  * `active` — данные сохранены и использованы при проведении выплаты; данные можно использовать повторно до срока, указанного в параметре `expires_at`;
      *  * `canceled` — хранение данных отменено, данные удалены, инициатор и причина отмены указаны в объекте `cancellation_details` (финальный и неизменяемый статус).
      *
-     * [Подробнее о жизненном цикле персональных данных](/developers/payouts/scenario-extensions/recipient-check#lifecircle)
-     *
-     * @var string
+     * @var string|null
      */
-    private $_status;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [PersonalDataStatus::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    protected ?string $_status = null;
 
     /**
      * Комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных.
      *
      * @var PersonalDataCancellationDetails|null
      */
-    private $_cancellation_details;
+    #[Assert\Valid]
+    #[Assert\Type(PersonalDataCancellationDetails::class)]
+    protected ?PersonalDataCancellationDetails $_cancellation_details = null;
 
     /**
      * Время создания персональных данных.
-     *
-     * Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время) и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). Пример: ~`2017-11-03T11:52:31.827Z`
-     *
-     * @var DateTime
-     */
-    private $_created_at;
-
-    /**
-     * Срок жизни объекта персональных данных — время, до которого вы можете использовать персональные данные при проведении операций.
-     *
-     * Указывается только для объекта в статусе ~`active`. Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время) и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). Пример: ~`2017-11-03T11:52:31.827Z`
+     * Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время) и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+     * Пример: ~`2017-11-03T11:52:31.827Z`
      *
      * @var DateTime|null
      */
-    private $_expires_at;
+    #[Assert\NotBlank]
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    protected ?DateTime $_created_at = null;
+
+    /**
+    Срок жизни объекта персональных данных — время, до которого вы можете использовать персональные данные при проведении операций.
+     * Указывается только для объекта в статусе ~`active`. Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время)
+     * и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+     * Пример: ~`2017-11-03T11:52:31.827Z`
+     *
+     * @var DateTime|null
+     */
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    protected ?DateTime $_expires_at = null;
 
     /**
      * Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа).
@@ -118,48 +129,40 @@ class PersonalData extends AbstractObject implements PersonalDataInterface
      * Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от ЮKassa.
      * Ограничения: максимум 16 ключей, имя ключа не больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
      *
-     * @var array|null
+     * @var Metadata|null
      */
-    private $_metadata;
-
+    #[Assert\Type(Metadata::class)]
+    protected ?Metadata $_metadata = null;
 
     /**
-     * Возвращает id.
+     * Возвращает идентификатор персональных данных, сохраненных в ЮKassa.
      *
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->_id;
     }
 
     /**
-     * Устанавливает id.
+     * Устанавливает идентификатор персональных данных, сохраненных в ЮKassa.
      *
-     * @param string $id Идентификатор персональных данных, сохраненных в ЮKassa.
+     * @param string|null $id Идентификатор персональных данных, сохраненных в ЮKassa.
      *
-     * @return $this
+     * @return self
      */
-    public function setId($id)
+    public function setId(?string $id = null): self
     {
-        if (!TypeCast::canCastToString($id)) {
-            throw new InvalidPropertyValueTypeException('Invalid PersonalData id value type', 0, 'PersonalData.id', $id);
-        }
-        $length = mb_strlen($id, 'utf-8');
-        if ($length < PersonalDataInterface::MIN_LENGTH_ID || $length > PersonalDataInterface::MAX_LENGTH_ID) {
-            throw new InvalidPropertyValueException('Invalid PersonalData id value', 0, 'PersonalData.id', $id);
-        }
-        $this->_id = (string)$id;
-
+        $this->_id = $this->validatePropertyValue('_id', $id);
         return $this;
     }
 
     /**
      * Возвращает тип персональных данных.
      *
-     * @return string Тип персональных данных
+     * @return string|null Тип персональных данных
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->_type;
     }
@@ -167,29 +170,22 @@ class PersonalData extends AbstractObject implements PersonalDataInterface
     /**
      * Устанавливает тип персональных данных.
      *
-     * @param string $type Тип персональных данных
+     * @param string|null $status Тип персональных данных
      *
-     * @return $this
+     * @return self
      */
-    public function setType($type)
+    public function setType(?string $type = null): self
     {
-        if (!TypeCast::canCastToEnumString($type)) {
-            throw new InvalidPropertyValueTypeException('Invalid PersonalData type value type', 0, 'PersonalData.type', $type);
-        }
-        if (!PersonalDataType::valueExists((string)$type)) {
-            throw new InvalidPropertyValueException('Invalid PersonalData type value', 0, 'PersonalData.type', $type);
-        }
-        $this->_type = (string)$type;
-
+        $this->_type = $this->validatePropertyValue('_type', $type);
         return $this;
     }
 
     /**
      * Возвращает статус персональных данных.
      *
-     * @return string Статус персональных данных
+     * @return string|null Статус персональных данных
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->_status;
     }
@@ -197,66 +193,45 @@ class PersonalData extends AbstractObject implements PersonalDataInterface
     /**
      * Устанавливает статус персональных данных.
      *
-     * @param string $status Статус персональных данных
+     * @param string|null $status Статус персональных данных
      *
      * @return $this
      */
-    public function setStatus($status)
+    public function setStatus(?string $status = null): self
     {
-        if (!TypeCast::canCastToEnumString($status)) {
-            throw new InvalidPropertyValueTypeException('Invalid PersonalData status value type', 0, 'PersonalData.status', $status);
-        }
-        if (!PersonalDataStatus::valueExists((string)$status)) {
-            throw new InvalidPropertyValueException('Invalid PersonalData status value', 0, 'PersonalData.status', $status);
-        }
-        $this->_status = (string)$status;
-
+        $this->_status = $this->validatePropertyValue('_status', $status);
         return $this;
     }
 
     /**
-     * Возвращает cancellation_details.
+     * Возвращает комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных.
      *
-     * @return PersonalDataCancellationDetails|null
+     * @return PersonalDataCancellationDetails|null Комментарий к статусу canceled
      */
-    public function getCancellationDetails()
+    public function getCancellationDetails(): ?PersonalDataCancellationDetails
     {
         return $this->_cancellation_details;
     }
 
     /**
-     * Устанавливает cancellation_details.
+     * Устанавливает Комментарий к статусу canceled: кто и по какой причине аннулировал хранение данных.
      *
-     * @param PersonalDataCancellationDetails|array|null $cancellation_details
+     * @param PersonalDataCancellationDetails|array|null $cancellation_details Комментарий к статусу canceled
      *
-     * @return $this
+     * @return self
      */
-    public function setCancellationDetails($cancellation_details)
+    public function setCancellationDetails(mixed $cancellation_details = null): self
     {
-        if ($cancellation_details === null) {
-            $this->_cancellation_details = null;
-        } elseif (is_array($cancellation_details)) {
-            $this->_cancellation_details = new PersonalDataCancellationDetails($cancellation_details);
-        } elseif ($cancellation_details instanceof PersonalDataCancellationDetails) {
-            $this->_cancellation_details = $cancellation_details;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "cancellation_details" parameter in PersonalData',
-                0,
-                'PersonalData.cancellation_details',
-                $cancellation_details
-            );
-        }
-
+        $this->_cancellation_details = $this->validatePropertyValue('_cancellation_details', $cancellation_details);
         return $this;
     }
 
     /**
-     * Возвращает created_at.
+     * Возвращает время создания персональных данных.
      *
-     * @return DateTime
+     * @return DateTime|null Время создания персональных данных
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?DateTime
     {
         return $this->_created_at;
     }
@@ -264,25 +239,13 @@ class PersonalData extends AbstractObject implements PersonalDataInterface
     /**
      * Устанавливает время создания персональных данных.
      *
-     * @param DateTime|string|int $created_at Время создания персональных данных
+     * @param DateTime|string|null $created_at Время создания персональных данных.
      *
-     * @return $this
-     * @throws Exception
+     * @return self
      */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt(DateTime|string|null $created_at = null): self
     {
-        if ($created_at === null || $created_at === '') {
-            throw new EmptyPropertyValueException('Empty created_at value', 0, 'PersonalData.createdAt');
-        }
-        if (!TypeCast::canCastToDateTime($created_at)) {
-            throw new InvalidPropertyValueTypeException('Invalid created_at value', 0, 'PersonalData.createdAt', $created_at);
-        }
-        $dateTime = TypeCast::castToDateTime($created_at);
-        if ($dateTime === null) {
-            throw new InvalidPropertyValueException('Invalid created_at value', 0, 'PersonalData.createdAt', $created_at);
-        }
-        $this->_created_at = $dateTime;
-
+        $this->_created_at = $this->validatePropertyValue('_created_at', $created_at);
         return $this;
     }
 
@@ -291,7 +254,7 @@ class PersonalData extends AbstractObject implements PersonalDataInterface
      *
      * @return DateTime|null Срок жизни объекта персональных данных
      */
-    public function getExpiresAt()
+    public function getExpiresAt(): ?DateTime
     {
         return $this->_expires_at;
     }
@@ -299,34 +262,22 @@ class PersonalData extends AbstractObject implements PersonalDataInterface
     /**
      * Устанавливает срок жизни объекта персональных данных.
      *
-     * @param DateTime|string|int|null $expires_at Срок жизни объекта персональных данных
+     * @param DateTime|string|null $expires_at Срок жизни объекта персональных данных
      *
-     * @return $this
-     * @throws Exception
+     * @return self
      */
-    public function setExpiresAt($expires_at = null)
+    public function setExpiresAt(DateTime|string|null $expires_at = null): self
     {
-        if ($expires_at === null || $expires_at === '') {
-            $this->_expires_at = null;
-        } elseif (TypeCast::canCastToDateTime($expires_at)) {
-            $dateTime = TypeCast::castToDateTime($expires_at);
-            if ($dateTime === null) {
-                throw new InvalidPropertyValueException('Invalid expires_at value', 0, 'PersonalData.expiresAt', $expires_at);
-            }
-            $this->_expires_at = $dateTime;
-        } else {
-            throw new InvalidPropertyValueTypeException('Invalid expires_at value', 0, 'PersonalData.expiresAt', $expires_at);
-        }
-
+        $this->_expires_at = $this->validatePropertyValue('_expires_at', $expires_at);
         return $this;
     }
 
     /**
      * Возвращает любые дополнительные данные.
      *
-     * @return array|null Любые дополнительные данные
+     * @return Metadata|null Любые дополнительные данные
      */
-    public function getMetadata()
+    public function getMetadata(): ?Metadata
     {
         return $this->_metadata;
     }
@@ -336,25 +287,11 @@ class PersonalData extends AbstractObject implements PersonalDataInterface
      *
      * @param Metadata|array|null $metadata Любые дополнительные данные
      *
-     * @return $this
+     * @return self
      */
-    public function setMetadata($metadata = null)
+    public function setMetadata(mixed $metadata = null): self
     {
-        if ($metadata === null || $metadata === '') {
-            $this->_metadata = null;
-        } elseif (is_array($metadata)) {
-            $this->_metadata = new Metadata($metadata);
-        } elseif ($metadata instanceof Metadata) {
-            $this->_metadata = $metadata;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid metadata type for "metadata" parameter in PersonalData',
-                0,
-                'PersonalData.metadata',
-                $metadata
-            );
-        }
-
+        $this->_metadata = $this->validatePropertyValue('_metadata', $metadata);
         return $this;
     }
 }

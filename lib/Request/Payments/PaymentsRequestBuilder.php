@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,221 +28,265 @@ namespace YooKassa\Request\Payments;
 
 use DateTime;
 use Exception;
-use YooKassa\Common\AbstractRequest;
 use YooKassa\Common\AbstractRequestBuilder;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 
 /**
- * Класс билдера запросов к API для получения списка платежей магазина
+ * Класс, представляющий модель PaymentsRequestBuilder.
  *
- * @package YooKassa
+ * Класс билдера объекта запроса для получения списка платежей магазина, передаваемого в методы клиента API.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class PaymentsRequestBuilder extends AbstractRequestBuilder
 {
     /**
-     * @var PaymentsRequest Собираемый объект запроса списка платежей магазина
+     * @var PaymentsRequest|null Собираемый объект запроса списка платежей магазина
      */
-    protected $currentObject;
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
-     * Возвращает новый объект запроса для получения списка платежей, который в дальнейшем будет собираться в билдере
-     * @return PaymentsRequest Объект запроса списка платежей магазина
-     */
-    protected function initCurrentObject()
-    {
-        return new PaymentsRequest();
-    }
-
-    /**
-     * Устанавливает страница выдачи результатов
-     * @param string|null $value Страница выдачи результатов или null, чтобы удалить значение
+     * Устанавливает страница выдачи результатов.
+     *
+     * @param null|string $value Страница выдачи результатов или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setCursor($value)
+    public function setCursor(?string $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCursor($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, от (не включая) или null, чтобы удалить значение
+     * Устанавливает дату создания от которой выбираются платежи.
+     *
+     * @param null|DateTime|int|string $value Время создания, от (не включая) или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtGt($value)
+    public function setCreatedAtGt(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCreatedAtGt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, от (включительно) или null, чтобы удалить значение
+     * Устанавливает дату создания от которой выбираются платежи.
+     *
+     * @param null|DateTime|int|string $value Время создания, от (включительно) или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtGte($value)
+    public function setCreatedAtGte(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCreatedAtGte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, до (не включая) или null, чтобы удалить значение
+     * Устанавливает дату создания до которой выбираются платежи.
+     *
+     * @param null|DateTime|int|string $value Время создания, до (не включая) или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtLt($value)
+    public function setCreatedAtLt(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCreatedAtLt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, до (включительно) или null, чтобы удалить значение
+     * Устанавливает дату создания до которой выбираются платежи.
+     *
+     * @param null|DateTime|int|string $value Время создания, до (включительно) или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtLte($value)
+    public function setCreatedAtLte(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCreatedAtLte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату подтверждения от которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, до (включительно) или null, чтобы удалить значение
+     * Устанавливает дату подтверждения от которой выбираются платежи.
+     *
+     * @param null|DateTime|int|string $value Время создания, до (включительно) или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCapturedAtGt($value)
+    public function setCapturedAtGt(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCapturedAtGt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату подтверждения от которой выбираются платежи
-     * @param DateTime|string|int|null $value Время подтверждения, от (включительно) или null, чтобы удалить значение
+     * Устанавливает дату подтверждения от которой выбираются платежи.
+     *
+     * @param null|DateTime|int|string $value Время подтверждения, от (включительно) или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCapturedAtGte($value)
+    public function setCapturedAtGte(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCapturedAtGte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату подтверждения до которой выбираются платежи
-     * @param DateTime|string|int|null $value Время подтверждения, до (включительно) или null, чтобы удалить значение
+     * Устанавливает дату подтверждения до которой выбираются платежи.
+     *
+     * @param null|DateTime|int|string $value Время подтверждения, до (включительно) или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCapturedAtLt($value)
+    public function setCapturedAtLt(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCapturedAtLt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату подтверждения до которой выбираются платежи
-     * @param DateTime|string|int|null $value Время подтверждения, до (включительно) или null, чтобы удалить значение
+     * Устанавливает дату подтверждения до которой выбираются платежи.
+     *
+     * @param null|DateTime|int|string $value Время подтверждения, до (включительно) или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCapturedAtLte($value)
+    public function setCapturedAtLte(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setCapturedAtLte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает ограничение количества объектов платежа
-     * @param string $value Ограничение количества объектов платежа или null, чтобы удалить значение
+     * Устанавливает ограничение количества объектов платежа.
+     *
+     * @param string|int|null $value Ограничение количества объектов платежа или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод было передана не целое число
      */
-    public function setLimit($value)
+    public function setLimit(mixed $value): PaymentsRequestBuilder
     {
         $this->currentObject->setLimit($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает статус выбираемых платежей
-     * @param string $value Статус выбираемых платежей или null, чтобы удалить значение
+     * Устанавливает статус выбираемых платежей.
+     *
+     * @param string|null $value Статус выбираемых платежей или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если переданное значение не является валидным статусом
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): PaymentsRequestBuilder
     {
         $this->currentObject->setStatus($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает платежный метод выбираемых платежей
-     * @param string $value Платежный метод выбираемых платежей или null, чтобы удалить значение
+     * Устанавливает платежный метод выбираемых платежей.
+     *
+     * @param string|null $value Платежный метод выбираемых платежей или null, чтобы удалить значение
+     *
      * @return PaymentsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если переданное значение не является валидным статусом
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setPaymentMethod($value)
+    public function setPaymentMethod(?string $value): PaymentsRequestBuilder
     {
         $this->currentObject->setPaymentMethod($value);
+
         return $this;
     }
 
     /**
-     * Собирает и возвращает объект запроса списка платежей магазина
-     * @param array|null $options Массив с настройками запроса
-     * @return AbstractRequest Инстанс объекта запроса к API для получения списка платежей магазина
+     * Собирает и возвращает объект запроса списка платежей магазина.
+     *
+     * @param null|array $options Массив с настройками запроса
+     *
+     * @return PaymentsRequest Инстанс объекта запроса к API для получения списка платежей магазина
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         return parent::build($options);
+    }
+
+    /**
+     * Возвращает новый объект запроса для получения списка платежей, который в дальнейшем будет собираться в билдере.
+     *
+     * @return PaymentsRequest Объект запроса списка платежей магазина
+     */
+    protected function initCurrentObject(): AbstractRequestInterface
+    {
+        return new PaymentsRequest();
     }
 }

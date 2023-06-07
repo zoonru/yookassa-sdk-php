@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,14 +29,24 @@ namespace YooKassa\Model\PersonalData;
 use YooKassa\Common\AbstractEnum;
 
 /**
- * PayoutCancellationDetailsReasonCode - Возможные причины аннулирования хранения данных.
+ * Класс, представляющий модель PersonalDataCancellationDetailsReasonCode.
+ *
+ * Возможные причины аннулирования хранения данных.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class PersonalDataCancellationDetailsReasonCode extends AbstractEnum
 {
     /** Истек срок хранения или использования персональных данных. */
-    const EXPIRED_BY_TIMEOUT = 'expired_by_timeout';
+    public const EXPIRED_BY_TIMEOUT = 'expired_by_timeout';
 
-    protected static $validValues = array(
+    /**
+     * @var bool[]
+     */
+    protected static array $validValues = [
         self::EXPIRED_BY_TIMEOUT => true,
-    );
+    ];
 }

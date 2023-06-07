@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,63 +27,51 @@
 namespace YooKassa\Model\Payout;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\PaymentMethodType;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Данные используемые для создания метода оплаты.
+ * Класс, представляющий модель PayoutDestination.
+ *
+ * Платежное средство продавца, на которое ЮKassa переводит оплату.
+ *
+ * @category Abstract Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $type Тип метода оплаты
  */
 abstract class AbstractPayoutDestination extends AbstractObject
 {
     /**
-     * @var string
+     * Тип метода оплаты
+     *
+     * @var string|null
      */
-    private $_type;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [PayoutDestinationType::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    protected ?string $_type = null;
 
     /**
-     * Возвращает тип метода оплаты
-     * @return string Тип метода оплаты
+     * Возвращает тип метода оплаты.
+     *
+     * @return string|null Тип метода оплаты
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->_type;
     }
 
     /**
-     * Устанавливает тип метода оплаты
-     * @param string $value Тип метода оплаты
+     * Устанавливает тип метода оплаты.
+     *
+     * @param string|null $type Тип метода оплаты
+     *
+     * @return self
      */
-    protected function setType($value)
+    public function setType(?string $type = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty PayoutDestinationData data type',
-                0,
-                'PayoutDestinationData.type'
-            );
-        }
-        if (TypeCast::canCastToEnumString($value)) {
-            if (PaymentMethodType::valueExists($value)) {
-                $this->_type = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid value for "type" parameter in PayoutDestinationData',
-                    0,
-                    'PayoutDestinationData.type',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid value type for "type" parameter in PayoutDestinationData',
-                0,
-                'PayoutDestinationData.type',
-                $value
-            );
-        }
+        $this->_type = $this->validatePropertyValue('_type', $type);
+        return $this;
     }
 }

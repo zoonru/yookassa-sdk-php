@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,9 +27,14 @@
 namespace YooKassa\Request\Payments;
 
 /**
- * Класс объекта ответа возвращаемого API при запросе на создание платежа
+ * Класс, представляющий модель CreatePaymentResponse.
  *
- * @package YooKassa
+ * Объект ответа возвращаемого API при запросе на создание платежа.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class CreatePaymentResponse extends AbstractPaymentResponse
 {

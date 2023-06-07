@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,18 +28,19 @@ namespace YooKassa\Model\Receipt;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Class OperationalDetails
+ * Class OperationalDetails.
  *
  * Данные операционного реквизита чека
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @property string $operationId Идентификатор операции (тег в 54 ФЗ — 1271)
  * @property string $operation_id Идентификатор операции (тег в 54 ФЗ — 1271)
@@ -49,129 +50,122 @@ use YooKassa\Helpers\TypeCast;
  */
 class OperationalDetails extends AbstractObject
 {
+    /** @var int Минимальное значение */
+    public const MIN_VALUE = 0;
+
     /** @var int Максимальная длинна номера операции */
-    const OPERATION_ID_MAX_LENGTH = 256;
+    public const OPERATION_ID_MAX_VALUE = 255;
+
     /** @var int Максимальная длинна значение операционного реквизита */
-    const VALUE_MAX_LENGTH = 64;
+    public const VALUE_MAX_LENGTH = 64;
 
     /**
-     * @var string Идентификатор операции (тег в 54 ФЗ — 1271). Число от 0 до 255
+     * @var int|null Идентификатор операции (тег в 54 ФЗ — 1271). Число от 0 до 255
      */
-    private $_operationId;
+    #[Assert\NotBlank]
+    #[Assert\Type('int')]
+    #[Assert\GreaterThanOrEqual(self::MIN_VALUE)]
+    #[Assert\LessThanOrEqual(self::OPERATION_ID_MAX_VALUE)]
+    private ?int $_operation_id = null;
 
     /**
-     * @var DateTime Время создания операции (тег в 54 ФЗ — 1273).
-     * Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время) и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+     * @var DateTime|null Время создания операции (тег в 54 ФЗ — 1273).
+     *               Указывается по [UTC](https://ru.wikipedia.org/wiki/Всемирное_координированное_время) и передается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
      */
-    private $_createdAt;
+    #[Assert\NotBlank]
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    private ?DateTime $_created_at = null;
 
     /**
-     * @var string Данные операции (тег в 54 ФЗ — 1272)
+     * @var string|null Данные операции (тег в 54 ФЗ — 1272)
      */
-    private $_value;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::VALUE_MAX_LENGTH)]
+    private ?string $_value = null;
 
     /**
-     * Возвращает идентификатор операции
-     * @return string Идентификатор операции
+     * Возвращает идентификатор операции.
+     *
+     * @return int|null Идентификатор операции
      */
-    public function getOperationId()
+    public function getOperationId(): ?int
     {
-        return $this->_operationId;
+        return $this->_operation_id;
     }
 
     /**
-     * Устанавливает идентификатор операции
-     * @param string $value Идентификатор операции
+     * Устанавливает идентификатор операции.
+     *
+     * @param int|null $operation_id Идентификатор операции
+     *
+     * @return self
      */
-    public function setOperationId($value)
+    public function setOperationId(?int $operation_id = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty operation_id value', 0, 'OperationalDetails.operationId');
-        }
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid operation_id value type', 0, 'OperationalDetails.operationId', $value);
-        }
-        if (mb_strlen((string)$value) > self::OPERATION_ID_MAX_LENGTH) {
-            throw new InvalidPropertyValueException('Invalid operation_id value length: "' . $value . '"', 0, 'OperationalDetails.operationId', $value);
-        }
-
-        $this->_operationId = (string)$value;
-
+        $this->_operation_id = $this->validatePropertyValue('_operation_id', $operation_id);
         return $this;
     }
 
     /**
-     * Возвращает время создания операции
-     * @return DateTime Время создания операции
+     * Возвращает время создания операции.
+     *
+     * @return DateTime|null Время создания операции
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?DateTime
     {
-        return $this->_createdAt;
+        return $this->_created_at;
     }
 
     /**
-     * Устанавливает время создания операции
-     * @param string|DateTime $value Время создания операции
-     * @throws \Exception
+     * Устанавливает время создания операции.
+     *
+     * @param DateTime|string|null $created_at Время создания операции
+     *
+     * @return self
+     *
+     * @throws Exception
      */
-    public function setCreatedAt($value)
+    public function setCreatedAt(DateTime|string|null $created_at = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty created_at value', 0, 'OperationalDetails.createdAt');
-        }
-        if (!TypeCast::canCastToDateTime($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid created_at value', 0, 'OperationalDetails.createdAt', $value);
-        }
-        $dateTime = TypeCast::castToDateTime($value);
-        if ($dateTime === null) {
-            throw new InvalidPropertyValueException('Invalid created_at value', 0, 'OperationalDetails.createdAt', $value);
-        }
-        $this->_createdAt = $dateTime;
-
+        $this->_created_at = $this->validatePropertyValue('_created_at', $created_at);
         return $this;
     }
 
     /**
-     * Возвращает данные операции
-     * @return string Данные операции
+     * Возвращает данные операции.
+     *
+     * @return string|null Данные операции
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->_value;
     }
 
     /**
-     * Устанавливает данные операции
-     * @param string $value Данные операции
+     * Устанавливает данные операции.
+     *
+     * @param string|null $value Данные операции
+     *
+     * @return self
      */
-    public function setValue($value)
+    public function setValue(?string $value = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty value', 0, 'OperationalDetails.value');
-        }
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid value type', 0, 'OperationalDetails.value', $value);
-        }
-        if (mb_strlen((string)$value) > self::VALUE_MAX_LENGTH) {
-            throw new InvalidPropertyValueException('Invalid value length: "' . $value . '"', 0, 'OperationalDetails.value', $value);
-        }
-
-        $this->_value = (string)$value;
-
+        $this->_value = $this->validatePropertyValue('_value', $value);
         return $this;
     }
 
     /**
-     * @inheritdoc
-     *
-     * @return array
+     * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $result = parent::jsonSerialize();
         $result['created_at'] = $this->getCreatedAt()
             ->setTimezone(new DateTimeZone('UTC'))
-            ->format(YOOKASSA_DATE);
+            ->format(YOOKASSA_DATE)
+        ;
 
         return $result;
     }

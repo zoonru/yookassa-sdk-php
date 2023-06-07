@@ -29,13 +29,13 @@ require_once 'vendor/autoload.php';
 $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
-$request = array(
+$request = [
     'itn' => '123456789012',
     'phone' => '79001002030',
-    'confirmation' => array(
+    'confirmation' => [
         'type' => 'redirect'
-    ),
-);
+    ],
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createSelfEmployed($request, $idempotenceKey);

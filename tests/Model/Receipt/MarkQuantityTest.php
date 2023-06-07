@@ -2,29 +2,25 @@
 
 namespace Tests\YooKassa\Model\Receipt;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Receipt\MarkQuantity;
-use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class MarkQuantityTest extends TestCase
 {
-    protected static function getInstance($options = null)
-    {
-        return new MarkQuantity($options);
-    }
-
     /**
      * @dataProvider validArrayDataProvider
      *
-     * @param $options
+     * @param mixed $options
      */
-    public function testConstructor($options)
+    public function testConstructor($options): void
     {
-        $instance = self::getInstance();
-
-        self::assertNull($instance->getNumerator());
-        self::assertNull($instance->getDenominator());
-
         $instance = self::getInstance($options);
 
         self::assertEquals($options['numerator'], $instance->getNumerator());
@@ -33,16 +29,13 @@ class MarkQuantityTest extends TestCase
 
     /**
      * @dataProvider validArrayDataProvider
-     *
-     * @param array $options
      */
-    public function testGetSetDenominator($options)
+    public function testGetSetDenominator(array $options): void
     {
         $expected = $options['denominator'];
 
         $instance = self::getInstance();
-        self::assertNull($instance->getDenominator());
-        self::assertNull($instance->denominator);
+
         $instance->setDenominator($expected);
         self::assertEquals($expected, $instance->getDenominator());
         self::assertEquals($expected, $instance->denominator);
@@ -55,44 +48,37 @@ class MarkQuantityTest extends TestCase
 
     /**
      * @dataProvider invalidDenominatorDataProvider
+     *
      * @param mixed $denominator
-     * @param string $exceptionClassDocumentNumber
      */
-    public function testSetInvalidDenominator($denominator, $exceptionClassDocumentNumber)
+    public function testSetInvalidDenominator($denominator, string $exceptionClassDocumentNumber): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setDenominator($denominator);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentNumber, $e);
-        }
+
+        $this->expectException($exceptionClassDocumentNumber);
+        $instance->setDenominator($denominator);
     }
 
     /**
      * @dataProvider invalidDenominatorDataProvider
+     *
      * @param mixed $denominator
-     * @param string $exceptionClassDocumentNumber
      */
-    public function testSetterInvalidDenominator($denominator, $exceptionClassDocumentNumber)
+    public function testSetterInvalidDenominator($denominator, string $exceptionClassDocumentNumber): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->denominator = $denominator;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentNumber, $e);
-        }
+
+        $this->expectException($exceptionClassDocumentNumber);
+        $instance->denominator = $denominator;
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     * @param array $options
      */
-    public function testGetSetNumerator($options)
+    public function testGetSetNumerator(array $options): void
     {
         $instance = self::getInstance();
 
-        self::assertNull($instance->getNumerator());
-        self::assertNull($instance->numerator);
         $instance->setNumerator($options['numerator']);
         self::assertEquals($options['numerator'], $instance->getNumerator());
         self::assertEquals($options['numerator'], $instance->numerator);
@@ -100,93 +86,72 @@ class MarkQuantityTest extends TestCase
 
     /**
      * @dataProvider invalidNumeratorDataProvider
-     * @param string $numerator
-     * @param string $exceptionClassNumerator
      */
-    public function testSetInvalidNumerator($numerator, $exceptionClassNumerator)
+    public function testSetInvalidNumerator(mixed $numerator, string $exceptionClassNumerator): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setNumerator($numerator);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassNumerator, $e);
-        }
+
+        $this->expectException($exceptionClassNumerator);
+        $instance->setNumerator($numerator);
     }
 
     /**
      * @dataProvider invalidNumeratorDataProvider
-     * @param string $numerator
-     * @param string $exceptionClassNumerator
      */
-    public function testSetterInvalidNumerator($numerator, $exceptionClassNumerator)
+    public function testSetterInvalidNumerator(mixed $numerator, string $exceptionClassNumerator): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->numerator = $numerator;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassNumerator, $e);
-        }
+
+        $this->expectException($exceptionClassNumerator);
+        $instance->numerator = $numerator;
     }
 
-    public function validArrayDataProvider()
+    public static function validArrayDataProvider()
     {
-        $result = array();
+        $result = [];
         foreach (range(1, 10) as $i) {
-            $result[$i][] = array(
+            $result[$i][] = [
                 'numerator' => Random::int(MarkQuantity::MIN_VALUE, 100),
                 'denominator' => Random::int(MarkQuantity::MIN_VALUE, 100),
-            );
+            ];
         }
+
         return $result;
     }
 
-    public function invalidDenominatorDataProvider()
+    public static function invalidDenominatorDataProvider()
     {
-        $exceptionDenominatorNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionDenominatorNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionDenominatorNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionDenominatorNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionDenominatorNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::int(-100, MarkQuantity::MIN_VALUE - 1), $exceptionDenominatorNamespace . 'InvalidPropertyValueException'),
-            array(-1,                   $exceptionDenominatorNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionDenominatorNamespace . 'InvalidPropertyValueException'),
-            array(0.0,                  $exceptionDenominatorNamespace . 'InvalidPropertyValueException'),
-            array(0,                    $exceptionDenominatorNamespace . 'InvalidPropertyValueException'),
-            array(0.001,                $exceptionDenominatorNamespace . 'InvalidPropertyValueException'),
-            array(true,                 $exceptionDenominatorNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionDenominatorNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            [Random::int(-100, MarkQuantity::MIN_VALUE - 1), InvalidPropertyValueException::class],
+            [-1, InvalidPropertyValueException::class],
+            [0.0, InvalidPropertyValueException::class],
+            [0, InvalidPropertyValueException::class],
+        ];
     }
 
-    public function invalidNumeratorDataProvider()
+    public static function invalidNumeratorDataProvider()
     {
-        $exceptionNumeratorNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionNumeratorNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionNumeratorNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionNumeratorNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionNumeratorNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::int(-100, MarkQuantity::MIN_VALUE - 1), $exceptionNumeratorNamespace . 'InvalidPropertyValueException'),
-            array('III',                $exceptionNumeratorNamespace . 'InvalidPropertyValueTypeException'),
-            array(-0.01,                $exceptionNumeratorNamespace . 'InvalidPropertyValueException'),
-            array(0.0,                  $exceptionNumeratorNamespace . 'InvalidPropertyValueException'),
-            array(0,                    $exceptionNumeratorNamespace . 'InvalidPropertyValueException'),
-            array(0.01,                 $exceptionNumeratorNamespace . 'InvalidPropertyValueException'),
-            array(true,                 $exceptionNumeratorNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionNumeratorNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            [Random::int(-100, MarkQuantity::MIN_VALUE - 1), InvalidPropertyValueException::class],
+            [0.0, InvalidPropertyValueException::class],
+            [0, InvalidPropertyValueException::class],
+        ];
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     *
-     * @param array $options
      */
-    public function testJsonSerialize($options)
+    public function testJsonSerialize(array $options): void
     {
         $instance = self::getInstance($options);
         $expected = $options;
         self::assertEquals($expected, $instance->jsonSerialize());
+    }
+
+    protected static function getInstance($options = [])
+    {
+        return new MarkQuantity($options);
     }
 }

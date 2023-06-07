@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,17 +26,17 @@
 
 namespace YooKassa\Model\SelfEmployed;
 
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
  * Класс, представляющий модель SelfEmployedConfirmationRedirect.
  *
  * Перенаправление пользователя на сайт сервиса Мой налог для выдачи прав ЮMoney.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
- *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $confirmationUrl URL на который необходимо перенаправить плательщика для подтверждения оплаты
  * @property string $confirmation_url URL на который необходимо перенаправить плательщика для подтверждения оплаты
  */
@@ -45,42 +45,44 @@ class SelfEmployedConfirmationRedirect extends SelfEmployedConfirmation
     /**
      * URL, на который необходимо перенаправить самозанятого для выдачи прав.
      *
-     * @var string
+     * @var string|null
      */
-    private $_confirmation_url;
+    #[Assert\NotBlank]
+    #[Assert\Url]
+    #[Assert\Type('string')]
+    private ?string $_confirmation_url = null;
 
-    public function __construct()
+    /**
+     * Конструктор SelfEmployedConfirmationRedirect.
+     *
+     * @param array|null $data
+     */
+    public function __construct(?array $data = [])
     {
+        parent::__construct($data);
         $this->setType(SelfEmployedConfirmationType::REDIRECT);
     }
 
     /**
-     * Возвращает confirmation_url.
+     * Возвращает url, на который необходимо перенаправить самозанятого.
      *
      * @return string|null
      */
-    public function getConfirmationUrl()
+    public function getConfirmationUrl(): ?string
     {
         return $this->_confirmation_url;
     }
 
     /**
-     * Устанавливает confirmation_url.
+     * Устанавливает url, на который необходимо перенаправить самозанятого.
      *
-     * @param string|null $confirmation_url URL, на который необходимо перенаправить самозанятого для выдачи прав.
+     * @param string|null $confirmation_url URL, на который необходимо перенаправить самозанятого для выдачи прав
      *
-     * @return $this
+     * @return self
      */
-    public function setConfirmationUrl($confirmation_url)
+    public function setConfirmationUrl(?string $confirmation_url = null): self
     {
-        if ($confirmation_url === null || $confirmation_url === '') {
-            $this->_confirmation_url = null;
-        } elseif (!TypeCast::canCastToString($confirmation_url)) {
-            throw new InvalidPropertyValueTypeException('Invalid confirmation_url value type', 0, 'SelfEmployedConfirmationRedirect.confirmation_url');
-        } else {
-            $this->_confirmation_url = $confirmation_url;
-        }
-
+        $this->_confirmation_url = $this->validatePropertyValue('_confirmation_url', $confirmation_url);
         return $this;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,110 +26,127 @@
 
 namespace YooKassa\Request\Refunds;
 
+use YooKassa\Common\ListObjectInterface;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\Deal\RefundDealData;
-use YooKassa\Model\ReceiptInterface;
-use YooKassa\Model\SourceInterface;
+use YooKassa\Model\Receipt\ReceiptInterface;
+use YooKassa\Model\Refund\SourceInterface;
 
 /**
- * Интерфейс объекта запроса на возврат
+ * Interface CreateRefundRequestInterface
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
- * @property-read string $paymentId Айди платежа для которого создаётся возврат
- * @property-read AmountInterface $amount Сумма возврата
- * @property-read string $description Комментарий к операции возврата, основание для возврата средств покупателю.
- * @property-read ReceiptInterface|array|null $receipt Инстанс чека или null
+ * @property string $paymentId Айди платежа для которого создаётся возврат
+ * @property AmountInterface $amount Сумма возврата
+ * @property string $description Комментарий к операции возврата, основание для возврата средств покупателю.
+ * @property null|ReceiptInterface $receipt Инстанс чека или null
+ * @property null|SourceInterface[] $sources Информация о распределении денег — сколько и в какой магазин нужно перевести
+ * @property null|RefundDealData $deal Информация о сделке
  */
 interface CreateRefundRequestInterface
 {
     /**
-     * Возвращает айди платежа для которого создаётся возврат средств
-     * @return string Айди платежа для которого создаётся возврат
+     * Возвращает айди платежа для которого создаётся возврат средств.
+     *
+     * @return string|null Айди платежа для которого создаётся возврат
      */
-    public function getPaymentId();
+    public function getPaymentId(): ?string;
 
     /**
-     * Возвращает сумму возвращаемых средств
-     * @return AmountInterface Сумма возврата
+     * Возвращает сумму возвращаемых средств.
+     *
+     * @return AmountInterface|null Сумма возврата
      */
-    public function getAmount();
+    public function getAmount(): ?AmountInterface;
 
     /**
-     * Проверяет, был ли установлена идентификатор платежа
+     * Проверяет, был ли установлена идентификатор платежа.
+     *
      * @return bool True если идентификатор платежа был установлен, false если нет
      */
-    public function hasPaymentId();
+    public function hasPaymentId(): bool;
 
     /**
-     * Устанавливает комментарий к возврату
-     * @param string $value Комментарий к операции возврата, основание для возврата средств покупателю
+     * Устанавливает комментарий к возврату.
+     *
+     * @param string|null $description Комментарий к операции возврата, основание для возврата средств покупателю
      */
-    public function setDescription($value);
+    public function setDescription(?string $description);
 
     /**
      * Возвращает комментарий к возврату или null, если комментарий не задан
-     * @return string Комментарий к операции возврата, основание для возврата средств покупателю.
+     *
+     * @return string|null Комментарий к операции возврата, основание для возврата средств покупателю.
      */
-    public function getDescription();
+    public function getDescription(): ?string;
 
     /**
-     * Проверяет задан ли комментарий к создаваемому возврату
+     * Проверяет задан ли комментарий к создаваемому возврату.
+     *
      * @return bool True если комментарий установлен, false если нет
      */
-    public function hasDescription();
+    public function hasDescription(): bool;
 
     /**
-     * Устанавливает чек
-     * @param ReceiptInterface|null $value Инстанс чека или null для удаления информации о чеке
+     * Устанавливает чек.
+     *
+     * @param null|ReceiptInterface $receipt Инстанс чека или null для удаления информации о чеке
      */
-    public function setReceipt($value);
+    public function setReceipt(?ReceiptInterface $receipt);
 
     /**
-     * Возвращает инстанс чека или null, если чек не задан
-     * @return ReceiptInterface|null Инстанс чека или null
+     * Возвращает инстанс чека или null, если чек не задан.
+     *
+     * @return null|ReceiptInterface Инстанс чека или null
      */
-    public function getReceipt();
+    public function getReceipt(): ?ReceiptInterface;
 
     /**
-     * Проверяет задан ли чек
+     * Проверяет задан ли чек.
+     *
      * @return bool True если чек есть, false если нет
      */
-    public function hasReceipt();
+    public function hasReceipt(): bool;
 
     /**
-     * Устанавливает информацию о распределении денег — сколько и в какой магазин нужно перевести
-     * @param SourceInterface[] $value Информация о распределении денег
+     * Устанавливает информацию о распределении денег — сколько и в какой магазин нужно перевести.
+     *
+     * @param SourceInterface[]|array|null $sources Информация о распределении денег
      */
-    public function setSources($value);
+    public function setSources(?array $sources);
 
     /**
-     * Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести
-     * @return SourceInterface[] Информация о распределении денег
+     * Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести.
+     *
+     * @return SourceInterface[]|ListObjectInterface Информация о распределении денег
      */
-    public function getSources();
+    public function getSources(): ListObjectInterface;
 
     /**
-     * Проверяет наличие информации о распределении денег
-     * @return bool
+     * Проверяет наличие информации о распределении денег.
      */
-    public function hasSources();
+    public function hasSources(): bool;
 
     /**
-     * Устанавливает информацию о сделке
-     * @param RefundDealData $value Информация о сделке
+     * Устанавливает информацию о сделке.
+     *
+     * @param RefundDealData|null $deal Информация о сделке
      */
-    public function setDeal($value);
+    public function setDeal(?RefundDealData $deal);
 
     /**
-     * Возвращает информацию о сделке
-     * @return RefundDealData Информация о сделке
+     * Возвращает информацию о сделке.
+     *
+     * @return RefundDealData|null Информация о сделке
      */
-    public function getDeal();
+    public function getDeal(): ?RefundDealData;
 
     /**
-     * Проверяет наличие информации о сделке
-     * @return bool
+     * Проверяет наличие информации о сделке.
      */
-    public function hasDeal();
+    public function hasDeal(): bool;
 }

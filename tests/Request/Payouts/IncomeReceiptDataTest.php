@@ -2,43 +2,39 @@
 
 namespace Tests\YooKassa\Request\Payouts;
 
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\MonetaryAmount;
 use YooKassa\Model\Payout\IncomeReceipt;
 use YooKassa\Request\Payouts\IncomeReceiptData;
 
+/**
+ * @internal
+ */
 class IncomeReceiptDataTest extends TestCase
 {
     /**
-     * @param $options
-     * @return IncomeReceiptData
-     */
-    protected function getTestInstance($options)
-    {
-        return new IncomeReceiptData($options);
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetServiceName($options)
+    public function testGetServiceName(array $options): void
     {
         $instance = $this->getTestInstance($options);
         self::assertEquals($options['service_name'], $instance->getServiceName());
     }
 
-    public function validDataProvider()
+    public static function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
 
         for ($i = 0; $i < 10; $i++) {
-            $deal = array(
+            $deal = [
                 'service_name' => Random::str(36, IncomeReceipt::MAX_LENGTH_SERVICE_NAME),
                 'amount' => new MonetaryAmount(Random::int(1, 1000000)),
-            );
-            $result[] = array($deal);
+            ];
+            $result[] = [$deal];
         }
 
         return $result;
@@ -46,46 +42,55 @@ class IncomeReceiptDataTest extends TestCase
 
     /**
      * @dataProvider invalidServiceNameDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidServiceName($value)
+    public function testSetInvalidServiceName($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new IncomeReceiptData();
         $instance->setServiceName($value);
     }
 
-    public function invalidServiceNameDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function invalidServiceNameDataProvider(): array
     {
-        return array(
-            array(null),
-            array(''),
-            array(false),
-            array(true),
-            array(array()),
-            array(Random::str(IncomeReceipt::MAX_LENGTH_SERVICE_NAME + 1, 60)),
-        );
+        return [
+            [''],
+            [false],
+            [Random::str(IncomeReceipt::MAX_LENGTH_SERVICE_NAME + 1, 60)],
+        ];
     }
 
     /**
      * @dataProvider invalidAmountDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidAmountToken($value)
+    public function testSetInvalidAmountToken($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new IncomeReceiptData();
         $instance->setAmount($value);
     }
 
-    public function invalidAmountDataProvider()
+    public static function invalidAmountDataProvider(): array
     {
-        return array(
-            array(null),
-            array(''),
-            array(false),
-            array(true),
-            array(new \stdClass()),
-        );
+        return [
+            [false],
+            [true],
+            [new stdClass()],
+        ];
+    }
+
+    /**
+     * @param mixed $options
+     */
+    protected function getTestInstance($options): IncomeReceiptData
+    {
+        return new IncomeReceiptData($options);
     }
 }

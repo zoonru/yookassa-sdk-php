@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,41 +26,42 @@
 
 namespace YooKassa\Request\Receipts;
 
+use DateTime;
+
 /**
- * Класс сериализатора объектов запросов к API для получения списка возвратов
- *
- * @package YooKassa
+ * Класс сериализатора объектов запросов к API для получения списка возвратов.
  */
 class ReceiptsRequestSerializer
 {
     /**
      * @var array Карта маппинга свойств объекта запроса на поля отправляемого запроса
      */
-    private static $propertyMap = array(
-        'cursor'         => 'cursor',
-        'createdAtGte'   => 'created_at.gte',
-        'createdAtGt'    => 'created_at.gt',
-        'createdAtLte'   => 'created_at.lte',
-        'createdAtLt'    => 'created_at.lt',
-        'limit'          => 'limit',
-        'paymentId'      => 'payment_id',
-        'refundId'       => 'refund_id',
-        'status'         => 'status',
-    );
+    private static array $propertyMap = [
+        'cursor' => 'cursor',
+        'createdAtGte' => 'created_at.gte',
+        'createdAtGt' => 'created_at.gt',
+        'createdAtLte' => 'created_at.lte',
+        'createdAtLt' => 'created_at.lt',
+        'limit' => 'limit',
+        'paymentId' => 'payment_id',
+        'refundId' => 'refund_id',
+        'status' => 'status',
+    ];
 
     /**
-     * Сериализует объект запроса к API для дальнейшей его отправки
+     * Сериализует объект запроса к API для дальнейшей его отправки.
      *
      * @param ReceiptsRequestInterface $request Сериализуемый объект
+     *
      * @return array Массив с информацией, отправляемый в дальнейшем в API
      */
-    public function serialize(ReceiptsRequestInterface $request)
+    public function serialize(ReceiptsRequestInterface $request): array
     {
-        $result = array();
+        $result = [];
         foreach (self::$propertyMap as $property => $name) {
             $value = $request->{$property};
             if (!empty($value)) {
-                if ($value instanceof \DateTime) {
+                if ($value instanceof DateTime) {
                     if ($value->getTimestamp() > 1) {
                         $result[$name] = $value->format(YOOKASSA_DATE);
                     }
@@ -69,6 +70,7 @@ class ReceiptsRequestSerializer
                 }
             }
         }
+
         return $result;
     }
 }

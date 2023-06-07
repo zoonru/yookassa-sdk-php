@@ -2,6 +2,7 @@
 
 namespace Tests\YooKassa\Request\Deals;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Deal\DealType;
@@ -10,13 +11,17 @@ use YooKassa\Model\Metadata;
 use YooKassa\Request\Deals\CreateDealRequest;
 use YooKassa\Request\Deals\CreateDealRequestBuilder;
 
+/**
+ * @internal
+ */
 class CreateDealRequestTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testMetadata($options)
+    public function testMetadata($options): void
     {
         $instance = new CreateDealRequest();
 
@@ -59,15 +64,16 @@ class CreateDealRequestTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testType($options)
+    public function testType($options): void
     {
         $instance = new CreateDealRequest();
 
-        self::assertFalse($instance->hasType());
-        self::assertNull($instance->getType());
-        self::assertNull($instance->type);
+        self::assertTrue($instance->hasType());
+        self::assertNotNull($instance->getType());
+        self::assertNotNull($instance->type);
 
         $instance->setType($options['type']);
 
@@ -95,16 +101,17 @@ class CreateDealRequestTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testFeeMoment($options)
+    public function testFeeMoment($options): void
     {
         $instance = new CreateDealRequest();
 
-        self::assertFalse($instance->hasFeeMoment());
-        self::assertNull($instance->getFeeMoment());
-        self::assertNull($instance->fee_moment);
-        self::assertNull($instance->feeMoment);
+        self::assertTrue($instance->hasFeeMoment());
+        self::assertNotNull($instance->getFeeMoment());
+        self::assertNotNull($instance->fee_moment);
+        self::assertNotNull($instance->feeMoment);
 
         $instance->setFeeMoment($options['fee_moment']);
 
@@ -134,94 +141,96 @@ class CreateDealRequestTest extends TestCase
         }
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $instance = new CreateDealRequest();
 
-        self::assertFalse($instance->validate());
+        self::assertTrue($instance->validate());
 
         $instance->setType(Random::value(DealType::getValidValues()));
-        self::assertFalse($instance->validate());
+        self::assertTrue($instance->validate());
 
         $instance->setFeeMoment(Random::value(FeeMoment::getValidValues()));
         self::assertTrue($instance->validate());
     }
 
-    public function testBuilder()
+    public function testBuilder(): void
     {
         $builder = CreateDealRequest::builder();
-        self::assertTrue($builder instanceof CreateDealRequestBuilder);
+        self::assertInstanceOf(CreateDealRequestBuilder::class, $builder);
     }
 
     /**
      * @dataProvider invalidFeeMomentDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidFeeMoment($value)
+    public function testSetInvalidFeeMoment($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateDealRequest();
         $instance->setFeeMoment($value);
     }
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidMetadata($value)
+    public function testSetInvalidMetadata($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateDealRequest();
         $instance->setMetadata($value);
     }
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidType($value)
+    public function testSetInvalidType($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateDealRequest();
         $instance->setType($value);
     }
 
-    public function validDataProvider()
+    public static function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         $metadata = new Metadata();
         $metadata->test = 'test';
         for ($i = 0; $i < 10; $i++) {
-            $request = array(
+            $request = [
                 'type' => Random::value(DealType::getValidValues()),
                 'fee_moment' => Random::value(FeeMoment::getValidValues()),
                 'description' => Random::str(1, 128),
-                'metadata' => $i == 0 ? $metadata : array('test' => 'test'),
-            );
-            $result[] = array($request);
+                'metadata' => 0 === $i ? $metadata : ['test' => 'test'],
+            ];
+            $result[] = [$request];
         }
+
         return $result;
     }
 
-    public function invalidFeeMomentDataProvider()
+    public static function invalidFeeMomentDataProvider(): array
     {
-        return array(
-            array(array()),
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-            array(new \stdClass()),
-        );
+        return [
+            [false],
+            [true],
+            [1],
+            [Random::str(10)],
+        ];
     }
 
-    public function invalidMetadataDataProvider()
+    public static function invalidMetadataDataProvider(): array
     {
-        return array(
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-        );
+        return [
+            [false],
+            [true],
+            [1],
+            [Random::str(10)],
+        ];
     }
 }

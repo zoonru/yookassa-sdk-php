@@ -3,19 +3,24 @@
 namespace Tests\YooKassa\Model\Deal;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Deal\RefundDealData;
-use YooKassa\Model\Deal\SettlementPayoutPayment;
 use YooKassa\Model\Deal\SettlementPayoutPaymentType;
+use YooKassa\Model\Deal\SettlementPayoutRefund;
 
+/**
+ * @internal
+ */
 class RefundDealDataTest extends TestCase
 {
     /**
      * @dataProvider fromArrayDataProvider
      * @param array $source
      * @param RefundDealData $expected
+     * @return void
      */
-    public function testFromArray($source, $expected)
+    public function testFromArray(array $source, RefundDealData $expected): void
     {
         $deal = new RefundDealData($source);
         $dealArray = $expected->toArray();
@@ -27,86 +32,88 @@ class RefundDealDataTest extends TestCase
         }
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         for ($i = 0; $i < 10; $i++) {
-            $payment = array(
+            $payment = [
                 'refund_settlements' => $this->generateRefundSettlements(),
-            );
-            $result[] = array($payment);
+            ];
+            $result[] = [$payment];
         }
+
         return $result;
     }
 
-    public function invalidDataProvider()
+    public function invalidDataProvider(): array
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'refund_settlements' => null,
-                )
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'refund_settlements' => '',
-                ),
-            ),
-        );
-        $invalidData = array(
-            array(null),
-            array(''),
-            array(new \stdClass()),
-            array('invalid_value'),
-            array(0),
-            array(3234),
-            array(true),
-            array(false),
-            array(0.43),
-        );
+                ],
+            ],
+        ];
+        $invalidData = [
+            [null],
+            [''],
+            [new stdClass()],
+            ['invalid_value'],
+            [0],
+            [3234],
+            [true],
+            [false],
+            [0.43],
+        ];
         for ($i = 0; $i < 9; $i++) {
-            $payment = array(
+            $payment = [
                 'refund_settlements' => Random::value($invalidData),
-            );
-            $result[] = array($payment);
+            ];
+            $result[] = [$payment];
         }
+
         return $result;
     }
 
-    public function fromArrayDataProvider()
+    public static function fromArrayDataProvider(): array
     {
         $deal = new RefundDealData();
-        $settlements = array();
-        $settlements[] = new SettlementPayoutPayment(array(
+        $settlements = [];
+        $settlements[] = new SettlementPayoutRefund([
             'type' => SettlementPayoutPaymentType::PAYOUT,
-            'amount' => array(
+            'amount' => [
                 'value' => 123.00,
                 'currency' => 'RUB',
-            ),
-        ));
+            ],
+        ]);
         $deal->setRefundSettlements($settlements);
 
-        return array(
-            array(
-                array(
-                    'refund_settlements' => array(
-                        array(
+        return [
+            [
+                [
+                    'refund_settlements' => [
+                        [
                             'type' => SettlementPayoutPaymentType::PAYOUT,
-                            'amount' => array(
+                            'amount' => [
                                 'value' => 123.00,
                                 'currency' => 'RUB',
-                            ),
-                        )
-                    ),
-                ),
-                $deal
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+                $deal,
+            ],
+        ];
     }
 
-    private function generateRefundSettlements()
+    private function generateRefundSettlements(): array
     {
-        $return = array();
+        $return = [];
         $count = Random::int(1, 10);
 
         for ($i = 0; $i < $count; $i++) {
@@ -116,14 +123,14 @@ class RefundDealDataTest extends TestCase
         return $return;
     }
 
-    private function generateRefundSettlement()
+    private function generateRefundSettlement(): array
     {
-        return array(
+        return [
             'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
-            'amount' => array(
+            'amount' => [
                 'value' => round(Random::float(1.00, 100.00), 2),
                 'currency' => 'RUB',
-            ),
-        );
+            ],
+        ];
     }
 }

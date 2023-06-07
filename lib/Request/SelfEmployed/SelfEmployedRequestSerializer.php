@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,32 +27,24 @@
 namespace YooKassa\Request\SelfEmployed;
 
 /**
- * Класс сериалайзера объекта запроса к API на создание самозанятого
+ * Класс, представляющий модель SelfEmployedRequestSerializer.
  *
- * @package YooKassa
+ * Класс объекта осуществляющего сериализацию объекта запроса к API на создание самозанятого.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class SelfEmployedRequestSerializer
 {
     /**
-     * Формирует ассоциативный массив данных из объекта запроса
+     * Формирует ассоциативный массив данных из объекта запроса.
      *
-     * @param SelfEmployedRequest $request Объект запроса
      * @return array Массив данных для дальнейшего кодирования в JSON
      */
-    public function serialize(SelfEmployedRequest $request)
+    public function serialize(SelfEmployedRequest $request): array
     {
-        $result = array();
-
-        if ($request->hasItn()) {
-            $result['itn'] = $request->getItn();
-        }
-        if ($request->hasPhone()) {
-            $result['phone'] = $request->getPhone();
-        }
-        if ($request->hasConfirmation()) {
-            $result['confirmation'] = $request->getConfirmation()->toArray();
-        }
-
-        return $result;
+        return $request->toArray();
     }
 }

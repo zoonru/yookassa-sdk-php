@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,58 +26,45 @@
 
 namespace YooKassa\Request\Webhook;
 
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
 use YooKassa\Model\Webhook\Webhook;
+use YooKassa\Model\Webhook\WebhookInterface;
+use YooKassa\Request\AbstractListResponse;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Актуальный список объектов webhook для переданного OAuth-токена
+ * Актуальный список объектов webhook для переданного OAuth-токена.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ *
+ * @property WebhookInterface[]|ListObjectInterface|null $items Список объектов Webhook.
  */
-class WebhookListResponse
+class WebhookListResponse extends AbstractListResponse
 {
     /**
-     * Тип ответа
-     * @var string
-     */
-    private $type;
-
-    /**
-     * Список установленных webhook для переданного OAuth-токена
-     * @var Webhook[] Список установленных webhook
-     */
-    private $items;
-
-    /**
-     * Конструктор, устанавливает список полученных от API установленных webhook для переданного OAuth-токена
+     * Список установленных webhook для переданного OAuth-токена.
      *
-     * @param array $response Разобранный ответ от API в виде массива
+     * @var WebhookInterface[]|ListObjectInterface|null Список установленных webhook
      */
-    public function __construct($response)
-    {
-        if (!empty($response['type'])) {
-            $this->type = $response['type'];
-        }
-        $this->items = array();
-        foreach ($response['items'] as $item) {
-            $this->items[] = new Webhook($item);
-        }
-    }
+    #[Assert\Valid]
+    #[Assert\AllType(Webhook::class)]
+    #[Assert\Type(ListObject::class)]
+    protected ?ListObject $_items = null;
 
     /**
-     * Возвращает тип ответа. Доступен только `list`
-     * @return string
+     * Возвращает список установленных webhook для переданного OAuth-токена.
+     *
+     * @return WebhookInterface[]|ListObjectInterface Список установленных webhook
      */
-    public function getType()
+    public function getItems(): ListObjectInterface
     {
-        return $this->type;
-    }
-
-    /**
-     * Возвращает список установленных webhook для переданного OAuth-токена
-     * @return Webhook[] Список установленных webhook
-     */
-    public function getItems()
-    {
-        return $this->items;
+        if($this->_items === null) {
+            $this->_items = new ListObject(Webhook::class);
+        }
+        return $this->_items;
     }
 }

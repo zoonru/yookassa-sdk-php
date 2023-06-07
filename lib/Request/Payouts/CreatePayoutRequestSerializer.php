@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,55 +27,26 @@
 namespace YooKassa\Request\Payouts;
 
 /**
- * Класс сериалайзера объекта запроса к API на проведение выплаты
+ * Класс, представляющий модель CreatePayoutRequestSerializer.
  *
- * @package YooKassa
+ * Класс объекта осуществляющего сериализацию объекта запроса к API на проведение выплаты.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class CreatePayoutRequestSerializer
 {
     /**
-     * Формирует ассоциативный массив данных из объекта запроса
+     * Формирует ассоциативный массив данных из объекта запроса.
      *
      * @param CreatePayoutRequestInterface $request Объект запроса
+     *
      * @return array Массив данных для дальнейшего кодирования в JSON
      */
-    public function serialize(CreatePayoutRequestInterface $request)
+    public function serialize(CreatePayoutRequestInterface $request): array
     {
-        $result = array();
-
-        if ($request->getAmount()->getValue() > 0) {
-            $result['amount'] = $request->getAmount()->toArray();
-        }
-        if ($request->hasPayoutDestinationData()) {
-            $result['payout_destination_data'] = $request->getPayoutDestinationdata()->toArray();
-        }
-        if ($request->hasPayoutToken()) {
-            $result['payout_token'] = $request->getPayoutToken();
-        }
-        if ($request->hasPaymentMethodid()) {
-            $result['payment_method_id'] = $request->getPaymentMethodid();
-        }
-        if ($request->hasDescription()) {
-            $result['description'] = $request->getDescription();
-        }
-        if ($request->hasDeal()) {
-            $result['deal'] = $request->getDeal()->toArray();
-        }
-        if ($request->hasSelfEmployed()) {
-            $result['self_employed'] = $request->getSelfEmployed()->toArray();
-        }
-        if ($request->hasReceiptData()) {
-            $result['receipt_data'] = $request->getReceiptData()->toArray();
-        }
-        if ($request->hasPersonalData()) {
-            foreach ($request->getPersonalData() as $item) {
-                $result['personal_data'][] = $item->toArray();
-            }
-        }
-        if ($request->hasMetadata()) {
-            $result['metadata'] = $request->getMetadata()->toArray();
-        }
-
-        return $result;
+        return $request->toArray();
     }
 }

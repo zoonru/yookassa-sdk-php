@@ -2,28 +2,37 @@
 
 namespace Tests\YooKassa\Request\Refunds;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
+use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\Deal\RefundDealData;
 use YooKassa\Model\Deal\SettlementPayoutPaymentType;
 use YooKassa\Model\MonetaryAmount;
-use YooKassa\Model\Receipt;
-use YooKassa\Model\ReceiptItem;
+use YooKassa\Model\Receipt\PaymentMode;
+use YooKassa\Model\Receipt\PaymentSubject;
+use YooKassa\Model\Receipt\Receipt;
+use YooKassa\Model\Receipt\ReceiptItem;
+use YooKassa\Model\Receipt\ReceiptItemAmount;
 use YooKassa\Request\Refunds\CreateRefundRequest;
 use YooKassa\Request\Refunds\CreateRefundRequestBuilder;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueTypeException;
+use YooKassa\Validator\Exceptions\ValidatorParameterException;
 
+/**
+ * @internal
+ */
 class CreateRefundRequestTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testPaymentId($options)
+    public function testPaymentId($options): void
     {
         $instance = new CreateRefundRequest();
-
-        self::assertNull($instance->getPaymentId());
-        self::assertNull($instance->paymentId);
 
         $instance->setPaymentId($options['paymentId']);
 
@@ -31,9 +40,6 @@ class CreateRefundRequestTest extends TestCase
         self::assertEquals($options['paymentId'], $instance->paymentId);
 
         $instance = new CreateRefundRequest();
-
-        self::assertNull($instance->getPaymentId());
-        self::assertNull($instance->paymentId);
 
         $instance->paymentId = $options['paymentId'];
 
@@ -43,36 +49,36 @@ class CreateRefundRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPaymentIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidPaymentId($value)
+    public function testSetInvalidPaymentId($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateRefundRequest();
         $instance->setPaymentId($value);
     }
 
     /**
      * @dataProvider invalidPaymentIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetterInvalidPaymentId($value)
+    public function testSetterInvalidPaymentId($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateRefundRequest();
         $instance->paymentId = $value;
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testAmount($options)
+    public function testAmount($options): void
     {
         $instance = new CreateRefundRequest();
-
-        self::assertNull($instance->getAmount());
-        self::assertNull($instance->amount, $instance->getAmount());
 
         $instance->setAmount($options['amount']);
 
@@ -93,9 +99,10 @@ class CreateRefundRequestTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testDescription($options)
+    public function testDescription($options): void
     {
         $instance = new CreateRefundRequest();
 
@@ -132,32 +139,11 @@ class CreateRefundRequestTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidDescriptionDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidDescription($value)
-    {
-        $instance = new CreateRefundRequest();
-        $instance->setDescription($value);
-    }
-
-    /**
-     * @dataProvider invalidDescriptionDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetterInvalidDescription($value)
-    {
-        $instance = new CreateRefundRequest();
-        $instance->description = $value;
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testDeal($options)
+    public function testDeal($options): void
     {
         $instance = new CreateRefundRequest();
 
@@ -205,27 +191,29 @@ class CreateRefundRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDealDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidDeal($value)
+    public function testSetInvalidDeal($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateRefundRequest();
         $instance->setDeal($value);
     }
 
     /**
      * @dataProvider invalidDealDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetterInvalidDeal($value)
+    public function testSetterInvalidDeal($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateRefundRequest();
         $instance->deal = $value;
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $instance = new CreateRefundRequest();
 
@@ -234,25 +222,38 @@ class CreateRefundRequestTest extends TestCase
         self::assertFalse($instance->validate());
         $instance->setAmount(new MonetaryAmount(Random::int(1, 100000)));
         self::assertFalse($instance->validate());
-        $instance->setDeal(array(
-            'refund_settlements' => array(
-                array(
+        $instance->setDeal([
+            'refund_settlements' => [
+                [
                     'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
-                    'amount' => array(
+                    'amount' => [
                         'value' => round(Random::float(1.00, 100.00), 2),
                         'currency' => 'RUB',
-                    )
-                ),
-            )
-        ));
+                    ],
+                ],
+            ],
+        ]);
         self::assertFalse($instance->validate());
         $instance->setPaymentId(Random::str(36));
         self::assertTrue($instance->validate());
 
         $receipt = new Receipt();
+        $receipt->setItems([
+            [
+                'description' => Random::str(10),
+                'quantity' => (float) Random::int(1, 10),
+                'amount' => [
+                    'value' => round(Random::float(1, 100), 2),
+                    'currency' => CurrencyCode::RUB,
+                ],
+                'vat_code' => Random::int(1, 6),
+                'payment_subject' => PaymentSubject::COMMODITY,
+                'payment_mode' => PaymentMode::PARTIAL_PREPAYMENT,
+            ],
+        ]);
         $instance->setReceipt($receipt);
         $item = new ReceiptItem();
-        $item->setPrice(new MonetaryAmount(10));
+        $item->setPrice(new ReceiptItemAmount(10));
         $item->setDescription('test');
         $receipt->addItem($item);
         self::assertFalse($instance->validate());
@@ -262,152 +263,157 @@ class CreateRefundRequestTest extends TestCase
         self::assertTrue($instance->validate());
         $receipt->setTaxSystemCode(4);
         self::assertTrue($instance->validate());
+
+        self::assertTrue($instance->hasReceipt());
+        $instance->removeReceipt();
+        self::assertFalse($instance->hasReceipt());
     }
 
     /**
      * @dataProvider invalidReceiptDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidReceipt($value)
+    public function testSetInvalidReceipt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateRefundRequest();
         $instance->setReceipt($value);
     }
 
     /**
      * @dataProvider invalidReceiptDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetterInvalidReceipt($value)
+    public function testSetterInvalidReceipt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreateRefundRequest();
         $instance->receipt = $value;
     }
 
-    public function testBuilder()
+    public function testBuilder(): void
     {
         $builder = CreateRefundRequest::builder();
-        self::assertTrue($builder instanceof CreateRefundRequestBuilder);
+        self::assertInstanceOf(CreateRefundRequestBuilder::class, $builder);
     }
 
     /**
      * @dataProvider invalidSourceDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testInvalidSetSources($value)
+    public function testInvalidSetSources($value): void
     {
+        $this->expectException(ValidatorParameterException::class);
         $instance = new CreateRefundRequest();
         $instance->setSources($value);
     }
 
-    public function validDataProvider()
+    public static function validDataProvider(): array
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'paymentId' => Random::str(36),
-                    'amount' => new MonetaryAmount(mt_rand(1, 100)),
+                    'amount' => new MonetaryAmount(Random::int(1, 100)),
                     'description' => null,
                     'deal' => null,
-                )
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'paymentId' => Random::str(36),
-                    'amount' => new MonetaryAmount(mt_rand(1, 100)),
+                    'amount' => new MonetaryAmount(Random::int(1, 100)),
                     'description' => '',
                     'deal' => '',
-                )
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'paymentId' => Random::str(36),
-                    'amount' => new MonetaryAmount(mt_rand(1, 100)),
+                    'amount' => new MonetaryAmount(Random::int(1, 100)),
                     'description' => '',
-                    'deal' => new RefundDealData(array(
-                        'refund_settlements' => array(
-                            array(
+                    'deal' => new RefundDealData([
+                        'refund_settlements' => [
+                            [
                                 'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
-                                'amount' => array(
+                                'amount' => [
                                     'value' => round(Random::float(1.00, 100.00), 2),
                                     'currency' => 'RUB',
-                                )
-                            ),
-                        )
-                    )),
-                )
-            )
-        );
+                                ],
+                            ],
+                        ],
+                    ]),
+                ],
+            ],
+        ];
         for ($i = 0; $i < 10; $i++) {
-            $request = array(
+            $request = [
                 'paymentId' => Random::str(36),
-                'amount' => new MonetaryAmount(mt_rand(1, 100)),
-                'description' => uniqid(),
-                'deal' => array(
-                    'refund_settlements' => array(
-                        array(
+                'amount' => new MonetaryAmount(Random::int(1, 100)),
+                'description' => uniqid('', true),
+                'deal' => [
+                    'refund_settlements' => [
+                        [
                             'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
-                            'amount' => array(
+                            'amount' => [
                                 'value' => round(Random::float(1.00, 100.00), 2),
                                 'currency' => 'RUB',
-                            )
-                        ),
-                    )
-                ),
-            );
-            $result[] = array($request);
+                            ],
+                        ],
+                    ],
+                ],
+            ];
+            $result[] = [$request];
         }
+
         return $result;
     }
 
-    public function invalidReceiptDataProvider()
+    public static function invalidReceiptDataProvider(): array
     {
-        return array(
-            array(1),
-            array('test'),
-            array(true),
-            array(false),
-            array(new \stdClass()),
-        );
+        return [
+            [1],
+            ['test'],
+            [true],
+            [false],
+            [new stdClass()],
+        ];
     }
 
-    public function invalidPaymentIdDataProvider()
+    public static function invalidPaymentIdDataProvider(): array
     {
-        return array(
-            array(''),
-            array(null),
-            array(array()),
-            array(1),
-            array(new \stdClass()),
-            array(Random::str(35)),
-            array(Random::str(37)),
-        );
+        return [
+            [''],
+            [null],
+            [1],
+            [Random::str(35)],
+            [Random::str(37)],
+        ];
     }
 
-    public function invalidDescriptionDataProvider()
+    public static function invalidDescriptionDataProvider(): array
     {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-        );
+        return [
+            [[]],
+            [new stdClass()],
+        ];
     }
 
-    public function invalidSourceDataProvider()
+    public static function invalidSourceDataProvider(): array
     {
-        return array(
-            array(1),
-            array(array(new \stdClass())),
-        );
+        return [
+            [Random::str(35)],
+        ];
     }
 
-    public function invalidDealDataProvider()
+    public static function invalidDealDataProvider(): array
     {
-        return array(
-            array(Random::str(35)),
-            array(new \stdClass()),
-        );
+        return [
+            [Random::str(35)],
+            [new stdClass()],
+        ];
     }
 }

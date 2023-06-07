@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -30,21 +30,19 @@ namespace YooKassa\Common\Exceptions;
  * Технические неполадки на стороне ЮKassa. Результат обработки запроса неизвестен. Повторите запрос позднее с тем же ключом идемпотентности.
  *
  * Рекомендуется повторять запрос с периодичностью один раз в минуту до тех пор, пока ЮKassa не сообщит результат обработки операции.
- *
- * @package YooKassa
  */
 class InternalServerError extends ApiException
 {
-    const HTTP_CODE = 500;
+    public const HTTP_CODE = 500;
 
-    public $retryAfter;
+    public mixed $retryAfter = null;
 
-    public $type;
+    public mixed $type = null;
 
-    public function __construct($responseHeaders = array(), $responseBody = null)
+    public function __construct($responseHeaders = [], $responseBody = '')
     {
         $errorData = json_decode($responseBody, true);
-        $message   = '';
+        $message = '';
 
         if (isset($errorData['description'])) {
             $message .= $errorData['description'] . '. ';

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,15 +26,25 @@
 
 namespace YooKassa\Helpers;
 
+/**
+ * Класс, представляющий модель Random.
+ *
+ * Класс хэлпера для генерации случайных значений, используется в тестах.
+ *
+ * @category Class
+ * @package  YooKassa\Helpers
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ */
 class RawHeadersParser
 {
     public static function parse($rawHeaders)
     {
-        $headers = array();
+        $headers = [];
         $key = '';
 
         foreach (explode("\n", $rawHeaders) as $headerRow) {
-            if (trim($headerRow) === '') {
+            if ('' === trim($headerRow)) {
                 break;
             }
             $headerArray = explode(':', $headerRow, 2);
@@ -43,14 +53,14 @@ class RawHeadersParser
                 if (!isset($headers[$headerArray[0]])) {
                     $headers[trim($headerArray[0])] = trim($headerArray[1]);
                 } elseif (is_array($headers[$headerArray[0]])) {
-                    $headers[trim($headerArray[0])] = array_merge($headers[trim($headerArray[0])], array(trim($headerArray[1])));
+                    $headers[trim($headerArray[0])] = array_merge($headers[trim($headerArray[0])], [trim($headerArray[1])]);
                 } else {
-                    $headers[trim($headerArray[0])] = array_merge(array($headers[trim($headerArray[0])]), array(trim($headerArray[1])));
+                    $headers[trim($headerArray[0])] = array_merge([$headers[trim($headerArray[0])]], [trim($headerArray[1])]);
                 }
 
                 $key = $headerArray[0];
             } else {
-                if (substr($headerArray[0], 0, 1) === "\t") {
+                if (str_starts_with($headerArray[0], "\t")) {
                     $headers[$key] .= "\r\n\t" . trim($headerArray[0]);
                 } elseif (!$key) {
                     $headers[0] = trim($headerArray[0]);

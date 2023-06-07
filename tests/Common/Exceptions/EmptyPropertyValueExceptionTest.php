@@ -4,14 +4,12 @@ namespace Tests\YooKassa\Common\Exceptions;
 
 use YooKassa\Common\Exceptions\EmptyPropertyValueException;
 
+/**
+ * @internal
+ */
 class EmptyPropertyValueExceptionTest extends InvalidPropertyExceptionTest
 {
-    /**
-     * @param string $message
-     * @param string $property
-     * @return EmptyPropertyValueException
-     */
-    protected function getTestInstance($message, $property)
+    protected function getTestInstance(string $message, string $property): EmptyPropertyValueException
     {
         return new EmptyPropertyValueException($message, 0, $property);
     }

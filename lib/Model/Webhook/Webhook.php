@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,86 +27,118 @@
 namespace YooKassa\Model\Webhook;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Model\NotificationEventType;
+use YooKassa\Model\Notification\NotificationEventType;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс Webhook содержит информацию о подписке на одно событие
+ * Класс Webhook содержит информацию о подписке на одно событие.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @property string $id Идентификатор webhook
  * @property string $event Событие, о котором уведомляет ЮKassa
  * @property string $url URL, на который ЮKassa будет отправлять уведомления
- *
- * @package YooKassa
  */
-class Webhook extends AbstractObject
+class Webhook extends AbstractObject implements WebhookInterface
 {
     /**
-     * @var string
+     * Идентификатор webhook.
+     *
+     * @var string|null
      */
-    private $id;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    private ?string $_id = null;
 
     /**
-     * @var string
+     * Событие, о котором уведомляет ЮKassa.
+     *
      * @see NotificationEventType
      */
-    private $event;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Choice(callback: [NotificationEventType::class, 'getValidValues'])]
+    private ?string $_event = null;
 
     /**
-     * @var string
+     * URL, на который ЮKassa отправляет уведомления.
+     *
+     * @var string|null
      */
-    private $url;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Url]
+    private ?string $_url = null;
 
     /**
-     * Возвращает идентификатор webhook
-     * @return string Идентификатор webhook
+     * Возвращает идентификатор webhook.
+     *
+     * @return string|null Идентификатор webhook
      */
-    public function getId()
+    public function getId(): ?string
     {
-        return $this->id;
+        return $this->_id;
     }
 
     /**
-     * Устанавливает идентификатор webhook
-     * @param mixed $id Идентификатор webhook
+     * Устанавливает идентификатор webhook.
+     *
+     * @param string|null $id Идентификатор webhook
+     *
+     * @return self
      */
-    public function setId($id)
+    public function setId(?string $id = null): self
     {
-        $this->id = $id;
+        $this->_id = $this->validatePropertyValue('_id', $id);
+        return $this;
     }
 
     /**
-     * Возвращает событие, о котором уведомляет ЮKassa
+     * Возвращает событие, о котором уведомляет ЮKassa.
+     *
      * @return string Событие, о котором уведомляет ЮKassa
      */
-    public function getEvent()
+    public function getEvent(): string
     {
-        return $this->event;
+        return $this->_event;
     }
 
     /**
-     * Устанавливает событие, о котором уведомляет ЮKassa
-     * @param string $event Событие, о котором уведомляет ЮKassa
+     * Устанавливает событие, о котором уведомляет ЮKassa.
+     *
+     * @param string|null $event Событие, о котором уведомляет ЮKassa
+     *
+     * @return self
      */
-    public function setEvent($event)
+    public function setEvent(?string $event = null): self
     {
-        $this->event = $event;
+        $this->_event = $this->validatePropertyValue('_event', $event);
+        return $this;
     }
 
     /**
-     * Возвращает URL, на который ЮKassa будет отправлять уведомления
+     * Возвращает URL, на который ЮKassa будет отправлять уведомления.
+     *
      * @return string URL, на который ЮKassa будет отправлять уведомления
      */
-    public function getUrl()
+    public function getUrl(): string
     {
-        return $this->url;
+        return $this->_url;
     }
 
     /**
-     * Устанавливает URL, на который ЮKassa будет отправлять уведомления
-     * @param string $url URL, на который ЮKassa будет отправлять уведомления
+     * Устанавливает URL, на который ЮKassa будет отправлять уведомления.
+     *
+     * @param string|null $url URL, на который ЮKassa будет отправлять уведомления
+     *
+     * @return self
      */
-    public function setUrl($url)
+    public function setUrl(?string $url = null): self
     {
-        $this->url = $url;
+        $this->_url = $this->validatePropertyValue('_url', $url);
+        return $this;
     }
 }

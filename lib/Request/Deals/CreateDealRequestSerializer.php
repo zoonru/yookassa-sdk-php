@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,38 +26,27 @@
 
 namespace YooKassa\Request\Deals;
 
-use YooKassa\Common\AbstractRequest;
-
 /**
- * Класс сериалайзера объекта запроса к API на создание сделки
+ * Класс, представляющий модель CreateDealRequestSerializer.
  *
- * @package YooKassa
+ * Класс объекта осуществляющего сериализацию объекта запроса к API на создание сделки.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class CreateDealRequestSerializer
 {
     /**
-     * Формирует ассоциативный массив данных из объекта запроса
+     * Формирует ассоциативный массив данных из объекта запроса.
      *
      * @param CreateDealRequestInterface $request Объект запроса
+     *
      * @return array Массив данных для дальнейшего кодирования в JSON
      */
-    public function serialize(CreateDealRequestInterface $request)
+    public function serialize(CreateDealRequestInterface $request): array
     {
-        $result = array();
-
-        if ($request->hasType()) {
-            $result['type'] = $request->getType();
-        }
-        if ($request->hasFeeMoment()) {
-            $result['fee_moment'] = $request->getFeeMoment();
-        }
-        if ($request->hasDescription()) {
-            $result['description'] = $request->getDescription();
-        }
-        if ($request->hasMetadata()) {
-            $result['metadata'] = $request->getMetadata()->toArray();
-        }
-
-        return $result;
+        return $request->toArray();
     }
 }

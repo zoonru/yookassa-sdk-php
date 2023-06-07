@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,171 +26,201 @@
 
 namespace YooKassa\Request\Receipts;
 
-use YooKassa\Common\AbstractRequest;
+use DateTime;
+use Exception;
 use YooKassa\Common\AbstractRequestBuilder;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 
 /**
- * Класс билдера объектов запросов к API списка чеков
- *
- * @package YooKassa
+ * Класс билдера объектов запросов к API списка чеков.
  */
 class ReceiptsRequestBuilder extends AbstractRequestBuilder
 {
     /**
-     * @var ReceiptsRequest Инстанс собираемого объекта запроса
+     * @var ReceiptsRequest|null Инстанс собираемого объекта запроса
      */
-    protected $currentObject;
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
-     * Инициализирует новый инстанс собираемого объекта
-     * @return ReceiptsRequest Инстанс собираемого запроса
-     */
-    protected function initCurrentObject()
-    {
-        return new ReceiptsRequest();
-    }
-
-    /**
-     * Устанавливает идентификатор возврата
+     * Устанавливает идентификатор возврата.
+     *
      * @param string $value Идентификатор возврата, который ищется в API
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если длина переданного значения не равна 36
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setRefundId($value)
+    public function setRefundId(string $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setRefundId($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает идентификатор платежа или null, если требуется его удалить
-     * @param string|null $value Идентификатор платежа
+     * Устанавливает идентификатор платежа или null, если требуется его удалить.
+     *
+     * @param null|string $value Идентификатор платежа
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если длина переданной строки не равна 36 символам
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setPaymentId($value)
+    public function setPaymentId(?string $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setPaymentId($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает статус выбираемых чеков
-     * @param string $value Статус выбираемых платежей или null, чтобы удалить значение
+     * Устанавливает статус выбираемых чеков.
+     *
+     * @param null|string $value Статус выбираемых платежей или null, чтобы удалить значение
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Выбрасывается если переданное значение не является валидным статусом
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setStatus($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает ограничение количества объектов чеков
-     * @param string $value Ограничение количества объектов чеков или null, чтобы удалить значение
+     * Устанавливает ограничение количества объектов чеков.
+     *
+     * @param null|int $value Ограничение количества объектов чеков или null, чтобы удалить значение
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод было передана не целое число
      */
-    public function setLimit($value)
+    public function setLimit(?int $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setLimit($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает токен следующей страницы выборки
-     * @param string $value Токен следующей страницы выборки или null, чтобы удалить значение
+     * Устанавливает токен следующей страницы выборки.
+     *
+     * @param null|string $value Токен следующей страницы выборки или null, чтобы удалить значение
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
      */
-    public function setCursor($value)
+    public function setCursor(?string $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setCursor($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются чеки
-     * @param \DateTime|string|int|null $value Время создания, от (не включая) или null, чтобы удалить значение
+     * Устанавливает дату создания от которой выбираются чеки.
+     *
+     * @param null|DateTime|int|string $value Время создания, от (не включая) или null, чтобы удалить значение
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|\Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtGt($value)
+    public function setCreatedAtGt(mixed $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setCreatedAtGt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются чеки
-     * @param \DateTime|string|int|null $value Время создания, от (включительно) или null, чтобы удалить значение
+     * Устанавливает дату создания от которой выбираются чеки.
+     *
+     * @param null|DateTime|int|string $value Время создания, от (включительно) или null, чтобы удалить значение
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|\Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtGte($value)
+    public function setCreatedAtGte(mixed $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setCreatedAtGte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются чеки
-     * @param \DateTime|string|int|null $value Время создания, до (не включая) или null, чтобы удалить значение
+     * Устанавливает дату создания до которой выбираются чеки.
+     *
+     * @param null|DateTime|int|string $value Время создания, до (не включая) или null, чтобы удалить значение
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|\Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtLt($value)
+    public function setCreatedAtLt(mixed $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setCreatedAtLt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются чеки
-     * @param \DateTime|string|int|null $value Время создания, до (включительно) или null, чтобы удалить значение
+     * Устанавливает дату создания до которой выбираются чеки.
+     *
+     * @param null|DateTime|int|string $value Время создания, до (включительно) или null, чтобы удалить значение
+     *
      * @return ReceiptsRequestBuilder Инстанс текущего объекта билдера
      *
      * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|\Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     *                                       строка или число, которые не удалось преобразовать в валидную дату)
+     * @throws Exception|InvalidPropertyValueTypeException Генерируется если была передана дата с не тем типом (передана не
+     *                                                     строка, не число и не значение типа DateTime)
      */
-    public function setCreatedAtLte($value)
+    public function setCreatedAtLte(mixed $value): ReceiptsRequestBuilder
     {
         $this->currentObject->setCreatedAtLte($value);
+
         return $this;
     }
 
     /**
-     * Собирает и возвращает объект запроса списка чеков магазина
-     * @param array|null $options Массив с настройками запроса
-     * @return ReceiptsRequestInterface|AbstractRequest Инстанс объекта запроса к API для получения списка чеков магазина
+     * Собирает и возвращает объект запроса списка чеков магазина.
+     *
+     * @param null|array $options Массив с настройками запроса
+     *
+     * @return AbstractRequestInterface|ReceiptsRequest Инстанс объекта запроса к API для получения списка чеков магазина
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         return parent::build($options);
+    }
+
+    /**
+     * Инициализирует новый инстанс собираемого объекта.
+     *
+     * @return ReceiptsRequest Инстанс собираемого запроса
+     */
+    protected function initCurrentObject(): AbstractRequestInterface
+    {
+        return new ReceiptsRequest();
     }
 }

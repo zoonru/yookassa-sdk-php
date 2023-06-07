@@ -3,26 +3,36 @@
 namespace Tests\YooKassa\Client;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
 use YooKassa\Client\CurlClient;
+use YooKassa\Common\Exceptions\ApiConnectionException;
+use YooKassa\Common\Exceptions\ApiException;
+use YooKassa\Common\Exceptions\AuthorizeException;
+use YooKassa\Common\Exceptions\ExtensionNotFoundException;
 use YooKassa\Common\HttpVerb;
+use YooKassa\Common\LoggerWrapper;
 
+/**
+ * @internal
+ */
 class CurlClientTest extends TestCase
 {
-    public function testConnectionTimeout()
+    public function testConnectionTimeout(): void
     {
         $client = new CurlClient();
         $client->setConnectionTimeout(10);
         $this->assertEquals(10, $client->getConnectionTimeout());
     }
 
-    public function testTimeout()
+    public function testTimeout(): void
     {
         $client = new CurlClient();
         $client->setTimeout(10);
         $this->assertEquals(10, $client->getTimeout());
     }
 
-    public function testProxy()
+    public function testProxy(): void
     {
         $client = new CurlClient();
         $client->setProxy('proxy_url:8889');
@@ -31,71 +41,87 @@ class CurlClientTest extends TestCase
 
     /**
      * @dataProvider curlErrorCodeProvider
-     * @expectedException \YooKassa\Common\Exceptions\ApiConnectionException
+     *
+     * @param mixed $error
+     * @param mixed $errn
+     * @throws ReflectionException
      */
-    public function testHandleCurlError($error, $errn)
+    public function testHandleCurlError(mixed $error, mixed $errn): void
     {
-        $client    = new CurlClient();
-        $reflector = new \ReflectionClass('\YooKassa\Client\CurlClient');
-        $method    = $reflector->getMethod('handleCurlError');
+        $this->expectException(ApiConnectionException::class);
+        $client = new CurlClient();
+        $reflector = new ReflectionClass(CurlClient::class);
+        $method = $reflector->getMethod('handleCurlError');
         $method->setAccessible(true);
-        $method->invokeArgs($client, array($error, $errn));
+        $method->invokeArgs($client, [$error, $errn]);
     }
 
-    public function testConfig()
+    public function testConfig(): void
     {
-        $config = array('url' => 'test:url');
+        $config = ['url' => 'test:url'];
         $client = new CurlClient();
         $client->setConfig($config);
         $this->assertEquals($config, $client->getConfig());
     }
 
-    public function testCloseConnection()
+    /**
+     * @throws ApiException
+     * @throws ExtensionNotFoundException
+     * @throws ApiConnectionException
+     * @throws AuthorizeException
+     */
+    public function testCloseConnection(): void
     {
-        $wrapped        = new \Tests\YooKassa\Client\ArrayLogger();
-        $logger         = new \YooKassa\Common\LoggerWrapper($wrapped);
-        $curlClientMock = $this->getMockBuilder('YooKassa\Client\CurlClient')
-                               ->setMethods(array('closeCurlConnection', 'sendRequest'))
-                               ->getMock();
+        $wrapped = new ArrayLogger();
+        $logger = new LoggerWrapper($wrapped);
+        $curlClientMock = $this->getMockBuilder(CurlClient::class)
+            ->onlyMethods(['closeCurlConnection', 'sendRequest'])
+            ->getMock()
+        ;
         $curlClientMock->setLogger($logger);
-        $curlClientMock->setConfig(array('url' => 'test:url'));
+        $curlClientMock->setConfig(['url' => 'test:url']);
         $curlClientMock->setKeepAlive(false);
         $curlClientMock->setShopId(123);
         $curlClientMock->setShopPassword(234);
-        $curlClientMock->expects($this->once())->method('sendRequest')->willReturn(array(
-            array('Header-Name' => 'HeaderValue'),
+        $curlClientMock->expects($this->once())->method('sendRequest')->willReturn([
+            ['Header-Name' => 'HeaderValue'],
             '{body:sample}',
-            array('http_code' => 200),
-        ));
+            ['http_code' => 200],
+        ]);
         $curlClientMock->expects($this->once())->method('closeCurlConnection');
         $curlClientMock->call(
             '',
             HttpVerb::HEAD,
-            array('queryParam' => 'value'),
+            ['queryParam' => 'value'],
             'testBodyValue',
-            array('testHeader' => 'testValue')
+            ['testHeader' => 'testValue']
         );
     }
 
-    public function testAuthorizeException()
+    /**
+     * @throws ExtensionNotFoundException
+     * @throws ApiConnectionException
+     * @throws ApiException
+     */
+    public function testAuthorizeException(): void
     {
-        $this->setExpectedException('YooKassa\Common\Exceptions\AuthorizeException');
+        $this->expectException(AuthorizeException::class);
         $client = new CurlClient();
         $client->call(
             '',
             HttpVerb::HEAD,
-            array('queryParam' => 'value'),
-            array('httpBody' => 'testValue'),
-            array('testHeader' => 'testValue')
+            ['queryParam' => 'value'],
+            'testValue',
+            ['testHeader' => 'testValue']
         );
     }
 
-    public function curlErrorCodeProvider()
+    public static function curlErrorCodeProvider(): array
     {
-        return array(
-            array('error message', CURLE_SSL_CACERT),
-            array('error message', CURLE_COULDNT_CONNECT),
-            array('error message', 0),
-        );
+        return [
+            ['error message', CURLE_SSL_CACERT],
+            ['error message', CURLE_COULDNT_CONNECT],
+            ['error message', 0],
+        ];
     }
 }

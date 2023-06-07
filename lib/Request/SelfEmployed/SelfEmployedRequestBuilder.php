@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,43 +26,40 @@
 
 namespace YooKassa\Request\SelfEmployed;
 
-use YooKassa\Common\AbstractRequest;
 use YooKassa\Common\AbstractRequestBuilder;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\InvalidRequestException;
 use YooKassa\Model\SelfEmployed\SelfEmployedConfirmation;
 
 /**
- * Класс билдера объектов запросов к API на создание самозанятого
+ * Класс, представляющий модель SelfEmployedRequestBuilder.
  *
- * @todo @example 02-builder.php 11 78 Пример использования билдера
+ * Класс билдера объектов запросов к API на создание самозанятого.
  *
- * @package YooKassa
+ * @example 02-builder.php 232 18 Пример использования билдера
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class SelfEmployedRequestBuilder extends AbstractRequestBuilder
 {
     /**
-     * Собираемый объект запроса
-     * @var SelfEmployedRequest
-     */
-    protected $currentObject;
-
-    /**
-     * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
-     * @return SelfEmployedRequest Инстанс собираемого объекта запроса к API
-     */
-    protected function initCurrentObject()
-    {
-        return new SelfEmployedRequest();
-    }
-
-    /**
-     * Устанавливает ИНН самозанятого
+     * Собираемый объект запроса.
      *
-     * @param string|null $value ИНН самозанятого
+     * @var SelfEmployedRequest|null
+     */
+    protected ?AbstractRequestInterface $currentObject = null;
+
+    /**
+     * Устанавливает ИНН самозанятого.
+     *
+     * @param null|string $value ИНН самозанятого
      *
      * @return self Инстанс билдера запросов
      */
-    public function setItn($value)
+    public function setItn(?string $value): self
     {
         $this->currentObject->setItn($value);
 
@@ -72,11 +69,11 @@ class SelfEmployedRequestBuilder extends AbstractRequestBuilder
     /**
      * Устанавливает телефон самозанятого.
      *
-     * @param string|null $value Телефон самозанятого.
+     * @param null|string $value телефон самозанятого
      *
      * @return self Инстанс билдера запросов
      */
-    public function setPhone($value)
+    public function setPhone(?string $value): self
     {
         $this->currentObject->setPhone($value);
 
@@ -86,11 +83,11 @@ class SelfEmployedRequestBuilder extends AbstractRequestBuilder
     /**
      * Устанавливает сценарий подтверждения.
      *
-     * @param SelfEmployedConfirmation|array|null $value Сценарий подтверждения.
+     * @param null|array|SelfEmployedConfirmation $value сценарий подтверждения
      *
      * @return self Инстанс билдера запросов
      */
-    public function setConfirmation($value)
+    public function setConfirmation(mixed $value): self
     {
         $this->currentObject->setConfirmation($value);
 
@@ -98,14 +95,26 @@ class SelfEmployedRequestBuilder extends AbstractRequestBuilder
     }
 
     /**
-     * Строит и возвращает объект запроса для отправки в API ЮKassa
-     * @param array|null $options Массив параметров для установки в объект запроса
-     * @return SelfEmployedRequest|AbstractRequest Инстанс объекта запроса
+     * Строит и возвращает объект запроса для отправки в API ЮKassa.
+     *
+     * @param null|array $options Массив параметров для установки в объект запроса
+     *
+     * @return SelfEmployedRequestInterface|AbstractRequestInterface Инстанс объекта запроса
      *
      * @throws InvalidRequestException Выбрасывается если собрать объект запроса не удалось
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         return parent::build($options);
+    }
+
+    /**
+     * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
+     *
+     * @return SelfEmployedRequest Инстанс собираемого объекта запроса к API
+     */
+    protected function initCurrentObject(): SelfEmployedRequest
+    {
+        return new SelfEmployedRequest();
     }
 }

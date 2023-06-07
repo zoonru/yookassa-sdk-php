@@ -2,11 +2,12 @@
 
 namespace Tests\YooKassa\Request\Receipts;
 
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\ProductCode;
 use YooKassa\Helpers\Random;
 use YooKassa\Helpers\StringObject;
-use YooKassa\Model\Airline;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\MonetaryAmount;
@@ -16,18 +17,20 @@ use YooKassa\Model\Receipt\MarkCodeInfo;
 use YooKassa\Model\Receipt\PaymentMode;
 use YooKassa\Model\Receipt\PaymentSubject;
 use YooKassa\Model\Receipt\ReceiptItemMeasure;
-use YooKassa\Model\Supplier;
-use YooKassa\Model\SupplierInterface;
+use YooKassa\Model\Receipt\Supplier;
+use YooKassa\Model\Receipt\SupplierInterface;
+use YooKassa\Request\Payments\Airline;
 use YooKassa\Request\Receipts\ReceiptResponseItem;
-use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class ReceiptResponseItemTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetDescription($options)
+    public function testGetDescription(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         self::assertEquals($options['description'], $instance->getDescription());
@@ -35,9 +38,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetAmount($options)
+    public function testGetAmount(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         self::assertNotNull($instance->getAmount());
@@ -45,13 +47,10 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSetVatCode($options)
+    public function testGetSetVatCode(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
-        $instance->setVatCode(null);
-        self::assertNull($instance->getVatCode());
 
         $instance->setVatCode($options['vat_code']);
         self::assertNotNull($instance->getVatCode());
@@ -60,9 +59,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSetExcise($options)
+    public function testGetSetExcise(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         $instance->setExcise(null);
@@ -78,9 +76,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSupplier($options)
+    public function testGetSupplier(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
 
@@ -101,9 +98,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSetMarkCodeInfo($options)
+    public function testGetSetMarkCodeInfo(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
 
@@ -121,9 +117,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSetMarkMode($options)
+    public function testGetSetMarkMode(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         $instance->setMarkMode(null);
@@ -140,9 +135,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSetMarkQuantity($options)
+    public function testGetSetMarkQuantity(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         $instance->setMarkQuantity(null);
@@ -162,9 +156,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetPrice($options)
+    public function testGetPrice(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
 
@@ -184,9 +177,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetQuantity($options)
+    public function testGetQuantity(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         self::assertNotNull($instance->getQuantity());
@@ -195,15 +187,14 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetPaymentMode($options)
+    public function testGetPaymentMode(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         self::assertEquals($options['payment_mode'], $instance->getPaymentMode());
     }
 
-    public function testSetPaymentSubjectData()
+    public function testSetPaymentSubjectData(): void
     {
         $instance = new ReceiptResponseItem();
         $instance->setPaymentSubject(null);
@@ -212,15 +203,14 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetPaymentSubject($options)
+    public function testGetPaymentSubject(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         self::assertEquals($options['payment_subject'], $instance->getPaymentSubject());
     }
 
-    public function testSetPaymentModeData()
+    public function testSetPaymentModeData(): void
     {
         $instance = new ReceiptResponseItem();
         $instance->setPaymentMode(null);
@@ -229,15 +219,14 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSetMeasure($options)
+    public function testGetSetMeasure(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         self::assertEquals($options['measure'], $instance->getMeasure());
     }
 
-    public function testSetMeasureData()
+    public function testSetMeasureData(): void
     {
         $instance = new ReceiptResponseItem();
         $instance->setMeasure(null);
@@ -246,9 +235,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetCountryOfOriginCode($options)
+    public function testGetCountryOfOriginCode(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         if (!empty($options['country_of_origin_code'])) {
@@ -258,7 +246,7 @@ class ReceiptResponseItemTest extends TestCase
         }
     }
 
-    public function testSetCountryOfOriginCodeData()
+    public function testSetCountryOfOriginCodeData(): void
     {
         $instance = new ReceiptResponseItem();
         $instance->setCountryOfOriginCode(null);
@@ -267,9 +255,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetCustomsDeclarationNumber($options)
+    public function testGetCustomsDeclarationNumber(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         if (!empty($options['customs_declaration_number'])) {
@@ -279,7 +266,7 @@ class ReceiptResponseItemTest extends TestCase
         }
     }
 
-    public function testSetCustomsDeclarationNumberData()
+    public function testSetCustomsDeclarationNumberData(): void
     {
         $instance = new ReceiptResponseItem();
         $instance->setCustomsDeclarationNumber(null);
@@ -288,22 +275,18 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider invalidCountryOfOriginCodeDataProvider
-     * @param array $options
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
      */
-    public function testSetCountryOfOriginCodeInvalidData($options)
+    public function testSetCountryOfOriginCodeInvalidData(mixed $options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setCountryOfOriginCode($options);
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetExcise($options)
+    public function testGetExcise(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         if (!empty($options['excise'])) {
@@ -313,7 +296,7 @@ class ReceiptResponseItemTest extends TestCase
         }
     }
 
-    public function testSetExciseData()
+    public function testSetExciseData(): void
     {
         $instance = new ReceiptResponseItem();
         $instance->setExcise(null);
@@ -323,9 +306,9 @@ class ReceiptResponseItemTest extends TestCase
     /**
      * @dataProvider validDataProvider
      *
-     * @param $options
+     * @param mixed $options
      */
-    public function testGetSetProductCode($options)
+    public function testGetSetProductCode($options): void
     {
         $instance = new ReceiptResponseItem($options);
         if (empty($options['product_code'])) {
@@ -333,41 +316,37 @@ class ReceiptResponseItemTest extends TestCase
             self::assertNull($instance->productCode);
             self::assertNull($instance->product_code);
         } elseif ($options['product_code'] instanceof ProductCode) {
-            self::assertEquals((string)$options['product_code'], $instance->getProductCode());
-            self::assertEquals((string)$options['product_code'], $instance->productCode);
-            self::assertEquals((string)$options['product_code'], $instance->product_code);
+            self::assertEquals((string) $options['product_code'], $instance->getProductCode());
+            self::assertEquals((string) $options['product_code'], $instance->productCode);
+            self::assertEquals((string) $options['product_code'], $instance->product_code);
         } else {
-            self::assertEquals($options['product_code'], (string)$instance->getProductCode());
-            self::assertEquals($options['product_code'], (string)$instance->productCode);
-            self::assertEquals($options['product_code'], (string)$instance->product_code);
+            self::assertEquals($options['product_code'], (string) $instance->getProductCode());
+            self::assertEquals($options['product_code'], (string) $instance->productCode);
+            self::assertEquals($options['product_code'], (string) $instance->product_code);
         }
     }
 
     /**
      * @dataProvider validDataProvider
-     *
-     * @param array $options
      */
-    public function testGetSetPaymentSubjectIndustryDetails($options)
+    public function testGetSetPaymentSubjectIndustryDetails(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
 
-//        self::assertNull($instance->getPaymentSubjectIndustryDetails());
-//        self::assertNull($instance->payment_subject_industry_details);
-//        $instance->setPaymentSubjectIndustryDetails($options);
+        $instance->setPaymentSubjectIndustryDetails($options['payment_subject_industry_details']);
 
         if (is_array($options['payment_subject_industry_details'])) {
-            self::assertCount(count($options['payment_subject_industry_details']), $instance->getPaymentSubjectIndustryDetails());
-            self::assertCount(count($options['payment_subject_industry_details']), $instance->payment_subject_industry_details);
-            self::assertCount(count($options['payment_subject_industry_details']), $instance->paymentSubjectIndustryDetails);
+            self::assertEquals($options['payment_subject_industry_details'], $instance->getPaymentSubjectIndustryDetails()->toArray());
+            self::assertEquals($options['payment_subject_industry_details'], $instance->payment_subject_industry_details->toArray());
+            self::assertEquals($options['payment_subject_industry_details'], $instance->paymentSubjectIndustryDetails->toArray());
         } else {
-            self::assertSame($options['payment_subject_industry_details'], $instance->getPaymentSubjectIndustryDetails());
-            self::assertSame($options['payment_subject_industry_details'], $instance->payment_subject_industry_details);
-            self::assertSame($options['payment_subject_industry_details'], $instance->paymentSubjectIndustryDetails);
+            self::assertTrue($instance->getPaymentSubjectIndustryDetails()->isEmpty());
+            self::assertTrue($instance->payment_subject_industry_details->isEmpty());
+            self::assertTrue($instance->paymentSubjectIndustryDetails->isEmpty());
         }
     }
 
-    public function testSetAgentTypeData()
+    public function testSetAgentTypeData(): void
     {
         $instance = new ReceiptResponseItem();
         $instance->setAgentType(null);
@@ -376,9 +355,8 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetAgentType($options)
+    public function testGetAgentType(array $options): void
     {
         $instance = new ReceiptResponseItem($options);
         self::assertEquals($options['agent_type'], $instance->getAgentType());
@@ -386,187 +364,153 @@ class ReceiptResponseItemTest extends TestCase
 
     /**
      * @dataProvider invalidDescriptionDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
+     *
+     * @param mixed $options
      */
-    public function testSetDescriptionInvalidData($options)
+    public function testSetDescriptionInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setDescription($options);
     }
 
     /**
      * @dataProvider invalidQuantityDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
+     *
+     * @param mixed $options
      */
-    public function testSetQuantityInvalidData($options)
+    public function testSetQuantityInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setQuantity($options);
     }
 
     /**
      * @dataProvider invalidMeasureDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
+     *
+     * @param mixed $options
      */
-    public function testSetMeasureInvalidData($options)
+    public function testSetMeasureInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setMeasure($options);
     }
 
     /**
      * @dataProvider invalidVatCodeDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
+     *
+     * @param mixed $options
      */
-    public function testSetVatCodeInvalidData($options)
+    public function testSetVatCodeInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setVatCode($options);
     }
 
     /**
      * @dataProvider invalidExciseDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
+     *
+     * @param mixed $options
      */
-    public function testSetExciseInvalidData($options)
+    public function testSetExciseInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setExcise($options);
     }
 
     /**
      * @dataProvider invalidProductCodeDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
+     *
+     * @param mixed $options
      */
-    public function testSetProductCodeInvalidData($options)
+    public function testSetProductCodeInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setProductCode($options);
     }
 
     /**
-     * @dataProvider invalidPaymentDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
-    public function testSetPaymentSubjectInvalidData($options)
-    {
-        $instance = new ReceiptResponseItem();
-        $instance->setPaymentSubject($options);
-    }
-
-    /**
-     * @dataProvider invalidPaymentDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
-    public function testSetPaymentModeInvalidData($options)
-    {
-        $instance = new ReceiptResponseItem();
-        $instance->setPaymentMode($options);
-    }
-
-    /**
      * @dataProvider invalidSupplierDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
+     *
+     * @param mixed $options
      */
-    public function testSetSupplierInvalidData($options)
+    public function testSetSupplierInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setSupplier($options);
     }
 
     /**
      * @dataProvider invalidAgentTypeDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
+     *
+     * @param mixed $options
      */
-    public function testSetAgentTypeInvalidData($options)
+    public function testSetAgentTypeInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setAgentType($options);
     }
 
     /**
      * @dataProvider invalidMarkCodeInfoDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
+     *
+     * @param mixed $options
      */
-    public function testSetMarkCodeInfoInvalidData($options)
+    public function testSetMarkCodeInfoInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setMarkCodeInfo($options);
     }
 
     /**
-     * @dataProvider invalidMarkModeDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
-     */
-    public function testSetMarkModeInvalidData($options)
-    {
-        $instance = new ReceiptResponseItem();
-        $instance->setMarkMode($options);
-    }
-
-    /**
      * @dataProvider invalidMarkQuantityDataProvider
-     * @param $options
-     * @expectedException \InvalidArgumentException
-     * @expectedException EmptyPropertyValueException
+     *
+     * @param mixed $options
      */
-    public function testSetMarkQuantityInvalidData($options)
+    public function testSetMarkQuantityInvalidData($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setMarkQuantity($options);
     }
 
     /**
      * @dataProvider invalidCustomsDeclarationNumberDataProvider
-     * @expectedException \InvalidArgumentException
      *
-     * @param $value
+     * @param mixed $value
      */
-    public function testSetInvalidCustomsDeclarationNumber($value)
+    public function testSetInvalidCustomsDeclarationNumber($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->customsDeclarationNumber = $value;
     }
 
     /**
      * @dataProvider invalidCustomsDeclarationNumberDataProvider
-     * @expectedException \InvalidArgumentException
      *
-     * @param $value
+     * @param mixed $value
      */
-    public function testSetterInvalidCustomsDeclarationNumber($value)
+    public function testSetterInvalidCustomsDeclarationNumber($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseItem();
         $instance->setCustomsDeclarationNumber($value);
     }
 
-    public function validDataProvider()
+    public static function validDataProvider()
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'description' => Random::str(128),
                     'quantity' => Random::float(0.0001, 99.99),
                     'amount' => new MonetaryAmount(Random::int(1, 1000)),
@@ -579,215 +523,192 @@ class ReceiptResponseItemTest extends TestCase
                     'mark_code_info' => null,
                     'mark_mode' => null,
                     'mark_quantity' => null,
-                    'supplier' => new Supplier(array(
+                    'supplier' => new Supplier([
                         'name' => Random::str(128),
                         'phone' => Random::str(4, 12, '1234567890'),
-                        'inn' => '1000000000'
-                    )),
+                        'inn' => '1000000000',
+                    ]),
                     'agent_type' => null,
                     'payment_subject_industry_details' => null,
-                )
-            )
-        );
+                ],
+            ],
+        ];
 
         for ($i = 0; $i < 9; $i++) {
-            $test = array(
-                array(
+            $test = [
+                [
                     'description' => Random::str(128),
                     'quantity' => Random::float(0.0001, 99.99),
                     'measure' => Random::value(ReceiptItemMeasure::getValidValues()),
-                    'amount' => array(
+                    'amount' => [
                         'value' => round(Random::float(0.1, 99.99), 2),
-                        'currency' => Random::value(CurrencyCode::getValidValues())
-                    ),
+                        'currency' => Random::value(CurrencyCode::getValidValues()),
+                    ],
                     'vat_code' => Random::int(1, 6),
                     'excise' => round(Random::float(1.0, 10.0), 2),
                     'payment_mode' => Random::value(PaymentMode::getValidValues()),
                     'payment_subject' => Random::value(PaymentSubject::getValidValues()),
-                    'product_code' => Random::value(array(
+                    'product_code' => Random::value([
                         null,
                         Random::str(2, 96, '0123456789ABCDEF '),
                         new ProductCode('010463003407001221SxMGorvNuq6Wk91fgr92sdfsdfghfgjh'),
-                    )),
-                    'country_of_origin_code' => Random::value(array('RU', 'US', 'CN')),
-                    'customs_declaration_number' => Random::value(array(
-                            null,
-                            '',
-                            Random::str(1),
-                            Random::str(2, 31),
-                            Random::str(32),
-                    )),
-                    'mark_code_info' => array(
+                    ]),
+                    'country_of_origin_code' => Random::value(['RU', 'US', 'CN']),
+                    'customs_declaration_number' => Random::value([
+                        null,
+                        '',
+                        Random::str(2),
+                        Random::str(2, 31),
+                        Random::str(32),
+                    ]),
+                    'mark_code_info' => [
                         'mark_code_raw' => '010460406000590021N4N57RTCBUZTQ\u001d2403054002410161218\u001d1424010191ffd0\u001g92tIAF/YVpU4roQS3M/m4z78yFq0nc/WsSmLeX6QkF/YVWwy5IMYAeiQ91Xa2m/fFSJcOkb2N+uUUtfr4n0mOX0Q==',
-                    ),
-                    'mark_mode' => Random::value(array(null, 0, 1, '1',)),
-                    'payment_subject_industry_details' => array(
-                        array(
+                    ],
+                    'mark_mode' => Random::value([null, 0, '0']),
+                    'payment_subject_industry_details' => [
+                        [
                             'federal_id' => '001',
                             'document_date' => date('Y-m-d', Random::int(100000000, 200000000)),
                             'document_number' => Random::str(1, IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH),
                             'value' => Random::str(1, IndustryDetails::VALUE_MAX_LENGTH),
-                        )
-                    ),
-                    'supplier' => array(
+                        ],
+                    ],
+                    'supplier' => [
                         'name' => Random::str(128),
                         'phone' => Random::str(4, 12, '1234567890'),
-                        'inn' => '1000000000'
-                    ),
+                        'inn' => '1000000000',
+                    ],
                     'agent_type' => Random::value(AgentType::getValidValues()),
-                )
-            );
-            if ($test[0]['measure'] === ReceiptItemMeasure::PIECE) {
-                $test[0]['mark_quantity'] = array(
+                ],
+            ];
+            if (ReceiptItemMeasure::PIECE === $test[0]['measure']) {
+                $test[0]['mark_quantity'] = [
                     'numerator' => Random::int(1, 100),
                     'denominator' => 100,
-                );
+                ];
             }
             $result[] = $test;
         }
+
         return $result;
     }
 
-    public function invalidDescriptionDataProvider()
+    public static function invalidDescriptionDataProvider()
     {
-        return array(
-            array(''),
-            array(new Airline()),
-            array(new ProductCode())
-        );
+        return [
+            [''],
+        ];
     }
 
-    public function invalidQuantityDataProvider()
+    public static function invalidQuantityDataProvider()
     {
-        return array(
-            array(null),
-            array('test'),
-            array(0.0)
-        );
+        return [
+            [null],
+            [0.0],
+        ];
     }
 
-    public function invalidMeasureDataProvider()
+    public static function invalidMeasureDataProvider()
     {
-        return array(
-            array(array()),
-            array(true),
-            array(new \stdClass()),
-            array(Random::str(10)),
-        );
+        return [
+            [true],
+            [Random::str(10)],
+        ];
     }
 
-    public function invalidVatCodeDataProvider()
+    public static function invalidVatCodeDataProvider()
     {
-        return array(
-            array('test'),
-            array(0.0)
-        );
+        return [
+            [0.0],
+        ];
     }
 
-    public function invalidExciseDataProvider()
+    public static function invalidExciseDataProvider()
     {
-        return array(
-            array('test'),
-            array(new Airline()),
-            array(-Random::float(10)),
-        );
+        return [
+            [-Random::float(10)],
+        ];
     }
 
-    public function invalidProductCodeDataProvider()
+    public static function invalidProductCodeDataProvider()
     {
-        return array(
-            array(new StringObject('')),
-            array(true),
-            array(false),
-            array(new \stdClass()),
-            array(array()),
-            array(Random::str(2, 96, 'GHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=`~?><:"\'')),
-            array(Random::str(97, 100, '0123456789ABCDEF ')),
-        );
+        return [
+            [new StringObject('')],
+            [true],
+            [false],
+            [new stdClass()],
+            [Random::str(2, 96, 'GHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=`~?><:"\'')],
+            [Random::str(97, 100, '0123456789ABCDEF ')],
+        ];
     }
 
-    public function invalidPaymentDataProvider()
+    public static function invalidPaymentDataProvider()
     {
-        return array(
-            array(new Airline())
-        );
+        return [
+            [new Airline()],
+        ];
     }
 
-    public function invalidSupplierDataProvider()
+    public static function invalidSupplierDataProvider()
     {
-        return array(
-            array(null),
-            array(new Airline())
-        );
+        return [
+            [Random::int()],
+            [Random::str(5)],
+            [new Airline()],
+        ];
     }
 
-    public function invalidCountryOfOriginCodeDataProvider()
+    public static function invalidCountryOfOriginCodeDataProvider()
     {
-        return array(
-            array(new Airline()),
-            array(new ProductCode()),
-            array(Random::str(2, 2, '0123456789!@#$%^&*()_+-=')),
-            array(Random::str(3, 10)),
-        );
+        return [
+            [Random::str(2, 2, '0123456789!@#$%^&*()_+-=')],
+            [Random::str(3, 10)],
+        ];
     }
 
-    public function invalidAgentTypeDataProvider()
+    public static function invalidAgentTypeDataProvider()
     {
-        return array(
-            array(new Airline()),
-            array(Random::str(1, 10)),
-        );
+        return [
+            [Random::str(1, 10)],
+        ];
     }
 
-    public function invalidMarkModeDataProvider()
+    public static function invalidMarkQuantityDataProvider()
     {
-        return array(
-            array(array()),
-            array(new Airline()),
-            array(true),
-        );
+        return [
+            [1.0],
+            [1],
+            [true],
+            [new stdClass()],
+        ];
     }
 
-    public function invalidMarkQuantityDataProvider()
+    public static function invalidMarkCodeInfoDataProvider()
     {
-        return array(
-            array(1.0),
-            array(1),
-            array(true),
-            array(new \stdClass()),
-        );
+        return [
+            [1.0],
+            [1],
+            [true],
+            [new stdClass()],
+            [Random::str(1, 10)],
+        ];
     }
 
-    public function invalidMarkCodeInfoDataProvider()
+    public static function invalidCustomsDeclarationNumberDataProvider()
     {
-        return array(
-            array(1.0),
-            array(1),
-            array(true),
-            array(new \stdClass()),
-            array(Random::str(1, 10)),
-        );
-    }
-
-    public function invalidCustomsDeclarationNumberDataProvider()
-    {
-        return array(
-            array(true),
-            array(false),
-            array(new \stdClass()),
-            array(array()),
-            array(Random::str(33, 64)),
-        );
+        return [
+            [Random::str(33, 64)],
+        ];
     }
 
     public function invalidPaymentSubjectIndustryDetailsDataProvider()
     {
-        return array(
-            array(1.0),
-            array(1),
-            array(true),
-            array(new \stdClass()),
-            array(array(new \stdClass())),
-        );
+        return [
+            [1.0],
+            [1],
+            [true],
+            [new stdClass()],
+            [[new stdClass()]],
+        ];
     }
 }

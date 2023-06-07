@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,17 +26,29 @@
 
 namespace YooKassa\Helpers;
 
+use Exception;
+use RuntimeException;
+
+/**
+ * Класс, представляющий модель SecurityHelper.
+ *
+ * Класс для проверки IP адреса входящих запросов от API кассы.
+ *
+ * @category Class
+ * @package  YooKassa\Helpers
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ */
 class SecurityHelper
 {
     /**
-     * Проверяет формат IP адреса и вызывает соответствующие методы для проверки среди IPv4 и IPv6 адресов Юkassa
+     * Проверяет формат IP адреса и вызывает соответствующие методы для проверки среди IPv4 и IPv6 адресов Юkassa.
      *
-     * @param $ip - IPv4 или IPv6 адрес webhook уведомления
-     * @return bool
+     * @param mixed $ip - IPv4 или IPv6 адрес webhook уведомления
      *
-     * @throws \Exception - исключение будет выброшено, если не удастся установить формат IP адреса
+     * @throws Exception - исключение будет выброшено, если не удастся установить формат IP адреса
      */
-    public function isIPTrusted($ip)
+    public function isIPTrusted(mixed $ip): bool
     {
         if (!$this->isIPv6($ip)) {
             return $this->checkInIPv4TrustedList($ip);
@@ -45,7 +57,8 @@ class SecurityHelper
         if (!$this->isIPv4($ip)) {
             return $this->checkInIPv6TrustedList($ip);
         }
-        throw new \Exception(
+
+        throw new RuntimeException(
             'Could not recognize IPv4 or IPv6: ' . $ip
         );
     }
@@ -53,143 +66,144 @@ class SecurityHelper
     /**
      * Проверяет, является ли переданное в функцию значение IPv6 адресом
      *
-     * @param $ip - IP адрес
+     * @param mixed $ip - IP адрес
+     *
      * @return bool - true - является, false - не является
      */
-    private function isIPv6($ip)
+    private function isIPv6(mixed $ip): bool
     {
-        return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) != false;
+        return false !== filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
 
     /**
      * Проверяет, является ли переданное в функцию значение IPv4 адресом
      *
-     * @param $ip - IP адрес
+     * @param mixed $ip - IP адрес
+     *
      * @return bool - true - является, false - не является
      */
-    private function isIPv4($ip)
+    private function isIPv4(mixed $ip): bool
     {
-        return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) != false;
+        return false !== filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
     }
 
     /**
-     * Проверяет IPv4 адрес в списке IPv4 адресов Юkassa
+     * Проверяет IPv4 адрес в списке IPv4 адресов Юkassa.
      *
-     * @param $ip - IPv4 адрес
-     * @return bool
+     * @param mixed $ip - IPv4 адрес
      */
-    private function checkInIPv4TrustedList($ip)
+    private function checkInIPv4TrustedList(mixed $ip): bool
     {
         foreach ($this->getIPv4TrustedList() as $range) {
             if ($this->isIPInV4Range($ip, $range)) {
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     * Проверяет IPv6 адрес в списке IPv6 адресов Юkassa
+     * Проверяет IPv6 адрес в списке IPv6 адресов Юkassa.
      *
-     * @param $ip - IPv6 адрес
-     * @return bool
+     * @param mixed $ip - IPv6 адрес
      */
-    private function checkInIPv6TrustedList($ip)
+    private function checkInIPv6TrustedList(mixed $ip): bool
     {
         foreach ($this->getIPv6TrustedList() as $range) {
             if ($this->isIPInV6Range($ip, $range)) {
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     * Осуществляет проверку, входит ли IPv4 адрес $ip в диапазон IPv4 адресов $range
+     * Осуществляет проверку, входит ли IPv4 адрес $ip в диапазон IPv4 адресов $range.
      *
-     * @param $ip - IPv4 адрес
-     * @param $range - IPv4 адрес, или диапазон IPv4 адресов в формате CIDR
-     * @return bool
+     * @param mixed $ip - IPv4 адрес
+     * @param mixed $range - IPv4 адрес, или диапазон IPv4 адресов в формате CIDR
      */
-    private function isIPInV4Range($ip, $range)
+    private function isIPInV4Range(mixed $ip, mixed $range): bool
     {
         $ip_dec = ip2long($ip);
 
-        if (strpos($range, '/') === false) {
+        if (!str_contains($range, '/')) {
             return ip2long($ip) === ip2long($range);
         }
-        list($range, $netmask) = explode('/', $range, 2);
-        list($a, $b, $c, $d) = explode('.', $range);
+        [$range, $netmask] = explode('/', $range, 2);
+        [$a, $b, $c, $d] = explode('.', $range);
 
-        $range = sprintf("%u.%u.%u.%u", $a, $b, $c, $d);
+        $range = sprintf('%u.%u.%u.%u', $a, $b, $c, $d);
         $range_dec = ip2long($range);
 
-        $wildcard_dec = pow(2, (32 - (int)$netmask)) - 1;
+        $wildcard_dec = 2 ** (32 - (int) $netmask) - 1;
         $netmask_dec = ~$wildcard_dec;
 
-        return (($ip_dec & $netmask_dec) === ($range_dec & $netmask_dec));
+        return ($ip_dec & $netmask_dec) === ($range_dec & $netmask_dec);
     }
 
     /**
-     * Осуществляет проверку, входит ли IPv6 адрес $ip в диапазон IPv6 адресов $range
+     * Осуществляет проверку, входит ли IPv6 адрес $ip в диапазон IPv6 адресов $range.
      *
-     * @param $ip
-     * @param $range
+     * @param mixed $ip
+     * @param array $range
      * @return bool
      */
-    private function isIPInV6Range($ip, $range)
+    private function isIPInV6Range(mixed $ip, array $range): bool
     {
         $firstInRange = inet_pton($range[0]);
         $lastInRange = inet_pton($range[1]);
 
         $ip = inet_pton($ip);
 
-        return (strlen($ip) == strlen($firstInRange))
-                &&  ($ip >= $firstInRange && $ip <= $lastInRange);
+        return (strlen($ip) === strlen($firstInRange))
+                && ($ip >= $firstInRange && $ip <= $lastInRange);
     }
 
     /**
      * Возвращает список диапазонов IPv4 адресов в формате CIDR и отдельных IPv4 адресов
-     * с которых Юkassa может отправлять уведомления
+     * с которых Юkassa может отправлять уведомления.
      *
      * @return string[]
      */
-    private function getIPv4TrustedList()
+    private function getIPv4TrustedList(): array
     {
-        return array(
+        return [
             '185.71.76.0/27',
             '185.71.77.0/27',
             '77.75.153.0/25',
             '77.75.154.128/25',
             '77.75.156.11',
             '77.75.156.35',
-        );
+        ];
     }
 
     /**
-     * Возвращает список диапазонов IPv6 адресов с которых Юkassa может отправлять уведомления
+     * Возвращает список диапазонов IPv6 адресов с которых Юkassa может отправлять уведомления.
      *
      * @return string[][]
      */
-    private function getIPv6TrustedList()
+    private function getIPv6TrustedList(): array
     {
-        return array(
-           array(
-               '2a02:5180:0000:1509:0000:0000:0000:0000',
-               '2a02:5180:0000:1509:ffff:ffff:ffff:ffff'
-           ),
-            array(
+        return [
+            [
+                '2a02:5180:0000:1509:0000:0000:0000:0000',
+                '2a02:5180:0000:1509:ffff:ffff:ffff:ffff',
+            ],
+            [
                 '2a02:5180:0000:2655:0000:0000:0000:0000',
-                '2a02:5180:0000:2655:ffff:ffff:ffff:ffff'
-            ),
-            array(
+                '2a02:5180:0000:2655:ffff:ffff:ffff:ffff',
+            ],
+            [
                 '2a02:5180:0000:1533:0000:0000:0000:0000',
-                '2a02:5180:0000:1533:ffff:ffff:ffff:ffff'
-            ),
-            array(
+                '2a02:5180:0000:1533:ffff:ffff:ffff:ffff',
+            ],
+            [
                 '2a02:5180:0000:2669:0000:0000:0000:0000',
-                '2a02:5180:0000:2669:ffff:ffff:ffff:ffff'
-            )
-        );
+                '2a02:5180:0000:2669:ffff:ffff:ffff:ffff',
+            ],
+        ];
     }
 }

@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс сериалайзера объекта запроса к API на создание самозанятого
+Класс, представляющий модель SelfEmployedRequestSerializer.
 
+**Description:**
+
+Класс объекта осуществляющего сериализацию объекта запроса к API на создание самозанятого.
 
 ---
 ### Constants
@@ -16,14 +19,24 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [serialize()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestSerializer.md#method_serialize) |  | Формирует ассоциативный массив данных из объекта запроса |
+| public | [serialize()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestSerializer.md#method_serialize) |  | Формирует ассоциативный массив данных из объекта запроса. |
 
 ---
 ### Details
 * File: [lib/Request/SelfEmployed/SelfEmployedRequestSerializer.php](../../lib/Request/SelfEmployed/SelfEmployedRequestSerializer.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy:
   * \YooKassa\Request\SelfEmployed\SelfEmployedRequestSerializer
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -36,7 +49,7 @@ public serialize(\YooKassa\Request\SelfEmployed\SelfEmployedRequest $request) : 
 
 **Summary**
 
-Формирует ассоциативный массив данных из объекта запроса
+Формирует ассоциативный массив данных из объекта запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequestSerializer](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestSerializer.md)
@@ -44,7 +57,7 @@ public serialize(\YooKassa\Request\SelfEmployed\SelfEmployedRequest $request) : 
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Request\SelfEmployed\SelfEmployedRequest</code> | request  | Объект запроса |
+| <code lang="php">\YooKassa\Request\SelfEmployed\SelfEmployedRequest</code> | request  |  |
 
 **Returns:** array - Массив данных для дальнейшего кодирования в JSON
 
@@ -60,11 +73,11 @@ public serialize(\YooKassa\Request\SelfEmployed\SelfEmployedRequest $request) : 
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

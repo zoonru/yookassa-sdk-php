@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,14 +26,18 @@
 
 namespace YooKassa\Request\Deals;
 
-use YooKassa\Model\DealInterface;
-use YooKassa\Model\SafeDeal;
+use YooKassa\Model\Deal\SafeDeal;
 
 /**
- * Абстрактный класс ответа от API, возвращающего информацию о платеже
+ * Класс, представляющий AbstractDealResponse.
  *
- * @package YooKassa
+ * Абстрактный класс ответа от API, возвращающего информацию о платеже.
+ *
+ * @category Abstract Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
-abstract class AbstractDealResponse extends SafeDeal implements DealInterface
+abstract class AbstractDealResponse extends SafeDeal
 {
 }

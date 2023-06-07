@@ -5,12 +5,14 @@
 ---
 **Summary:**
 
-CurrencyCode - Код валюты в формате [ISO-4217](https://www.iso.org/iso-4217-currency-codes.md).
+Класс, представляющий модель CurrencyCode.
 
 **Description:**
 
-Должен соответствовать валюте субаккаунта (`recipient.gateway_id`), если вы разделяете потоки платежей,
-и валюте аккаунта (shopId в [личном кабинете](https://yookassa.ru/my)), если не разделяете.
+Трехбуквенный код валюты в формате [ISO-4217](https://www.iso.org/iso-4217-currency-codes.md).
+
+Пример: ~`RUB`. Должен соответствовать валюте субаккаунта (`recipient.gateway_id`),
+если вы разделяете потоки платежей, и валюте аккаунта (shopId в [личном кабинете](https://yookassa.ru/my)), если не разделяете.
 
 ---
 ### Constants
@@ -39,14 +41,14 @@ CurrencyCode - Код валюты в формате [ISO-4217](https://www.iso.
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [getEnabledValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getEnabledValues) |  | Возвращает значения в enum'е значения которых разрешены |
-| public | [getValidValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getValidValues) |  | Возвращает все значения в enum'e |
-| public | [valueExists()](../classes/YooKassa-Common-AbstractEnum.md#method_valueExists) |  | Проверяет наличие значения в enum'e |
+| public | [getEnabledValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getEnabledValues) |  | Возвращает значения в enum'е значения которых разрешены. |
+| public | [getValidValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getValidValues) |  | Возвращает все значения в enum'e. |
+| public | [valueExists()](../classes/YooKassa-Common-AbstractEnum.md#method_valueExists) |  | Проверяет наличие значения в enum'e. |
 
 ---
 ### Details
 * File: [lib/Model/CurrencyCode.php](../../lib/Model/CurrencyCode.php)
-* Package: YooKassa\Model
+* Package: Default
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
   * \YooKassa\Model\CurrencyCode
@@ -190,7 +192,7 @@ Static public getEnabledValues() : string[]
 
 **Summary**
 
-Возвращает значения в enum'е значения которых разрешены
+Возвращает значения в enum'е значения которых разрешены.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -207,7 +209,7 @@ Static public getValidValues() : array
 
 **Summary**
 
-Возвращает все значения в enum'e
+Возвращает все значения в enum'e.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -224,7 +226,7 @@ Static public valueExists(mixed $value) : bool
 
 **Summary**
 
-Проверяет наличие значения в enum'e
+Проверяет наличие значения в enum'e.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -248,11 +250,11 @@ Static public valueExists(mixed $value) : bool
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

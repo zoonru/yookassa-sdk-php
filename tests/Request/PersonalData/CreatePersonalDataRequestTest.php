@@ -2,6 +2,7 @@
 
 namespace Tests\YooKassa\Request\PersonalData;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Metadata;
@@ -9,13 +10,17 @@ use YooKassa\Model\PersonalData\PersonalDataType;
 use YooKassa\Request\PersonalData\CreatePersonalDataRequest;
 use YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder;
 
+/**
+ * @internal
+ */
 class CreatePersonalDataRequestTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testLastName($options)
+    public function testLastName($options): void
     {
         $instance = new CreatePersonalDataRequest();
 
@@ -56,20 +61,22 @@ class CreatePersonalDataRequestTest extends TestCase
 
     /**
      * @dataProvider invalidLastNameDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidLastName($value)
+    public function testSetInvalidLastName($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePersonalDataRequest();
         $instance->setLastName($value);
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testFirstName($options)
+    public function testFirstName($options): void
     {
         $instance = new CreatePersonalDataRequest();
 
@@ -110,20 +117,22 @@ class CreatePersonalDataRequestTest extends TestCase
 
     /**
      * @dataProvider invalidFirstNameDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidFirstName($value)
+    public function testSetInvalidFirstName($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePersonalDataRequest();
         $instance->setFirstName($value);
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testMiddleName($options)
+    public function testMiddleName($options): void
     {
         $instance = new CreatePersonalDataRequest();
 
@@ -163,20 +172,22 @@ class CreatePersonalDataRequestTest extends TestCase
 
     /**
      * @dataProvider invalidMiddleNameDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidMiddleName($value)
+    public function testSetInvalidMiddleName($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePersonalDataRequest();
         $instance->setMiddleName($value);
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testMetadata($options)
+    public function testMetadata($options): void
     {
         $instance = new CreatePersonalDataRequest();
 
@@ -219,27 +230,29 @@ class CreatePersonalDataRequestTest extends TestCase
 
     /**
      * @dataProvider invalidMetadataDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidMetadata($value)
+    public function testSetInvalidMetadata($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePersonalDataRequest();
         $instance->setMetadata($value);
     }
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidType($value)
+    public function testSetInvalidType($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new CreatePersonalDataRequest();
         $instance->setType($value);
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $instance = new CreatePersonalDataRequest();
 
@@ -255,104 +268,95 @@ class CreatePersonalDataRequestTest extends TestCase
         self::assertFalse($instance->validate());
         $instance->setFirstName('test');
         self::assertTrue($instance->validate());
-
     }
 
-    public function testBuilder()
+    public function testBuilder(): void
     {
         $builder = CreatePersonalDataRequest::builder();
-        self::assertTrue($builder instanceof CreatePersonalDataRequestBuilder);
+        self::assertInstanceOf(CreatePersonalDataRequestBuilder::class, $builder);
     }
 
-    public function validDataProvider()
+    public static function validDataProvider()
     {
         $metadata = new Metadata();
         $metadata->test = 'test';
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'type' => Random::value(PersonalDataType::getEnabledValues()),
                     'last_name' => 'null',
                     'first_name' => 'null',
                     'middle_name' => null,
                     'metadata' => null,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'type' => Random::value(PersonalDataType::getEnabledValues()),
                     'last_name' => 'null',
                     'first_name' => 'null',
                     'middle_name' => '',
-                    'metadata' => array(),
-                ),
-            ),
-        );
+                    'metadata' => [],
+                ],
+            ],
+        ];
         for ($i = 0; $i < 10; $i++) {
-            $request = array(
+            $request = [
                 'type' => Random::value(PersonalDataType::getEnabledValues()),
-                'last_name' => Random::str(5, CreatePersonalDataRequest::MAX_LENGTH_LAST_NAME),
-                'first_name' => Random::str(5, CreatePersonalDataRequest::MAX_LENGTH_FIRST_NAME),
-                'middle_name' => Random::str(5, CreatePersonalDataRequest::MAX_LENGTH_LAST_NAME),
-                'metadata' => ($i % 2) ? $metadata : array('test' => 'test'),
-            );
-            $result[] = array($request);
+                'last_name' => Random::str(5, CreatePersonalDataRequest::MAX_LENGTH_LAST_NAME, 'abcdefghijklmnopqrstuvwxyz'),
+                'first_name' => Random::str(5, CreatePersonalDataRequest::MAX_LENGTH_FIRST_NAME, 'abcdefghijklmnopqrstuvwxyz'),
+                'middle_name' => Random::str(5, CreatePersonalDataRequest::MAX_LENGTH_LAST_NAME, 'abcdefghijklmnopqrstuvwxyz'),
+                'metadata' => ($i % 2) ? $metadata : ['test' => 'test'],
+            ];
+            $result[] = [$request];
         }
+
         return $result;
     }
 
-    public function invalidTypeDataProvider()
+    public static function invalidTypeDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(Random::str(10)),
-        );
+        return [
+            [false],
+            [true],
+            [Random::str(10)],
+        ];
     }
 
-    public function invalidMetadataDataProvider()
+    public static function invalidMetadataDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(1),
-            array(Random::str(10)),
-        );
+        return [
+            [false],
+            [true],
+            [1],
+            [Random::str(10)],
+        ];
     }
 
-    public function invalidLastNameDataProvider()
+    public static function invalidLastNameDataProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(Random::str(CreatePersonalDataRequest::MAX_LENGTH_LAST_NAME + 1)),
-        );
+        return [
+            [null],
+            [''],
+            [false],
+            [Random::str(CreatePersonalDataRequest::MAX_LENGTH_LAST_NAME + 1)],
+        ];
     }
 
-    public function invalidMiddleNameDataProvider()
+    public static function invalidMiddleNameDataProvider()
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(Random::str(CreatePersonalDataRequest::MAX_LENGTH_LAST_NAME + 1)),
-        );
+        return [
+            [Random::str(CreatePersonalDataRequest::MAX_LENGTH_LAST_NAME + 1)],
+        ];
     }
 
-    public function invalidFirstNameDataProvider()
+    public static function invalidFirstNameDataProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(Random::str(CreatePersonalDataRequest::MAX_LENGTH_FIRST_NAME + 1)),
-        );
+        return [
+            [null],
+            [''],
+            [false],
+            [Random::str(CreatePersonalDataRequest::MAX_LENGTH_FIRST_NAME + 1)],
+        ];
     }
-
 }

@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Class SelfEmployedRequestConfirmationFactory
+Класс, представляющий модель SelfEmployedRequestConfirmationFactory.
 
+**Description:**
+
+Фабрика создания объекта типа подтверждения для самозанятых
 
 ---
 ### Constants
@@ -16,15 +19,25 @@ Class SelfEmployedRequestConfirmationFactory
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [factory()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationFactory.md#method_factory) |  | Возвращает объект, соответствующий типу подтверждения платежа |
-| public | [factoryFromArray()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationFactory.md#method_factoryFromArray) |  | Возвращает объект, соответствующий типу подтверждения платежа, из массива данных |
+| public | [factory()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationFactory.md#method_factory) |  | Возвращает объект, соответствующий типу подтверждения платежа. |
+| public | [factoryFromArray()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationFactory.md#method_factoryFromArray) |  | Возвращает объект, соответствующий типу подтверждения платежа, из массива данных. |
 
 ---
 ### Details
 * File: [lib/Request/SelfEmployed/SelfEmployedRequestConfirmationFactory.php](../../lib/Request/SelfEmployed/SelfEmployedRequestConfirmationFactory.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy:
   * \YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationFactory
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -37,7 +50,7 @@ public factory(string $type) : \YooKassa\Request\SelfEmployed\SelfEmployedReques
 
 **Summary**
 
-Возвращает объект, соответствующий типу подтверждения платежа
+Возвращает объект, соответствующий типу подтверждения платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationFactory](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationFactory.md)
@@ -54,12 +67,12 @@ public factory(string $type) : \YooKassa\Request\SelfEmployed\SelfEmployedReques
 #### public factoryFromArray() : \YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation
 
 ```php
-public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation
+public factoryFromArray(array $data, null|string $type = null) : \YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation
 ```
 
 **Summary**
 
-Возвращает объект, соответствующий типу подтверждения платежа, из массива данных
+Возвращает объект, соответствующий типу подтверждения платежа, из массива данных.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationFactory](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationFactory.md)
@@ -68,7 +81,7 @@ public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Reque
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">array</code> | data  | Массив данных подтверждения платежа |
-| <code lang="php">string OR null</code> | type  | Тип подтверждения платежа |
+| <code lang="php">null OR string</code> | type  | Тип подтверждения платежа |
 
 **Returns:** \YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation - 
 
@@ -84,11 +97,11 @@ public factoryFromArray(array $data, string|null $type = null) : \YooKassa\Reque
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

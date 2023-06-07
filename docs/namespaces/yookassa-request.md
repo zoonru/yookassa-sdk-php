@@ -15,6 +15,12 @@
 * [\YooKassa\Request\SelfEmployed](../namespaces/yookassa-request-selfemployed.md)
 * [\YooKassa\Request\Webhook](../namespaces/yookassa-request-webhook.md)
 
+### Classes
+
+| Name | Summary |
+| ---- | ------- |
+| [\YooKassa\Request\AbstractListResponse](../classes/YooKassa-Request-AbstractListResponse.md) | Абстрактный класс для объектов, содержащих список объектов-моделей в ответе на запрос. |
+
 ---
 
 ### Top Namespaces
@@ -25,11 +31,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

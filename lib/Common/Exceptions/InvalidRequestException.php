@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,25 +26,23 @@
 
 namespace YooKassa\Common\Exceptions;
 
-use YooKassa\Common\AbstractRequest;
+use RuntimeException;
+use Throwable;
+use YooKassa\Common\AbstractRequestInterface;
 
-class InvalidRequestException extends \RuntimeException
+class InvalidRequestException extends RuntimeException
 {
-    /**
-     * @var AbstractRequest|null
-     */
-    private $errorRequest;
+    private ?AbstractRequestInterface $errorRequest = null;
 
     /**
      * InvalidRequestException constructor.
-     * @param AbstractRequest|string $error
-     * @param int $code
-     * @param null $previous
+     *
+     * @param AbstractRequestInterface|string $error
      */
-    public function __construct($error, $code = 0, $previous = null)
+    public function __construct(mixed $error, int $code = 0, ?Throwable $previous = null)
     {
-        if ($error instanceof AbstractRequest) {
-            $message = 'Failed to build request "' . get_class($error) . '": "' . $error->getLastValidationError() . '"';
+        if ($error instanceof AbstractRequestInterface) {
+            $message = 'Failed to build request "' . $error::class . '": "' . $error->getLastValidationError() . '"';
             $this->errorRequest = $error;
         } else {
             $message = $error;
@@ -52,10 +50,7 @@ class InvalidRequestException extends \RuntimeException
         parent::__construct($message, $code, $previous);
     }
 
-    /**
-     * @return AbstractRequest|null
-     */
-    public function getRequestObject()
+    public function getRequestObject(): ?AbstractRequestInterface
     {
         return $this->errorRequest;
     }

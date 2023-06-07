@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,103 +26,122 @@
 
 namespace YooKassa\Request\Refunds;
 
+use DateTime;
+
 /**
- * Интерфейс объекта запроса списка возвратов
+ * Interface RefundsRequestInterface
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
- * @property-read string $paymentId Идентификатор платежа
- * @property-read \DateTime $createdAtGte Время создания, от (включительно)
- * @property-read \DateTime $createdAtGt Время создания, от (не включая)
- * @property-read \DateTime $createdAtLte Время создания, до (включительно)
- * @property-read \DateTime $createdAtLt Время создания, до (не включая)
- * @property-read string $status Статус возврата
- * @property-read string $cursor Токен для получения следующей страницы выборки
- * @property-read integer|null $limit Ограничение количества объектов, отображаемых на одной странице выдачи
+ * @property string $paymentId Идентификатор платежа
+ * @property DateTime $createdAtGte Время создания, от (включительно)
+ * @property DateTime $createdAtGt Время создания, от (не включая)
+ * @property DateTime $createdAtLte Время создания, до (включительно)
+ * @property DateTime $createdAtLt Время создания, до (не включая)
+ * @property string $status Статус возврата
+ * @property string $cursor Токен для получения следующей страницы выборки
+ * @property null|int $limit Ограничение количества объектов, отображаемых на одной странице выдачи
  */
 interface RefundsRequestInterface
 {
     /**
-     * Возвращает идентификатор платежа если он задан или null
-     * @return string|null Идентификатор платежа
+     * Возвращает идентификатор платежа если он задан или null.
+     *
+     * @return null|string Идентификатор платежа
      */
-    public function getPaymentId();
+    public function getPaymentId(): ?string;
 
     /**
-     * Проверяет, был ли задан идентификатор платежа
+     * Проверяет, был ли задан идентификатор платежа.
+     *
      * @return bool True если идентификатор был задан, false если нет
      */
-    public function hasPaymentId();
+    public function hasPaymentId(): bool;
 
     /**
-     * Возвращает дату создания от которой будут возвращены возвраты или null, если дата не была установлена
-     * @return \DateTime|null Время создания, от (включительно)
+     * Возвращает дату создания от которой будут возвращены возвраты или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время создания, от (включительно)
      */
-    public function getCreatedAtGte();
+    public function getCreatedAtGte(): ?DateTime;
 
     /**
-     * Проверяет, была ли установлена дата создания от которой выбираются возвраты
+     * Проверяет, была ли установлена дата создания от которой выбираются возвраты.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasCreatedAtGte();
+    public function hasCreatedAtGte(): bool;
 
     /**
-     * Возвращает дату создания от которой будут возвращены возвраты или null, если дата не была установлена
-     * @return \DateTime|null Время создания, от (не включая)
+     * Возвращает дату создания от которой будут возвращены возвраты или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время создания, от (не включая)
      */
-    public function getCreatedAtGt();
+    public function getCreatedAtGt(): ?DateTime;
 
     /**
-     * Проверяет, была ли установлена дата создания от которой выбираются возвраты
+     * Проверяет, была ли установлена дата создания от которой выбираются возвраты.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasCreatedAtGt();
+    public function hasCreatedAtGt(): bool;
 
     /**
-     * Возвращает дату создания до которой будут возвращены возвраты или null, если дата не была установлена
-     * @return \DateTime|null Время создания, до (включительно)
+     * Возвращает дату создания до которой будут возвращены возвраты или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время создания, до (включительно)
      */
-    public function getCreatedAtLte();
+    public function getCreatedAtLte(): ?DateTime;
 
     /**
-     * Проверяет, была ли установлена дата создания до которой выбираются возвраты
+     * Проверяет, была ли установлена дата создания до которой выбираются возвраты.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasCreatedAtLte();
+    public function hasCreatedAtLte(): bool;
 
     /**
-     * Возвращает дату создания до которой будут возвращены возвраты или null, если дата не была установлена
-     * @return \DateTime|null Время создания, до (не включая)
+     * Возвращает дату создания до которой будут возвращены возвраты или null, если дата не была установлена.
+     *
+     * @return null|DateTime Время создания, до (не включая)
      */
-    public function getCreatedAtLt();
+    public function getCreatedAtLt(): ?DateTime;
 
     /**
-     * Проверяет, была ли установлена дата создания до которой выбираются возвраты
+     * Проверяет, была ли установлена дата создания до которой выбираются возвраты.
+     *
      * @return bool True если дата была установлена, false если нет
      */
-    public function hasCreatedAtLt();
+    public function hasCreatedAtLt(): bool;
 
     /**
-     * Возвращает статус выбираемых возвратов или null, если он до этого не был установлен
-     * @return string|null Статус выбираемых возвратов
+     * Возвращает статус выбираемых возвратов или null, если он до этого не был установлен.
+     *
+     * @return null|string Статус выбираемых возвратов
      */
-    public function getStatus();
+    public function getStatus(): ?string;
 
     /**
-     * Проверяет, был ли установлен статус выбираемых возвратов
+     * Проверяет, был ли установлен статус выбираемых возвратов.
+     *
      * @return bool True если статус был установлен, false если нет
      */
-    public function hasStatus();
+    public function hasStatus(): bool;
 
     /**
-     * Возвращает токен для получения следующей страницы выборки
-     * @return string|null Токен для получения следующей страницы выборки
+     * Возвращает токен для получения следующей страницы выборки.
+     *
+     * @return null|string Токен для получения следующей страницы выборки
      */
-    public function getCursor();
+    public function getCursor(): ?string;
 
     /**
-     * Проверяет, был ли установлен токен следующей страницы
+     * Проверяет, был ли установлен токен следующей страницы.
+     *
      * @return bool True если токен был установлен, false если нет
      */
-    public function hasCursor();
+    public function hasCursor(): bool;
 }

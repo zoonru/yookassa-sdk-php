@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,221 +28,215 @@ namespace YooKassa\Request\Deals;
 
 use DateTime;
 use Exception;
-use YooKassa\Common\AbstractRequest;
 use YooKassa\Common\AbstractRequestBuilder;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 
 /**
- * Класс билдера запросов к API для получения списка сделок магазина
+ * Класс, представляющий модель DealsRequestBuilder.
  *
- * @package YooKassa
+ * Класс билдера запросов к API для получения списка сделок магазина.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class DealsRequestBuilder extends AbstractRequestBuilder
 {
     /**
-     * @var DealsRequest Собираемый объект запроса списка сделок магазина
+     * @var DealsRequest|null Собираемый объект запроса списка сделок магазина
      */
-    protected $currentObject;
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
-     * Возвращает новый объект запроса для получения списка сделок, который в дальнейшем будет собираться в билдере
-     * @return DealsRequest Объект запроса списка сделок магазина
-     */
-    protected function initCurrentObject()
-    {
-        return new DealsRequest();
-    }
-
-    /**
-     * Устанавливает ограничение количества объектов сделки
-     * @param string $value Ограничение количества объектов сделки или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает ограничение количества объектов сделки.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод было передана не целое число
+     * @param null|string|int $value Ограничение количества объектов сделки или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setLimit($value)
+    public function setLimit(mixed $value): DealsRequestBuilder
     {
         $this->currentObject->setLimit($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает страница выдачи результатов
-     * @param string|null $value Страница выдачи результатов или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает страница выдачи результатов.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     * @param null|string $value Страница выдачи результатов или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setCursor($value)
+    public function setCursor(?string $value): DealsRequestBuilder
     {
         $this->currentObject->setCursor($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, от (не включая) или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает дату создания от которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param null|DateTime|int|string $value Время создания, от (не включая) или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setCreatedAtGt($value)
+    public function setCreatedAtGt($value): DealsRequestBuilder
     {
         $this->currentObject->setCreatedAtGt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания от которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, от (включительно) или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает дату создания от которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param null|DateTime|int|string $value Время создания, от (включительно) или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setCreatedAtGte($value)
+    public function setCreatedAtGte($value): DealsRequestBuilder
     {
         $this->currentObject->setCreatedAtGte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, до (не включая) или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает дату создания до которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param null|DateTime|int|string $value Время создания, до (не включая) или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setCreatedAtLt($value)
+    public function setCreatedAtLt($value): DealsRequestBuilder
     {
         $this->currentObject->setCreatedAtLt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату создания до которой выбираются платежи
-     * @param DateTime|string|int|null $value Время создания, до (включительно) или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает дату создания до которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param null|DateTime|int|string $value Время создания, до (включительно) или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setCreatedAtLte($value)
+    public function setCreatedAtLte($value): DealsRequestBuilder
     {
         $this->currentObject->setCreatedAtLte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату автоматического закрытия от которой выбираются платежи
-     * @param DateTime|string|int|null $value Время автоматического закрытия, до (включительно) или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает дату автоматического закрытия от которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param null|DateTime|int|string $value Время автоматического закрытия, до (включительно) или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setExpiresAtGt($value)
+    public function setExpiresAtGt($value): DealsRequestBuilder
     {
         $this->currentObject->setExpiresAtGt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату автоматического закрытия от которой выбираются платежи
-     * @param DateTime|string|int|null $value Время автоматического закрытия, от (включительно) или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает дату автоматического закрытия от которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param null|DateTime|int|string $value Время автоматического закрытия, от (включительно) или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setExpiresAtGte($value)
+    public function setExpiresAtGte($value): DealsRequestBuilder
     {
         $this->currentObject->setExpiresAtGte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату автоматического закрытия до которой выбираются платежи
-     * @param DateTime|string|int|null $value Время автоматического закрытия, до (включительно) или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает дату автоматического закрытия до которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param null|DateTime|int|string $value Время автоматического закрытия, до (включительно) или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setExpiresAtLt($value)
+    public function setExpiresAtLt($value): DealsRequestBuilder
     {
         $this->currentObject->setExpiresAtLt($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дату автоматического закрытия до которой выбираются платежи
-     * @param DateTime|string|int|null $value Время автоматического закрытия, до (включительно) или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает дату автоматического закрытия до которой выбираются платежи.
      *
-     * @throws InvalidPropertyValueException Генерируется если была передана дата в невалидном формате (была передана
-     * строка или число, которые не удалось преобразовать в валидную дату)
-     * @throws InvalidPropertyValueTypeException|Exception Генерируется если была передана дата с не тем типом (передана не
-     * строка, не число и не значение типа \DateTime)
+     * @param null|DateTime|int|string $value Время автоматического закрытия, до (включительно) или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setExpiresAtLte($value)
+    public function setExpiresAtLte($value): DealsRequestBuilder
     {
         $this->currentObject->setExpiresAtLte($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает статус выбираемых сделок
-     * @param string $value Статус выбираемых сделок или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает статус выбираемых сделок.
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение не является валидным статусом
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     * @param string|null $value Статус выбираемых сделок или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): DealsRequestBuilder
     {
         $this->currentObject->setStatus($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает фильтр по описанию выбираемых сделок
-     * @param string $value Фильтр по описанию выбираемых сделок или null, чтобы удалить значение
-     * @return DealsRequestBuilder Инстанс текущего билдера
+     * Устанавливает фильтр по описанию выбираемых сделок.
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное значение не является валидным
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     * @param string|null $value Фильтр по описанию выбираемых сделок или null, чтобы удалить значение
+     *
+     * @return DealsRequestBuilder Инстанс текущего билдера
      */
-    public function setFullTextSearch($value)
+    public function setFullTextSearch(?string $value): DealsRequestBuilder
     {
         $this->currentObject->setFullTextSearch($value);
+
         return $this;
     }
 
     /**
-     * Собирает и возвращает объект запроса списка сделок магазина
-     * @param array|null $options Массив с настройками запроса
-     * @return AbstractRequest|DealsRequest Инстанс объекта запроса к API для получения списка сделок магазина
+     * Собирает и возвращает объект запроса списка сделок магазина.
+     *
+     * @param null|array $options Массив с настройками запроса
+     *
+     * @return AbstractRequestInterface Инстанс объекта запроса к API для получения списка сделок магазина
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         return parent::build($options);
+    }
+
+    /**
+     * Возвращает новый объект запроса для получения списка сделок, который в дальнейшем будет собираться в билдере.
+     *
+     * @return DealsRequest Объект запроса списка сделок магазина
+     */
+    protected function initCurrentObject(): DealsRequest
+    {
+        return new DealsRequest();
     }
 }

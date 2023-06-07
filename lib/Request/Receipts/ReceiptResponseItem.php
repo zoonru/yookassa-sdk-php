@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,26 +27,29 @@
 namespace YooKassa\Request\Receipts;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
+use YooKassa\Model\Receipt\PaymentMode;
+use YooKassa\Model\Receipt\PaymentSubject;
+use YooKassa\Validator\Constraints as Assert;
 use YooKassa\Helpers\ProductCode;
-use YooKassa\Helpers\TypeCast;
 use YooKassa\Model\AmountInterface;
 use YooKassa\Model\MonetaryAmount;
 use YooKassa\Model\Receipt\AgentType;
 use YooKassa\Model\Receipt\IndustryDetails;
 use YooKassa\Model\Receipt\MarkCodeInfo;
 use YooKassa\Model\Receipt\MarkQuantity;
-use YooKassa\Model\Receipt\ReceiptItemAmount;
 use YooKassa\Model\Receipt\ReceiptItemMeasure;
-use YooKassa\Model\Supplier;
-use YooKassa\Model\SupplierInterface;
+use YooKassa\Model\Receipt\Supplier;
+use YooKassa\Model\Receipt\SupplierInterface;
 
 /**
- * Класс, описывающий товар в чеке
+ * Класс, описывающий товар в чеке.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @property string $description Наименование товара (тег в 54 ФЗ — 1030)
  * @property float $quantity Количество (тег в 54 ФЗ — 1023)
@@ -75,703 +78,531 @@ use YooKassa\Model\SupplierInterface;
  * @property string $mark_mode Режим обработки кода маркировки (тег в 54 ФЗ — 2102)
  * @property MarkQuantity $markQuantity Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
  * @property MarkQuantity $mark_quantity Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
- * @property IndustryDetails[] $paymentSubjectIndustryDetails Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
- * @property IndustryDetails[] $payment_subject_industry_details Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
+ * @property ListObjectInterface|IndustryDetails[] $paymentSubjectIndustryDetails Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
+ * @property ListObjectInterface|IndustryDetails[] $payment_subject_industry_details Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
  */
 class ReceiptResponseItem extends AbstractObject implements ReceiptResponseItemInterface
 {
     /** @var int Длина поля кода страны происхождения товара */
-    const COUNTRY_CODE_LENGTH = 2;
-    /** @var int Максимальная длина номера таможенной декларации  */
-    const MAX_DECLARATION_NUMBER_LENGTH = 32;
+    public const COUNTRY_CODE_LENGTH = 2;
+
+    /** @var int Максимальная длина номера таможенной декларации */
+    public const MAX_DECLARATION_NUMBER_LENGTH = 32;
+
     /** @var int Максимальная длина кода товара */
-    const MAX_PRODUCT_CODE_LENGTH = 96;
+    public const MAX_PRODUCT_CODE_LENGTH = 96;
+
     /**
-     * @var string Наименование товара (тег в 54 ФЗ — 1030)
+     * @var string|null Наименование товара (тег в 54 ФЗ — 1030)
      */
-    private $_description;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    private ?string $_description = null;
 
     /**
      * @var float Количество (тег в 54 ФЗ — 1023)
      */
-    private $_quantity;
+    #[Assert\NotBlank]
+    #[Assert\Type('float')]
+    #[Assert\GreaterThan(0)]
+    private ?float $_quantity = 0.0;
 
     /**
-     * @var ReceiptItemAmount Цена товара (тег в 54 ФЗ — 1079)
+     * @var AmountInterface|null Цена товара (тег в 54 ФЗ — 1079)
      */
-    private $_amount;
+    private ?AmountInterface $_amount = null;
 
     /**
-     * @var int Ставка НДС, число 1-6 (тег в 54 ФЗ — 1199)
+     * @var int|null Ставка НДС, число 1-6 (тег в 54 ФЗ — 1199)
      */
-    private $_vatCode;
+    #[Assert\NotBlank]
+    #[Assert\Type('int')]
+    #[Assert\GreaterThanOrEqual(1)]
+    #[Assert\LessThanOrEqual(6)]
+    private ?int $_vat_code = null;
 
     /**
-     * @var string Признак предмета расчета (тег в 54 ФЗ — 1212)
+     * @var string|null Признак предмета расчета (тег в 54 ФЗ — 1212)
      */
-    private $_paymentSubject;
+    #[Assert\Type('string')]
+    #[Assert\Choice(callback: [PaymentSubject::class, 'getValidValues'])]
+    private ?string $_payment_subject = null;
 
     /**
-     * @var string Признак способа расчета (тег в 54 ФЗ — 1214)
+     * @var string|null Признак способа расчета (тег в 54 ФЗ — 1214)
      */
-    private $_paymentMode;
+    #[Assert\Type('string')]
+    #[Assert\Choice(callback: [PaymentMode::class, 'getValidValues'])]
+    private ?string $_payment_mode = null;
 
     /**
-     * @var string Код страны происхождения товара
+     * @var string|null Код страны происхождения товара
      */
-    private $_countryOfOriginCode;
+    #[Assert\Type('string')]
+    #[Assert\Length(exactly: 2)]
+    #[Assert\Regex(pattern: '/^[A-Z]{2}$/')]
+    private ?string $_country_of_origin_code = null;
 
     /**
-     * @var string Номер таможенной декларации (от 1 до 32 символов).
+     * @var string|null Номер таможенной декларации (от 1 до 32 символов)
      */
-    private $_customsDeclarationNumber;
+    #[Assert\Type('string')]
+    #[Assert\Length(max: 32)]
+    #[Assert\Length(min: 1)]
+    private ?string $_customs_declaration_number = null;
 
     /**
-     * @var float Сумма акциза товара с учетом копеек (тег в 54 ФЗ — 1229). Десятичное число с точностью до 2 символов после точки.
+     * @var float|null Сумма акциза товара с учетом копеек (тег в 54 ФЗ — 1229). Десятичное число с точностью до 2 символов после точки.
      */
-    private $_excise;
+    #[Assert\Type('float')]
+    #[Assert\GreaterThan(0)]
+    private ?float $_excise = null;
 
     /**
-     * @var SupplierInterface Информация о поставщике товара или услуги (тег в 54 ФЗ — 1224)
+     * @var SupplierInterface|null Информация о поставщике товара или услуги (тег в 54 ФЗ — 1224)
      */
-    private $_supplier;
+    #[Assert\Type(Supplier::class)]
+    #[Assert\Valid]
+    private ?Supplier $_supplier = null;
 
     /**
-     * @var string Тип посредника, реализующего товар или услугу
+     * @var string|null Тип посредника, реализующего товар или услугу
      */
-    private $_agentType;
+    #[Assert\Type('string')]
+    #[Assert\Choice(callback: [AgentType::class, 'getValidValues'])]
+    private ?string $_agent_type = null;
 
     /**
-     * @var MarkCodeInfo Код товара (тег в 54 ФЗ — 1163).
-     * Обязателен при использовании протокола ФФД 1.2, если товар нужно маркировать. Должно быть заполнено хотя бы одно из полей.
+     * @var MarkCodeInfo|null Код товара (тег в 54 ФЗ — 1163).
+     *                   Обязателен при использовании протокола ФФД 1.2, если товар нужно маркировать. Должно быть заполнено хотя бы одно из полей.
      */
-    private $_markCodeInfo;
+    #[Assert\Type(MarkCodeInfo::class)]
+    #[Assert\Valid]
+    private ?MarkCodeInfo $_mark_code_info = null;
 
     /**
-     * @var string Мера количества предмета расчета (тег в 54 ФЗ — 2108) — единица измерения товара, например штуки, граммы.
-     * Обязателен при использовании ФФД 1.2.
+     * @var string|null Мера количества предмета расчета (тег в 54 ФЗ — 2108) — единица измерения товара, например штуки, граммы.
+     *             Обязателен при использовании ФФД 1.2.
      */
-    private $_measure;
+    #[Assert\Choice(callback: [ReceiptItemMeasure::class, 'getEnabledValues'])]
+    private ?string $_measure = null;
 
     /**
-     * @var IndustryDetails[] Отраслевой реквизит чека (тег в 54 ФЗ — 1260).
+     * @var IndustryDetails[]|ListObjectInterface|null Отраслевой реквизит чека (тег в 54 ФЗ — 1260)
      */
-    private $_paymentSubjectIndustryDetails;
+    #[Assert\Type(ListObject::class)]
+    #[Assert\AllType(IndustryDetails::class)]
+    #[Assert\Valid]
+    private ?ListObject $_payment_subject_industry_details = null;
 
     /**
-     * @var string Код товара.
+     * @var string|null Код товара
      */
-    private $_productCode;
+    #[Assert\Type('string')]
+    #[Assert\Length(max: 96)]
+    #[Assert\Regex(pattern: '/^[0-9A-F ]{2,96}$/')]
+    private ?string $_product_code = null;
 
     /**
-     * @var string Режим обработки кода маркировки (тег в 54 ФЗ — 2102). Должен принимать значение равное «0».
+     * @var string|null Режим обработки кода маркировки (тег в 54 ФЗ — 2102). Должен принимать значение равное «0».
      */
-    private $_markMode;
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^[0]{1}$/")]
+    private ?string $_mark_mode = null;
 
     /**
-     * @var MarkQuantity Дробное количество маркированного товара (тег в 54 ФЗ — 1291).
+     * @var MarkQuantity|null Дробное количество маркированного товара (тег в 54 ФЗ — 1291)
      */
-    private $_markQuantity;
+    #[Assert\Type(MarkQuantity::class)]
+    #[Assert\Valid]
+    private ?MarkQuantity $_mark_quantity = null;
 
     /**
-     * Устанавливает значения свойств текущего объекта из массива
+     * Устанавливает значения свойств текущего объекта из массива.
      *
      * @param array $sourceArray Массив с информацией о товаре, пришедший от API
      */
-    public function fromArray($sourceArray)
+    public function fromArray(iterable $sourceArray): void
     {
-//        $this->setDescription($sourceArray['description']);
-//        $this->setQuantity($sourceArray['quantity']);
-//        $this->setVatCode($sourceArray['vat_code']);
-//
-//        if (!empty($sourceArray['payment_mode'])) {
-//            $this->setPaymentMode($sourceArray['payment_mode']);
-//        }
-//
-//        if (!empty($sourceArray['payment_subject'])) {
-//            $this->setPaymentSubject($sourceArray['payment_subject']);
-//        }
-//
-//        if (!empty($sourceArray['supplier'])) {
-//            $this->setSupplier($sourceArray['supplier']);
-//        }
         parent::fromArray($sourceArray);
-        $this->setPrice($this->factoryAmount($sourceArray['amount']));
+        if (!empty($sourceArray['amount'])) {
+            $this->setPrice($sourceArray['amount']);
+        }
     }
 
     /**
-     * Возвращает наименование товара
-     * @return string Наименование товара
+     * Возвращает наименование товара.
+     *
+     * @return string|null Наименование товара
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->_description;
     }
 
     /**
-     * Устанавливает наименование товара
+     * Устанавливает наименование товара.
      *
-     * @param string $value Наименование товара
+     * @param string|null $description Наименование товара
      *
-     * @throws EmptyPropertyValueException Выбрасывается если было передано пустое значение
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента была передана не строка
+     * @return self
      */
-    public function setDescription($value)
+    public function setDescription(?string $description): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty description value in ReceiptItem',
-                0,
-                'ReceiptItem.description'
-            );
-        } elseif (TypeCast::canCastToString($value)) {
-            $castedValue = (string)$value;
-            if ($castedValue === '') {
-                throw new EmptyPropertyValueException(
-                    'Empty description value in ReceiptItem',
-                    0,
-                    'ReceiptItem.description'
-                );
-            }
-            $this->_description = $castedValue;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Empty description value in ReceiptItem',
-                0,
-                'ReceiptItem.description',
-                $value
-            );
-        }
+        $this->_description = $this->validatePropertyValue('_description', $description);
+        return $this;
     }
 
     /**
-     * Возвращает количество товара
+     * Возвращает количество товара.
+     *
      * @return float Количество купленного товара
      */
-    public function getQuantity()
+    public function getQuantity(): float
     {
         return $this->_quantity;
     }
 
     /**
-     * Устанавливает количество покупаемого товара
+     * Устанавливает количество покупаемого товара.
      *
-     * @param int $value Количество
+     * @param float|null $quantity Количество
      *
-     * @throws EmptyPropertyValueException Выбрасывается если было передано пустое значение
-     * @throws InvalidPropertyValueException Выбрасывается если в качестве аргумента был передан ноль
-     * или отрицательное число
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента было передано не число
+     * @return self
      */
-    public function setQuantity($value)
+    public function setQuantity(?float $quantity): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty quantity value in ReceiptItem', 0, 'ReceiptItem.quantity');
-        } elseif (!is_numeric($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid quantity value type in ReceiptItem',
-                0,
-                'ReceiptItem.quantity',
-                $value
-            );
-        } elseif ($value <= 0.0) {
-            throw new InvalidPropertyValueException(
-                'Invalid quantity value in ReceiptItem',
-                0,
-                'ReceiptItem.quantity',
-                $value
-            );
-        } else {
-            $this->_quantity = (float)$value;
-        }
+        $this->_quantity = $this->validatePropertyValue('_quantity', $quantity);
+        return $this;
     }
 
     /**
-     * Возвращает общую стоимость покупаемого товара в копейках/центах
-     * @return int Сумма стоимости покупаемого товара
+     * Возвращает общую стоимость покупаемого товара в копейках/центах.
+     *
+     * @return int|null Сумма стоимости покупаемого товара
      */
-    public function getAmount()
+    public function getAmount(): ?int
     {
-        return (int)round($this->_amount->getIntegerValue() * $this->_quantity);
+        return (int) round($this->_amount->getIntegerValue() * $this->_quantity);
     }
 
     /**
-     * Возвращает цену товара
-     * @return AmountInterface Цена товара
+     * Возвращает цену товара.
+     *
+     * @return AmountInterface|null Цена товара
      */
-    public function getPrice()
+    public function getPrice(): ?AmountInterface
     {
         return $this->_amount;
     }
 
     /**
-     * Устанавливает цену товара
+     * Устанавливает цену товара.
      *
-     * @param AmountInterface $value Цена товара
+     * @param AmountInterface|array|null $value Цена товара
      */
-    public function setPrice(AmountInterface $value)
+    public function setPrice(mixed $value): void
     {
+        if (is_array($value)) {
+            $value = $this->factoryAmount($value);
+        }
+
         $this->_amount = $value;
     }
 
     /**
      * Возвращает ставку НДС
-     * @return int|null Ставка НДС, число 1-6, или null, если ставка не задана
+     *
+     * @return null|int Ставка НДС, число 1-6, или null, если ставка не задана
      */
-    public function getVatCode()
+    public function getVatCode(): ?int
     {
-        return $this->_vatCode;
+        return $this->_vat_code;
     }
 
     /**
      * Устанавливает ставку НДС
      *
-     * @param int $value Ставка НДС, число 1-6
+     * @param int|null $vat_code Ставка НДС, число 1-6
      *
-     * @throws InvalidPropertyValueException Выбрасывается если в качестве аргумента было передано число меньше одного
-     * или больше шести
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента было передано не число
+     * @return self
      */
-    public function setVatCode($value)
+    public function setVatCode(?int $vat_code = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_vatCode = null;
-        } elseif (!is_numeric($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid vatId value type in ReceiptItem',
-                0,
-                'ReceiptItem.vatId',
-                $value
-            );
-        } elseif ($value < 1 || $value > 6) {
-            throw new InvalidPropertyValueException(
-                'Invalid vatId value in ReceiptItem',
-                0,
-                'ReceiptItem.vatId',
-                $value
-            );
-        } else {
-            $this->_vatCode = (int)$value;
-        }
+        $this->_vat_code = $this->validatePropertyValue('_vat_code', $vat_code);
+        return $this;
     }
 
     /**
-     * Возвращает признак предмета расчета
-     * @return string|null Признак предмета расчета
+     * Возвращает признак предмета расчета.
+     *
+     * @return null|string Признак предмета расчета
      */
-    public function getPaymentSubject()
+    public function getPaymentSubject(): ?string
     {
-        return $this->_paymentSubject;
+        return $this->_payment_subject;
     }
 
     /**
-     * Устанавливает признак предмета расчета
+     * Устанавливает признак предмета расчета.
      *
-     * @param string $value Признак предмета расчета
+     * @param null|string $payment_subject Признак предмета расчета
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента была передана не строка
+     * @return self
+     *
      */
-    public function setPaymentSubject($value)
+    public function setPaymentSubject(mixed $payment_subject = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_paymentSubject = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid paymentSubject value type', 0, 'ReceiptItem.paymentSubject');
-        } else {
-            $this->_paymentSubject = $value;
-        }
+        $this->_payment_subject = $this->validatePropertyValue('_payment_subject', $payment_subject);
+        return $this;
     }
 
     /**
-     * Возвращает признак способа расчета
-     * @return string|null Признак способа расчета
+     * Возвращает признак способа расчета.
+     *
+     * @return null|string Признак способа расчета
      */
-    public function getPaymentMode()
+    public function getPaymentMode(): ?string
     {
-        return $this->_paymentMode;
+        return $this->_payment_mode;
     }
 
     /**
-     * Устанавливает признак способа расчета
+     * Устанавливает признак способа расчета.
      *
-     * @param string $value Признак способа расчета
+     * @param string|null $payment_mode Признак способа расчета
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента была передана не строка
+     * @return self
      */
-    public function setPaymentMode($value)
+    public function setPaymentMode(mixed $payment_mode = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_paymentMode = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid paymentMode value type',
-                0,
-                'ReceiptItem.paymentMode',
-                $value
-            );
-        } else {
-            $this->_paymentMode = $value;
-        }
+        $this->_payment_mode = $this->validatePropertyValue('_payment_mode', $payment_mode);
+        return $this;
     }
 
     /**
-     * Возвращает код страны происхождения товара по общероссийскому классификатору стран мира
-     * @return string|null Код страны происхождения товара
+     * Возвращает код страны происхождения товара по общероссийскому классификатору стран мира.
+     *
+     * @return null|string Код страны происхождения товара
      */
-    public function getCountryOfOriginCode()
+    public function getCountryOfOriginCode(): ?string
     {
-        return $this->_countryOfOriginCode;
+        return $this->_country_of_origin_code;
     }
 
     /**
-     * Устанавливает код страны происхождения товара по общероссийскому классификатору стран мира
+     * Устанавливает код страны происхождения товара по общероссийскому классификатору стран мира.
      *
-     * @param string $value Код страны происхождения товара
+     * @param string|null $country_of_origin_code Код страны происхождения товара
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента была передана не строка
+     * @return self
      */
-    public function setCountryOfOriginCode($value)
+    public function setCountryOfOriginCode(?string $country_of_origin_code = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_countryOfOriginCode = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid countryOfOriginCode value type',
-                0,
-                'ReceiptItem.countryOfOriginCode',
-                $value
-            );
-        } elseif (mb_strlen((string)$value) !== self::COUNTRY_CODE_LENGTH) {
-            throw new InvalidPropertyValueException(
-                'Invalid countryOfOriginCode value: "' . $value . '"',
-                0,
-                'ReceiptItem.countryOfOriginCode',
-                $value
-            );
-        } elseif (!preg_match('/^[A-Z]{2}$/', (string)$value)) {
-            throw new InvalidPropertyValueException(
-                'Invalid countryOfOriginCode value: "' . $value . '"',
-                0,
-                'ReceiptItem.countryOfOriginCode',
-                $value
-            );
-        } else {
-            $this->_countryOfOriginCode = $value;
-        }
+        $this->_country_of_origin_code = $this->validatePropertyValue(
+            '_country_of_origin_code', $country_of_origin_code
+        );
+        return $this;
     }
 
     /**
-     * Возвращает номер таможенной декларации
-     * @return string|null Номер таможенной декларации (от 1 до 32 символов)
+     * Возвращает номер таможенной декларации.
+     *
+     * @return null|string Номер таможенной декларации (от 1 до 32 символов)
      */
-    public function getCustomsDeclarationNumber()
+    public function getCustomsDeclarationNumber(): ?string
     {
-        return $this->_customsDeclarationNumber;
+        return $this->_customs_declaration_number;
     }
 
     /**
-     * Устанавливает номер таможенной декларации (от 1 до 32 символов)
+     * Устанавливает номер таможенной декларации (от 1 до 32 символов).
      *
-     * @param string $value Номер таможенной декларации
+     * @param string|null $customs_declaration_number Номер таможенной декларации
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента была передана не строка
+     * @return self
+     *
      */
-    public function setCustomsDeclarationNumber($value)
+    public function setCustomsDeclarationNumber(?string $customs_declaration_number = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_customsDeclarationNumber = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid customsDeclarationNumber value type',
-                0,
-                'ReceiptItem.customsDeclarationNumber',
-                $value
-            );
-        } elseif (mb_strlen((string)$value) > self::MAX_DECLARATION_NUMBER_LENGTH) {
-            throw new InvalidPropertyValueException(
-                'Invalid customsDeclarationNumber value: "' . $value . '"',
-                0,
-                'ReceiptItem.customsDeclarationNumber',
-                $value
-            );
-        } else {
-            $this->_customsDeclarationNumber = $value;
-        }
+        $this->_customs_declaration_number = $this->validatePropertyValue(
+            '_customs_declaration_number', $customs_declaration_number
+        );
+        return $this;
     }
 
     /**
-     * Возвращает сумму акциза товара с учетом копеек
-     * @return float|null Сумма акциза товара с учетом копеек
+     * Возвращает сумму акциза товара с учетом копеек.
+     *
+     * @return null|float Сумма акциза товара с учетом копеек
      */
-    public function getExcise()
+    public function getExcise(): ?float
     {
         return $this->_excise;
     }
 
     /**
-     * Устанавливает сумму акциза товара с учетом копеек
+     * Устанавливает сумму акциза товара с учетом копеек.
      *
-     * @param float $value Сумма акциза товара с учетом копеек
+     * @param float|null $excise Сумма акциза товара с учетом копеек
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента было передано не число
-     */
-    public function setExcise($value)
-    {
-        if ($value === null || $value === '') {
-            $this->_excise = null;
-        } elseif (!is_numeric($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid excise value type',
-                0,
-                'ReceiptItem.excise',
-                $value
-            );
-        } elseif ($value <= 0.0) {
-            throw new InvalidPropertyValueException(
-                'Invalid excise value in ReceiptItem',
-                0,
-                'ReceiptItem.excise',
-                $value
-            );
-        } else {
-            $this->_excise = $value;
-        }
-    }
-
-    /**
-     * Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке
-     * @return string|null Код товара
-     */
-    public function getProductCode()
-    {
-        return $this->_productCode;
-    }
-
-    /**
-     * Устанавливает код товара — уникальный номер, который присваивается экземпляру товара при маркировке
+     * @return self
      *
-     * @param string|ProductCode $value Код товара
+     */
+    public function setExcise(?float $excise = null): self
+    {
+        $this->_excise = $this->validatePropertyValue('_excise', $excise);
+        return $this;
+    }
+
+    /**
+     * Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве аргумента была передана не строка
+     * @return null|string Код товара
      */
-    public function setProductCode($value)
+    public function getProductCode(): ?string
     {
-        if ($value instanceof ProductCode) {
-            $value = (string)$value;
-        }
-        if ($value === null || $value === '') {
-            $this->_productCode = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid productCode value type',
-                0,
-                'ReceiptItem.productCode',
-                $value
-            );
-        } elseif (mb_strlen((string)$value) > self::MAX_PRODUCT_CODE_LENGTH) {
-            throw new InvalidPropertyValueException(
-                'Invalid productCode value: "' . $value . '"',
-                0,
-                'ReceiptItem.productCode',
-                $value
-            );
-        } elseif (!preg_match('/^[0-9A-F ]{2,96}$/', (string)$value)) {
-            throw new InvalidPropertyValueException(
-                'Invalid productCode value: "' . $value . '"',
-                0,
-                'ReceiptItem.productCode',
-                $value
-            );
-        } else {
-            $this->_productCode = $value;
-        }
+        return $this->_product_code;
     }
 
     /**
-     * Возвращает код товара
-     * @return MarkCodeInfo Код товара
+     * Устанавливает код товара — уникальный номер, который присваивается экземпляру товара при маркировке.
+     *
+     * @param ProductCode|string $product_code Код товара
+     *
+     * @return self
      */
-    public function getMarkCodeInfo()
+    public function setProductCode(mixed $product_code): self
     {
-        return $this->_markCodeInfo;
-    }
-
-    /**
-     * Устанавливает код товара
-     * @param array|MarkCodeInfo $value Код товара
-     */
-    public function setMarkCodeInfo($value)
-    {
-        if ($value === null || $value === '') {
-            $this->_markCodeInfo = null;
-        } else {
-            if (is_array($value)) {
-                $value = new MarkCodeInfo($value);
-            }
-            if (!($value instanceof MarkCodeInfo)) {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid markCodeInfo value type in ReceiptItem',
-                    0,
-                    'ReceiptItem.mark_code_info',
-                    $value
-                );
-            }
-
-            $this->_markCodeInfo = $value;
+        if ($product_code instanceof ProductCode) {
+            $product_code = (string) $product_code;
         }
+
+        $this->_product_code = $this->validatePropertyValue('_product_code', $product_code);
+        return $this;
     }
 
     /**
-     * Возвращает меру количества предмета расчета
-     * @return string Мера количества предмета расчета
+     * Возвращает код товара.
+     *
+     * @return MarkCodeInfo|null Код товара
      */
-    public function getMeasure()
+    public function getMarkCodeInfo(): ?MarkCodeInfo
+    {
+        return $this->_mark_code_info;
+    }
+
+    /**
+     * Устанавливает код товара.
+     *
+     * @param array|MarkCodeInfo|null $mark_code_info Код товара
+     *
+     * @return self
+     */
+    public function setMarkCodeInfo(mixed $mark_code_info = null): self
+    {
+        $this->_mark_code_info = $this->validatePropertyValue('_mark_code_info', $mark_code_info);
+        return $this;
+    }
+
+    /**
+     * Возвращает меру количества предмета расчета.
+     *
+     * @return string|null Мера количества предмета расчета
+     */
+    public function getMeasure(): ?string
     {
         return $this->_measure;
     }
 
     /**
-     * Устанавливает меру количества предмета расчета
-     * @param string $value Мера количества предмета расчета
+     * Устанавливает меру количества предмета расчета.
+     *
+     * @param string|null $measure Мера количества предмета расчета
+     *
+     * @return self
      */
-    public function setMeasure($value)
+    public function setMeasure(?string $measure): self
     {
-        if ($value === null || $value === '') {
-            $this->_measure = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid measure value type in ReceiptItem',
-                0,
-                'ReceiptItem.measure',
-                $value
-            );
-        } elseif (!in_array($value, ReceiptItemMeasure::getEnabledValues())) {
-            throw new InvalidPropertyValueException(
-                'Invalid measure value in ReceiptItem',
-                0,
-                'ReceiptItem.measure',
-                $value
-            );
-        } else {
-            $this->_measure = $value;
-        }
-    }
-
-    /**
-     * Возвращает режим обработки кода маркировки
-     * @return string Режим обработки кода маркировки
-     */
-    public function getMarkMode()
-    {
-        return $this->_markMode;
-    }
-
-    /**
-     * Устанавливает режим обработки кода маркировки
-     * @param string $value Режим обработки кода маркировки
-     */
-    public function setMarkMode($value)
-    {
-        if ($value === null || $value === '') {
-            $this->_markMode = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid markMode value type in ReceiptItem',
-                0,
-                'ReceiptItem.mark_mode',
-                $value
-            );
-        } else {
-            $this->_markMode = $value;
-        }
-    }
-
-    /**
-     * Возвращает дробное количество маркированного товара
-     * @return MarkQuantity Дробное количество маркированного товара
-     */
-    public function getMarkQuantity()
-    {
-        return $this->_markQuantity;
-    }
-
-    /**
-     * Устанавливает дробное количество маркированного товара
-     * @param array|MarkQuantity $value Дробное количество маркированного товара
-     */
-    public function setMarkQuantity($value)
-    {
-        if ($value === null || $value === '') {
-            $this->_markQuantity = null;
-        } else {
-            if (is_array($value)) {
-                $value = new MarkQuantity($value);
-            }
-            if (!($value instanceof MarkQuantity)) {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid markQuantity value type in ReceiptItem',
-                    0,
-                    'ReceiptItem.mark_quantity',
-                    $value
-                );
-            }
-
-            $this->_markQuantity = $value;
-        }
-    }
-
-    /**
-     * Возвращает отраслевой реквизит чека
-     * @return IndustryDetails[] Отраслевой реквизит чека
-     */
-    public function getPaymentSubjectIndustryDetails()
-    {
-        return $this->_paymentSubjectIndustryDetails;
-    }
-
-    /**
-     * Устанавливает отраслевой реквизит чека
-     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
-     */
-    public function setPaymentSubjectIndustryDetails($value)
-    {
-        if (empty($value)) {
-            $this->_paymentSubjectIndustryDetails = null;
-            return $this;
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid paymentSubjectIndustryDetails value type in ReceiptItem',
-                0,
-                'ReceiptItem.payment_subject_industry_details',
-                $value
-            );
-        }
-        $details = array();
-        foreach ($value as $key => $item) {
-            if (is_array($item)) {
-                $item = new IndustryDetails($item);
-            }
-            if ($item instanceof IndustryDetails) {
-                $details[] = $item;
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid paymentSubjectIndustryDetails value type in ReceiptItem',
-                    0,
-                    'ReceiptItem.payment_subject_industry_details[' . $key . ']',
-                    $item
-                );
-            }
-        }
-        $this->_paymentSubjectIndustryDetails = $details;
-
+        $this->_measure = $this->validatePropertyValue('_measure', $measure);
         return $this;
     }
 
     /**
-     * @return SupplierInterface
+     * Возвращает режим обработки кода маркировки.
+     *
+     * @return string|null Режим обработки кода маркировки
      */
-    public function getSupplier()
+    public function getMarkMode(): ?string
+    {
+        return $this->_mark_mode;
+    }
+
+    /**
+     * Устанавливает режим обработки кода маркировки.
+     *
+     * @param string|null $mark_mode Режим обработки кода маркировки
+     *
+     * @return self
+     */
+    public function setMarkMode(?string $mark_mode = null): self
+    {
+        $this->_mark_mode = $this->validatePropertyValue('_mark_mode', $mark_mode);
+        return $this;
+    }
+
+    /**
+     * Возвращает дробное количество маркированного товара.
+     *
+     * @return MarkQuantity|null Дробное количество маркированного товара
+     */
+    public function getMarkQuantity(): ?MarkQuantity
+    {
+        return $this->_mark_quantity;
+    }
+
+    /**
+     * Устанавливает дробное количество маркированного товара.
+     *
+     * @param array|MarkQuantity|null $mark_quantity Дробное количество маркированного товара
+     */
+    public function setMarkQuantity(mixed $mark_quantity = null): self
+    {
+        $this->_mark_quantity = $this->validatePropertyValue('_mark_quantity', $mark_quantity);
+        return $this;
+    }
+
+    /**
+     * Возвращает отраслевой реквизит чека.
+     *
+     * @return IndustryDetails[]|ListObjectInterface Отраслевой реквизит чека
+     */
+    public function getPaymentSubjectIndustryDetails(): ListObjectInterface
+    {
+        if ($this->_payment_subject_industry_details === null) {
+            $this->_payment_subject_industry_details = new ListObject(IndustryDetails::class);
+        }
+        return $this->_payment_subject_industry_details;
+    }
+
+    /**
+     * Устанавливает отраслевой реквизит чека.
+     *
+     * @param array|IndustryDetails[]|null $payment_subject_industry_details Отраслевой реквизит чека
+     *
+     * @return self
+     */
+    public function setPaymentSubjectIndustryDetails(array|null $payment_subject_industry_details = null): self
+    {
+        $this->_payment_subject_industry_details = $this->validatePropertyValue('_payment_subject_industry_details', $payment_subject_industry_details);
+        return $this;
+    }
+
+    /**
+     * Возвращает информацию о поставщике товара или услуги
+     * @return SupplierInterface|null
+     */
+    public function getSupplier(): ?SupplierInterface
     {
         return $this->_supplier;
     }
@@ -779,94 +610,43 @@ class ReceiptResponseItem extends AbstractObject implements ReceiptResponseItemI
     /**
      * Устанавливает информацию о поставщике товара или услуги.
      *
-     * @param SupplierInterface|array $value
+     * @param array|SupplierInterface|null $supplier Информация о поставщике товара или услуги
+     *
+     * @return self
      */
-    public function setSupplier($value)
+    public function setSupplier(mixed $supplier = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty supplier value in receipt',
-                0,
-                'Receipt.supplier'
-            );
-        }
-
-        if (is_array($value)) {
-            $value = new Supplier($value);
-        }
-
-        if (!($value instanceof SupplierInterface)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid supplier value type in receipt',
-                0,
-                'Receipt.supplier',
-                $value
-            );
-        }
-
-        $this->_supplier = $value;
+        $this->_supplier = $this->validatePropertyValue('_supplier', $supplier);
+        return $this;
     }
 
     /**
-     * Устанавливает тип посредника, реализующего товар или услугу
-     * @param string $value Тип посредника
+     * Возвращает тип посредника, реализующего товар или услугу.
+     *
+     * @return string|null Тип посредника
      */
-    public function setAgentType($value)
+    public function getAgentType(): ?string
     {
-        if ($value === null || $value === '') {
-            $this->_agentType = null;
-        } elseif (!TypeCast::canCastToEnumString($value)) {
-            throw new InvalidPropertyValueException(
-                'Invalid value for "agentType" parameter in ReceiptItem.agentType',
-                0,
-                'ReceiptItem.agentType',
-                $value
-            );
-        } elseif (!AgentType::valueExists($value)) {
-            throw new InvalidPropertyValueException(
-                'Invalid value for "agentType" parameter in ReceiptItem.agentType',
-                0,
-                'ReceiptItem.agentType',
-                $value
-            );
-        } else {
-            $this->_agentType = $value;
-        }
+        return $this->_agent_type;
     }
 
     /**
-     * Возвращает тип посредника, реализующего товар или услугу
+     * Устанавливает тип посредника, реализующего товар или услугу.
      *
-     * @return string Тип посредника
+     * @param string|null $agent_type Тип посредника
+     *
+     * @return self
      */
-    public function getAgentType()
+    public function setAgentType(mixed $agent_type = null): self
     {
-        return $this->_agentType;
+        $this->_agent_type = $this->validatePropertyValue('_agent_type', $agent_type);
+        return $this;
     }
 
     /**
-     * Фабричный метод создания суммы
-     *
-     * @param array $options Сумма в виде ассоциативного массива
-     *
-     * @return AmountInterface Созданный инстанс суммы
+     * {@inheritdoc}
      */
-    private function factoryAmount($options)
-    {
-        $amount = new MonetaryAmount(null, $options['currency']);
-        if ($options['value'] > 0) {
-            $amount->setValue($options['value']);
-        }
-
-        return $amount;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $result = parent::jsonSerialize();
 
@@ -874,5 +654,22 @@ class ReceiptResponseItem extends AbstractObject implements ReceiptResponseItemI
         unset($result['price']);
 
         return $result;
+    }
+
+    /**
+     * Фабричный метод создания суммы.
+     *
+     * @param array $options Сумма в виде ассоциативного массива
+     *
+     * @return AmountInterface Созданный инстанс суммы
+     */
+    private function factoryAmount(array $options): AmountInterface
+    {
+        $amount = new MonetaryAmount(null, $options['currency']);
+        if ($options['value'] > 0) {
+            $amount->setValue($options['value']);
+        }
+
+        return $amount;
     }
 }

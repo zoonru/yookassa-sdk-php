@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -23,17 +23,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+const YOOKASSA_SDK_ROOT_PATH = __DIR__;
+const YOOKASSA_SDK_PSR_LOG_PATH = __DIR__ . '/../vendor/psr/log/Psr/Log';
 
-define('YOOKASSA_SDK_ROOT_PATH', dirname(__FILE__));
-define('YOOKASSA_SDK_PSR_LOG_PATH', dirname(__FILE__) . '/../vendor/psr/log/Psr/Log');
-
-function yookassaSdkLoadClass($className)
+function yookassaSdkLoadClass($className): void
 {
-    if (strncmp('YooKassa', $className, 8) === 0) {
-        $path   = YOOKASSA_SDK_ROOT_PATH;
+    if (0 === strncmp('YooKassa', $className, 8)) {
+        $path = YOOKASSA_SDK_ROOT_PATH;
         $length = 8;
-    } elseif (strncmp('Psr\Log', $className, 7) === 0) {
-        $path   = YOOKASSA_SDK_PSR_LOG_PATH;
+    } elseif (0 === strncmp('Psr\Log', $className, 7)) {
+        $path = YOOKASSA_SDK_PSR_LOG_PATH;
         $length = 7;
     } else {
         return;

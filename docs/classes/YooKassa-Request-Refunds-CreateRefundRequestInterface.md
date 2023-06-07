@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Интерфейс объекта запроса на возврат
+Interface CreateRefundRequestInterface
 
 ---
 ### Constants
@@ -15,70 +15,76 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [getAmount()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getAmount) |  | Возвращает сумму возвращаемых средств |
-| public | [getDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getDeal) |  | Возвращает информацию о сделке |
+| public | [getAmount()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getAmount) |  | Возвращает сумму возвращаемых средств. |
+| public | [getDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getDeal) |  | Возвращает информацию о сделке. |
 | public | [getDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getDescription) |  | Возвращает комментарий к возврату или null, если комментарий не задан |
-| public | [getPaymentId()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getPaymentId) |  | Возвращает айди платежа для которого создаётся возврат средств |
-| public | [getReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getReceipt) |  | Возвращает инстанс чека или null, если чек не задан |
-| public | [getSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getSources) |  | Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести |
-| public | [hasDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasDeal) |  | Проверяет наличие информации о сделке |
-| public | [hasDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasDescription) |  | Проверяет задан ли комментарий к создаваемому возврату |
-| public | [hasPaymentId()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasPaymentId) |  | Проверяет, был ли установлена идентификатор платежа |
-| public | [hasReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasReceipt) |  | Проверяет задан ли чек |
-| public | [hasSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasSources) |  | Проверяет наличие информации о распределении денег |
-| public | [setDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_setDeal) |  | Устанавливает информацию о сделке |
-| public | [setDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_setDescription) |  | Устанавливает комментарий к возврату |
-| public | [setReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_setReceipt) |  | Устанавливает чек |
-| public | [setSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_setSources) |  | Устанавливает информацию о распределении денег — сколько и в какой магазин нужно перевести |
+| public | [getPaymentId()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getPaymentId) |  | Возвращает айди платежа для которого создаётся возврат средств. |
+| public | [getReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getReceipt) |  | Возвращает инстанс чека или null, если чек не задан. |
+| public | [getSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_getSources) |  | Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести. |
+| public | [hasDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasDeal) |  | Проверяет наличие информации о сделке. |
+| public | [hasDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasDescription) |  | Проверяет задан ли комментарий к создаваемому возврату. |
+| public | [hasPaymentId()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasPaymentId) |  | Проверяет, был ли установлена идентификатор платежа. |
+| public | [hasReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasReceipt) |  | Проверяет задан ли чек. |
+| public | [hasSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_hasSources) |  | Проверяет наличие информации о распределении денег. |
+| public | [setDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_setDeal) |  | Устанавливает информацию о сделке. |
+| public | [setDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_setDescription) |  | Устанавливает комментарий к возврату. |
+| public | [setReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_setReceipt) |  | Устанавливает чек. |
+| public | [setSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md#method_setSources) |  | Устанавливает информацию о распределении денег — сколько и в какой магазин нужно перевести. |
 
 ---
 ### Details
 * File: [lib/Request/Refunds/CreateRefundRequestInterface.php](../../lib/Request/Refunds/CreateRefundRequestInterface.php)
-* Package: \YooKassa
+* Package: \YooKassa\Request
+* See Also:
+  * [](https://yookassa.ru/developers/api)
 
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
-| property-read |  | Айди платежа для которого создаётся возврат |
-| property-read |  | Сумма возврата |
-| property-read |  | Комментарий к операции возврата, основание для возврата средств покупателю. |
-| property-read |  | Инстанс чека или null |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
+| property |  | Айди платежа для которого создаётся возврат |
+| property |  | Сумма возврата |
+| property |  | Комментарий к операции возврата, основание для возврата средств покупателю. |
+| property |  | Инстанс чека или null |
+| property |  | Информация о распределении денег — сколько и в какой магазин нужно перевести |
+| property |  | Информация о сделке |
 
 ---
 ## Methods
 <a name="method_getPaymentId" class="anchor"></a>
-#### public getPaymentId() : string
+#### public getPaymentId() : string|null
 
 ```php
-public getPaymentId() : string
+public getPaymentId() : string|null
 ```
 
 **Summary**
 
-Возвращает айди платежа для которого создаётся возврат средств
+Возвращает айди платежа для которого создаётся возврат средств.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
 
-**Returns:** string - Айди платежа для которого создаётся возврат
+**Returns:** string|null - Айди платежа для которого создаётся возврат
 
 
 <a name="method_getAmount" class="anchor"></a>
-#### public getAmount() : \YooKassa\Model\AmountInterface
+#### public getAmount() : \YooKassa\Model\AmountInterface|null
 
 ```php
-public getAmount() : \YooKassa\Model\AmountInterface
+public getAmount() : \YooKassa\Model\AmountInterface|null
 ```
 
 **Summary**
 
-Возвращает сумму возвращаемых средств
+Возвращает сумму возвращаемых средств.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
 
-**Returns:** \YooKassa\Model\AmountInterface - Сумма возврата
+**Returns:** \YooKassa\Model\AmountInterface|null - Сумма возврата
 
 
 <a name="method_hasPaymentId" class="anchor"></a>
@@ -90,7 +96,7 @@ public hasPaymentId() : bool
 
 **Summary**
 
-Проверяет, был ли установлена идентификатор платежа
+Проверяет, был ли установлена идентификатор платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -102,12 +108,12 @@ public hasPaymentId() : bool
 #### public setDescription() : mixed
 
 ```php
-public setDescription(string $value) : mixed
+public setDescription(string|null $description) : mixed
 ```
 
 **Summary**
 
-Устанавливает комментарий к возврату
+Устанавливает комментарий к возврату.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -115,16 +121,16 @@ public setDescription(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Комментарий к операции возврата, основание для возврата средств покупателю |
+| <code lang="php">string OR null</code> | description  | Комментарий к операции возврата, основание для возврата средств покупателю |
 
 **Returns:** mixed - 
 
 
 <a name="method_getDescription" class="anchor"></a>
-#### public getDescription() : string
+#### public getDescription() : string|null
 
 ```php
-public getDescription() : string
+public getDescription() : string|null
 ```
 
 **Summary**
@@ -134,7 +140,7 @@ public getDescription() : string
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
 
-**Returns:** string - Комментарий к операции возврата, основание для возврата средств покупателю.
+**Returns:** string|null - Комментарий к операции возврата, основание для возврата средств покупателю.
 
 
 <a name="method_hasDescription" class="anchor"></a>
@@ -146,7 +152,7 @@ public hasDescription() : bool
 
 **Summary**
 
-Проверяет задан ли комментарий к создаваемому возврату
+Проверяет задан ли комментарий к создаваемому возврату.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -158,12 +164,12 @@ public hasDescription() : bool
 #### public setReceipt() : mixed
 
 ```php
-public setReceipt(\YooKassa\Model\ReceiptInterface|null $value) : mixed
+public setReceipt(null|\YooKassa\Model\Receipt\ReceiptInterface $receipt) : mixed
 ```
 
 **Summary**
 
-Устанавливает чек
+Устанавливает чек.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -171,26 +177,26 @@ public setReceipt(\YooKassa\Model\ReceiptInterface|null $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\ReceiptInterface OR null</code> | value  | Инстанс чека или null для удаления информации о чеке |
+| <code lang="php">null OR \YooKassa\Model\Receipt\ReceiptInterface</code> | receipt  | Инстанс чека или null для удаления информации о чеке |
 
 **Returns:** mixed - 
 
 
 <a name="method_getReceipt" class="anchor"></a>
-#### public getReceipt() : \YooKassa\Model\ReceiptInterface|null
+#### public getReceipt() : null|\YooKassa\Model\Receipt\ReceiptInterface
 
 ```php
-public getReceipt() : \YooKassa\Model\ReceiptInterface|null
+public getReceipt() : null|\YooKassa\Model\Receipt\ReceiptInterface
 ```
 
 **Summary**
 
-Возвращает инстанс чека или null, если чек не задан
+Возвращает инстанс чека или null, если чек не задан.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
 
-**Returns:** \YooKassa\Model\ReceiptInterface|null - Инстанс чека или null
+**Returns:** null|\YooKassa\Model\Receipt\ReceiptInterface - Инстанс чека или null
 
 
 <a name="method_hasReceipt" class="anchor"></a>
@@ -202,7 +208,7 @@ public hasReceipt() : bool
 
 **Summary**
 
-Проверяет задан ли чек
+Проверяет задан ли чек.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -214,12 +220,12 @@ public hasReceipt() : bool
 #### public setSources() : mixed
 
 ```php
-public setSources(\YooKassa\Model\SourceInterface[] $value) : mixed
+public setSources(\YooKassa\Model\Refund\SourceInterface[]|array|null $sources) : mixed
 ```
 
 **Summary**
 
-Устанавливает информацию о распределении денег — сколько и в какой магазин нужно перевести
+Устанавливает информацию о распределении денег — сколько и в какой магазин нужно перевести.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -227,26 +233,26 @@ public setSources(\YooKassa\Model\SourceInterface[] $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SourceInterface[]</code> | value  | Информация о распределении денег |
+| <code lang="php">\YooKassa\Model\Refund\SourceInterface[] OR array OR null</code> | sources  | Информация о распределении денег |
 
 **Returns:** mixed - 
 
 
 <a name="method_getSources" class="anchor"></a>
-#### public getSources() : \YooKassa\Model\SourceInterface[]
+#### public getSources() : \YooKassa\Model\Refund\SourceInterface[]|\YooKassa\Common\ListObjectInterface
 
 ```php
-public getSources() : \YooKassa\Model\SourceInterface[]
+public getSources() : \YooKassa\Model\Refund\SourceInterface[]|\YooKassa\Common\ListObjectInterface
 ```
 
 **Summary**
 
-Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести
+Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
 
-**Returns:** \YooKassa\Model\SourceInterface[] - Информация о распределении денег
+**Returns:** \YooKassa\Model\Refund\SourceInterface[]|\YooKassa\Common\ListObjectInterface - Информация о распределении денег
 
 
 <a name="method_hasSources" class="anchor"></a>
@@ -258,7 +264,7 @@ public hasSources() : bool
 
 **Summary**
 
-Проверяет наличие информации о распределении денег
+Проверяет наличие информации о распределении денег.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -270,12 +276,12 @@ public hasSources() : bool
 #### public setDeal() : mixed
 
 ```php
-public setDeal(\YooKassa\Model\Deal\RefundDealData $value) : mixed
+public setDeal(\YooKassa\Model\Deal\RefundDealData|null $deal) : mixed
 ```
 
 **Summary**
 
-Устанавливает информацию о сделке
+Устанавливает информацию о сделке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -283,26 +289,26 @@ public setDeal(\YooKassa\Model\Deal\RefundDealData $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\Deal\RefundDealData</code> | value  | Информация о сделке |
+| <code lang="php">\YooKassa\Model\Deal\RefundDealData OR null</code> | deal  | Информация о сделке |
 
 **Returns:** mixed - 
 
 
 <a name="method_getDeal" class="anchor"></a>
-#### public getDeal() : \YooKassa\Model\Deal\RefundDealData
+#### public getDeal() : \YooKassa\Model\Deal\RefundDealData|null
 
 ```php
-public getDeal() : \YooKassa\Model\Deal\RefundDealData
+public getDeal() : \YooKassa\Model\Deal\RefundDealData|null
 ```
 
 **Summary**
 
-Возвращает информацию о сделке
+Возвращает информацию о сделке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
 
-**Returns:** \YooKassa\Model\Deal\RefundDealData - Информация о сделке
+**Returns:** \YooKassa\Model\Deal\RefundDealData|null - Информация о сделке
 
 
 <a name="method_hasDeal" class="anchor"></a>
@@ -314,7 +320,7 @@ public hasDeal() : bool
 
 **Summary**
 
-Проверяет наличие информации о сделке
+Проверяет наличие информации о сделке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
@@ -334,11 +340,11 @@ public hasDeal() : bool
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -4,9 +4,12 @@ namespace Tests\YooKassa\Request\Deals;
 
 use YooKassa\Request\Deals\CreateDealResponse;
 
-class CreateDealResponseTest extends AbstractDealResponseTest
+/**
+ * @internal
+ */
+class CreateDealResponseTest extends AbstractTestDealResponse
 {
-    protected function getTestInstance($options)
+    protected function getTestInstance($options): CreateDealResponse
     {
         return new CreateDealResponse($options);
     }

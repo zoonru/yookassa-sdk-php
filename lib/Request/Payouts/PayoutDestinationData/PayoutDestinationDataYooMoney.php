@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,72 +26,73 @@
 
 namespace YooKassa\Request\Payouts\PayoutDestinationData;
 
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс PayoutDestinationDataYooMoney
+ * Класс, представляющий модель PayoutDestinationDataYooMoney.
  *
  * Метод оплаты, при оплате через ЮMoney
  *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $type Тип объекта
  * @property string $accountNumber Номер кошелька в ЮMoney, с которого была произведена оплата
  * @property string $account_number Номер кошелька в ЮMoney, с которого была произведена оплата
  */
 class PayoutDestinationDataYooMoney extends AbstractPayoutDestinationData
 {
-    /**
-     * @var string Номер кошелька в ЮMoney с которого была произведена оплата.
-     */
-    private $_accountNumber;
+    /** @var int Максимальная длина номера кошелька. */
+    public const MAX_LENGTH_ACCOUNT_NUMBER = 33;
 
-    public function __construct()
+    /** @var int Минимальная длина номера кошелька. */
+    public const MIN_LENGTH_ACCOUNT_NUMBER = 11;
+
+    /**
+     * Номер кошелька ЮMoney, например ~`41001614575714`. Длина — от 11 до 33 цифр.
+     *
+     * @var string|null
+     */
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::MAX_LENGTH_ACCOUNT_NUMBER)]
+    #[Assert\Length(min: self::MIN_LENGTH_ACCOUNT_NUMBER)]
+    #[Assert\Regex("/^[0-9]{11,33}$/")]
+    private ?string $_account_number = null;
+
+    /**
+     * Конструктор PayoutDestinationDataYooMoney.
+     *
+     * @param array|null $data
+     */
+    public function __construct(?array $data = [])
     {
+        parent::__construct($data);
         $this->setType(PaymentMethodType::YOO_MONEY);
     }
 
     /**
-     * Возвращает номер кошелька в ЮMoney, с которого была произведена оплата
-     * @return string Номер кошелька в ЮMoney
+     * Возвращает номер кошелька в ЮMoney, с которого была произведена оплата.
+     *
+     * @return string|null Номер кошелька в ЮMoney
      */
-    public function getAccountNumber()
+    public function getAccountNumber(): ?string
     {
-        return $this->_accountNumber;
+        return $this->_account_number;
     }
 
     /**
-     * Устанавливает номер кошелька в ЮMoney, с которого была произведена оплата
-     * @param string $value Номер кошелька в ЮMoney
+     * Устанавливает номер кошелька в ЮMoney, с которого была произведена оплата.
+     *
+     * @param string|null $account_number Номер кошелька ЮMoney
+     *
+     * @return self
      */
-    public function setAccountNumber($value)
+    public function setAccountNumber(?string $account_number = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty accountNumber value',
-                0,
-                'PayoutDestinationYooMoney.accountNumber'
-            );
-        } elseif (TypeCast::canCastToString($value)) {
-            if (preg_match('/^[0-9]{11,33}$/', $value)) {
-                $this->_accountNumber = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid accountNumber value',
-                    0,
-                    'PayoutDestinationYooMoney.accountNumber',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid accountNumber value type',
-                0,
-                'PayoutDestinationYooMoney.accountNumber',
-                $value
-            );
-        }
+        $this->_account_number = $this->validatePropertyValue('_account_number', $account_number);
+        return $this;
     }
 }

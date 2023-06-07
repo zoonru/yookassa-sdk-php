@@ -30,22 +30,22 @@ $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 try {
     $response = $client->createRefund(
-        array(
+        [
             'payment_id' => '24e89cb0-000f-5000-9000-1de77fa0d6df',
-            'amount' => array(
+            'amount' => [
                 'value' => '1000.00',
                 'currency' => \YooKassa\Model\CurrencyCode::RUB,
-            ),
-            'sources' => array(
-                array(
+            ],
+            'sources' => [
+                [
                     'account_id' => '456',
-                    'amount' => array(
+                    'amount' => [
                         'value' => '1000.00',
                         'currency' => \YooKassa\Model\CurrencyCode::RUB,
-                    )
-                ),
-            ),
-        ),
+                    ]
+                ],
+            ],
+        ],
         uniqid('', true)
     );
     echo $response->getStatus();
@@ -77,19 +77,19 @@ try {
                 ->setAmount(3500.00)
                 ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
                 ->setDescription('Не подошел цвет')
-                ->setReceiptItems(array(
-                    array(
+                ->setReceiptItems([
+                    [
                         'description' => 'Платок Gucci',
                         'quantity' => '1.00',
-                        'amount' => array(
+                        'amount' => [
                             'value' => '3000.00',
                             'currency' => \YooKassa\Model\CurrencyCode::RUB,
-                        ),
+                        ],
                         'vat_code' => 2,
                         'payment_mode' => 'full_payment',
                         'payment_subject' => 'commodity',
-                    ),
-                ))
+                    ],
+                ])
                 ->setReceiptEmail('john.doe@merchant.com')
                 ->setTaxSystemCode(1);
 
@@ -153,13 +153,13 @@ $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
 $cursor = null;
-$params = array(
+$params = [
     'limit' => 30,
-    'status' => \YooKassa\Model\RefundStatus::SUCCEEDED,
+    'status' => \YooKassa\Model\Refund\RefundStatus::SUCCEEDED,
     'payment_id' => '1da5c87d-0984-50e8-a7f3-8de646dd9ec9',
     'created_at_gte' => '2021-01-01T00:00:00.000Z',
     'created_at_lt' => '2021-03-30T23:59:59.999Z',
-);
+];
 try {
     do {
         $params['cursor'] = $cursor;

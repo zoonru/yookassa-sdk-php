@@ -9,6 +9,34 @@
 
 
 ---
+### Examples
+Пример использования билдера
+
+```php
+try {
+    $personalDataBuilder = \YooKassa\Request\PersonalData\CreatePersonalDataRequest::builder();
+    $personalDataBuilder
+        ->setType(\YooKassa\Model\PersonalData\PersonalDataType::SBP_PAYOUT_RECIPIENT)
+        ->setFirstName('Иван')
+        ->setLastName('Иванов')
+        ->setMiddleName('Иванович')
+        ->setMetadata(['recipient_id' => '37'])
+    ;
+
+    // Создаем объект запроса
+    $request = $personalDataBuilder->build();
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createPersonalData($request, $idempotenceKey);
+} catch (Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
+
+```
+
+---
 ### Constants
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
@@ -27,44 +55,47 @@
 | public | [$middle_name](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#property_middle_name) |  | Отчество пользователя |
 | public | [$middleName](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#property_middleName) |  | Отчество пользователя |
 | public | [$type](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#property_type) |  | Тип персональных данных |
+| protected | [$_metadata](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#property__metadata) |  | Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа). |
 
 ---
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [builder()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_builder) |  | Возвращает билдер объектов запросов создания платежа |
-| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [builder()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_builder) |  | Возвращает билдер объектов запросов создания платежа. |
+| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
 | public | [getFirstName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_getFirstName) |  | Возвращает имя пользователя. |
 | public | [getLastName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_getLastName) |  | Возвращает фамилию пользователя. |
-| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации |
-| public | [getMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_getMetadata) |  | Возвращает метаданные. |
+| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации. |
+| public | [getMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_getMetadata) |  | Возвращает любые дополнительные данные. |
 | public | [getMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_getMiddleName) |  | Возвращает отчество пользователя. |
 | public | [getType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_getType) |  | Возвращает тип персональных данных. |
-| public | [hasFirstName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasFirstName) |  | Проверяет наличие имени пользователя в запросе |
-| public | [hasLastName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasLastName) |  | Проверяет наличие фамилии пользователя в запросе |
-| public | [hasMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasMetadata) |  | Проверяет, были ли установлены метаданные |
-| public | [hasMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasMiddleName) |  | Проверяет наличие отчества пользователя в запросе |
-| public | [hasType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasType) |  | Проверяет наличие типа персональных данных в запросе |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [hasFirstName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasFirstName) |  | Проверяет наличие имени пользователя в запросе. |
+| public | [hasLastName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasLastName) |  | Проверяет наличие фамилии пользователя в запросе. |
+| public | [hasMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasMetadata) |  | Проверяет, были ли установлены метаданные. |
+| public | [hasMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasMiddleName) |  | Проверяет наличие отчества пользователя в запросе. |
+| public | [hasType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_hasType) |  | Проверяет наличие типа персональных данных в запросе. |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
 | public | [setFirstName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_setFirstName) |  | Устанавливает имя пользователя. |
 | public | [setLastName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_setLastName) |  | Устанавливает фамилию пользователя. |
-| public | [setMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_setMetadata) |  | Устанавливает метаданные. |
+| public | [setMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_setMetadata) |  | Устанавливает любые дополнительные данные. |
 | public | [setMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_setMiddleName) |  | Устанавливает отчество пользователя. |
 | public | [setType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_setType) |  | Устанавливает тип персональных данных. |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
 | public | [validate()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md#method_validate) |  | Проверяет на валидность текущий объект |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
-| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
@@ -77,10 +108,14 @@
 * Implements:
   * [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
 
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
+| category |  | Class |
 | author |  | cms@yoomoney.ru |
 
 ---
@@ -202,6 +237,23 @@ MAX_LENGTH_FIRST_NAME = 100
 **Details:**
 
 
+<a name="property__metadata"></a>
+#### protected $_metadata : ?\YooKassa\Model\Metadata
+---
+**Summary**
+
+Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа).
+
+***Description***
+
+Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от ЮKassa.
+Ограничения: максимум 16 ключей, имя ключа не больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
+
+**Type:** <a href="../?\YooKassa\Model\Metadata"><abbr title="?\YooKassa\Model\Metadata">Metadata</abbr></a>
+
+**Details:**
+
+
 
 ---
 ## Methods
@@ -209,7 +261,7 @@ MAX_LENGTH_FIRST_NAME = 100
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -222,7 +274,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -236,7 +288,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -258,7 +310,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -272,15 +324,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -291,19 +343,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -313,7 +365,7 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_builder" class="anchor"></a>
@@ -325,7 +377,7 @@ Static public builder() : \YooKassa\Request\PersonalData\CreatePersonalDataReque
 
 **Summary**
 
-Возвращает билдер объектов запросов создания платежа
+Возвращает билдер объектов запросов создания платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
@@ -334,32 +386,32 @@ Static public builder() : \YooKassa\Request\PersonalData\CreatePersonalDataReque
 
 
 <a name="method_clearValidationError" class="anchor"></a>
-#### public clearValidationError() : mixed
+#### public clearValidationError() : void
 
 ```php
-public clearValidationError() : mixed
+public clearValidationError() : void
 ```
 
 **Summary**
 
-Очищает статус валидации текущего запроса
+Очищает статус валидации текущего запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -369,14 +421,14 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getFirstName" class="anchor"></a>
-#### public getFirstName() : string
+#### public getFirstName() : string|null
 
 ```php
-public getFirstName() : string
+public getFirstName() : string|null
 ```
 
 **Summary**
@@ -386,14 +438,14 @@ public getFirstName() : string
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
 
-**Returns:** string - Имя пользователя
+**Returns:** string|null - Имя пользователя
 
 
 <a name="method_getLastName" class="anchor"></a>
-#### public getLastName() : string
+#### public getLastName() : string|null
 
 ```php
-public getLastName() : string
+public getLastName() : string|null
 ```
 
 **Summary**
@@ -403,48 +455,48 @@ public getLastName() : string
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
 
-**Returns:** string - Фамилия пользователя
+**Returns:** string|null - Фамилия пользователя
 
 
 <a name="method_getLastValidationError" class="anchor"></a>
-#### public getLastValidationError() : string
+#### public getLastValidationError() : string|null
 
 ```php
-public getLastValidationError() : string
+public getLastValidationError() : string|null
 ```
 
 **Summary**
 
-Возвращает последнюю ошибку валидации
+Возвращает последнюю ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** string - Последняя произошедшая ошибка валидации
+**Returns:** string|null - Последняя произошедшая ошибка валидации
 
 
 <a name="method_getMetadata" class="anchor"></a>
-#### public getMetadata() : \YooKassa\Model\Metadata
+#### public getMetadata() : \YooKassa\Model\Metadata|null
 
 ```php
-public getMetadata() : \YooKassa\Model\Metadata
+public getMetadata() : \YooKassa\Model\Metadata|null
 ```
 
 **Summary**
 
-Возвращает метаданные.
+Возвращает любые дополнительные данные.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
 
-**Returns:** \YooKassa\Model\Metadata - Метаданные
+**Returns:** \YooKassa\Model\Metadata|null - Любые дополнительные данные
 
 
 <a name="method_getMiddleName" class="anchor"></a>
-#### public getMiddleName() : string|null
+#### public getMiddleName() : null|string
 
 ```php
-public getMiddleName() : string|null
+public getMiddleName() : null|string
 ```
 
 **Summary**
@@ -454,14 +506,14 @@ public getMiddleName() : string|null
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
 
-**Returns:** string|null - Отчество пользователя
+**Returns:** null|string - Отчество пользователя
 
 
 <a name="method_getType" class="anchor"></a>
-#### public getType() : string
+#### public getType() : string|null
 
 ```php
-public getType() : string
+public getType() : string|null
 ```
 
 **Summary**
@@ -471,7 +523,20 @@ public getType() : string
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
 
-**Returns:** string - Тип персональных данных
+**Returns:** string|null - Тип персональных данных
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_hasFirstName" class="anchor"></a>
@@ -483,7 +548,7 @@ public hasFirstName() : bool
 
 **Summary**
 
-Проверяет наличие имени пользователя в запросе
+Проверяет наличие имени пользователя в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
@@ -500,7 +565,7 @@ public hasLastName() : bool
 
 **Summary**
 
-Проверяет наличие фамилии пользователя в запросе
+Проверяет наличие фамилии пользователя в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
@@ -517,7 +582,7 @@ public hasMetadata() : bool
 
 **Summary**
 
-Проверяет, были ли установлены метаданные
+Проверяет, были ли установлены метаданные.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
@@ -534,7 +599,7 @@ public hasMiddleName() : bool
 
 **Summary**
 
-Проверяет наличие отчества пользователя в запросе
+Проверяет наличие отчества пользователя в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
@@ -551,7 +616,7 @@ public hasType() : bool
 
 **Summary**
 
-Проверяет наличие типа персональных данных в запросе
+Проверяет наличие типа персональных данных в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
@@ -568,7 +633,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -585,7 +650,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -607,7 +672,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -629,7 +694,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -652,7 +717,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -666,10 +731,10 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setFirstName" class="anchor"></a>
-#### public setFirstName() : $this
+#### public setFirstName() : self
 
 ```php
-public setFirstName(string $first_name) : $this
+public setFirstName(string|null $first_name = null) : self
 ```
 
 **Summary**
@@ -682,16 +747,16 @@ public setFirstName(string $first_name) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | first_name  | Имя пользователя. |
+| <code lang="php">string OR null</code> | first_name  | Имя пользователя |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setLastName" class="anchor"></a>
-#### public setLastName() : $this
+#### public setLastName() : self
 
 ```php
-public setLastName(string $last_name) : $this
+public setLastName(string|null $last_name = null) : self
 ```
 
 **Summary**
@@ -704,21 +769,21 @@ public setLastName(string $last_name) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | last_name  | Фамилия пользователя. |
+| <code lang="php">string OR null</code> | last_name  | Фамилия пользователя |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setMetadata" class="anchor"></a>
-#### public setMetadata() : $this
+#### public setMetadata() : self
 
 ```php
-public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
+public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : self
 ```
 
 **Summary**
 
-Устанавливает метаданные.
+Устанавливает любые дополнительные данные.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md)
@@ -726,16 +791,16 @@ public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\Metadata OR array OR null</code> | metadata  | Метаданные |
+| <code lang="php">\YooKassa\Model\Metadata OR array OR null</code> | metadata  | Любые дополнительные данные |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setMiddleName" class="anchor"></a>
-#### public setMiddleName() : $this
+#### public setMiddleName() : self
 
 ```php
-public setMiddleName(string|null $middle_name = null) : $this
+public setMiddleName(null|string $middle_name = null) : self
 ```
 
 **Summary**
@@ -748,16 +813,16 @@ public setMiddleName(string|null $middle_name = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | middle_name  | Отчество пользователя |
+| <code lang="php">null OR string</code> | middle_name  | Отчество пользователя |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setType" class="anchor"></a>
-#### public setType() : $this
+#### public setType() : self
 
 ```php
-public setType(string $type) : $this
+public setType(\YooKassa\Model\PersonalData\PersonalDataType|string|null $type = null) : self
 ```
 
 **Summary**
@@ -770,9 +835,9 @@ public setType(string $type) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | type  | Тип персональных данных |
+| <code lang="php">\YooKassa\Model\PersonalData\PersonalDataType OR string OR null</code> | type  | Тип персональных данных |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -785,7 +850,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -819,7 +884,7 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -828,15 +893,15 @@ protected getUnknownProperties() : array
 
 
 <a name="method_setValidationError" class="anchor"></a>
-#### protected setValidationError() : mixed
+#### protected setValidationError() : void
 
 ```php
-protected setValidationError(string $value) : mixed
+protected setValidationError(string $value) : void
 ```
 
 **Summary**
 
-Устанавливает ошибку валидации
+Устанавливает ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
@@ -845,6 +910,25 @@ protected setValidationError(string $value) : mixed
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | value  | Ошибка, произошедшая при валидации объекта |
+
+**Returns:** void - 
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
 
 **Returns:** mixed - 
 
@@ -860,11 +944,11 @@ protected setValidationError(string $value) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

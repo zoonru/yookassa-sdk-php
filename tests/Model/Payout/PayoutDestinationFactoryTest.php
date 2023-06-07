@@ -2,54 +2,54 @@
 
 namespace Tests\YooKassa\Model\Payout;
 
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
+use YooKassa\Model\Payment\PaymentMethod\BankCardType;
+use YooKassa\Model\Payment\PaymentMethodType;
 use YooKassa\Model\Payout\AbstractPayoutDestination;
 use YooKassa\Model\Payout\PayoutDestinationFactory;
 use YooKassa\Model\Payout\PayoutDestinationType;
-use YooKassa\Model\PaymentMethodType;
 
+/**
+ * @internal
+ */
 class PayoutDestinationFactoryTest extends TestCase
 {
-    protected function getTestInstance()
-    {
-        return new PayoutDestinationFactory();
-    }
-
     /**
      * @dataProvider validTypeDataProvider
-     * @param string $type
      */
-    public function testFactory($type)
+    public function testFactory(string $type): void
     {
         $instance = $this->getTestInstance();
         $paymentData = $instance->factory($type);
         self::assertNotNull($paymentData);
-        self::assertTrue($paymentData instanceof AbstractPayoutDestination);
+        self::assertInstanceOf(AbstractPayoutDestination::class, $paymentData);
         self::assertEquals($type, $paymentData->getType());
     }
 
     /**
      * @dataProvider invalidTypeDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $type
+     *
+     * @param mixed $type
      */
-    public function testInvalidFactory($type)
+    public function testInvalidFactory($type): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->factory($type);
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     * @param array $options
      */
-    public function testFactoryFromArray($options)
+    public function testFactoryFromArray(array $options): void
     {
         $instance = $this->getTestInstance();
         $paymentData = $instance->factoryFromArray($options);
         self::assertNotNull($paymentData);
-        self::assertTrue($paymentData instanceof AbstractPayoutDestination);
+        self::assertInstanceOf(AbstractPayoutDestination::class, $paymentData);
 
         foreach ($options as $property => $value) {
             if (!is_array($value)) {
@@ -63,7 +63,7 @@ class PayoutDestinationFactoryTest extends TestCase
         unset($options['type']);
         $paymentData = $instance->factoryFromArray($options, $type);
         self::assertNotNull($paymentData);
-        self::assertTrue($paymentData instanceof AbstractPayoutDestination);
+        self::assertInstanceOf(AbstractPayoutDestination::class, $paymentData);
 
         self::assertEquals($type, $paymentData->getType());
         foreach ($options as $property => $value) {
@@ -77,79 +77,112 @@ class PayoutDestinationFactoryTest extends TestCase
 
     /**
      * @dataProvider invalidDataArrayDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testInvalidFactoryFromArray($options)
+    public function testInvalidFactoryFromArray($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->factoryFromArray($options);
     }
 
-    public function validTypeDataProvider()
+    /**
+     * @return array
+     */
+    public static function validTypeDataProvider(): array
     {
-        $result = array();
+        $result = [];
         foreach (PayoutDestinationType::getEnabledValues() as $value) {
-            $result[] = array($value);
+            $result[] = [$value];
         }
+
         return $result;
     }
 
-    public function invalidTypeDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function invalidTypeDataProvider(): array
     {
-        return array(
-            array(''),
-            array(null),
-            array(0),
-            array(1),
-            array(-1),
-            array('5'),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(10)),
-        );
+        return [
+            [''],
+            [null],
+            [0],
+            [1],
+            [-1],
+            ['5'],
+            [Random::str(10)],
+        ];
     }
 
-    public function validArrayDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function validArrayDataProvider(): array
     {
-        $result = array(
-             array(
-                array(
+        $result = [
+            [
+                [
                     'type' => PaymentMethodType::BANK_CARD,
-                    'card' => array(
-                        'first6'         => Random::str(6, '0123456789'),
-                        'last4'          => Random::str(4, '0123456789'),
-                        'card_type'      => Random::str(3, 20),
-                        'issuer_country' => Random::str(2),
-                        'issuer_name'    => Random::str(4, 50),
-                    ),
-                ),
-            ),
-            array(
-                array(
+                    'card' => [
+                        'first6' => Random::str(6, '0123456789'),
+                        'last4' => Random::str(4, '0123456789'),
+                        'card_type' => Random::value(BankCardType::getValidValues()),
+                        'issuer_country' => Random::value(self::validIssuerCountry()),
+                        'issuer_name' => Random::str(4, 50),
+                    ],
+                ],
+            ],
+            [
+                [
                     'type' => PaymentMethodType::YOO_MONEY,
                     'account_number' => Random::str(11, 33, '1234567890'),
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'type' => PaymentMethodType::SBP,
-                    'phone' => Random::str(4, 16, '1234567890'),
+                    'phone' => Random::str(4, 15, '1234567890'),
                     'bank_id' => Random::str(4, 12),
-                ),
-            ),
-         );
+                ],
+            ],
+        ];
         foreach (PayoutDestinationType::getEnabledValues() as $value) {
-            $result[] = array(array('type' => $value));
+            $result[] = [['type' => $value]];
         }
+
         return $result;
     }
 
-    public function invalidDataArrayDataProvider()
+    private static function validIssuerCountry(): array
     {
-        return array(
-            array(array()),
-            array(array('type' => 'test')),
-        );
+        return [
+            'RU',
+            'EN',
+            'UK',
+            'AU',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function invalidDataArrayDataProvider(): array
+    {
+        return [
+            [[]],
+            [['type' => 'test']],
+        ];
+    }
+
+    /**
+     * @return PayoutDestinationFactory
+     */
+    protected function getTestInstance(): PayoutDestinationFactory
+    {
+        return new PayoutDestinationFactory();
     }
 }

@@ -8,7 +8,7 @@
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Model\PersonalData\PersonalDataInterface](../classes/YooKassa-Model-PersonalData-PersonalDataInterface.md) | Класс, представляющий модель PersonalDataInterface. |
+| [\YooKassa\Model\PersonalData\PersonalDataInterface](../classes/YooKassa-Model-PersonalData-PersonalDataInterface.md) | Interface PersonalDataInterface. |
 
 ### Classes
 
@@ -16,8 +16,8 @@
 | ---- | ------- |
 | [\YooKassa\Model\PersonalData\PersonalData](../classes/YooKassa-Model-PersonalData-PersonalData.md) | Класс, представляющий модель PersonalData. |
 | [\YooKassa\Model\PersonalData\PersonalDataCancellationDetails](../classes/YooKassa-Model-PersonalData-PersonalDataCancellationDetails.md) | Класс, представляющий модель PersonalDataCancellationDetails. |
-| [\YooKassa\Model\PersonalData\PersonalDataCancellationDetailsPartyCode](../classes/YooKassa-Model-PersonalData-PersonalDataCancellationDetailsPartyCode.md) | PayoutCancellationDetailsPartyCode - Возможные участники процесса, которые приняли решение о прекращении хранения персональных данных. |
-| [\YooKassa\Model\PersonalData\PersonalDataCancellationDetailsReasonCode](../classes/YooKassa-Model-PersonalData-PersonalDataCancellationDetailsReasonCode.md) | PayoutCancellationDetailsReasonCode - Возможные причины аннулирования хранения данных. |
+| [\YooKassa\Model\PersonalData\PersonalDataCancellationDetailsPartyCode](../classes/YooKassa-Model-PersonalData-PersonalDataCancellationDetailsPartyCode.md) | Класс, представляющий модель PersonalDataCancellationDetailsPartyCode. |
+| [\YooKassa\Model\PersonalData\PersonalDataCancellationDetailsReasonCode](../classes/YooKassa-Model-PersonalData-PersonalDataCancellationDetailsReasonCode.md) | Класс, представляющий модель PersonalDataCancellationDetailsReasonCode. |
 | [\YooKassa\Model\PersonalData\PersonalDataStatus](../classes/YooKassa-Model-PersonalData-PersonalDataStatus.md) | Класс, представляющий модель PersonalDataStatus. |
 | [\YooKassa\Model\PersonalData\PersonalDataType](../classes/YooKassa-Model-PersonalData-PersonalDataType.md) | Класс, представляющий модель PersonalDataType. |
 
@@ -31,11 +31,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,7 +29,14 @@ namespace YooKassa\Request\Payouts\PayoutDestinationData;
 use YooKassa\Model\Payout\AbstractPayoutDestination;
 
 /**
+ * Класс, представляющий AbstractPayoutDestinationData.
+ *
  * Данные используемые для создания метода оплаты.
+ *
+ * @category Abstract Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $type Тип метода оплаты
  */
 abstract class AbstractPayoutDestinationData extends AbstractPayoutDestination

@@ -2,66 +2,69 @@
 
 namespace Tests\YooKassa\Model\Notification;
 
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
-use YooKassa\Model\ConfirmationType;
 use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\Deal\DealStatus;
 use YooKassa\Model\Deal\DealType;
 use YooKassa\Model\Deal\FeeMoment;
 use YooKassa\Model\Notification\AbstractNotification;
+use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Notification\NotificationFactory;
-use YooKassa\Model\NotificationEventType;
-use YooKassa\Model\NotificationType;
-use YooKassa\Model\PaymentMethodType;
-use YooKassa\Model\PaymentStatus;
-use YooKassa\Model\Payout;
+use YooKassa\Model\Notification\NotificationType;
+use YooKassa\Model\Payment\ConfirmationType;
+use YooKassa\Model\Payment\PaymentMethod\BankCardType;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentStatus;
+use YooKassa\Model\Payment\ReceiptRegistrationStatus;
+use YooKassa\Model\Payout\Payout;
 use YooKassa\Model\Payout\PayoutCancellationDetailsPartyCode;
 use YooKassa\Model\Payout\PayoutCancellationDetailsReasonCode;
-use YooKassa\Model\PayoutStatus;
-use YooKassa\Model\ReceiptRegistrationStatus;
-use YooKassa\Model\RefundStatus;
+use YooKassa\Model\Payout\PayoutStatus;
+use YooKassa\Model\Refund\RefundStatus;
 use YooKassa\Request\Deals\DealResponse;
 use YooKassa\Request\Payments\PaymentResponse;
 use YooKassa\Request\Payouts\PayoutResponse;
 use YooKassa\Request\Refunds\RefundResponse;
 
+if (!defined('YOOKASSA_DATE')) {
+    define('YOOKASSA_DATE', 'Y-m-d\\TH:i:s.v\\Z');
+}
+
+/**
+ * @internal
+ */
 class NotificationFactoryTest extends TestCase
 {
     /**
-     * @return NotificationFactory
-     */
-    protected function getTestInstance()
-    {
-        return new NotificationFactory();
-    }
-
-    /**
      * @dataProvider invalidDataArrayDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testInvalidFactory($options)
+    public function testInvalidFactory($options): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = $this->getTestInstance();
         $instance->factory($options);
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     * @param array $options
      */
-    public function testFactory($options)
+    public function testFactory(array $options): void
     {
         $instance = $this->getTestInstance();
         $event = $options['event'];
         $notification = $instance->factory($options);
         self::assertNotNull($notification);
-        self::assertTrue($notification instanceof AbstractNotification);
+        self::assertInstanceOf(AbstractNotification::class, $notification);
 
         self::assertEquals($event, $notification->getEvent());
         foreach ($options as $property => $value) {
-            if ($property !== 'object') {
+            if ('object' !== $property) {
                 self::assertEquals($notification->{$property}, $value);
             } else {
                 $this->assertObject($event, $notification->{$property}, $value);
@@ -70,26 +73,32 @@ class NotificationFactoryTest extends TestCase
     }
 
     /**
-     * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    public function validArrayDataProvider()
+    public function validArrayDataProvider(): array
     {
-        $result = array();
+        $result = [];
 
         for ($i = 0; $i < 12; $i++) {
             $eventType = Random::value(NotificationEventType::getEnabledValues());
+
             switch ($eventType) {
                 case NotificationEventType::REFUND_SUCCEEDED:
                     $notification = $this->getRefundNotification();
+
                     break;
+
                 case NotificationEventType::DEAL_CLOSED:
                     $notification = $this->getDealNotification();
+
                     break;
+
                 case NotificationEventType::PAYOUT_SUCCEEDED:
                 case NotificationEventType::PAYOUT_CANCELED:
                     $notification = $this->getPayoutNotification($eventType);
+
                     break;
+
                 default:
                     $notification = $this->getPaymentNotification($eventType);
             }
@@ -100,41 +109,59 @@ class NotificationFactoryTest extends TestCase
         return $result;
     }
 
-    public function invalidDataArrayDataProvider()
+    public static function invalidDataArrayDataProvider()
     {
-        return array(
-            array(array()),
-            array(array('type' => 'test')),
-            array(array('event' => 'test')),
-            array(array('event' => new \stdClass())),
-        );
+        return [
+            [[]],
+            [['type' => 'test']],
+            [['event' => 'test']],
+            [['event' => new stdClass()]],
+        ];
+    }
+
+    protected function getTestInstance(): NotificationFactory
+    {
+        return new NotificationFactory();
+    }
+
+    protected function getExpectedType(): string
+    {
+        return NotificationType::NOTIFICATION;
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function getExpectedEvent(): mixed
+    {
+        return Random::value(NotificationEventType::getEnabledValues());
     }
 
     private function getRefundNotification()
     {
-        $statuses             = RefundStatus::getValidValues();
+        $statuses = RefundStatus::getValidValues();
         $receiptRegistrations = ReceiptRegistrationStatus::getValidValues();
 
-        $refund = array(
-            'id'                   => Random::str(36),
-            'payment_id'           => Random::str(36),
-            'status'               => Random::value($statuses),
-            'amount'               => array(
-                'value'    => Random::float(0.01, 1000000.0),
+        $refund = [
+            'id' => Random::str(36),
+            'payment_id' => Random::str(36),
+            'status' => Random::value($statuses),
+            'amount' => [
+                'value' => Random::float(0.01, 1000000.0),
                 'currency' => Random::value(CurrencyCode::getValidValues()),
-            ),
-            'created_at'           => date(YOOKASSA_DATE, Random::int(1, time())),
+            ],
+            'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
             'receipt_registration' => Random::value($receiptRegistrations),
-            'description'          => Random::str(1, 128),
-        );
+            'description' => Random::str(1, 128),
+        ];
 
-        return array(
-            array(
-                'type'   => $this->getExpectedType(),
-                'event'  => NotificationEventType::REFUND_SUCCEEDED,
+        return [
+            [
+                'type' => $this->getExpectedType(),
+                'event' => NotificationEventType::REFUND_SUCCEEDED,
                 'object' => $refund,
-            ),
-        );
+            ],
+        ];
     }
 
     private function getPaymentNotification($type)
@@ -143,97 +170,99 @@ class NotificationFactoryTest extends TestCase
         $receiptRegistrations = ReceiptRegistrationStatus::getValidValues();
 
         $trueFalse = Random::bool();
-        $confirmations = array(
-            array(
+        $confirmations = [
+            [
                 'type' => ConfirmationType::REDIRECT,
-                'confirmation_url' => Random::str(10),
-                'return_url' => Random::str(10),
+                'confirmation_url' => 'https://confirmation.url',
+                'return_url' => 'https://merchant-site.ru/return_url',
                 'enforce' => false,
-            ),
-            array(
+            ],
+            [
                 'type' => ConfirmationType::EXTERNAL,
-            ),
-        );
+            ],
+        ];
 
-        $payment = array(
+        $payment = [
             'id' => Random::str(36),
             'status' => Random::value($statuses),
-            'recipient' => array(
+            'recipient' => [
                 'account_id' => Random::str(1, 64, '0123456789'),
                 'gateway_id' => Random::str(1, 256),
-            ),
-            'amount' => array(
+            ],
+            'amount' => [
                 'value' => Random::float(0.01, 1000000.0),
                 'currency' => Random::value(CurrencyCode::getValidValues()),
-            ),
-            'payment_method' => array(
+            ],
+            'payment_method' => [
                 'type' => PaymentMethodType::QIWI,
-            ),
+            ],
             'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
             'captured_at' => date(YOOKASSA_DATE, Random::int(1, time())),
             'confirmation' => Random::value($confirmations),
-            'refunded' => array(
+            'refunded' => [
                 'value' => Random::float(0.01, 1000000.0),
                 'currency' => Random::value(CurrencyCode::getValidValues()),
-            ),
+            ],
             'paid' => $trueFalse,
             'refundable' => $trueFalse,
             'receipt_registration' => Random::value($receiptRegistrations),
-            'metadata' => array(
-                'value' => Random::float(0.01, 1000000.0),
+            'metadata' => [
+                'value' => Random::str(1, 256),
                 'currency' => Random::str(1, 256),
-            ),
-        );
+            ],
+        ];
 
-        return array(
-            array(
+        return [
+            [
                 'type' => $this->getExpectedType(),
                 'event' => $type,
                 'object' => $payment,
-            ),
-        );
+            ],
+        ];
     }
 
     private function getPayoutNotification($type)
     {
         $cancellationDetailsParties = PayoutCancellationDetailsPartyCode::getValidValues();
         $cancellationDetailsReasons = PayoutCancellationDetailsReasonCode::getValidValues();
-        $payoutDestinations = array(
-            PaymentMethodType::YOO_MONEY => array(
+        $payoutDestinations = [
+            PaymentMethodType::YOO_MONEY => [
                 'type' => PaymentMethodType::YOO_MONEY,
-                'account_number' => Random::str(11, 33, '1234567890')
-            ),
-            PaymentMethodType::BANK_CARD => array(
+                'account_number' => Random::str(11, 33, '1234567890'),
+            ],
+            PaymentMethodType::BANK_CARD => [
                 'type' => PaymentMethodType::BANK_CARD,
-                'card' => array(
-                    'number' => Random::str(16, 18, '1234567890')
-                )
-            ),
-        );
+                'card' => [
+                    'first6' => Random::str(6, 6, '1234567890'),
+                    'last4' => Random::str(4, 4, '1234567890'),
+                    'card_type' => Random::value(BankCardType::getValidValues())
+                ],
+            ],
+        ];
 
-        $payout = array(
+        $payout = [
             'id' => Random::str(36, 50),
             'status' => Random::value(PayoutStatus::getValidValues()),
-            'amount' => array('value' => Random::int(1, 10000), 'currency' => 'RUB'),
+            'amount' => ['value' => Random::int(1, 10000), 'currency' => 'RUB'],
             'description' => Random::str(1, Payout::MAX_LENGTH_DESCRIPTION),
-            'payout_destination' => $payoutDestinations[Random::value(array(PaymentMethodType::YOO_MONEY,PaymentMethodType::BANK_CARD))],
-            'created_at' => date(YOOKASSA_DATE, mt_rand(111111111, time())),
+            'payout_destination' => $payoutDestinations[Random::value([PaymentMethodType::YOO_MONEY, PaymentMethodType::BANK_CARD])],
+            'created_at' => date(YOOKASSA_DATE, Random::int(111111111, time())),
             'test' => true,
-            'deal' => array('id' => Random::str(36, 50)),
-            'metadata' => array('order_id' => '37'),
-            'cancellation_details' => array(
+            'deal' => ['id' => Random::str(36, 50)],
+            'metadata' => ['order_id' => '37'],
+            'cancellation_details' => [
                 'party' => Random::value($cancellationDetailsParties),
-                'reason' => Random::value($cancellationDetailsReasons)
-            ),
-        );
+                'reason' => Random::value($cancellationDetailsReasons),
+            ],
+        ];
 
-        return array(
-            array(
+        return [
+            [
                 'type' => $this->getExpectedType(),
                 'event' => $type,
                 'object' => $payout,
-            ),
-        );
+            ],
+        ];
     }
 
     private function getDealNotification()
@@ -242,77 +271,72 @@ class NotificationFactoryTest extends TestCase
         $types = DealType::getValidValues();
 
         $trueFalse = Random::bool();
-        $deal = array(
+        $deal = [
             'id' => Random::str(36),
             'type' => Random::value($types),
             'status' => Random::value($statuses),
             'description' => Random::str(128),
-            'balance' => array(
+            'balance' => [
                 'value' => Random::float(0.01, 1000000.0),
                 'currency' => Random::value(CurrencyCode::getValidValues()),
-            ),
-            'payout_balance' => array(
+            ],
+            'payout_balance' => [
                 'value' => Random::float(0.01, 1000000.0),
                 'currency' => Random::value(CurrencyCode::getValidValues()),
-            ),
+            ],
             'created_at' => date(YOOKASSA_DATE, Random::int(1, time())),
             'expires_at' => date(YOOKASSA_DATE, Random::int(1, time())),
             'fee_moment' => Random::value(FeeMoment::getEnabledValues()),
             'test' => $trueFalse,
-            'metadata' => array(),
-        );
+            'metadata' => [],
+        ];
 
-        return array(
-            array(
+        return [
+            [
                 'type' => $this->getExpectedType(),
                 'event' => NotificationEventType::DEAL_CLOSED,
                 'object' => $deal,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
-     * @return string
+     * @param mixed $event
+     * @param mixed $object
+     * @param mixed $value
+     *
+     * @throws Exception
      */
-    protected function getExpectedType()
-    {
-        return NotificationType::NOTIFICATION;
-    }
-
-    /**
-     * @return mixed
-     * @throws \Exception
-     */
-    protected function getExpectedEvent()
-    {
-        return Random::value(NotificationEventType::getEnabledValues());
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function assertObject($event, $object, $value)
+    private function assertObject($event, $object, $value): void
     {
         self::assertNotNull($object);
+
         switch ($event) {
             case NotificationEventType::REFUND_SUCCEEDED:
-                self::assertTrue($object instanceof RefundResponse);
+                self::assertInstanceOf(RefundResponse::class, $object);
                 self::assertEquals($object, new RefundResponse($value));
+
                 break;
+
             case NotificationEventType::PAYMENT_SUCCEEDED:
             case NotificationEventType::PAYMENT_WAITING_FOR_CAPTURE:
             case NotificationEventType::PAYMENT_CANCELED:
-                self::assertTrue($object instanceof PaymentResponse);
+                self::assertInstanceOf(PaymentResponse::class, $object);
                 self::assertEquals($object, new PaymentResponse($value));
+
                 break;
+
             case NotificationEventType::PAYOUT_SUCCEEDED:
             case NotificationEventType::PAYOUT_CANCELED:
-                self::assertTrue($object instanceof PayoutResponse);
+                self::assertInstanceOf(PayoutResponse::class, $object);
                 self::assertEquals($object, new PayoutResponse($value));
+
                 break;
+
             case NotificationEventType::DEAL_CLOSED:
-                self::assertTrue($object instanceof DealResponse);
+                self::assertInstanceOf(DealResponse::class, $object);
                 self::assertEquals($object, new DealResponse($value));
+
                 break;
         }
     }

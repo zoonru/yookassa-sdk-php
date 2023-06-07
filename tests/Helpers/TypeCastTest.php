@@ -2,18 +2,25 @@
 
 namespace Tests\YooKassa\Helpers;
 
+use DateTime;
+use Exception;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\StringObject;
 use YooKassa\Helpers\TypeCast;
 
+/**
+ * @internal
+ */
 class TypeCastTest extends TestCase
 {
     /**
      * @dataProvider canCastToStringDataProvider
+     *
      * @param mixed $value
      * @param bool $can
      */
-    public function testCanCastToString($value, $can)
+    public function testCanCastToString(mixed $value, bool $can): void
     {
         if ($can) {
             self::assertTrue(TypeCast::canCastToString($value));
@@ -24,10 +31,11 @@ class TypeCastTest extends TestCase
 
     /**
      * @dataProvider canCastToEnumStringDataProvider
+     *
      * @param mixed $value
      * @param bool $can
      */
-    public function testCanCastToEnumString($value, $can)
+    public function testCanCastToEnumString(mixed $value, bool $can): void
     {
         if ($can) {
             self::assertTrue(TypeCast::canCastToEnumString($value));
@@ -38,10 +46,11 @@ class TypeCastTest extends TestCase
 
     /**
      * @dataProvider canCastToDateTimeDataProvider
+     *
      * @param mixed $value
      * @param bool $can
      */
-    public function testCanCastToDateTime($value, $can)
+    public function testCanCastToDateTime(mixed $value, bool $can): void
     {
         if ($can) {
             self::assertTrue(TypeCast::canCastToDateTime($value));
@@ -52,15 +61,16 @@ class TypeCastTest extends TestCase
 
     /**
      * @dataProvider castToDateTimeDataProvider
+     *
      * @param mixed $value
      * @param int $expected
-     * @param bool $valud
+     * @param mixed $valid
      */
-    public function testCastToDateTime($value, $expected, $valid)
+    public function testCastToDateTime(mixed $value, int $expected, mixed $valid): void
     {
         $instance = TypeCast::castToDateTime($value);
         if ($valid) {
-            if ($value instanceof \DateTime) {
+            if ($value instanceof DateTime) {
                 self::assertEquals($value->getTimestamp(), $instance->getTimestamp());
                 self::assertNotSame($value, $instance);
             } else {
@@ -71,80 +81,83 @@ class TypeCastTest extends TestCase
         }
     }
 
-    public function canCastToStringDataProvider()
+    public static function canCastToStringDataProvider(): array
     {
-        return array(
-            array('', true),
-            array('test_string', true),
-            array(0, true),
-            array(1, true),
-            array(-1, true),
-            array(0.0, true),
-            array(-0.001, true),
-            array(0.001, true),
-            array(true, false),
-            array(false, false),
-            array(null, false),
-            array(array(), false),
-            array(new \stdClass(), false),
-            array(fopen(__FILE__, 'r'), false),
-            array(new StringObject('test'), true),
-        );
+        return [
+            ['', true],
+            ['test_string', true],
+            [0, true],
+            [1, true],
+            [-1, true],
+            [0.0, true],
+            [-0.001, true],
+            [0.001, true],
+            [true, false],
+            [false, false],
+            [null, false],
+            [[], false],
+            [new stdClass(), false],
+            [fopen(__FILE__, 'rb'), false],
+            [new StringObject('test'), true],
+        ];
     }
 
-    public function canCastToEnumStringDataProvider()
+    public static function canCastToEnumStringDataProvider(): array
     {
-        return array(
-            array('', false),
-            array('test_string', true),
-            array(0, false),
-            array(1, false),
-            array(-1, false),
-            array(0.0, false),
-            array(-0.001, false),
-            array(0.001, false),
-            array(true, false),
-            array(false, false),
-            array(null, false),
-            array(array(), false),
-            array(new \stdClass(), false),
-            array(fopen(__FILE__, 'r'), false),
-            array(new StringObject('test'), true),
-        );
+        return [
+            ['', false],
+            ['test_string', true],
+            [0, false],
+            [1, false],
+            [-1, false],
+            [0.0, false],
+            [-0.001, false],
+            [0.001, false],
+            [true, false],
+            [false, false],
+            [null, false],
+            [[], false],
+            [new stdClass(), false],
+            [fopen(__FILE__, 'rb'), false],
+            [new StringObject('test'), true],
+        ];
     }
 
-    public function canCastToDateTimeDataProvider()
+    public static function canCastToDateTimeDataProvider(): array
     {
-        return array(
-            array('', false),
-            array('test_string', true),
-            array(0, true),
-            array(1, true),
-            array(-1, false),
-            array(0.0, true),
-            array(-0.001, false),
-            array(0.001, true),
-            array(true, false),
-            array(false, false),
-            array(null, false),
-            array(array(), false),
-            array(new \stdClass(), false),
-            array(fopen(__FILE__, 'r'), false),
-            array(new StringObject('test'), true),
-            array(new \DateTime(), true),
-        );
+        return [
+            ['', false],
+            ['test_string', true],
+            [0, true],
+            [1, true],
+            [-1, false],
+            [0.0, true],
+            [-0.001, false],
+            [0.001, true],
+            [true, false],
+            [false, false],
+            [null, false],
+            [[], false],
+            [new stdClass(), false],
+            [fopen(__FILE__, 'rb'), false],
+            [new StringObject('test'), true],
+            [new DateTime(), true],
+        ];
     }
 
-    public function castToDateTimeDataProvider()
+    /**
+     * @throws Exception
+     */
+    public static function castToDateTimeDataProvider(): array
     {
-        $result = array();
-
+        $result = [];
+        date_default_timezone_set('UTC');
         $time = time();
-        $result[] = array($time, $time, true);
-        $result[] = array(date(YOOKASSA_DATE, $time), $time, true);
-        $result[] = array(new \DateTime(date(YOOKASSA_DATE, $time)), $time, true);
-        $result[] = array('3234-234-23', $time, false);
-        $result[] = array(array(), $time, false);
+        $result[] = [$time, $time, true];
+        $result[] = [date(YOOKASSA_DATE, $time), $time, true];
+        $result[] = [new DateTime(date(YOOKASSA_DATE, $time)), $time, true];
+        $result[] = ['3234-new-23', $time, false];
+        $result[] = [[], $time, false];
 
         return $result;
     }

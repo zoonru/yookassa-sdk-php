@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,59 +27,51 @@
 namespace YooKassa\Request\Payouts\PayoutDestinationData;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс PayoutDestinationDataBankCardCard
+ * Класс, представляющий модель PayoutDestinationDataBankCardCard.
  *
- * Данные банковской карты
+ * Данные банковской карты для выплаты.
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $number Номер банковской карты. Формат: только цифры, без пробелов.
  */
 class PayoutDestinationDataBankCardCard extends AbstractObject
 {
     /**
-     * @var string Номер банковской карты. Формат: только цифры, без пробелов.
+     * Номер банковской карты. Формат: только цифры, без пробелов. Пример: ~`5555555555554477`
+     *
+     * @var string|null
      */
-    private $_number;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Regex("/[0-9]{16,19}/")]
+    private ?string $_number = null;
 
     /**
-     * Возвращает последние 4 цифры номера карты
-     * @return string Последние 4 цифры номера карты
+     * Возвращает последние 4 цифры номера карты.
+     *
+     * @return string|null Последние 4 цифры номера карты
      */
-    public function getNumber()
+    public function getNumber(): ?string
     {
         return $this->_number;
     }
 
     /**
-     * Устанавливает последние 4 цифры номера карты
-     * @param string $value Последние 4 цифры номера карты
+     * Устанавливает номер банковской карты.
+     *
+     * @param string|null $number Номер банковской карты. Формат: только цифры, без пробелов. Пример: ~`5555555555554477`
+     *
+     * @return self
      */
-    public function setNumber($value)
+    public function setNumber(?string $number = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty card number value', 0, 'PayoutDestinationBankCardCard.number');
-        } elseif (TypeCast::canCastToString($value)) {
-            if (preg_match('/^[0-9]+$/', (string)$value)) {
-                $this->_number = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid card number value',
-                    0,
-                    'PayoutDestinationBankCardCard.number',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid card number value type',
-                0,
-                'PayoutDestinationBankCardCard.number',
-                $value
-            );
-        }
+        $this->_number = $this->validatePropertyValue('_number', $number);
+        return $this;
     }
 }

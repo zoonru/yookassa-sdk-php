@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,10 +29,12 @@ namespace YooKassa\Request\Deals;
 use YooKassa\Model\Metadata;
 
 /**
- * Interface DealInterface
+ * Interface CreateDealRequestInterface.
  *
- * @package YooKassa
- *
+ * @category Interface
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $type Тип сделки
  * @property string $fee_moment Момент перечисления вознаграждения
  * @property string $feeMoment Момент перечисления вознаграждения
@@ -42,78 +44,94 @@ use YooKassa\Model\Metadata;
 interface CreateDealRequestInterface
 {
     /**
-     * Возвращает тип сделки
+     * Возвращает тип сделки.
      *
-     * @return string Тип сделки
+     * @return string|null Тип сделки
      */
-    public function getType();
+    public function getType(): ?string;
 
     /**
-     * Проверяет наличие типа в создаваемой сделке
+     * Проверяет наличие типа в создаваемой сделке.
+     *
      * @return bool True если тип сделки установлен, false если нет
      */
-    public function hasType();
+    public function hasType(): bool;
 
     /**
-     * Устанавливает тип сделки
-     * @param string $value Тип сделки
-     */
-    public function setType($value);
-
-    /**
-     * Возвращает момент перечисления вам вознаграждения платформы
+     * Устанавливает тип сделки.
      *
-     * @return string Момент перечисления вознаграждения
+     * @param string $type Тип сделки
+     *
+     * @return self
      */
-    public function getFeeMoment();
+    public function setType(string $type): self;
 
     /**
-     * Проверяет наличие момента перечисления вознаграждения в создаваемой сделке
+     * Возвращает момент перечисления вам вознаграждения платформы.
+     *
+     * @return string|null Момент перечисления вознаграждения
+     */
+    public function getFeeMoment(): ?string;
+
+    /**
+     * Проверяет наличие момента перечисления вознаграждения в создаваемой сделке.
+     *
      * @return bool True если момент перечисления вознаграждения установлен, false если нет
      */
-    public function hasFeeMoment();
+    public function hasFeeMoment(): bool;
 
     /**
-     * Устанавливает момент перечисления вознаграждения платформы
-     * @param string $value Момент перечисления вознаграждения
+     * Устанавливает момент перечисления вознаграждения платформы.
+     *
+     * @param string $fee_moment Момент перечисления вознаграждения
+     *
+     * @return self
      */
-    public function setFeeMoment($value);
+    public function setFeeMoment(string $fee_moment): self;
 
     /**
      * Возвращает описание сделки (не более 128 символов).
      *
-     * @return string Описание сделки
+     * @return string|null Описание сделки
      */
-    public function getDescription();
+    public function getDescription(): ?string;
 
     /**
-     * Проверяет наличие описания в создаваемой сделке
+     * Проверяет наличие описания в создаваемой сделке.
+     *
      * @return bool True если описание сделки установлено, false если нет
      */
-    public function hasDescription();
+    public function hasDescription(): bool;
 
     /**
-     * Устанавливает описание сделки
-     * @param string $value Описание сделки
-     */
-    public function setDescription($value);
-
-    /**
-     * Возвращает дополнительные данные сделки
+     * Устанавливает описание сделки.
      *
-     * @return Metadata Дополнительные данные сделки
+     * @param string|null $description Описание сделки
+     *
+     * @return self
      */
-    public function getMetadata();
+    public function setDescription(?string $description): self;
 
     /**
-     * Проверяет, были ли установлены метаданные сделки
+     * Возвращает дополнительные данные сделки.
+     *
+     * @return Metadata|null Дополнительные данные сделки
+     */
+    public function getMetadata(): ?Metadata;
+
+    /**
+     * Проверяет, были ли установлены метаданные сделки.
+     *
      * @return bool True если метаданные были установлены, false если нет
      */
-    public function hasMetadata();
+    public function hasMetadata(): bool;
 
     /**
-     * Устанавливает метаданные, привязанные к сделке
-     * @param Metadata|array|null $value Метаданные сделки, устанавливаемые мерчантом
+     * Устанавливает метаданные, привязанные к сделке.
+     *
+     * @param null|array|Metadata $metadata Метаданные сделки, устанавливаемые мерчантом
+     *
+     * @return self
      */
-    public function setMetadata($value);
+    public function setMetadata(mixed $metadata): self;
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,90 +26,40 @@
 
 namespace YooKassa\Request\Receipts;
 
-use YooKassa\Common\AbstractPaymentRequestBuilder;
-use YooKassa\Common\AbstractRequest;
 use YooKassa\Common\AbstractRequestBuilder;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\InvalidRequestException;
-use YooKassa\Model\AmountInterface;
-use YooKassa\Model\MonetaryAmount;
 use YooKassa\Model\Receipt\AdditionalUserProps;
 use YooKassa\Model\Receipt\IndustryDetails;
-use YooKassa\Model\ReceiptCustomer;
-use YooKassa\Model\ReceiptCustomerInterface;
-use YooKassa\Model\ReceiptItemInterface;
-use YooKassa\Model\ReceiptType;
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Model\Receipt\OperationalDetails;
+use YooKassa\Model\Receipt\ReceiptCustomerInterface;
+use YooKassa\Model\Receipt\ReceiptItemInterface;
+use YooKassa\Model\Receipt\ReceiptType;
+use YooKassa\Model\Receipt\SettlementInterface;
 
 /**
- * Класс билдера объектов запросов к API на создание чека
+ * Класс билдера объектов запросов к API на создание чека.
  *
- * @example 02-builder.php 91 56 Пример использования билдера
- *
- * @package YooKassa
+ * @example 02-builder.php 88 57 Пример использования билдера
  */
 class CreatePostReceiptRequestBuilder extends AbstractRequestBuilder
 {
     /**
-     * Собираемый объект запроса
-     * @var CreatePostReceiptRequest
-     */
-    protected $currentObject;
-
-    /**
-     * Сумма чека
-     * @var AmountInterface
-     */
-    protected $amount;
-
-    /**
-     * Информация о плательщике
-     * @var ReceiptCustomer
-     */
-    protected $customer;
-
-    /**
-     * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
-     * @return CreatePostReceiptRequest Инстанс собираемого объекта запроса к API
-     */
-    protected function initCurrentObject()
-    {
-        $this->customer = new ReceiptCustomer();
-        $this->amount = new MonetaryAmount();
-
-        return new CreatePostReceiptRequest();
-    }
-
-    /**
-     * Устанавливает сумму
+     * Собираемый объект запроса.
      *
-     * @param AmountInterface|array|string $value Сумма оплаты
-     *
-     * @return self Инстанс билдера запросов
+     * @var CreatePostReceiptRequest|null
      */
-    public function setAmount($value)
-    {
-        if (is_object($value) && $value instanceof AmountInterface) {
-            $this->amount->setValue($value->getValue());
-            $this->amount->setCurrency($value->getCurrency());
-        } elseif (is_array($value)) {
-            $this->amount->fromArray($value);
-        } else {
-            $this->amount->setValue($value);
-        }
-
-        return $this;
-    }
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
-     * Устанавливает валюту в которой будет происходить подтверждение оплаты заказа
+     * Устанавливает валюту в которой будет происходить подтверждение оплаты заказа.
      *
      * @param string $value Валюта в которой подтверждается оплата
      *
      * @return self Инстанс билдера запросов
      */
-    public function setCurrency($value)
+    public function setCurrency(string $value): self
     {
-        $this->amount->setCurrency($value);
         foreach ($this->currentObject->getItems() as $item) {
             $item->getPrice()->setCurrency($value);
         }
@@ -118,116 +68,142 @@ class CreatePostReceiptRequestBuilder extends AbstractRequestBuilder
     }
 
     /**
-     * Устанавливает информацию о пользователе
+     * Устанавливает информацию о пользователе.
      *
-     * @param ReceiptCustomerInterface|array $value Информация о плательщике
+     * @param array|ReceiptCustomerInterface $value Информация о плательщике
+     *
      * @return self Инстанс билдера запросов
      */
-    public function setCustomer($value)
+    public function setCustomer(mixed $value): self
     {
-        if (is_array($value)) {
-            $this->customer->fromArray($value);
-        } elseif ($value instanceof ReceiptCustomerInterface) {
-            $this->customer = $value;
-        } else {
-            $this->customer = null;
-        }
-        $this->currentObject->setCustomer($this->customer);
+        $this->currentObject->setCustomer($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает список товаров чека
+     * Устанавливает список товаров чека.
      *
-     * @param ReceiptItemInterface[]|array $value Список товаров чека
-     * @return CreatePostReceiptRequestBuilder
+     * @param array|ReceiptItemInterface[]|null $value Список товаров чека
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setItems($value)
+    public function setItems(mixed $value): self
     {
         $this->currentObject->setItems($value);
+
         return $this;
     }
 
     /**
-     * Добавляет товар в чек
+     * Добавляет товар в чек.
      *
-     * @param ReceiptItemInterface|array $value Информация о товаре
-     * @return CreatePostReceiptRequestBuilder
+     * @param array|ReceiptItemInterface|null $value Информация о товаре
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function addItem($value)
+    public function addItem(mixed $value): self
     {
-        $this->currentObject->addItem($value);
+        $this->currentObject->getItems()->add($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает код системы налогообложения
+     * Устанавливает код системы налогообложения.
      *
-     * @param int $value Код системы налогообложения. Число 1-6.
-     * @return CreatePostReceiptRequestBuilder
+     * @param int|null $value Код системы налогообложения. Число 1-6.
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setTaxSystemCode($value)
+    public function setTaxSystemCode(?int $value): self
     {
         $this->currentObject->setTaxSystemCode($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает дополнительный реквизит пользователя
+     * Устанавливает дополнительный реквизит пользователя.
      *
-     * @param AdditionalUserProps|array $value Дополнительный реквизит пользователя
-     * @return CreatePostReceiptRequestBuilder Инстанс билдера запросов
+     * @param AdditionalUserProps|array|null $value Дополнительный реквизит пользователя
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setAdditionalUserProps($value)
+    public function setAdditionalUserProps(mixed $value): self
     {
         $this->currentObject->setAdditionalUserProps($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает отраслевой реквизит чека
+     * Устанавливает отраслевой реквизит чека.
      *
-     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
-    CreatePostReceiptRequestBuilder     */
-    public function setReceiptIndustryDetails($value)
+     * @param array|IndustryDetails[]|null $value Отраслевой реквизит чека
+     *
+     * @return self Инстанс билдера запросов
+     */
+    public function setReceiptIndustryDetails(mixed $value): self
     {
         $this->currentObject->setReceiptIndustryDetails($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает отраслевой реквизит чека
+     * Добавляет отраслевой реквизит чека.
      *
-     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
-     * @return CreatePostReceiptRequestBuilder Инстанс билдера запросов
+     * @param array|IndustryDetails|null $value Отраслевой реквизит чека
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setReceiptOperationalDetails($value)
+    public function addReceiptIndustryDetails(mixed $value): self
+    {
+        $this->currentObject->getReceiptIndustryDetails()->add($value);
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает операционный реквизит чека.
+     *
+     * @param array|OperationalDetails|null $value Операционный реквизит чека
+     *
+     * @return self Инстанс билдера запросов
+     */
+    public function setReceiptOperationalDetails(mixed $value): self
     {
         $this->currentObject->setReceiptOperationalDetails($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает тип чека в онлайн-кассе
+     * Устанавливает тип чека в онлайн-кассе.
      *
-     * @param string $value Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
-     * @return CreatePostReceiptRequestBuilder
+     * @param string|null $value Тип чека в онлайн-кассе: приход "payment" или возврат "refund"
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setType($value)
+    public function setType(?string $value): self
     {
         $this->currentObject->setType($value);
+
         return $this;
     }
 
     /**
      * Устанавливает признак отложенной отправки чека.
      *
-     * @param bool $value Признак отложенной отправки чека.
-     * @return CreatePostReceiptRequestBuilder
+     * @param bool $value Признак отложенной отправки чека
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setSend($value)
+    public function setSend(bool $value): self
     {
         $this->currentObject->setSend($value);
+
         return $this;
     }
 
@@ -236,64 +212,87 @@ class CreatePostReceiptRequestBuilder extends AbstractRequestBuilder
      * Выдается ЮKassa, отображается в разделе Продавцы личного кабинета (столбец shopId).
      * Необходимо передавать, если вы используете решение ЮKassa для платформ.
      *
-     * @param string $value Идентификатор магазина, от имени которого нужно отправить чек
-     * @return CreatePostReceiptRequestBuilder
+     * @param string|null $value Идентификатор магазина, от имени которого нужно отправить чек
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setOnBehalfOf($value)
+    public function setOnBehalfOf(?string $value): self
     {
         $this->currentObject->setOnBehalfOf($value);
+
         return $this;
     }
 
     /**
      * Устанавливает массив оплат, обеспечивающих выдачу товара.
      *
-     * @param SettlementInterface[]|array $value Массив оплат, обеспечивающих выдачу товара
-     * @return CreatePostReceiptRequestBuilder
+     * @param array|SettlementInterface[]|null $value Массив оплат, обеспечивающих выдачу товара
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setSettlements($value)
+    public function setSettlements(mixed $value): self
     {
         $this->currentObject->setSettlements($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает Id объекта чека
+     * Добавляет оплату в перечень совершенных расчетов.
+     *
+     * @param array|SettlementInterface|null $value Информация об оплате
+     *
+     * @return self Инстанс билдера запросов
+     */
+    public function addSettlement(mixed $value): self
+    {
+        $this->currentObject->getSettlements()->add($value);
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает Id объекта чека.
      *
      * @param string $value Id объекта чека
-     * @param string|null $type Тип объекта чека
-     * @return CreatePostReceiptRequestBuilder
+     * @param null|string $type Тип объекта чека
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setObjectId($value, $type = null)
+    public function setObjectId(string $value, ?string $type = null): self
     {
         $this->currentObject->setObjectId($value);
         if (!empty($type)) {
             $this->currentObject->setObjectType($type);
         }
+
         return $this;
     }
 
     /**
-     * Устанавливает тип объекта чека
+     * Устанавливает тип объекта чека.
      *
-     * @param string $value Тип объекта чека
-     * @return CreatePostReceiptRequestBuilder
+     * @param string|null $value Тип объекта чека
+     *
+     * @return self Инстанс билдера запросов
      */
-    public function setObjectType($value)
+    public function setObjectType(?string $value): self
     {
         $this->currentObject->setObjectType($value);
+
         return $this;
     }
 
     /**
-     * Строит и возвращает объект запроса для отправки в API ЮKassa
+     * Строит и возвращает объект запроса для отправки в API ЮKassa.
      *
-     * @param array|null $options Массив параметров для установки в объект запроса
-     * @return CreatePostReceiptRequest|AbstractRequest Инстанс объекта запроса
+     * @param null|array $options Массив параметров для установки в объект запроса
+     *
+     * @return CreatePostReceiptRequest Инстанс объекта запроса
      *
      * @throws InvalidRequestException Выбрасывается если собрать объект запроса не удалось
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         if (!empty($options)) {
             $this->setOptions($options);
@@ -308,5 +307,15 @@ class CreatePostReceiptRequestBuilder extends AbstractRequestBuilder
         }
 
         return parent::build($options);
+    }
+
+    /**
+     * Инициализирует объект запроса, который в дальнейшем будет собираться билдером
+     *
+     * @return CreatePostReceiptRequest Инстанс собираемого объекта запроса к API
+     */
+    protected function initCurrentObject(): CreatePostReceiptRequest
+    {
+        return new CreatePostReceiptRequest();
     }
 }

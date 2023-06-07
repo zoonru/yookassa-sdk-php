@@ -2,42 +2,28 @@
 
 namespace Tests\YooKassa\Request\Payouts\PayoutDestinationData;
 
+use DateTime;
+use InvalidArgumentException;
+use stdClass;
 use YooKassa\Helpers\Random;
-use YooKassa\Model\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentMethodType;
 use YooKassa\Request\Payouts\PayoutDestinationData\PayoutDestinationDataBankCard;
 use YooKassa\Request\Payouts\PayoutDestinationData\PayoutDestinationDataBankCardCard;
 
-class PayoutDestinationDataBankCardTest extends AbstractPayoutDestinationDataTest
+/**
+ * @internal
+ */
+class PayoutDestinationDataBankCardTest extends AbstractTestPayoutDestinationData
 {
     /**
-     * @return PayoutDestinationDataBankCard
-     */
-    protected function getTestInstance()
-    {
-        return new PayoutDestinationDataBankCard();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedType()
-    {
-        return PaymentMethodType::BANK_CARD;
-    }
-
-    /**
      * @dataProvider validCardDataProvider
-     * @param PayoutDestinationDataBankCardCard $value
      */
-    public function testGetSetBankCard($value)
+    public function testGetSetBankCard(mixed $value): void
     {
         $instance = $this->getTestInstance();
 
-        self::assertNull($instance->getCard());
-        self::assertNull($instance->card);
-
         $instance->setCard($value);
-        if ($value === null || $value === '' || $value === array()) {
+        if (null === $value || '' === $value || [] === $value) {
             self::assertNull($instance->getCard());
             self::assertNull($instance->card);
         } else {
@@ -55,7 +41,7 @@ class PayoutDestinationDataBankCardTest extends AbstractPayoutDestinationDataTes
 
         $instance = $this->getTestInstance();
         $instance->card = $value;
-        if ($value === null || $value === '' || $value === array()) {
+        if (null === $value || '' === $value || [] === $value) {
             self::assertNull($instance->getCard());
             self::assertNull($instance->card);
         } else {
@@ -74,51 +60,60 @@ class PayoutDestinationDataBankCardTest extends AbstractPayoutDestinationDataTes
 
     /**
      * @dataProvider invalidCardDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCard($value)
+    public function testSetInvalidCard($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->setCard($value);
     }
 
     /**
      * @dataProvider invalidCardDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetterInvalidCard($value)
+    public function testSetterInvalidCard($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getTestInstance()->card = $value;
     }
 
-    public function validCardDataProvider()
+    public static function validCardDataProvider(): array
     {
-        return array(
-            array(null),
-            array(new PayoutDestinationDataBankCardCard()),
-            array(array()),
-            array(''),
-            array(array(
+        return [
+            [null],
+            [new PayoutDestinationDataBankCardCard(['number' => Random::str(16, '0123456789')])],
+            [[
                 'number' => Random::str(16, '0123456789'),
-            )),
-        );
+            ]],
+        ];
     }
 
-    public function invalidCardDataProvider()
+    public static function invalidCardDataProvider(): array
     {
-        return array(
-            array(0),
-            array(1),
-            array(-1),
-            array('5'),
-            array(true),
-            array(new \stdClass()),
-            array(new \DateTime()),
-            array(array('number' => '')),
-            array(array('number' => null)),
-            array(array('number' => new \DateTime())),
-            array(array('number' => Random::str(16))),
-        );
+        return [
+            [0],
+            [1],
+            [-1],
+            ['5'],
+            [true],
+            [new stdClass()],
+            [new DateTime()],
+            [['number' => '']],
+            [['number' => null]],
+            [['number' => Random::str(16)]],
+        ];
+    }
+
+    protected function getTestInstance(): PayoutDestinationDataBankCard
+    {
+        return new PayoutDestinationDataBankCard();
+    }
+
+    protected function getExpectedType(): string
+    {
+        return PaymentMethodType::BANK_CARD;
     }
 }

@@ -8,18 +8,22 @@ use YooKassa\Common\Exceptions\InvalidRequestException;
 use YooKassa\Request\Payments\CreatePaymentRequest;
 use YooKassa\Request\Payments\PaymentsRequest;
 
+/**
+ * @internal
+ */
 class InvalidRequestExceptionTest extends TestCase
 {
     /**
      * @dataProvider requestObjectDataProvider
-     * @param $requestObject
+     *
+     * @param mixed $requestObject
      */
-    public function testGetRequestObject($requestObject)
+    public function testGetRequestObject($requestObject): void
     {
         $instance = new InvalidRequestException($requestObject);
         if ($requestObject instanceof AbstractRequest) {
             self::assertSame($requestObject, $instance->getRequestObject());
-            $message = 'Failed to build request "' . get_class($requestObject) . '": ""';
+            $message = 'Failed to build request "' . $requestObject::class . '": ""';
             self::assertEquals($message, $instance->getMessage());
         } else {
             self::assertNull($instance->getRequestObject());
@@ -27,13 +31,11 @@ class InvalidRequestExceptionTest extends TestCase
         }
     }
 
-    public function requestObjectDataProvider()
+    public static function requestObjectDataProvider()
     {
-        return array(
-            array(''),
-            array('test'),
-            array(new PaymentsRequest()),
-            array(new CreatePaymentRequest()),
-        );
+        return [
+            [new PaymentsRequest()],
+            [new CreatePaymentRequest()],
+        ];
     }
 }

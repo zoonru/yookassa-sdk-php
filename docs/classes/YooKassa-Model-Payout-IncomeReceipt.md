@@ -9,13 +9,15 @@
 
 **Description:**
 
-Данные чека, зарегистрированного в ФНС. Присутствует, если вы делаете выплату [самозанятому](/developers/payouts/scenario-extensions/self-employed).
+Данные чека, зарегистрированного в ФНС.
+Присутствует, если вы делаете выплату [самозанятому](/developers/payouts/scenario-extensions/self-employed).
 
 ---
 ### Constants
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [MAX_LENGTH_SERVICE_NAME](../classes/YooKassa-Model-Payout-IncomeReceipt.md#constant_MAX_LENGTH_SERVICE_NAME) |  |  |
+| public | [MIN_LENGTH_SERVICE_NAME](../classes/YooKassa-Model-Payout-IncomeReceipt.md#constant_MIN_LENGTH_SERVICE_NAME) |  |  |
 
 ---
 ### Properties
@@ -33,26 +35,28 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
 | public | [getAmount()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_getAmount) |  | Возвращает amount. |
 | public | [getNpdReceiptId()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_getNpdReceiptId) |  | Возвращает npd_receipt_id. |
 | public | [getServiceName()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_getServiceName) |  | Возвращает service_name. |
-| public | [getUrl()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_getUrl) |  | Возвращает Ссылка на зарегистрированный чек. |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
+| public | [getUrl()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_getUrl) |  | Возвращает ссылку на зарегистрированный чек. |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
 | public | [setAmount()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_setAmount) |  | Устанавливает amount. |
 | public | [setNpdReceiptId()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_setNpdReceiptId) |  | Устанавливает npd_receipt_id. |
 | public | [setServiceName()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_setServiceName) |  | Устанавливает service_name. |
-| public | [setUrl()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_setUrl) |  | Устанавливает ссылка на зарегистрированный чек. |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
+| public | [setUrl()](../classes/YooKassa-Model-Payout-IncomeReceipt.md#method_setUrl) |  | Устанавливает ссылку на зарегистрированный чек. |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
@@ -62,10 +66,14 @@
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * \YooKassa\Model\Payout\IncomeReceipt
 
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
+| category |  | Class |
 | author |  | cms@yoomoney.ru |
 
 ---
@@ -77,41 +85,48 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 ```
 
 
+<a name="constant_MIN_LENGTH_SERVICE_NAME" class="anchor"></a>
+###### MIN_LENGTH_SERVICE_NAME
+```php
+MIN_LENGTH_SERVICE_NAME = 1 : int
+```
+
+
 
 ---
 ## Properties
 <a name="property_amount"></a>
-#### public $amount : \YooKassa\Model\AmountInterface|null
+#### public $amount : \YooKassa\Model\AmountInterface
 ---
 ***Description***
 
 Сумма, указанная в чеке. Присутствует, если в запросе передавалась сумма для печати в чеке.
 
-**Type:** <a href="../\YooKassa\Model\AmountInterface|null"><abbr title="\YooKassa\Model\AmountInterface|null">AmountInterface|null</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
 
 **Details:**
 
 
 <a name="property_npd_receipt_id"></a>
-#### public $npd_receipt_id : string|null
+#### public $npd_receipt_id : string
 ---
 ***Description***
 
 Идентификатор чека в сервисе.
 
-**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
 
 <a name="property_npdReceiptId"></a>
-#### public $npdReceiptId : string|null
+#### public $npdReceiptId : string
 ---
 ***Description***
 
 Идентификатор чека в сервисе.
 
-**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -141,13 +156,13 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 
 
 <a name="property_url"></a>
-#### public $url : string|null
+#### public $url : string
 ---
 ***Description***
 
 Ссылка на зарегистрированный чек.
 
-**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
@@ -159,7 +174,7 @@ MAX_LENGTH_SERVICE_NAME = 50 : int
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -172,7 +187,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -186,7 +201,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -208,7 +223,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -222,15 +237,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -241,19 +256,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -263,19 +278,19 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -285,7 +300,7 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getAmount" class="anchor"></a>
@@ -323,10 +338,10 @@ public getNpdReceiptId() : string|null
 
 
 <a name="method_getServiceName" class="anchor"></a>
-#### public getServiceName() : string
+#### public getServiceName() : string|null
 
 ```php
-public getServiceName() : string
+public getServiceName() : string|null
 ```
 
 **Summary**
@@ -336,7 +351,7 @@ public getServiceName() : string
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\IncomeReceipt](../classes/YooKassa-Model-Payout-IncomeReceipt.md)
 
-**Returns:** string - 
+**Returns:** string|null - 
 
 
 <a name="method_getUrl" class="anchor"></a>
@@ -348,12 +363,25 @@ public getUrl() : string|null
 
 **Summary**
 
-Возвращает Ссылка на зарегистрированный чек.
+Возвращает ссылку на зарегистрированный чек.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\IncomeReceipt](../classes/YooKassa-Model-Payout-IncomeReceipt.md)
 
 **Returns:** string|null - 
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
@@ -365,7 +393,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -382,7 +410,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -404,7 +432,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -426,7 +454,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -449,7 +477,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -463,10 +491,10 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setAmount" class="anchor"></a>
-#### public setAmount() : $this
+#### public setAmount() : self
 
 ```php
-public setAmount(\YooKassa\Model\AmountInterface|array|null $value = null) : $this
+public setAmount(\YooKassa\Model\AmountInterface|array|null $amount = null) : self
 ```
 
 **Summary**
@@ -479,16 +507,16 @@ public setAmount(\YooKassa\Model\AmountInterface|array|null $value = null) : $th
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\AmountInterface OR array OR null</code> | value  |  |
+| <code lang="php">\YooKassa\Model\AmountInterface OR array OR null</code> | amount  |  |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setNpdReceiptId" class="anchor"></a>
-#### public setNpdReceiptId() : $this
+#### public setNpdReceiptId() : self
 
 ```php
-public setNpdReceiptId(string|null $value = null) : $this
+public setNpdReceiptId(string|null $npd_receipt_id = null) : self
 ```
 
 **Summary**
@@ -501,16 +529,16 @@ public setNpdReceiptId(string|null $value = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | value  | Идентификатор чека в сервисе.  Пример: ~`208jd98zqe` |
+| <code lang="php">string OR null</code> | npd_receipt_id  | Идентификатор чека в сервисе |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setServiceName" class="anchor"></a>
-#### public setServiceName() : $this
+#### public setServiceName() : self
 
 ```php
-public setServiceName(string $value) : $this
+public setServiceName(string|null $service_name = null) : self
 ```
 
 **Summary**
@@ -523,21 +551,21 @@ public setServiceName(string $value) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Описание услуги, оказанной получателем выплаты. Не более 50 символов. |
+| <code lang="php">string OR null</code> | service_name  | Описание услуги, оказанной получателем выплаты. Не более 50 символов. |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setUrl" class="anchor"></a>
-#### public setUrl() : $this
+#### public setUrl() : self
 
 ```php
-public setUrl(string|null $value = null) : $this
+public setUrl(string|null $url = null) : self
 ```
 
 **Summary**
 
-Устанавливает ссылка на зарегистрированный чек.
+Устанавливает ссылку на зарегистрированный чек.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\IncomeReceipt](../classes/YooKassa-Model-Payout-IncomeReceipt.md)
@@ -545,9 +573,9 @@ public setUrl(string|null $value = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | value  | Ссылка на зарегистрированный чек  Пример: ~`https://www.nalog.gov.ru/api/v1/receipt/<Идентификатор чека>/print` |
+| <code lang="php">string OR null</code> | url  | Ссылка на зарегистрированный чек |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -560,7 +588,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -577,12 +605,31 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
 **Returns:** array - Ассоциативный массив с не существующими у текущего объекта свойствами
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
+
+**Returns:** mixed - 
 
 
 
@@ -596,11 +643,11 @@ protected getUnknownProperties() : array
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

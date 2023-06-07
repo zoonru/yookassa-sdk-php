@@ -29,15 +29,15 @@ require_once 'vendor/autoload.php';
 $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
-$request = array(
+$request = [
     'type' => 'sbp_payout_recipient',
     'last_name' => 'Иванов',
     'first_name' => 'Иван',
     'middle_name' => 'Иванович',
-    'metadata' => array(
+    'metadata' => [
         'email' => 'i.ivanov@ivan.name',
-    ),
-);
+    ],
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createPersonalData($request, $idempotenceKey);

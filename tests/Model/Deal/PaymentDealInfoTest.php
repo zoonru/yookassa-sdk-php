@@ -3,23 +3,23 @@
 namespace Tests\YooKassa\Model\Deal;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Deal\PaymentDealInfo;
 use YooKassa\Model\Deal\SettlementPayoutPayment;
 use YooKassa\Model\Deal\SettlementPayoutPaymentType;
 
+/**
+ * @internal
+ */
 class PaymentDealInfoTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetSetId($options)
+    public function testGetSetId(array $options): void
     {
         $instance = new PaymentDealInfo();
-
-        self::assertNull($instance->getId());
-        self::assertNull($instance->id);
 
         $instance->setId($options['id']);
         self::assertEquals($options['id'], $instance->getId());
@@ -33,10 +33,8 @@ class PaymentDealInfoTest extends TestCase
 
     /**
      * @dataProvider fromArrayDataProvider
-     * @param array $source
-     * @param PaymentDealInfo $expected
      */
-    public function testFromArray($source, $expected)
+    public function testFromArray(array $source, PaymentDealInfo $expected): void
     {
         $deal = new PaymentDealInfo($source);
         $dealArray = $expected->toArray();
@@ -48,92 +46,94 @@ class PaymentDealInfoTest extends TestCase
         }
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
         for ($i = 0; $i < 10; $i++) {
-            $payment = array(
+            $payment = [
                 'id' => Random::str(36, 50),
                 'settlements' => $this->generateSettlements(),
-            );
-            $result[] = array($payment);
+            ];
+            $result[] = [$payment];
         }
+
         return $result;
     }
 
-    public function invalidDataProvider()
+    public function invalidDataProvider(): array
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'id' => null,
                     'settlements' => null,
-                )
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'id' => '',
                     'settlements' => '',
-                ),
-            ),
-        );
-        $invalidData = array(
-            array(null),
-            array(''),
-            array(new \stdClass()),
-            array('invalid_value'),
-            array(0),
-            array(3234),
-            array(true),
-            array(false),
-            array(0.43),
-        );
+                ],
+            ],
+        ];
+        $invalidData = [
+            [null],
+            [''],
+            [new stdClass()],
+            ['invalid_value'],
+            [0],
+            [3234],
+            [true],
+            [false],
+            [0.43],
+        ];
         for ($i = 0; $i < 9; $i++) {
-            $payment = array(
-                'id' => Random::str($i < 5 ? mt_rand(1, 35) : mt_rand(51, 64)),
+            $payment = [
+                'id' => Random::str($i < 5 ? Random::int(1, 35) : Random::int(51, 64)),
                 'settlements' => Random::value($invalidData),
-            );
-            $result[] = array($payment);
+            ];
+            $result[] = [$payment];
         }
+
         return $result;
     }
 
-    public function fromArrayDataProvider()
+    public static function fromArrayDataProvider(): array
     {
         $deal = new PaymentDealInfo();
         $deal->setId('dl-285e5ee7-0022-5000-8000-01516a44b147');
-        $settlements = array();
-        $settlements[] = new SettlementPayoutPayment(array(
+        $settlements = [];
+        $settlements[] = new SettlementPayoutPayment([
             'type' => SettlementPayoutPaymentType::PAYOUT,
-            'amount' => array(
+            'amount' => [
                 'value' => 123.00,
                 'currency' => 'RUB',
-            ),
-        ));
+            ],
+        ]);
         $deal->setSettlements($settlements);
 
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'id' => 'dl-285e5ee7-0022-5000-8000-01516a44b147',
-                    'settlements' => array(
-                        array(
+                    'settlements' => [
+                        [
                             'type' => SettlementPayoutPaymentType::PAYOUT,
-                            'amount' => array(
+                            'amount' => [
                                 'value' => 123.00,
                                 'currency' => 'RUB',
-                            ),
-                        )
-                    ),
-                ),
-                $deal
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+                $deal,
+            ],
+        ];
     }
 
-    private function generateSettlements()
+    private function generateSettlements(): array
     {
-        $return = array();
+        $return = [];
         $count = Random::int(1, 10);
 
         for ($i = 0; $i < $count; $i++) {
@@ -143,14 +143,14 @@ class PaymentDealInfoTest extends TestCase
         return $return;
     }
 
-    private function generateSettlement()
+    private function generateSettlement(): array
     {
-        return array(
+        return [
             'type' => Random::value(SettlementPayoutPaymentType::getValidValues()),
-            'amount' => array(
+            'amount' => [
                 'value' => round(Random::float(1.00, 100.00), 2),
                 'currency' => 'RUB',
-            ),
-        );
+            ],
+        ];
     }
 }

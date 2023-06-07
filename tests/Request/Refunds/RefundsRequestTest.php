@@ -2,20 +2,26 @@
 
 namespace Tests\YooKassa\Request\Refunds;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Helpers\Random;
 use YooKassa\Helpers\StringObject;
-use YooKassa\Model\RefundStatus;
+use YooKassa\Model\Refund\RefundStatus;
 use YooKassa\Request\Refunds\RefundsRequest;
 use YooKassa\Request\Refunds\RefundsRequestBuilder;
 
+/**
+ * @internal
+ */
 class RefundsRequestTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testPaymentId($options)
+    public function testPaymentId($options): void
     {
         $instance = new RefundsRequest();
 
@@ -53,44 +59,44 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidPaymentIdDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidPaymentId($value)
+    public function testSetInvalidPaymentId($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setPaymentId($value);
     }
 
     /**
      * @dataProvider invalidPaymentIdDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetterInvalidPaymentId($value)
+    public function testSetterInvalidPaymentId($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->paymentId = $value;
     }
 
-    /**
-     * @return array
-     */
-    public function validStringDataProvider()
+    public function validStringDataProvider(): array
     {
-        return array(
-            array(array()),
-            array(true),
-            array(false),
-            array(new \stdClass()),
-        );
+        return [
+            [[]],
+            [true],
+            [false],
+            [new stdClass()],
+        ];
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testCreateGte($options)
+    public function testCreateGte($options): void
     {
         $instance = new RefundsRequest();
 
@@ -128,31 +134,34 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCreatedGte($value)
+    public function testSetInvalidCreatedGte($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCreatedAtGte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetterInvalidCreatedGte($value)
+    public function testSetterInvalidCreatedGte($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->createdAtGte = $value;
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testCreateGt($options)
+    public function testCreateGt($options): void
     {
         $instance = new RefundsRequest();
 
@@ -190,31 +199,34 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCreatedGt($value)
+    public function testSetInvalidCreatedGt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCreatedAtGt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetterInvalidCreatedGt($value)
+    public function testSetterInvalidCreatedGt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->createdAtGt = $value;
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testCreateLte($options)
+    public function testCreateLte($options): void
     {
         $instance = new RefundsRequest();
 
@@ -252,31 +264,34 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCreatedLte($value)
+    public function testSetInvalidCreatedLte($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCreatedAtLte($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetterInvalidCreatedLte($value)
+    public function testSetterInvalidCreatedLte($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->createdAtLte = $value;
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testCreateLt($options)
+    public function testCreateLt($options): void
     {
         $instance = new RefundsRequest();
 
@@ -314,31 +329,34 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetInvalidCreatedLt($value)
+    public function testSetInvalidCreatedLt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setCreatedAtLt($value);
     }
 
     /**
      * @dataProvider invalidDateDataProvider
-     * @expectedException \InvalidArgumentException
+     *
      * @param mixed $value
      */
-    public function testSetterInvalidCreatedLt($value)
+    public function testSetterInvalidCreatedLt($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->createdAtLt = $value;
     }
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testStatus($options)
+    public function testStatus($options): void
     {
         $instance = new RefundsRequest();
 
@@ -376,22 +394,24 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidStatusDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidStatus($value)
+    public function testSetInvalidStatus($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setStatus($value);
     }
 
     /**
      * @dataProvider invalidStatusDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetterInvalidStatus($value)
+    public function testSetterInvalidStatus($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->status = $value;
         self::assertEquals($value, $instance->status);
@@ -399,9 +419,10 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider validLimitDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testLimit($value)
+    public function testLimit($value): void
     {
         $instance = new RefundsRequest();
         $instance->limit = $value;
@@ -410,21 +431,22 @@ class RefundsRequestTest extends TestCase
 
     /**
      * @dataProvider invalidLimitDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testSetInvalidLimit($value)
+    public function testSetInvalidLimit($value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new RefundsRequest();
         $instance->setLimit($value);
     }
 
-
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testCursor($options)
+    public function testCursor($options): void
     {
         $instance = new RefundsRequest();
 
@@ -460,46 +482,24 @@ class RefundsRequestTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider invalidNextCursorDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidCursor($value)
-    {
-        $instance = new RefundsRequest();
-        $instance->setCursor($value);
-    }
-
-    /**
-     * @dataProvider invalidNextCursorDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetterInvalidCursor($value)
-    {
-        $instance = new RefundsRequest();
-        $instance->cursor = $value;
-    }
-
-    public function testValidate()
+    public function testValidate(): void
     {
         $instance = new RefundsRequest();
 
         self::assertTrue($instance->validate());
     }
 
-    public function testBuilder()
+    public function testBuilder(): void
     {
         $builder = RefundsRequest::builder();
-        self::assertTrue($builder instanceof RefundsRequestBuilder);
+        self::assertInstanceOf(RefundsRequestBuilder::class, $builder);
     }
 
     public function validDataProvider()
     {
-        $result = array(
-            array(
-                array(
+        $result = [
+            [
+                [
                     'created_at_gte' => null,
                     'created_at_gt' => null,
                     'created_at_lte' => null,
@@ -508,10 +508,10 @@ class RefundsRequestTest extends TestCase
                     'payment_id' => null,
                     'limit' => null,
                     'cursor' => null,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'created_at_gte' => '',
                     'created_at_gt' => '',
                     'created_at_lte' => '',
@@ -520,104 +520,88 @@ class RefundsRequestTest extends TestCase
                     'payment_id' => '',
                     'limit' => '',
                     'cursor' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $statuses = RefundStatus::getValidValues();
         for ($i = 0; $i < 10; $i++) {
-            $request = array(
-                'created_at_gte' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'created_at_gt' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'created_at_lte' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'created_at_lt' => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'status' => $statuses[mt_rand(0, count($statuses) - 1)],
+            $request = [
+                'created_at_gte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'created_at_gt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'created_at_lte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'created_at_lt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'status' => $statuses[Random::int(0, count($statuses) - 1)],
                 'payment_id' => $this->randomString(36),
-                'limit' => mt_rand(0, RefundsRequest::MAX_LIMIT_VALUE),
-                'cursor' => uniqid(),
-            );
-            $result[] = array($request);
+                'limit' => Random::int(0, RefundsRequest::MAX_LIMIT_VALUE),
+                'cursor' => uniqid('', true),
+            ];
+            $result[] = [$request];
         }
+
         return $result;
     }
 
-    public function invalidStatusDataProvider()
+    public static function invalidStatusDataProvider()
     {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(1, 10)),
-            array(new StringObject(Random::str(1, 10))),
-        );
+        return [
+            [true],
+            [Random::str(1, 10)],
+            [new StringObject(Random::str(1, 10))],
+        ];
     }
 
-    public function validLimitDataProvider()
+    public static function validLimitDataProvider()
     {
-        return array(
-            array(null),
-            array(Random::int(1, RefundsRequest::MAX_LIMIT_VALUE)),
-        );
+        return [
+            [null],
+            [Random::int(1, RefundsRequest::MAX_LIMIT_VALUE)],
+        ];
     }
 
-    public function invalidLimitDataProvider()
+    public static function invalidLimitDataProvider()
     {
-        return array(
-            array(array()),
-            array(new \stdClass()),
-            array(-1),
-            array(RefundsRequest::MAX_LIMIT_VALUE + 1),
-        );
+        return [
+            [[]],
+            [new stdClass()],
+            [-1],
+            [RefundsRequest::MAX_LIMIT_VALUE + 1],
+        ];
     }
 
     public function invalidDataProvider()
     {
-        $result = array(
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(10)),
-            array(Random::bytes(10)),
-            array(-1),
-            array(RefundsRequest::MAX_LIMIT_VALUE + 1),
-        );
-        return $result;
+        return [
+            [[]],
+            [new stdClass()],
+            [Random::str(10)],
+            [Random::bytes(10)],
+            [-1],
+            [RefundsRequest::MAX_LIMIT_VALUE + 1],
+        ];
     }
 
-    public function invalidNextCursorDataProvider()
+    public static function invalidPaymentIdDataProvider()
     {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-        );
+        return [
+            [true],
+            [Random::str(35)],
+            [Random::str(37)],
+            [new StringObject(Random::str(10))],
+        ];
     }
 
-    public function invalidPaymentIdDataProvider()
+    public static function invalidDateDataProvider()
     {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(35)),
-            array(Random::str(37)),
-            array(new StringObject(Random::str(10))),
-        );
-    }
-
-    public function invalidDateDataProvider()
-    {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-            array(Random::str(35)),
-            array(Random::str(37)),
-            array(new StringObject(Random::str(10))),
-            array(-123),
-        );
+        return [
+            [true],
+            [false],
+            [[]],
+            [new stdClass()],
+            [Random::str(35)],
+            [Random::str(37)],
+            [new StringObject(Random::str(10))],
+            [-123],
+        ];
     }
 
     private function randomString($length, $any = true)
@@ -627,13 +611,14 @@ class RefundsRequestTest extends TestCase
         $result = '';
         for ($i = 0; $i < $length; $i++) {
             if ($any) {
-                $char = chr(mt_rand(32, 126));
+                $char = chr(Random::int(32, 126));
             } else {
-                $rnd = mt_rand(0, strlen($chars) - 1);
-                $char = substr($chars, $rnd, 1);
+                $rnd = Random::int(0, strlen($chars) - 1);
+                $char = $chars[$rnd];
             }
             $result .= $char;
         }
+
         return $result;
     }
 }

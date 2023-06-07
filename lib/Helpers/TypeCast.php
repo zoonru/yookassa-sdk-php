@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,100 +27,120 @@
 namespace YooKassa\Helpers;
 
 use DateTime;
-use Exception;
 
 /**
- * Класс хэлпер для преобразования типов значений
+ * Класс, представляющий модель TypeCast.
  *
- * @package YooKassa
+ * Класс для преобразования типов значений.
+ *
+ * @category Class
+ * @package  YooKassa\Helpers
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class TypeCast
 {
     /**
-     * Проверяет, может ли переданное значение быть преобразовано в строку
+     * Проверяет, может ли переданное значение быть преобразовано в строку.
+     *
      * @param mixed $value Проверяемое значение
+     *
      * @return bool True если значение преобразовать в строку можно, false если нет
      */
-    public static function canCastToString($value)
+    public static function canCastToString(mixed $value): bool
     {
         if (is_scalar($value)) {
             return !is_bool($value) && !is_resource($value);
-        } elseif (is_object($value)) {
+        }
+        if (is_object($value)) {
             return method_exists($value, '__toString');
         }
+
         return false;
     }
 
     /**
-     * Проверяет можно ли преобразовать переданное значение в строку из перечисления
+     * Проверяет можно ли преобразовать переданное значение в строку из перечисления.
+     *
      * @param mixed $value Проверяемое значение
+     *
      * @return bool True если значение преобразовать в строку можно, false если нет
      */
-    public static function canCastToEnumString($value)
+    public static function canCastToEnumString(mixed $value): bool
     {
-        if (is_string($value) && $value !== '') {
+        if (is_string($value) && '' !== $value) {
             return true;
-        } elseif (is_object($value)) {
+        }
+        if (is_object($value)) {
             return method_exists($value, '__toString');
         }
+
         return false;
     }
 
     /**
-     * Проверяет, можно ли преобразовать переданное значение в объект даты-времени
+     * Проверяет, можно ли преобразовать переданное значение в объект даты-времени.
+     *
      * @param mixed $value Провеяремое значение
+     *
      * @return bool True если значение можно преобразовать в объект даты, false если нет
      */
-    public static function canCastToDateTime($value)
+    public static function canCastToDateTime(mixed $value): bool
     {
         if ($value instanceof DateTime) {
             return true;
-        } elseif (is_numeric($value)) {
-            $value = (float)$value;
-            return $value >= 0;
-        } elseif (is_string($value)) {
-            return $value !== '';
-        } elseif (is_object($value)) {
-            return method_exists($value, '__toString') && ((string)$value) !== '';
         }
+        if (is_numeric($value)) {
+            $value = (float) $value;
+
+            return $value >= 0;
+        }
+        if (is_string($value)) {
+            return '' !== $value;
+        }
+        if (is_object($value)) {
+            return method_exists($value, '__toString') && ((string) $value) !== '';
+        }
+
         return false;
     }
 
     /**
-     * Преобразует переданне значение в объект типа \DateTime
-     * @param string|int|DateTime $value Преобразуемое значение
-     * @return DateTime|null Объект типа \DateTime или null, если при парсинг даты не удался
-     * @throws Exception
+     * Преобразует переданне значение в объект типа DateTime.
+     *
+     * @param DateTime|int|string $value Преобразуемое значение
+     *
+     * @return null|DateTime Объект типа DateTime или null, если при парсинг даты не удался
      */
-    public static function castToDateTime($value)
+    public static function castToDateTime(mixed $value): ?DateTime
     {
         if ($value instanceof DateTime) {
             return clone $value;
         }
         if (is_numeric($value)) {
             $date = new DateTime();
-            $date->setTimestamp((int)$value);
+            $date->setTimestamp((int) $value);
         } elseif (is_string($value) || (is_object($value) && method_exists($value, '__toString'))) {
-            $date = date_create((string)$value);
-            if ($date === false) {
+            $date = date_create((string) $value);
+            if (false === $date) {
                 $date = null;
             }
         } else {
             $date = null;
         }
+
         return $date;
     }
 
     /**
-     * Проверяет можно ли преобразовать переданное значение в буллево значение
+     * Проверяет можно ли преобразовать переданное значение в буллево значение.
+     *
      * @param mixed $value Проверяемое значение
-     * @return bool True если значение качтится в bool, false если нет
+     *
+     * @return bool True если значение преобразуется в bool, false если нет
      */
-    public static function canCastToBoolean($value)
+    public static function canCastToBoolean(mixed $value): bool
     {
-        if (is_numeric($value) || is_bool($value)) {
-            return true;
-        }
-        return false;
+        return is_numeric($value) || is_bool($value);
     }
 }

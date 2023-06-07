@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Класс для создания заголовка User-Agent в запросах к API
+Класс, представляющий модель UserAgent.
 
+**Description:**
+
+Класс для создания заголовка User-Agent в запросах к API.
 
 ---
 ### Constants
@@ -20,18 +23,18 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [__construct()](../classes/YooKassa-Client-UserAgent.md#method___construct) |  | Конструктор UserAgent |
-| public | [createVersion()](../classes/YooKassa-Client-UserAgent.md#method_createVersion) |  | Создание строки версии компонента |
-| public | [getCms()](../classes/YooKassa-Client-UserAgent.md#method_getCms) |  | Возвращает версию CMS |
-| public | [getFramework()](../classes/YooKassa-Client-UserAgent.md#method_getFramework) |  | Возвращает версию фреймворка |
-| public | [getHeaderString()](../classes/YooKassa-Client-UserAgent.md#method_getHeaderString) |  | Формирует конечную строку из составных частей |
-| public | [getModule()](../classes/YooKassa-Client-UserAgent.md#method_getModule) |  | Возвращает версию модуля |
-| public | [getOs()](../classes/YooKassa-Client-UserAgent.md#method_getOs) |  | Возвращает версию операционной системы |
-| public | [getPhp()](../classes/YooKassa-Client-UserAgent.md#method_getPhp) |  | Возвращает версию PHP |
-| public | [getSdk()](../classes/YooKassa-Client-UserAgent.md#method_getSdk) |  | Возвращает версию SDK |
-| public | [setCms()](../classes/YooKassa-Client-UserAgent.md#method_setCms) |  | Устанавливает версию CMS |
-| public | [setFramework()](../classes/YooKassa-Client-UserAgent.md#method_setFramework) |  | Устанавливает версию фреймворка |
-| public | [setModule()](../classes/YooKassa-Client-UserAgent.md#method_setModule) |  | Устанавливает версию модуля |
+| public | [__construct()](../classes/YooKassa-Client-UserAgent.md#method___construct) |  | Конструктор UserAgent. |
+| public | [createVersion()](../classes/YooKassa-Client-UserAgent.md#method_createVersion) |  | Создание строки версии компонента. |
+| public | [getCms()](../classes/YooKassa-Client-UserAgent.md#method_getCms) |  | Возвращает версию CMS. |
+| public | [getFramework()](../classes/YooKassa-Client-UserAgent.md#method_getFramework) |  | Возвращает версию фреймворка. |
+| public | [getHeaderString()](../classes/YooKassa-Client-UserAgent.md#method_getHeaderString) |  | Формирует конечную строку из составных частей. |
+| public | [getModule()](../classes/YooKassa-Client-UserAgent.md#method_getModule) |  | Возвращает версию модуля. |
+| public | [getOs()](../classes/YooKassa-Client-UserAgent.md#method_getOs) |  | Возвращает версию операционной системы. |
+| public | [getPhp()](../classes/YooKassa-Client-UserAgent.md#method_getPhp) |  | Возвращает версию PHP. |
+| public | [getSdk()](../classes/YooKassa-Client-UserAgent.md#method_getSdk) |  | Возвращает версию SDK. |
+| public | [setCms()](../classes/YooKassa-Client-UserAgent.md#method_setCms) |  | Устанавливает версию CMS. |
+| public | [setFramework()](../classes/YooKassa-Client-UserAgent.md#method_setFramework) |  | Устанавливает версию фреймворка. |
+| public | [setModule()](../classes/YooKassa-Client-UserAgent.md#method_setModule) |  | Устанавливает версию модуля. |
 
 ---
 ### Details
@@ -39,6 +42,16 @@
 * Package: YooKassa
 * Class Hierarchy:
   * \YooKassa\Client\UserAgent
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -81,7 +94,7 @@ public __construct() : mixed
 
 **Summary**
 
-Конструктор UserAgent
+Конструктор UserAgent.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
@@ -98,7 +111,7 @@ public createVersion(string $name, string $version) : string
 
 **Summary**
 
-Создание строки версии компонента
+Создание строки версии компонента.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
@@ -113,37 +126,37 @@ public createVersion(string $name, string $version) : string
 
 
 <a name="method_getCms" class="anchor"></a>
-#### public getCms() : null
+#### public getCms() : ?string
 
 ```php
-public getCms() : null
+public getCms() : ?string
 ```
 
 **Summary**
 
-Возвращает версию CMS
+Возвращает версию CMS.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
 
-**Returns:** null - 
+**Returns:** ?string - 
 
 
 <a name="method_getFramework" class="anchor"></a>
-#### public getFramework() : string|null
+#### public getFramework() : ?string
 
 ```php
-public getFramework() : string|null
+public getFramework() : ?string
 ```
 
 **Summary**
 
-Возвращает версию фреймворка
+Возвращает версию фреймворка.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
 
-**Returns:** string|null - 
+**Returns:** ?string - 
 
 
 <a name="method_getHeaderString" class="anchor"></a>
@@ -155,7 +168,7 @@ public getHeaderString() : string
 
 **Summary**
 
-Формирует конечную строку из составных частей
+Формирует конечную строку из составных частей.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
@@ -164,83 +177,83 @@ public getHeaderString() : string
 
 
 <a name="method_getModule" class="anchor"></a>
-#### public getModule() : string
+#### public getModule() : ?string
 
 ```php
-public getModule() : string
+public getModule() : ?string
 ```
 
 **Summary**
 
-Возвращает версию модуля
+Возвращает версию модуля.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
 
-**Returns:** string - 
+**Returns:** ?string - 
 
 
 <a name="method_getOs" class="anchor"></a>
-#### public getOs() : string
+#### public getOs() : ?string
 
 ```php
-public getOs() : string
+public getOs() : ?string
 ```
 
 **Summary**
 
-Возвращает версию операционной системы
+Возвращает версию операционной системы.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
 
-**Returns:** string - 
+**Returns:** ?string - 
 
 
 <a name="method_getPhp" class="anchor"></a>
-#### public getPhp() : string
+#### public getPhp() : ?string
 
 ```php
-public getPhp() : string
+public getPhp() : ?string
 ```
 
 **Summary**
 
-Возвращает версию PHP
+Возвращает версию PHP.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
 
-**Returns:** string - 
+**Returns:** ?string - 
 
 
 <a name="method_getSdk" class="anchor"></a>
-#### public getSdk() : string
+#### public getSdk() : ?string
 
 ```php
-public getSdk() : string
+public getSdk() : ?string
 ```
 
 **Summary**
 
-Возвращает версию SDK
+Возвращает версию SDK.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
 
-**Returns:** string - 
+**Returns:** ?string - 
 
 
 <a name="method_setCms" class="anchor"></a>
-#### public setCms() : mixed
+#### public setCms() : void
 
 ```php
-public setCms(string $name, string $version) : mixed
+public setCms(string $name, string $version) : void
 ```
 
 **Summary**
 
-Устанавливает версию CMS
+Устанавливает версию CMS.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
@@ -251,19 +264,19 @@ public setCms(string $name, string $version) : mixed
 | <code lang="php">string</code> | name  |  |
 | <code lang="php">string</code> | version  |  |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setFramework" class="anchor"></a>
-#### public setFramework() : mixed
+#### public setFramework() : void
 
 ```php
-public setFramework(string $name, string $version) : mixed
+public setFramework(string $name, string $version) : void
 ```
 
 **Summary**
 
-Устанавливает версию фреймворка
+Устанавливает версию фреймворка.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
@@ -274,19 +287,19 @@ public setFramework(string $name, string $version) : mixed
 | <code lang="php">string</code> | name  |  |
 | <code lang="php">string</code> | version  |  |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setModule" class="anchor"></a>
-#### public setModule() : mixed
+#### public setModule() : void
 
 ```php
-public setModule(string $name, string $version) : mixed
+public setModule(string $name, string $version) : void
 ```
 
 **Summary**
 
-Устанавливает версию модуля
+Устанавливает версию модуля.
 
 **Details:**
 * Inherited From: [\YooKassa\Client\UserAgent](../classes/YooKassa-Client-UserAgent.md)
@@ -297,7 +310,7 @@ public setModule(string $name, string $version) : mixed
 | <code lang="php">string</code> | name  |  |
 | <code lang="php">string</code> | version  |  |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 
@@ -311,11 +324,11 @@ public setModule(string $name, string $version) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

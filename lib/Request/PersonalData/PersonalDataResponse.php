@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,14 +29,15 @@ namespace YooKassa\Request\PersonalData;
 use YooKassa\Model\PersonalData\PersonalData;
 
 /**
- * Класс, представляющий модель PersonalData.
+ * Класс, представляющий модель PersonalDataResponse.
  *
  * Информация о персональных данных
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
-
 class PersonalDataResponse extends PersonalData
 {
 }

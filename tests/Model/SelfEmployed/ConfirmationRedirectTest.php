@@ -2,41 +2,27 @@
 
 namespace Tests\YooKassa\Model\SelfEmployed;
 
+use stdClass;
+use YooKassa\Helpers\Random;
 use YooKassa\Model\SelfEmployed\SelfEmployedConfirmationRedirect;
 use YooKassa\Model\SelfEmployed\SelfEmployedConfirmationType;
 
-class ConfirmationRedirectTest extends AbstractConfirmationTest
+/**
+ * @internal
+ */
+class ConfirmationRedirectTest extends AbstractTestConfirmation
 {
     /**
-     * @return SelfEmployedConfirmationRedirect
-     */
-    protected function getTestInstance()
-    {
-        return new SelfEmployedConfirmationRedirect();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getExpectedType()
-    {
-        return SelfEmployedConfirmationType::REDIRECT;
-    }
-
-    /**
      * @dataProvider validUrlDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testGetSetConfirmationUrl($value)
+    public function testGetSetConfirmationUrl($value): void
     {
         $instance = $this->getTestInstance();
 
-        self::assertNull($instance->getConfirmationUrl());
-        self::assertNull($instance->confirmationUrl);
-        self::assertNull($instance->confirmation_url);
-
         $instance->setConfirmationUrl($value);
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getConfirmationUrl());
             self::assertNull($instance->confirmationUrl);
             self::assertNull($instance->confirmation_url);
@@ -46,13 +32,8 @@ class ConfirmationRedirectTest extends AbstractConfirmationTest
             self::assertEquals($value, $instance->confirmation_url);
         }
 
-        $instance->setConfirmationUrl(null);
-        self::assertNull($instance->getConfirmationUrl());
-        self::assertNull($instance->confirmationUrl);
-        self::assertNull($instance->confirmation_url);
-
         $instance->confirmationUrl = $value;
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getConfirmationUrl());
             self::assertNull($instance->confirmationUrl);
             self::assertNull($instance->confirmation_url);
@@ -63,7 +44,7 @@ class ConfirmationRedirectTest extends AbstractConfirmationTest
         }
 
         $instance->confirmation_url = $value;
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             self::assertNull($instance->getConfirmationUrl());
             self::assertNull($instance->confirmationUrl);
             self::assertNull($instance->confirmation_url);
@@ -72,70 +53,46 @@ class ConfirmationRedirectTest extends AbstractConfirmationTest
             self::assertEquals($value, $instance->confirmationUrl);
             self::assertEquals($value, $instance->confirmation_url);
         }
-    }
-
-    /**
-     * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetInvalidConfirmationUrl($value)
-    {
-        $instance = $this->getTestInstance();
-        $instance->setConfirmationUrl($value);
-    }
-
-    /**
-     * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetterInvalidConfirmationUrl($value)
-    {
-        $instance = $this->getTestInstance();
-        $instance->confirmationUrl = $value;
-    }
-
-    /**
-     * @dataProvider invalidUrlDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
-     */
-    public function testSetterInvalidConfirmation_url($value)
-    {
-        $instance = $this->getTestInstance();
-        $instance->confirmation_url = $value;
     }
 
     public function validEnforceDataProvider()
     {
-        return array(
-            array(true),
-            array(false),
-            array(null),
-            array(''),
-            array(0),
-            array(1),
-            array(100),
-        );
+        return [
+            [true],
+            [false],
+            [null],
+            [''],
+            [0],
+            [1],
+            [100],
+        ];
     }
 
-    public function validUrlDataProvider()
+    public static function validUrlDataProvider()
     {
-        return array(
-            array('https://test.ru'),
-            array(null),
-            array(''),
-        );
+        return [
+            ['https://test.ru'],
+            ['https://' . Random::str(1, 10, 'abcdefghijklmnopqrstuvwxyz') . '.ru',],
+        ];
     }
 
-    public function invalidUrlDataProvider()
+    public static function invalidUrlDataProvider()
     {
-        return array(
-            array(true),
-            array(false),
-            array(array()),
-            array(new \stdClass()),
-        );
+        return [
+            [true],
+            [false],
+            [[]],
+            [new stdClass()],
+        ];
+    }
+
+    protected function getTestInstance(): SelfEmployedConfirmationRedirect
+    {
+        return new SelfEmployedConfirmationRedirect();
+    }
+
+    protected function getExpectedType(): string
+    {
+        return SelfEmployedConfirmationType::REDIRECT;
     }
 }

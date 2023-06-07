@@ -5,14 +5,18 @@ namespace Tests\YooKassa\Common\Exceptions;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Common\Exceptions\JsonException;
 
+/**
+ * @internal
+ */
 class JsonExceptionTest extends TestCase
 {
     /**
      * @dataProvider messageDataProvider
-     * @param $message
-     * @param $code
+     *
+     * @param mixed $message
+     * @param mixed $code
      */
-    public function testGetMessage($message, $code)
+    public function testGetMessage($message, $code): void
     {
         $instance = new JsonException($message, $code);
 
@@ -24,13 +28,14 @@ class JsonExceptionTest extends TestCase
         self::assertEquals($message, $instance->getMessage());
     }
 
-    public function messageDataProvider()
+    public static function messageDataProvider()
     {
-        $result = array();
+        $result = [];
         foreach (JsonException::$errorLabels as $code => $message) {
-            $result[] = array($message, $code);
+            $result[] = [$message, $code];
         }
-        $result[] = array('Test error', -1);
+        $result[] = ['Test error', -1];
+
         return $result;
     }
 }

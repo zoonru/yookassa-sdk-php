@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,21 +28,19 @@ namespace YooKassa\Common\Exceptions;
 
 /**
  * Превышен лимит запросов в единицу времени. Попробуйте снизить интенсивность запросов.
- *
- * @package YooKassa
  */
 class TooManyRequestsException extends ApiException
 {
-    const HTTP_CODE = 429;
+    public const HTTP_CODE = 429;
 
-    public $type;
+    public mixed $type = null;
 
-    public $retryAfter;
+    public mixed $retryAfter = null;
 
-    public function __construct($responseHeaders = array(), $responseBody = null)
+    public function __construct(array $responseHeaders = [], ?string $responseBody = '')
     {
         $errorData = json_decode($responseBody, true);
-        $message   = '';
+        $message = '';
 
         if (isset($errorData['description'])) {
             $message .= $errorData['description'] . '. ';

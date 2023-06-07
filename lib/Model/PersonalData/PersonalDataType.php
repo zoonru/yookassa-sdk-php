@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -32,22 +32,23 @@ use YooKassa\Common\AbstractEnum;
  * Класс, представляющий модель PersonalDataType.
  *
  * Тип персональных данных — цель, для которой вы будете использовать данные.
- *
  * Возможное значение:
  * - `sbp_payout_recipient` — выплаты с [проверкой получателя](/developers/payouts/scenario-extensions/recipient-check).
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class PersonalDataType extends AbstractEnum
 {
     /** Выплаты с проверкой получателя */
-    const SBP_PAYOUT_RECIPIENT = 'sbp_payout_recipient';
+    public const SBP_PAYOUT_RECIPIENT = 'sbp_payout_recipient';
 
     /**
      * @var array Массив принимаемых enum'ом значений
      */
-    protected static $validValues = array(
+    protected static array $validValues = [
         self::SBP_PAYOUT_RECIPIENT => true,
-    );
+    ];
 }

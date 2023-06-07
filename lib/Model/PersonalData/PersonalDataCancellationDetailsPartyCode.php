@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,14 +29,24 @@ namespace YooKassa\Model\PersonalData;
 use YooKassa\Common\AbstractEnum;
 
 /**
- * PayoutCancellationDetailsPartyCode - Возможные участники процесса, которые приняли решение о прекращении хранения персональных данных.
+ * Класс, представляющий модель PersonalDataCancellationDetailsPartyCode.
+ *
+ * Возможные участники процесса, которые приняли решение о прекращении хранения персональных данных.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class PersonalDataCancellationDetailsPartyCode extends AbstractEnum
 {
     /** ЮKassa */
-    const YOO_KASSA = 'yoo_kassa';
+    public const YOO_MONEY = 'yoo_money';
 
-    protected static $validValues = array(
-        self::YOO_KASSA => true,
-    );
+    /**
+     * @var bool[]
+     */
+    protected static array $validValues = [
+        self::YOO_MONEY => true,
+    ];
 }

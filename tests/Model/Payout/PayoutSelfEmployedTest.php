@@ -2,41 +2,41 @@
 
 namespace Tests\YooKassa\Model\Payout;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Payout\PayoutSelfEmployed;
-use YooKassa\Model\SelfEmployed\SelfEmployedInterface;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
 
+/**
+ * @internal
+ */
 class PayoutSelfEmployedTest extends TestCase
 {
     /**
-     * @param $options
-     * @return PayoutSelfEmployed
-     */
-    protected function getTestInstance($options)
-    {
-        return new PayoutSelfEmployed($options);
-    }
-
-    /**
      * @dataProvider validDataProvider
-     * @param array $options
      */
-    public function testGetId($options)
+    public function testGetId(array $options): void
     {
         $instance = $this->getTestInstance($options);
         self::assertEquals($options['id'], $instance->getId());
     }
 
-    public function validDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function validDataProvider(): array
     {
-        $result = array();
+        $result = [];
 
         for ($i = 0; $i < 10; $i++) {
-            $deal = array(
-                'id' => Random::str(SelfEmployedInterface::MIN_LENGTH_ID, SelfEmployedInterface::MAX_LENGTH_ID),
-            );
-            $result[] = array($deal);
+            $deal = [
+                'id' => Random::str(PayoutSelfEmployed::MIN_LENGTH_ID, PayoutSelfEmployed::MAX_LENGTH_ID),
+            ];
+            $result[] = [$deal];
         }
 
         return $result;
@@ -44,35 +44,54 @@ class PayoutSelfEmployedTest extends TestCase
 
     /**
      * @dataProvider invalidIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
+     * @param string $exceptionClassBic
      */
-    public function testSetInvalidId($value)
+    public function testSetInvalidId(mixed $value, string $exceptionClassBic): void
     {
         $instance = new PayoutSelfEmployed();
+
+        $this->expectException($exceptionClassBic);
         $instance->setId($value);
     }
 
     /**
      * @dataProvider invalidIdDataProvider
-     * @expectedException \InvalidArgumentException
-     * @param $value
+     *
+     * @param mixed $value
+     * @param string $exceptionClassBic
      */
-    public function testSetterInvalidId($value)
+    public function testSetterInvalidId(mixed $value, string $exceptionClassBic): void
     {
         $instance = new PayoutSelfEmployed();
+
+        $this->expectException($exceptionClassBic);
         $instance->id = $value;
     }
 
-    public function invalidIdDataProvider()
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function invalidIdDataProvider(): array
     {
-        return array(
-            array(false),
-            array(true),
-            array(new \stdClass()),
-            array(array()),
-            array(Random::str(1, 35)),
-            array(Random::str(51, 60)),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+            [Random::str(PayoutSelfEmployed::MIN_LENGTH_ID - 1), InvalidPropertyValueException::class],
+            [Random::str(PayoutSelfEmployed::MAX_LENGTH_ID + 1), InvalidPropertyValueException::class],
+            [Random::int(), InvalidPropertyValueException::class],
+            [[], TypeError::class],
+            [new \stdClass(), TypeError::class],
+        ];
+    }
+
+    /**
+     * @param mixed $options
+     */
+    protected function getTestInstance($options): PayoutSelfEmployed
+    {
+        return new PayoutSelfEmployed($options);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,14 +27,19 @@
 namespace YooKassa\Model\Payout;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Model\Payment\PaymentMethod\BankCardType;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Данные банковской карты
+ * Класс, представляющий модель PayoutDestinationBankCardCard.
+ *
+ * Данные банковской карты.
  * Необходим при оплате PCI-DSS данными.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $last4 Последние 4 цифры номера карты
  * @property string $first6 Первые 6 цифр номера карты
  * @property string $cardType Тип банковской карты
@@ -46,204 +51,168 @@ use YooKassa\Helpers\TypeCast;
  */
 class PayoutDestinationBankCardCard extends AbstractObject
 {
-    /**
-     * @var int Длина кода страны по ISO 3166 https://www.iso.org/obp/ui/#iso:pub:PUB500001:en
-     */
-    const ISO_3166_CODE_LENGTH = 2;
+    /** @var int Длина кода страны по ISO 3166 https://www.iso.org/obp/ui/#iso:pub:PUB500001:en */
+    public const ISO_3166_CODE_LENGTH = 2;
 
     /**
-     * @var string Последние 4 цифры номера карты
+     * Первые 6 цифр номера карты (BIN).
+     *
+     * @var string|null
      */
-    private $_last4;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^[0-9]{6}$/")]
+    private ?string $_first6 = null;
 
     /**
-     * @var string Первые 6 цифр номера карты
+     * Последние 4 цифры номера карты.
+     *
+     * @var string|null
      */
-    private $_first6;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^[0-9]{4}$/")]
+    private ?string $_last4 = null;
 
     /**
-     * @var string Тип банковской карты
+     * Тип банковской карты.
+     *
+     * @var string|null
      */
-    private $_cardType;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [BankCardType::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private ?string $_card_type = null;
 
     /**
-     * @var string Код страны, в которой выпущена карта
+     * Код страны, в которой выпущена карта. Пример: ~`RU`.
+     *
+     * @var string|null
      */
-    private $_issuerCountry;
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^[A-Z]{2}$/")]
+    private ?string $_issuer_country = null;
 
     /**
-     * @var string Наименование банка, выпустившего карту
+     * Наименование банка, выпустившего карту.
+     *
+     * @var string|null
      */
-    private $_issuerName;
+    #[Assert\Type('string')]
+    private ?string $_issuer_name = null;
 
     /**
-     * Возвращает последние 4 цифры номера карты
-     * @return string Последние 4 цифры номера карты
+     * Возвращает первые 6 цифр номера карты.
+     *
+     * @return string|null Первые 6 цифр номера карты
      */
-    public function getLast4()
-    {
-        return $this->_last4;
-    }
-
-    /**
-     * Устанавливает последние 4 цифры номера карты
-     * @param string $value Последние 4 цифры номера карты
-     */
-    public function setLast4($value)
-    {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty card last4 value', 0, 'PaymentMethodBankCard.last4');
-        } elseif (TypeCast::canCastToString($value)) {
-            if (preg_match('/^[0-9]{4}$/', (string)$value)) {
-                $this->_last4 = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid card last4 value',
-                    0,
-                    'PaymentMethodBankCard.last4',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid card last4 value type',
-                0,
-                'PaymentMethodBankCard.last4',
-                $value
-            );
-        }
-    }
-
-    /**
-     * Возвращает первые 6 цифр номера карты
-     * @return string Первые 6 цифр номера карты
-     * @since 1.0.14
-     */
-    public function getFirst6()
+    public function getFirst6(): ?string
     {
         return $this->_first6;
     }
 
     /**
-     * Устанавливает первые 6 цифр номера карты
-     * @param string $value Первые 6 цифр номера карты
-     * @since 1.0.14
+     * Устанавливает первые 6 цифр номера карты.
+     *
+     * @param string|null $first6 Первые 6 цифр номера карты
+     *
+     * @return self
      */
-    public function setFirst6($value)
+    public function setFirst6(?string $first6 = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty card first6 value', 0, 'PaymentMethodBankCard.first6');
-        } elseif (TypeCast::canCastToString($value)) {
-            if (preg_match('/^[0-9]{6}$/', (string)$value)) {
-                $this->_first6 = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid card first6 value',
-                    0,
-                    'PaymentMethodBankCard.first6',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid card first6 value type',
-                0,
-                'PaymentMethodBankCard.first6',
-                $value
-            );
-        }
+        $this->_first6 = $this->validatePropertyValue('_first6', $first6);
+        return $this;
     }
 
     /**
-     * Возвращает тип банковской карты
-     * @return string Тип банковской карты
+     * Возвращает последние 4 цифры номера карты.
+     *
+     * @return string|null Последние 4 цифры номера карты
      */
-    public function getCardType()
+    public function getLast4(): ?string
     {
-        return $this->_cardType;
+        return $this->_last4;
     }
 
     /**
-     * Устанавливает тип банковской карты
-     * @param string $value Тип банковской карты
+     * Устанавливает последние 4 цифры номера карты.
+     *
+     * @param string|null $last4 Последние 4 цифры номера карты
+     *
+     * @return self
      */
-    public function setCardType($value)
+    public function setLast4(?string $last4 = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty cardType value', 0, 'PaymentMethodBankCard.cardType');
-        } elseif (TypeCast::canCastToString($value)) {
-            $this->_cardType = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid cardType value type',
-                0,
-                'PaymentMethodBankCard.cardType',
-                $value
-            );
-        }
+        $this->_last4 = $this->validatePropertyValue('_last4', $last4);
+        return $this;
     }
 
     /**
-     * Возвращает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2
-     * @return string Код страны, в которой выпущена карта
+     * Возвращает тип банковской карты.
+     *
+     * @return string|null Тип банковской карты
      */
-    public function getIssuerCountry()
+    public function getCardType(): ?string
     {
-        return $this->_issuerCountry;
+        return $this->_card_type;
     }
 
     /**
-     * Устанавливает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2
-     * @param string $value Код страны, в которой выпущена карта
+     * Устанавливает тип банковской карты.
+     *
+     * @param string|null $card_type Тип банковской карты
+     *
+     * @return self
      */
-    public function setIssuerCountry($value)
+    public function setCardType(?string $card_type = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_issuerCountry = (string)$value;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid issuerCountry value type',
-                0,
-                'PaymentMethodBankCard.issuerCountry',
-                $value
-            );
-        } elseif (mb_strlen($value) !== self::ISO_3166_CODE_LENGTH) {
-            throw new InvalidPropertyValueException(
-                'Invalid issuerCountry value',
-                0,
-                'PaymentMethodBankCard.issuerCountry',
-                $value
-            );
-        }
-
-        $this->_issuerCountry = (string)$value;
+        $this->_card_type = $this->validatePropertyValue('_card_type', $card_type);
+        return $this;
     }
 
     /**
-     * Устанавливает наименование банка, выпустившего карту
-     * @param string $value Наименование банка, выпустившего карту
+     * Возвращает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2.
+     *
+     * @return string|null Код страны, в которой выпущена карта
      */
-    public function setIssuerName($value)
+    public function getIssuerCountry(): ?string
     {
-        if ($value === null || $value === '') {
-            $this->_issuerName = (string)$value;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new EmptyPropertyValueException(
-                'Empty issuerName value',
-                0,
-                'PaymentMethodBankCard.issuerName'
-            );
-        }
-
-        $this->_issuerName = (string)$value;
+        return $this->_issuer_country;
     }
 
     /**
-     * Возвращает наименование банка, выпустившего карту
-     * @return string Наименование банка, выпустившего карту.
+     * Устанавливает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2.
+     *
+     * @param string|null $issuer_country Код страны, в которой выпущена карта
+     *
+     * @return self
      */
-    public function getIssuerName()
+    public function setIssuerCountry(?string $issuer_country = null): self
     {
-        return $this->_issuerName;
+        $this->_issuer_country = $this->validatePropertyValue('_issuer_country', $issuer_country);
+        return $this;
+    }
+
+    /**
+     * Возвращает наименование банка, выпустившего карту.
+     *
+     * @return string|null Наименование банка, выпустившего карту
+     */
+    public function getIssuerName(): ?string
+    {
+        return $this->_issuer_name;
+    }
+
+    /**
+     * Устанавливает наименование банка, выпустившего карту.
+     *
+     * @param string|null $issuer_name Наименование банка, выпустившего карту
+     *
+     * @return self
+     */
+    public function setIssuerName(?string $issuer_name = null): self
+    {
+        $this->_issuer_name = $this->validatePropertyValue('_issuer_name', $issuer_name);
+        return $this;
     }
 }

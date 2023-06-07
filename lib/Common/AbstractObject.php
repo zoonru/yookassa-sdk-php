@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,48 +26,107 @@
 
 namespace YooKassa\Common;
 
-if (!defined('YOOKASSA_DATE')) {
-    if (version_compare(PHP_VERSION, '7.0') >= 0) {
-        define('YOOKASSA_DATE', "Y-m-d\TH:i:s.vP");
-    } else {
-        define('YOOKASSA_DATE', "Y-m-d\TH:i:s.uP");
-    }
-}
+use ArrayAccess;
+use DateTime;
+use JsonSerializable;
+use ReturnTypeWillChange;
+use Traversable;
+use YooKassa\Helpers\TypeCast;
+use YooKassa\Validator\Constraints as Assert;
+use YooKassa\Validator\Validator;
 
-if (!interface_exists('JsonSerializable')) {
-    require_once dirname(__FILE__) . '/legacy_json_serializable.php';
+if (!defined('YOOKASSA_DATE')) {
+    define('YOOKASSA_DATE', 'Y-m-d\\TH:i:s.v\\Z');
 }
 
 /**
- * Базовый класс генерируемых объектов
+ * Класс, представляющий модель AbstractObject.
  *
- * @package YooKassa
+ * Базовый класс генерируемых объектов.
+ *
+ * @category Class
+ * @package  YooKassa
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
-abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
+abstract class AbstractObject implements ArrayAccess, JsonSerializable
 {
+    /**
+     * @var Validator Валидатор данных
+     */
+    private Validator $validator;
+
     /**
      * @var array Свойства установленные пользователем
      */
-    private $unknownProperties = array();
+    private array $unknownProperties = [];
 
     /**
      * AbstractObject constructor.
-     * @param array $data
+     * @param array|null $data
      */
-    public function __construct($data = array())
+    public function __construct(?array $data = [])
     {
+        $this->validator = new Validator($this);
         if (!empty($data) && is_array($data)) {
             $this->fromArray($data);
         }
     }
 
-    #[\ReturnTypeWillChange]
     /**
-     * Проверяет наличие свойства
-     * @param string $offset Имя проверяемого свойства
+     * Возвращает значение свойства.
+     *
+     * @param string $propertyName Имя свойства
+     *
+     * @return mixed Значение свойства
+     */
+    public function __get(string $propertyName): mixed
+    {
+        return $this->offsetGet($propertyName);
+    }
+
+    /**
+     * Устанавливает значение свойства.
+     *
+     * @param string $propertyName Имя свойства
+     * @param mixed $value Значение свойства
+     */
+    public function __set(string $propertyName, mixed $value): void
+    {
+        $this->offsetSet($propertyName, $value);
+    }
+
+    /**
+     * Проверяет наличие свойства.
+     *
+     * @param string $propertyName Имя проверяемого свойства
+     *
      * @return bool True если свойство имеется, false если нет
      */
-    public function offsetExists($offset)
+    public function __isset(string $propertyName): bool
+    {
+        return $this->offsetExists($propertyName);
+    }
+
+    /**
+     * Удаляет свойство.
+     *
+     * @param string $propertyName Имя удаляемого свойства
+     */
+    public function __unset(string $propertyName): void
+    {
+        $this->offsetUnset($propertyName);
+    }
+
+    #[ReturnTypeWillChange]
+    /**
+     * Проверяет наличие свойства.
+     *
+     * @param string $offset Имя проверяемого свойства
+     *
+     * @return bool True если свойство имеется, false если нет
+     */
+    public function offsetExists(mixed $offset): bool
     {
         $method = 'get' . ucfirst($offset);
         if (method_exists($this, $method)) {
@@ -77,17 +136,23 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
         if (method_exists($this, $method)) {
             return true;
         }
+
         return array_key_exists($offset, $this->unknownProperties);
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     /**
-     * Возвращает значение свойства
+     * Возвращает значение свойства.
+     *
      * @param string $offset Имя свойства
+     *
      * @return mixed Значение свойства
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
+        if ($offset === 'validator') {
+            return null;
+        }
         $method = 'get' . ucfirst($offset);
         if (method_exists($this, $method)) {
             return $this->{$method}();
@@ -96,18 +161,22 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
         if (method_exists($this, $method)) {
             return $this->{$method}();
         }
-        return array_key_exists($offset, $this->unknownProperties) ? $this->unknownProperties[$offset] : null;
+
+        return $this->unknownProperties[$offset] ?? null;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     /**
-     * Устанавливает значение свойства
+     * Устанавливает значение свойства.
+     *
      * @param string $offset Имя свойства
      * @param mixed $value Значение свойства
-     * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
+        if ($offset === 'validator') {
+            return;
+        }
         $method = 'set' . ucfirst($offset);
         if (method_exists($this, $method)) {
             $this->{$method}($value);
@@ -121,14 +190,17 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
         }
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     /**
-     * Удаляет свойство
+     * Удаляет свойство.
+     *
      * @param string $offset Имя удаляемого свойства
-     * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
+        if ($offset === 'validator') {
+            return;
+        }
         $method = 'set' . ucfirst($offset);
         if (method_exists($this, $method)) {
             $this->{$method}(null);
@@ -143,49 +215,11 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Возвращает значение свойства
-     * @param string $propertyName Имя свойства
-     * @return mixed Значение свойства
+     * Устанавливает значения свойств текущего объекта из массива.
+     *
+     * @param array|Traversable $sourceArray Ассоциативный массив с настройками
      */
-    public function __get($propertyName)
-    {
-        return $this->offsetGet($propertyName);
-    }
-
-    /**
-     * Устанавливает значение свойства
-     * @param string $propertyName Имя свойства
-     * @param mixed $value Значение свойства
-     */
-    public function __set($propertyName, $value)
-    {
-        $this->offsetSet($propertyName, $value);
-    }
-
-    /**
-     * Проверяет наличие свойства
-     * @param string $propertyName Имя проверяемого свойства
-     * @return bool True если свойство имеется, false если нет
-     */
-    public function __isset($propertyName)
-    {
-        return $this->offsetExists($propertyName);
-    }
-
-    /**
-     * Удаляет свойство
-     * @param string $propertyName Имя удаляемого свойства
-     */
-    public function __unset($propertyName)
-    {
-        $this->offsetUnset($propertyName);
-    }
-
-    /**
-     * Устанавливает значения свойств текущего объекта из массива
-     * @param array|\Traversable $sourceArray Ассоциативный массив с настройками
-     */
-    public function fromArray($sourceArray)
+    public function fromArray(iterable $sourceArray): void
     {
         foreach ($sourceArray as $key => $value) {
             $this->offsetSet($key, $value);
@@ -194,33 +228,33 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
 
     /**
      * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-     * Является алиасом метода AbstractObject::jsonSerialize()
+     * Является алиасом метода AbstractObject::jsonSerialize().
+     *
      * @return array Ассоциативный массив со свойствами текущего объекта
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->jsonSerialize();
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     /**
-     * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+     * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
+     *
      * @return array Ассоциативный массив со свойствами текущего объекта
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
-        $result = array();
+        $excludedMethods = ['getUnknownProperties', 'getIterator', 'getValidator'];
+        $result = [];
         foreach (get_class_methods($this) as $method) {
-            if (strncmp('get', $method, 3) === 0) {
-                if ($method === 'getUnknownProperties') {
-                    continue;
-                }
-                if ($method === 'getIterator') {
+            if (0 === strncmp('get', $method, 3)) {
+                if (in_array($method, $excludedMethods)) {
                     continue;
                 }
                 $property = strtolower(preg_replace('/[A-Z]/', '_\0', lcfirst(substr($method, 3))));
                 $value = $this->serializeValueToJson($this->{$method}());
-                if ($value !== null) {
+                if (null !== $value) {
                     $result[$property] = $value;
                 }
             }
@@ -232,43 +266,114 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
                 }
             }
         }
+
         return $result;
     }
 
-    private function serializeValueToJson($value)
-    {
-        if ($value === null || is_scalar($value)) {
-            return $value;
-        } elseif (is_array($value)) {
-            $array = array();
-            foreach ($value as $key => $item) {
-                $array[$key] = $this->serializeValueToJson($item);
-            }
-            return $array;
-        } elseif (is_object($value) && $value instanceof \JsonSerializable) {
-            return $value->jsonSerialize();
-        } elseif (is_object($value) && $value instanceof \DateTime) {
-            return $value->format(YOOKASSA_DATE);
-        }
-        return $value;
-    }
-
     /**
-     * Возвращает массив свойств которые не существуют, но были заданы у объекта
+     * Возвращает массив свойств которые не существуют, но были заданы у объекта.
+     *
      * @return array Ассоциативный массив с не существующими у текущего объекта свойствами
      */
-    protected function getUnknownProperties()
+    protected function getUnknownProperties(): array
     {
         return $this->unknownProperties;
     }
 
+    private function serializeValueToJson($value)
+    {
+        if (null === $value || is_scalar($value)) {
+            return $value;
+        }
+        if (is_array($value)) {
+            $array = [];
+            foreach ($value as $key => $item) {
+                if ('validator' === $key) {
+                    continue;
+                }
+                $array[$key] = $this->serializeValueToJson($item);
+            }
+
+            return $array;
+        }
+        if ($value instanceof JsonSerializable) {
+            if ($value instanceof ListObjectInterface && $value->isEmpty()) {
+                return null;
+            }
+            return $value->jsonSerialize();
+        }
+        if ($value instanceof DateTime) {
+            return $value->format(YOOKASSA_DATE);
+        }
+
+        return $value;
+    }
+
     /**
-     * Преобразует имя свойства из snake_case в camelCase
+     * Преобразует имя свойства из snake_case в camelCase.
+     *
      * @param string $property Преобразуемое значение
+     *
      * @return string Значение в камэл кейсе
      */
-    private static function matchPropertyName($property)
+    private static function matchPropertyName(string $property): string
     {
         return preg_replace('/_(\w)/', '\1', $property);
+    }
+
+    /**
+     * @return Validator
+     */
+    public function getValidator(): Validator
+    {
+        return $this->validator;
+    }
+
+    /**
+     * @param string $propertyName
+     * @param mixed $propertyValue
+     * @return mixed
+     */
+    protected function validatePropertyValue(string $propertyName, mixed $propertyValue): mixed
+    {
+        $propertyValue = $this->prepareTypeValue($propertyName, $propertyValue);
+        $this->getValidator()->validatePropertyValue($propertyName, $propertyValue);
+        return $propertyValue;
+    }
+
+    /**
+     * @param string $propertyName
+     * @param mixed $propertyValue
+     * @return mixed
+     */
+    private function prepareTypeValue(string $propertyName, mixed $propertyValue): mixed
+    {
+        $finalType = null;
+        $allType = null;
+        foreach ($this->getValidator()->getRulesByPropName($propertyName) ?? [] as $rule) {
+            switch (true) {
+                case $rule instanceof Assert\Type:
+                    $finalType = $rule->getType();
+                    break;
+                case $rule instanceof Assert\AllType:
+                    $allType = $rule->getType();
+                    break;
+            }
+        }
+        if ($finalType === 'DateTime' && is_string($propertyValue) && TypeCast::canCastToDateTime($propertyValue)) {
+            $this->getValidator()->validatePropertyValue($propertyName, $propertyValue, [Assert\Type::class]);
+            return TypeCast::castToDateTime($propertyValue) ?: $propertyValue;
+        }
+        if ((is_string($propertyValue) || is_array($propertyValue)) && empty($propertyValue) && $propertyValue !== '0') {
+            return null;
+        }
+        if (!is_null($allType) && is_array($propertyValue) && $finalType === ListObject::class && class_exists($allType)) {
+            return new ListObject($allType, $propertyValue);
+        }
+        if (is_array($propertyValue) && class_exists($finalType) && new $finalType instanceof self) {
+            return new $finalType($propertyValue);
+        }
+
+        return $propertyValue;
     }
 }

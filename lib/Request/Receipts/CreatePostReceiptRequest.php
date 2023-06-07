@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,433 +26,360 @@
 
 namespace YooKassa\Request\Receipts;
 
+use Traversable;
 use YooKassa\Common\AbstractRequest;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
 use YooKassa\Model\Receipt\AdditionalUserProps;
 use YooKassa\Model\Receipt\IndustryDetails;
 use YooKassa\Model\Receipt\OperationalDetails;
-use YooKassa\Model\ReceiptCustomer;
-use YooKassa\Model\ReceiptCustomerInterface;
-use YooKassa\Model\ReceiptItem;
-use YooKassa\Model\ReceiptItemInterface;
-use YooKassa\Model\ReceiptType;
-use YooKassa\Model\Settlement;
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Model\Receipt\ReceiptCustomer;
+use YooKassa\Model\Receipt\ReceiptCustomerInterface;
+use YooKassa\Model\Receipt\ReceiptItem;
+use YooKassa\Model\Receipt\ReceiptItemInterface;
+use YooKassa\Model\Receipt\ReceiptType;
+use YooKassa\Model\Receipt\Settlement;
+use YooKassa\Model\Receipt\SettlementInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс объекта запроса к API на создание чека
+ * Класс объекта запроса к API на создание чека.
  *
- * @example 02-builder.php 91 56 Пример использования билдера
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
- * @package YooKassa
+ * @example 02-builder.php 88 57 Пример использования билдера
+ *
+ * @property ReceiptCustomer $customer Информация о плательщике
+ * @property string $type Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
+ * @property bool $send Формирование чека в онлайн-кассе сразу после создания объекта чека. Сейчас можно передать только значение ~`true`.
+ * @property int $taxSystemCode Система налогообложения магазина (тег в 54 ФЗ — 1055).
+ * @property int $tax_system_code Система налогообложения магазина (тег в 54 ФЗ — 1055).
+ * @property AdditionalUserProps $additionalUserProps Дополнительный реквизит пользователя.
+ * @property AdditionalUserProps $additional_user_props Дополнительный реквизит пользователя.
+ * @property array $receiptIndustryDetails Отраслевой реквизит предмета расчета.
+ * @property array $receipt_industry_details Отраслевой реквизит предмета расчета.
+ * @property OperationalDetails $receiptOperationalDetails Операционный реквизит чека.
+ * @property OperationalDetails $receipt_operational_details Операционный реквизит чека.
+ * @property array $items Список товаров в заказе. Для чеков по 54-ФЗ можно передать не более 100 товаров, для чеков самозанятых — не более шести.
+ * @property array $settlements Список платежей
+ * @property string $objectId Идентификатор объекта оплаты
+ * @property string $object_id Идентификатор объекта оплаты
+ * @property string $objectType Тип объекта: приход "payment" или возврат "refund".
+ * @property string $object_type Тип объекта: приход "payment" или возврат "refund".
+ * @property string $onBehalfOf Идентификатор магазина в ЮKassa.
+ * @property string $on_behalf_of Идентификатор магазина в ЮKassa.
  */
 class CreatePostReceiptRequest extends AbstractRequest implements CreatePostReceiptRequestInterface
 {
-    /** @var ReceiptCustomerInterface Информация о плательщике */
-    private $_customer;
+    /** @var ReceiptCustomerInterface|null Информация о плательщике */
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[Assert\Type(ReceiptCustomer::class)]
+    private ?ReceiptCustomerInterface $_customer = null;
 
-    /** @var string Тип чека в онлайн-кассе: приход "payment" или возврат "refund". */
-    private $_type;
+    /** @var string|null Тип чека в онлайн-кассе: приход "payment" или возврат "refund". */
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Choice(callback: [ReceiptType::class, 'getValidValues'])]
+    private ?string $_type = null;
 
     /** @var bool Признак отложенной отправки чека. */
-    private $_send = true;
+    #[Assert\NotNull]
+    #[Assert\Type('bool')]
+    private bool $_send = true;
 
-    /** @var int Код системы налогообложения. Число 1-6. */
-    private $_taxSystemCode;
+    /** @var int|null Код системы налогообложения. Число 1-6. Обязательный параметр, если вы используете онлайн-кассу Атол Онлайн, обновленную до ФФД 1.2, или у вас несколько систем налогообложения, в остальных случаях не передается. */
+    #[Assert\Type('int')]
+    #[Assert\GreaterThanOrEqual(1)]
+    #[Assert\LessThanOrEqual(6)]
+    private ?int $_tax_system_code = null;
 
-    /** @var AdditionalUserProps Дополнительный реквизит пользователя */
-    private $_additionalUserProps;
+    /** @var null|AdditionalUserProps Дополнительный реквизит пользователя */
+    #[Assert\Type(AdditionalUserProps::class)]
+    #[Assert\Valid]
+    private ?AdditionalUserProps $_additional_user_props = null;
 
-    /** @var IndustryDetails[] Отраслевой реквизит предмета расчета */
-    private $_receiptIndustryDetails;
+    /** @var null|IndustryDetails[]|ListObjectInterface Отраслевой реквизит предмета расчета. Можно передавать, если используете Чеки от ЮKassa или онлайн-кассу, обновленную до ФФД 1.2. */
+    #[Assert\Valid]
+    #[Assert\Type(ListObject::class)]
+    #[Assert\AllType(IndustryDetails::class)]
+    private ?ListObject $_receipt_industry_details = null;
 
-    /** @var OperationalDetails Операционный реквизит чека */
-    private $_receiptOperationalDetails;
+    /** @var OperationalDetails|null Операционный реквизит чека */
+    #[Assert\Type(OperationalDetails::class)]
+    #[Assert\Valid]
+    private ?OperationalDetails $_receipt_operational_details = null;
 
-    /** @var ReceiptItemInterface[] Список товаров в заказе. Для чеков по 54-ФЗ можно передать не более 100 товаров, для чеков самозанятых — не более шести. */
-    private $_items = array();
+    /** @var ReceiptItemInterface[]|ListObjectInterface Список товаров в заказе. Для чеков по 54-ФЗ можно передать не более 100 товаров, для чеков самозанятых — не более шести. */
+    #[Assert\NotBlank]
+    #[Assert\Type(ListObject::class)]
+    #[Assert\Valid]
+    #[Assert\AllType(ReceiptItem::class)]
+    private ?ListObject $_items = null;
 
-    /** @var SettlementInterface[] Список платежей */
-    private $_settlements = array();
+    /** @var SettlementInterface[]|ListObjectInterface Список платежей */
+    #[Assert\NotBlank]
+    #[Assert\Type(ListObject::class)]
+    #[Assert\Valid]
+    #[Assert\AllType(Settlement::class)]
+    private ?ListObject $_settlements = null;
 
-    /** @var string Идентификатор объекта оплаты */
-    private $_object_id;
+    /** @var string|null Идентификатор объекта оплаты */
+    private ?string $_object_id = null;
 
-    /** @var string Тип объекта: приход "payment" или возврат "refund". */
-    private $_object_type;
+    /** @var string|null Тип объекта: приход "payment" или возврат "refund". */
+    private ?string $_object_type = null;
 
-    /** @var string Идентификатор магазина в ЮKassa */
-    private $_onBehalfOf;
+    /** @var string|null Идентификатор магазина в ЮKassa */
+    #[Assert\Type('string')]
+    private ?string $_on_behalf_of = null;
 
     /**
-     * Возвращает билдер объектов запросов создания платежа
+     * Возвращает билдер объектов запросов создания платежа.
+     *
      * @return CreatePostReceiptRequestBuilder Инстанс билдера объектов запросов
      */
-    public static function builder()
+    public static function builder(): CreatePostReceiptRequestBuilder
     {
         return new CreatePostReceiptRequestBuilder();
     }
 
     /**
-     * Возвращает Id объекта чека
+     * Возвращает Id объекта чека.
      *
-     * @return string Id объекта чека
+     * @return string|null Id объекта чека
      */
-    public function getObjectId()
+    public function getObjectId(): ?string
     {
         return $this->_object_id;
     }
 
     /**
-     * Устанавливает Id объекта чека
+     * Устанавливает Id объекта чека.
      *
-     * @param string $value Id объекта чека
+     * @param string|null $value Id объекта чека
      * @return CreatePostReceiptRequest
      */
-    public function setObjectId($value)
+    public function setObjectId(?string $value): CreatePostReceiptRequest
     {
         $this->_object_id = $value;
+
         return $this;
     }
 
     /**
-     * Возвращает тип объекта чека
+     * Возвращает тип объекта чека.
      *
-     * @return string Тип объекта чека
+     * @return string|null Тип объекта чека
      */
-    public function getObjectType()
+    public function getObjectType(): ?string
     {
         return $this->_object_type;
     }
 
     /**
-     * Устанавливает тип объекта чека
+     * Устанавливает тип объекта чека.
      *
-     * @param string $value Тип объекта чека
+     * @param string|null $value Тип объекта чека
      * @return CreatePostReceiptRequest
      */
-    public function setObjectType($value)
+    public function setObjectType(?string $value): CreatePostReceiptRequest
     {
         $this->_object_type = $value;
+
         return $this;
     }
 
     /**
-     * Проверяет наличие данных о плательщике
-     *
-     * @return bool
+     * Проверяет наличие данных о плательщике.
      */
-    public function hasCustomer()
+    public function hasCustomer(): bool
     {
         return !empty($this->_customer);
     }
 
     /**
-     * Возвращает информацию о плательщике
+     * Возвращает информацию о плательщике.
      *
-     * @return ReceiptCustomerInterface Информация о плательщике
+     * @return ReceiptCustomerInterface|null Информация о плательщике
      */
-    public function getCustomer()
+    public function getCustomer(): ?ReceiptCustomerInterface
     {
         return $this->_customer;
     }
 
     /**
-     * Устанавливает информацию о плательщике
+     * Устанавливает информацию о плательщике.
      *
-     * @param ReceiptCustomerInterface|array $value Информация о плательщике
-     * @return CreatePostReceiptRequest
+     * @param array|ReceiptCustomerInterface $customer Информация о плательщике
+     *
+     * @return self
      */
-    public function setCustomer($value)
+    public function setCustomer(mixed $customer = null): self
     {
-        if (is_array($value)) {
-            $this->_customer = new ReceiptCustomer($value);
-        } elseif ($value instanceof ReceiptCustomerInterface) {
-            $this->_customer = $value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid customer value type in receipt',
-                0,
-                'Receipt.customer',
-                $value
-            );
-        }
+        $this->_customer = $this->validatePropertyValue('_customer', $customer);
         return $this;
     }
 
     /**
-     * Возвращает список позиций в текущем чеке
+     * Возвращает список позиций в текущем чеке.
      *
-     * @return ReceiptItemInterface[] Список товаров в заказе
+     * @return ReceiptItemInterface[]|ListObjectInterface Список товаров в заказе
      */
-    public function getItems()
+    public function getItems(): ListObjectInterface
     {
+        if ($this->_items === null) {
+            $this->_items = new ListObject(ReceiptItem::class);
+        }
         return $this->_items;
     }
 
     /**
-     * Устанавливает список позиций в чеке
+     * Устанавливает список позиций в чеке.
      *
      * Если до этого в чеке уже были установлены значения, они удаляются и полностью заменяются переданным списком
      * позиций. Все передаваемые значения в массиве позиций должны быть объектами класса, реализующего интерфейс
      * ReceiptItemInterface, в противном случае будет выброшено исключение InvalidPropertyValueTypeException.
      *
-     * @param ReceiptItemInterface[]|array $value Список товаров в заказе
+     * @param array|ListObjectInterface $items Список товаров в заказе
      *
-     * @return CreatePostReceiptRequest
-     * @throws EmptyPropertyValueException Выбрасывается если передали пустой массив значений
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве значения был передан не массив и не
-     * итератор, либо если одно из переданных значений не реализует интерфейс ReceiptItemInterface
+     * @return self
      */
-    public function setItems($value)
+    public function setItems(mixed $items = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty items value in receipt', 0, 'Receipt.items');
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid items value type in receipt',
-                0,
-                'Receipt.items',
-                $value
-            );
-        }
-        $this->_items = array();
-        foreach ($value as $key => $item) {
-            if (is_array($item)) {
-                $this->addItem(new ReceiptItem($item));
-            } elseif ($item instanceof ReceiptItemInterface) {
-                $this->addItem($item);
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid item value type in receipt',
-                    0,
-                    'Receipt.items[' . $key . ']',
-                    $item
-                );
-            }
-        }
-
+        $this->_items = $this->validatePropertyValue('_items', $items);
         return $this;
     }
 
     /**
-     * Добавляет товар в чек
+     * Возвращает код системы налогообложения.
      *
-     * @param ReceiptItemInterface|array $value Объект добавляемой в чек позиции
-     * @return CreatePostReceiptRequest
+     * @return int|null Код системы налогообложения. Число 1-6.
      */
-    public function addItem($value)
+    public function getTaxSystemCode(): ?int
     {
-        $this->_items[] = $value;
+        return $this->_tax_system_code;
+    }
 
+    /**
+     * Устанавливает код системы налогообложения.
+     *
+     * @param int|null $tax_system_code Код системы налогообложения. Число 1-6
+     *
+     * @return self
+     */
+    public function setTaxSystemCode(?int $tax_system_code = null): self
+    {
+        $this->_tax_system_code = $this->validatePropertyValue('_tax_system_code', $tax_system_code);
         return $this;
     }
 
     /**
-     * Возвращает код системы налогообложения
+     * Возвращает дополнительный реквизит пользователя.
      *
-     * @return int Код системы налогообложения. Число 1-6.
+     * @return AdditionalUserProps|null Дополнительный реквизит пользователя
      */
-    public function getTaxSystemCode()
+    public function getAdditionalUserProps(): ?AdditionalUserProps
     {
-        return $this->_taxSystemCode;
+        return $this->_additional_user_props;
     }
 
     /**
-     * Устанавливает код системы налогообложения
+     * Устанавливает дополнительный реквизит пользователя.
      *
-     * @param int $value Код системы налогообложения. Число 1-6
+     * @param null|AdditionalUserProps|array $additional_user_props Дополнительный реквизит пользователя
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент - не число
-     * @throws InvalidPropertyValueException Выбрасывается если переданный аргумент меньше одного или больше шести
+     * @return self
      */
-    public function setTaxSystemCode($value)
+    public function setAdditionalUserProps(mixed $additional_user_props = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty taxSystemCode value in receipt', 0, 'Receipt.taxSystemCode');
-        }
-        if (!is_numeric($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid taxSystemCode value type',
-                0,
-                'Receipt.taxSystemCode'
-            );
-        }
-
-        $castedValue = (int)$value;
-        if ($castedValue < 1 || $castedValue > 6) {
-            throw new InvalidPropertyValueException(
-                'Invalid taxSystemCode value: ' . $value,
-                0,
-                'Receipt.taxSystemCode'
-            );
-        }
-        $this->_taxSystemCode = $castedValue;
-
+        $this->_additional_user_props = $this->validatePropertyValue(
+            '_additional_user_props',
+            $additional_user_props
+        );
         return $this;
     }
 
     /**
-     * Возвращает дополнительный реквизит пользователя
+     * Возвращает отраслевой реквизит чека.
      *
-     * @return AdditionalUserProps Дополнительный реквизит пользователя
+     * @return IndustryDetails[]|ListObjectInterface Отраслевой реквизит чека
      */
-    public function getAdditionalUserProps()
+    public function getReceiptIndustryDetails(): ListObjectInterface
     {
-        return $this->_additionalUserProps;
+        if ($this->_receipt_industry_details === null) {
+            $this->_receipt_industry_details = new ListObject(IndustryDetails::class);
+        }
+        return $this->_receipt_industry_details;
     }
 
     /**
-     * Устанавливает дополнительный реквизит пользователя
+     * Устанавливает отраслевой реквизит чека.
      *
-     * @param AdditionalUserProps|array $value Дополнительный реквизит пользователя
-     * @return void|CreatePostReceiptRequest
+     * @param null|array|ListObjectInterface $receipt_industry_details Отраслевой реквизит чека
+     *
+     * @return self
      */
-    public function setAdditionalUserProps($value)
+    public function setReceiptIndustryDetails(mixed $receipt_industry_details = null): self
     {
-        if (empty($value)) {
-            $this->_additionalUserProps = null;
-            return;
-        }
-        if (is_array($value)) {
-            $this->_additionalUserProps = new AdditionalUserProps($value);
-        } elseif ($value instanceof AdditionalUserProps) {
-            $this->_additionalUserProps = $value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid additionalUserProps value type in receipt',
-                0,
-                'Receipt.additional_user_props',
-                $value
-            );
-        }
+        $this->_receipt_industry_details = $this->validatePropertyValue(
+            '_receipt_industry_details',
+            $receipt_industry_details
+        );
         return $this;
     }
 
     /**
-     * Возвращает отраслевой реквизит чека
-     * @return IndustryDetails[] Отраслевой реквизит чека
+     * Возвращает операционный реквизит чека.
+     *
+     * @return OperationalDetails|null Операционный реквизит чека
      */
-    public function getReceiptIndustryDetails()
+    public function getReceiptOperationalDetails(): ?OperationalDetails
     {
-        return $this->_receiptIndustryDetails;
+        return $this->_receipt_operational_details;
     }
 
     /**
-     * Устанавливает отраслевой реквизит чека
-     * @param array|IndustryDetails $value Отраслевой реквизит чека
+     * Устанавливает операционный реквизит чека.
      *
-     * @return CreatePostReceiptRequest
+     * @param array|OperationalDetails|null $receipt_operational_details Операционный реквизит чека
+     *
+     * @return self
      */
-    public function setReceiptIndustryDetails($value)
+    public function setReceiptOperationalDetails(mixed $receipt_operational_details = null): self
     {
-        if (empty($value)) {
-            $this->_receiptIndustryDetails = null;
-            return $this;
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid receiptIndustryDetails value type in Receipt',
-                0,
-                'Receipt.receipt_industry_details',
-                $value
-            );
-        }
-        $details = array();
-        foreach ($value as $key => $item) {
-            if (is_array($item)) {
-                $item = new IndustryDetails($item);
-            }
-            if ($item instanceof IndustryDetails) {
-                $details[] = $item;
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid receiptIndustryDetails value type in Receipt',
-                    0,
-                    'Receipt.receipt_industry_details[' . $key . ']',
-                    $item
-                );
-            }
-        }
-        $this->_receiptIndustryDetails = $details;
+        $this->_receipt_operational_details = $this->validatePropertyValue(
+            '_receipt_operational_details',
+            $receipt_operational_details
+        );
         return $this;
     }
 
     /**
-     * Возвращает операционный реквизит чека
-     * @return OperationalDetails Операционный реквизит чека
-     */
-    public function getReceiptOperationalDetails()
-    {
-        return $this->_receiptOperationalDetails;
-    }
-
-    /**
-     * Устанавливает операционный реквизит чека
-     * @param array|OperationalDetails $value Операционный реквизит чека
+     * Возвращает тип чека в онлайн-кассе.
      *
-     * @return CreatePostReceiptRequest
+     * @return string|null Тип чека в онлайн-кассе: приход "payment" или возврат "refund"
      */
-    public function setReceiptOperationalDetails($value)
-    {
-        if (empty($value)) {
-            $this->_receiptOperationalDetails = null;
-            return $this;
-        }
-        if (!is_array($value) && !($value instanceof OperationalDetails)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid receiptOperationalDetails value type in Receipt',
-                0,
-                'Receipt.receipt_operational_details',
-                $value
-            );
-        }
-
-        if (is_array($value)) {
-            $value = new OperationalDetails($value);
-        }
-
-        $this->_receiptOperationalDetails = $value;
-        return $this;
-    }
-
-    /**
-     * Возвращает тип чека в онлайн-кассе
-     *
-     * @return string Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
-     */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->_type;
     }
 
     /**
-     * Устанавливает тип чека в онлайн-кассе
+     * Устанавливает тип чека в онлайн-кассе.
      *
-     * @param string $value Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
-     * @return CreatePostReceiptRequest
+     * @param string|null $type тип чека в онлайн-кассе: приход "payment" или возврат "refund"
+     *
+     * @return self
      */
-    public function setType($value)
+    public function setType(?string $type = null): self
     {
-        if (TypeCast::canCastToEnumString($value)) {
-            if (!ReceiptType::valueExists((string)$value)) {
-                throw new InvalidPropertyValueException('Invalid receipt type value', 0, 'Receipt.type', $value);
-            }
-            $this->_type = (string)$value;
-            if (!$this->_object_type) {
-                $this->_object_type = $this->_type;
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid receipt type value type',
-                0,
-                'Receipt.type',
-                $value
-            );
+        $this->_type = $this->validatePropertyValue('_type', $type);
+        if (!$this->_object_type) {
+            $this->_object_type = $this->_type;
         }
         return $this;
     }
@@ -460,89 +387,50 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
     /**
      * Возвращает признак отложенной отправки чека.
      *
-     * @return bool Признак отложенной отправки чека.
+     * @return bool Признак отложенной отправки чека
      */
-    public function getSend()
+    public function getSend(): bool
     {
         return $this->_send;
     }
 
     /**
      * Устанавливает признак отложенной отправки чека.
-     * @param bool $value Признак отложенной отправки чека.
-     * @return CreatePostReceiptRequest
+     *
+     * @param bool $send Признак отложенной отправки чека
+     *
+     * @return self
      */
-    public function setSend($value)
+    public function setSend(mixed $send = null): self
     {
-        if (!TypeCast::canCastToBoolean($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid receipt type value send',
-                0,
-                'Receipt.send',
-                $value
-            );
-        }
-
-        $this->_send = (bool)$value;
-
+        $this->_send = $this->validatePropertyValue('_send', $send);
         return $this;
     }
 
     /**
      * Возвращает массив оплат, обеспечивающих выдачу товара.
      *
-     * @return SettlementInterface[] Массив оплат, обеспечивающих выдачу товара.
+     * @return SettlementInterface[]|ListObjectInterface Массив оплат, обеспечивающих выдачу товара
      */
-    public function getSettlements()
+    public function getSettlements(): ListObjectInterface
     {
+        if ($this->_settlements === null) {
+            $this->_settlements = new ListObject(Settlement::class);
+        }
         return $this->_settlements;
     }
 
     /**
      * Устанавливает массив оплат, обеспечивающих выдачу товара.
      *
-     * @param SettlementInterface|array $value Массив оплат, обеспечивающих выдачу товара.
-     * @return CreatePostReceiptRequest
-     */
-    public function setSettlements($value)
-    {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty settlements value in receipt', 0, 'Receipt.settlements');
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid settlements value type in receipt',
-                0,
-                'Receipt.settlements',
-                $value
-            );
-        }
-        $this->_settlements = array();
-        foreach ($value as $key => $val) {
-            if (is_array($val) && !empty($val['type']) && !empty($val['amount'])) {
-                $this->addSettlement(new Settlement($val));
-            } elseif ($val instanceof SettlementInterface) {
-                $this->addSettlement($val);
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid settlement value type in receipt',
-                    0,
-                    'Receipt.settlements[' . $key . ']',
-                    $val
-                );
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Добавляет оплату в перечень совершенных расчетов.
+     * @param array|ListObjectInterface|null $settlements Массив оплат, обеспечивающих выдачу товара
      *
-     * @param SettlementInterface $value Информация о совершенных расчетах.
+     * @return self
      */
-    public function addSettlement(SettlementInterface $value)
+    public function setSettlements(mixed $settlements = null): self
     {
-        $this->_settlements[] = $value;
+        $this->_settlements = $this->validatePropertyValue('_settlements', $settlements);
+        return $this;
     }
 
     /**
@@ -550,11 +438,11 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
      * Выдается ЮKassa, отображается в разделе Продавцы личного кабинета (столбец shopId).
      * Необходимо передавать, если вы используете решение ЮKassa для платформ.
      *
-     * @return string
+     * @return string|null
      */
-    public function getOnBehalfOf()
+    public function getOnBehalfOf(): ?string
     {
-        return $this->_onBehalfOf;
+        return $this->_on_behalf_of;
     }
 
     /**
@@ -562,29 +450,13 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
      * Выдается ЮKassa, отображается в разделе Продавцы личного кабинета (столбец shopId).
      * Необходимо передавать, если вы используете решение ЮKassa для платформ.
      *
-     * @param string $value
-     * @return CreatePostReceiptRequest
+     * @param string|null $on_behalf_of
+     *
+     * @return self
      */
-    public function setOnBehalfOf($value)
+    public function setOnBehalfOf(?string $on_behalf_of = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty onBehalfOf value',
-                0,
-                'Receipt.onBehalfOf'
-            );
-        }
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid onBehalfOf value type',
-                0,
-                'Receipt.onBehalfOf',
-                $value
-            );
-        }
-
-        $this->_onBehalfOf = (string)$value;
-
+        $this->_on_behalf_of = $this->validatePropertyValue('_on_behalf_of', $on_behalf_of);
         return $this;
     }
 
@@ -593,78 +465,57 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
      *
      * @return bool True если чек не пуст, false если в чеке нет ни одной позиции
      */
-    public function notEmpty()
+    public function notEmpty(): bool
     {
-        return !empty($this->_items) && !empty($this->_settlements);
+        return !$this->getItems()->isEmpty() && !$this->getSettlements()->isEmpty();
     }
 
     /**
-     * Устанавливает значения свойств текущего объекта из массива
-     * @param array|\Traversable $sourceArray Ассоциативный массив с настройками
-     */
-    public function fromArray($sourceArray)
-    {
-        if (!empty($sourceArray['customer'])) {
-            $sourceArray['customer'] = new ReceiptCustomer($sourceArray['customer']);
-        }
-
-        if (!empty($sourceArray['items'])) {
-            foreach ($sourceArray['items'] as $i => $itemArray) {
-                if (is_array($itemArray)) {
-                    $sourceArray['items'][$i] = new ReceiptItem($itemArray);
-                }
-            }
-        }
-
-        if (!empty($sourceArray['settlements'])) {
-            foreach ($sourceArray['settlements'] as $i => $itemArray) {
-                if (is_array($itemArray)) {
-                    $sourceArray['settlements'][$i] = new Settlement($itemArray);
-                }
-            }
-        }
-
-        parent::fromArray($sourceArray);
-    }
-
-    /**
-     * Валидирует текущий запрос, проверяет все ли нужные свойства установлены
+     * Валидирует текущий запрос, проверяет все ли нужные свойства установлены.
+     *
      * @return bool True если запрос валиден, false если нет
      */
-    public function validate()
+    public function validate(): bool
     {
         if (empty($this->_customer)) {
             $this->setValidationError('Receipt customer not specified');
+
             return false;
         }
 
         if (empty($this->_type) || !ReceiptType::valueExists($this->_type)) {
             $this->setValidationError('Receipt type not specified');
+
             return false;
         }
 
         if (empty($this->_object_type)) {
             $this->setValidationError('Receipt object_type not specified');
+
             return false;
         }
 
         if (empty($this->_object_id)) {
             $this->setValidationError('Receipt object_id not specified');
+
             return false;
         }
 
         if (empty($this->_send)) { // todo: пока может быть только true
             $this->setValidationError('Receipt send not specified');
+
             return false;
         }
 
-        if (empty($this->_settlements)) {
+        if ($this->getSettlements()->isEmpty()) {
             $this->setValidationError('Receipt settlements not specified');
+
             return false;
         }
 
-        if (empty($this->_items)) {
+        if ($this->getItems()->isEmpty()) {
             $this->setValidationError('Receipt items not specified');
+
             return false;
         }
 

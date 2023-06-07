@@ -1,21 +1,27 @@
 <?php
 
-namespace YooKassa\Request\Receipts;
+namespace Tests\YooKassa\Request\Receipts;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Helpers\UUID;
+use YooKassa\Model\Receipt\ReceiptType;
 use YooKassa\Model\Receipt\SettlementType;
-use YooKassa\Model\ReceiptType;
+use YooKassa\Request\Receipts\ReceiptResponseInterface;
+use YooKassa\Request\Receipts\ReceiptsResponse;
 
+/**
+ * @internal
+ */
 class ReceiptsResponseTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param array $options
-     * @throws \Exception
+     *
+     * @throws Exception
      */
-    public function testGetType($options)
+    public function testGetType(array $options): void
     {
         $instance = new ReceiptsResponse($options);
 
@@ -25,10 +31,10 @@ class ReceiptsResponseTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param array $options
-     * @throws \Exception
+     *
+     * @throws Exception
      */
-    public function testGetItems($options)
+    public function testGetItems(array $options): void
     {
         $instance = new ReceiptsResponse($options);
 
@@ -36,7 +42,7 @@ class ReceiptsResponseTest extends TestCase
         self::assertTrue($instance->hasNextCursor());
 
         foreach ($instance->getItems() as $index => $item) {
-            self::assertTrue($item instanceof ReceiptResponseInterface);
+            self::assertInstanceOf(ReceiptResponseInterface::class, $item);
             self::assertArrayHasKey($index, $options['items']);
             self::assertEquals($options['items'][$index]['id'], $item->getId());
             self::assertEquals($options['items'][$index]['type'], $item->getType());
@@ -47,22 +53,22 @@ class ReceiptsResponseTest extends TestCase
         }
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'type' => 'list',
                     'items' => $this->generateReceipts(),
-                    'next_cursor' => Random::str(36)
-                ),
-            ),
-        );
+                    'next_cursor' => Random::str(36),
+                ],
+            ],
+        ];
     }
 
-    private function generateReceipts()
+    private function generateReceipts(): array
     {
-        $return = array();
+        $return = [];
         $count = Random::int(1, 10);
 
         for ($i = 0; $i < $count; $i++) {
@@ -72,23 +78,24 @@ class ReceiptsResponseTest extends TestCase
         return $return;
     }
 
-    private function generateReceipt()
+    private function generateReceipt(): array
     {
         $type = Random::value(ReceiptType::getEnabledValues());
-        return array(
+
+        return [
             'id' => Random::str(39),
             'type' => $type,
-            'status' => Random::value(array('pending', 'succeeded', 'canceled')),
+            'status' => Random::value(['pending', 'succeeded', 'canceled']),
             'items' => $this->generateItems(),
             'settlements' => $this->generateSettlements(),
             'tax_system_code' => Random::int(1, 6),
             $type . '_id' => UUID::v4(),
-        );
+        ];
     }
 
-    private function generateItems()
+    private function generateItems(): array
     {
-        $return = array();
+        $return = [];
         $count = Random::int(1, 10);
 
         for ($i = 0; $i < $count; $i++) {
@@ -98,22 +105,22 @@ class ReceiptsResponseTest extends TestCase
         return $return;
     }
 
-    private function generateItem()
+    private function generateItem(): array
     {
-        return array(
+        return [
             'description' => Random::str(1, 128),
-            'amount' => array(
+            'amount' => [
                 'value' => round(Random::float(1.00, 100.00), 2),
                 'currency' => 'RUB',
-            ),
+            ],
             'quantity' => round(Random::float(0.001, 99.999), 3),
             'vat_code' => Random::int(1, 6),
-        );
+        ];
     }
 
-    private function generateSettlements()
+    private function generateSettlements(): array
     {
-        $return = array();
+        $return = [];
         $count = Random::int(1, 10);
 
         for ($i = 0; $i < $count; $i++) {
@@ -123,14 +130,14 @@ class ReceiptsResponseTest extends TestCase
         return $return;
     }
 
-    private function generateSettlement()
+    private function generateSettlement(): array
     {
-        return array(
+        return [
             'type' => Random::value(SettlementType::getValidValues()),
-            'amount' => array(
+            'amount' => [
                 'value' => round(Random::float(1.00, 100.00), 2),
                 'currency' => 'RUB',
-            ),
-        );
+            ],
+        ];
     }
 }

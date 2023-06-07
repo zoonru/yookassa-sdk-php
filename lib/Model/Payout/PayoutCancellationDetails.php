@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,76 +27,86 @@
 namespace YooKassa\Model\Payout;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
 use YooKassa\Model\CancellationDetailsInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * PayoutCancellationDetails - Комментарий к отмене выплаты
+ * Класс, представляющий модель PayoutCancellationDetails.
  *
- * @property string $party Инициатор отмены выплаты
- * @property string $reason Причина отмены выплаты
+ * Комментарий к статусу ~`canceled`: кто отменил выплату и по какой причине.
+ *
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property string $party Участник процесса выплаты, который принял решение об отмене транзакции.
+ * @property string $reason Причина отмены выплаты.
  */
 class PayoutCancellationDetails extends AbstractObject implements CancellationDetailsInterface
 {
     /**
-     * @var string Инициатор отмены выплаты
+     * Участник процесса выплаты, который принял решение об отмене транзакции.
+     *
+     * @var string
      */
-    private $_party = '';
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [PayoutCancellationDetailsPartyCode::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private string $_party = '';
 
     /**
-     * @var string Причина отмены выплаты
+     * Причина отмены выплаты.
+     *
+     * @var string
      */
-    private $_reason = '';
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [PayoutCancellationDetailsReasonCode::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    private string $_reason = '';
 
     /**
-     * Возвращает участника процесса выплаты, который принял решение об отмене транзакции
+     * Возвращает участника процесса выплаты, который принял решение об отмене транзакции.
      *
      * @return string Инициатор отмены выплаты
      */
-    public function getParty()
+    public function getParty(): string
     {
         return $this->_party;
     }
 
     /**
-     * Возвращает причину отмены выплаты
+     * Устанавливает участника процесса выплаты, который принял решение об отмене транзакции.
      *
-     * @return string Причина отмены выплаты
+     * @param string|null $party Участник процесса выплаты, который принял решение об отмене транзакции.
+     *
+     * @return self
      */
-    public function getReason()
+    public function setParty(?string $party = null): self
+    {
+        $this->_party = $this->validatePropertyValue('_party', $party);
+        return $this;
+    }
+
+    /**
+     * Возвращает причину отмены выплаты.
+     *
+     * @return string Причина отмены выплаты.
+     */
+    public function getReason(): string
     {
         return $this->_reason;
     }
 
     /**
-     * Устанавливает участника процесса выплаты, который принял решение об отмене транзакции
-     * @param $value
+     * Устанавливает причину отмены выплаты.
+     *
+     * @param string|null $reason Причина отмены выплаты.
+     *
+     * @return self
      */
-    public function setParty($value)
+    public function setReason(?string $reason = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty party value', 0, 'payout_cancellation_details.party');
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid party value type', 0, 'payout_cancellation_details.party', $value);
-        } else {
-            $this->_party = strtolower((string)$value);
-        }
-    }
-
-    /**
-     * Устанавливает причину отмены выплаты
-     * @param $value
-     */
-    public function setReason($value)
-    {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty reason value', 0, 'payout_cancellation_details.reason');
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid reason value type', 0, 'payout_cancellation_details.reason');
-        } else {
-            $this->_reason = strtolower((string)$value);
-        }
+        $this->_reason = $this->validatePropertyValue('_reason', $reason);
+        return $this;
     }
 }

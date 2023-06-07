@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,48 +26,41 @@
 
 namespace YooKassa\Request\Refunds;
 
-use YooKassa\Common\AbstractPaymentRequestBuilder;
-use YooKassa\Common\AbstractRequest;
+use YooKassa\Common\AbstractRequestInterface;
 use YooKassa\Common\Exceptions\EmptyPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
+use YooKassa\Common\ListObjectInterface;
 use YooKassa\Model\Deal\RefundDealData;
-use YooKassa\Model\SourceInterface;
+use YooKassa\Model\Refund\SourceInterface;
+use YooKassa\Request\Payments\AbstractPaymentRequestBuilder;
 
 /**
- * Класс билдера запросов к API на создание возврата средств
+ * Класс, представляющий модель CreateRefundRequestBuilder.
  *
- * @example 02-builder.php 148 35 Пример использования билдера
+ * Класс билдера запросов к API на создание возврата средств.
  *
- * @package YooKassa
+ * @example 02-builder.php 147 33 Пример использования билдера
+ *
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class CreateRefundRequestBuilder extends AbstractPaymentRequestBuilder
 {
     /**
-     * Собираемый объект запроса к API
-     * @var CreateRefundRequest
+     * Собираемый объект запроса к API.
+     *
+     * @var CreateRefundRequest|null
      */
-    protected $currentObject;
-
-    /**
-     * Объект с информацией о сделке, в составе которой проходит возврат.
-     * @var RefundDealData
-     */
-    protected $deal;
-
-    /**
-     * Возвращает новый объект для сборки
-     * @return CreateRefundRequest Собираемый объект запроса к API
-     */
-    protected function initCurrentObject()
-    {
-        parent::initCurrentObject();
-        return new CreateRefundRequest();
-    }
+    protected ?AbstractRequestInterface $currentObject = null;
 
     /**
      * Устанавливает айди платежа для которого создаётся возврат
-     * @param string $value Айди платежа
+     *
+     * @param string|null $value Айди платежа
+     *
      * @return CreateRefundRequestBuilder Инстанс текущего билдера
      *
      * @throws EmptyPropertyValueException Выбрасывается если передано пустое значение айди платежа
@@ -75,71 +68,81 @@ class CreateRefundRequestBuilder extends AbstractPaymentRequestBuilder
      * валидным значением айди платежа
      * @throws InvalidPropertyValueTypeException Выбрасывается если передано значение не валидного типа
      */
-    public function setPaymentId($value)
+    public function setPaymentId(?string $value): CreateRefundRequestBuilder
     {
         $this->currentObject->setPaymentId($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает комментарий к возврату
-     * @param string $value Комментарий к возврату
+     * Устанавливает комментарий к возврату.
+     *
+     * @param string|null $value Комментарий к возврату
+     *
      * @return CreateRefundRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Выбрасывается если была передана не строка
      */
-    public function setDescription($value)
+    public function setDescription(?string $value): CreateRefundRequestBuilder
     {
         $this->currentObject->setDescription($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает источники возврата
+     * Устанавливает источники возврата.
      *
-     * @param SourceInterface[]|array $value Массив трансферов
+     * @param array|SourceInterface[]|ListObjectInterface $value Массив трансферов
      *
      * @return self Инстанс билдера запросов
      */
-    public function setSources($value)
+    public function setSources(array $value): self
     {
         $this->currentObject->setSources($value);
+
         return $this;
     }
 
     /**
-     * Устанавливает сделку
-     * @param RefundDealData|array|null $value Данные о сделке, в составе которой проходит возврат
-     * @throws InvalidPropertyValueTypeException
+     * Добавляет источник возврата.
+     *
+     * @param array|SourceInterface $value Источник возврата
+     *
+     * @return self Инстанс билдера запросов
+     */
+    public function addSource(mixed $value): self
+    {
+        $this->currentObject->getSources()->add($value);
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает сделку.
+     *
+     * @param null|array|RefundDealData $value Данные о сделке, в составе которой проходит возврат
      *
      * @return CreateRefundRequestBuilder Инстанс билдера запросов
+     *
+     * @throws InvalidPropertyValueTypeException
      */
-    public function setDeal($value)
+    public function setDeal(mixed $value): CreateRefundRequestBuilder
     {
-        if ($value === null) {
-            return $this;
-        }
-        if ($value instanceof RefundDealData) {
-            $this->deal = $value;
-        } elseif (is_array($value)) {
-            $this->deal = new RefundDealData($value);
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid deal value type in CreateRefundRequest',
-                0,
-                'CreateRefundRequest.deal',
-                $value
-            );
-        }
+        $this->currentObject->setDeal($value);
+
         return $this;
     }
 
     /**
-     * Строит объект запроса к API
-     * @param array|null $options Устанавливаемые параметры запроса
-     * @return CreateRefundRequestInterface|AbstractRequest Инстанс сгенерированного объекта запроса к API
+     * Строит объект запроса к API.
+     *
+     * @param null|array $options Устанавливаемые параметры запроса
+     *
+     * @return CreateRefundRequest|AbstractRequestInterface Инстанс сгенерированного объекта запроса к API
      */
-    public function build(array $options = null)
+    public function build(array $options = null): AbstractRequestInterface
     {
         if (!empty($options)) {
             $this->setOptions($options);
@@ -151,9 +154,18 @@ class CreateRefundRequestBuilder extends AbstractPaymentRequestBuilder
             $this->currentObject->setReceipt($this->receipt);
         }
 
-        if ($this->deal) {
-            $this->currentObject->setDeal($this->deal);
-        }
         return parent::build();
+    }
+
+    /**
+     * Возвращает новый объект для сборки.
+     *
+     * @return CreateRefundRequest Собираемый объект запроса к API
+     */
+    protected function initCurrentObject(): CreateRefundRequest
+    {
+        parent::initCurrentObject();
+
+        return new CreateRefundRequest();
     }
 }

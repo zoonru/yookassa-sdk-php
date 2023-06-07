@@ -3,6 +3,13 @@
 # Class: \YooKassa\Helpers\SecurityHelper
 ### Namespace: [\YooKassa\Helpers](../namespaces/yookassa-helpers.md)
 ---
+**Summary:**
+
+Класс, представляющий модель SecurityHelper.
+
+**Description:**
+
+Класс для проверки IP адреса входящих запросов от API кассы.
 
 ---
 ### Constants
@@ -12,14 +19,24 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [isIPTrusted()](../classes/YooKassa-Helpers-SecurityHelper.md#method_isIPTrusted) |  | Проверяет формат IP адреса и вызывает соответствующие методы для проверки среди IPv4 и IPv6 адресов Юkassa |
+| public | [isIPTrusted()](../classes/YooKassa-Helpers-SecurityHelper.md#method_isIPTrusted) |  | Проверяет формат IP адреса и вызывает соответствующие методы для проверки среди IPv4 и IPv6 адресов Юkassa. |
 
 ---
 ### Details
 * File: [lib/Helpers/SecurityHelper.php](../../lib/Helpers/SecurityHelper.php)
-* Package: Default
+* Package: YooKassa\Helpers
 * Class Hierarchy:
   * \YooKassa\Helpers\SecurityHelper
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
@@ -27,12 +44,12 @@
 #### public isIPTrusted() : bool
 
 ```php
-public isIPTrusted($ip) : bool
+public isIPTrusted(mixed $ip) : bool
 ```
 
 **Summary**
 
-Проверяет формат IP адреса и вызывает соответствующие методы для проверки среди IPv4 и IPv6 адресов Юkassa
+Проверяет формат IP адреса и вызывает соответствующие методы для проверки среди IPv4 и IPv6 адресов Юkassa.
 
 **Details:**
 * Inherited From: [\YooKassa\Helpers\SecurityHelper](../classes/YooKassa-Helpers-SecurityHelper.md)
@@ -40,7 +57,7 @@ public isIPTrusted($ip) : bool
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php"></code> | ip  | - IPv4 или IPv6 адрес webhook уведомления |
+| <code lang="php">mixed</code> | ip  | - IPv4 или IPv6 адрес webhook уведомления |
 
 ##### Throws:
 | Type | Description |
@@ -61,11 +78,11 @@ public isIPTrusted($ip) : bool
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

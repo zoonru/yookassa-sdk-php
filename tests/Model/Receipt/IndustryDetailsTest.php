@@ -2,31 +2,26 @@
 
 namespace Tests\YooKassa\Model\Receipt;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use TypeError;
+use YooKassa\Validator\Exceptions\EmptyPropertyValueException;
+use YooKassa\Validator\Exceptions\InvalidPropertyValueException;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Receipt\IndustryDetails;
-use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class IndustryDetailsTest extends TestCase
 {
-    protected static function getInstance($options = null)
-    {
-        return new IndustryDetails($options);
-    }
-
     /**
      * @dataProvider validArrayDataProvider
      *
-     * @param $options
+     * @param mixed $options
      */
-    public function testConstructor($options)
+    public function testConstructor($options): void
     {
-        $instance = self::getInstance();
-
-        self::assertNull($instance->getFederalId());
-        self::assertNull($instance->getDocumentNumber());
-        self::assertNull($instance->getDocumentDate());
-        self::assertNull($instance->getValue());
-
         $instance = self::getInstance($options);
 
         self::assertEquals($options['federal_id'], $instance->getFederalId());
@@ -37,16 +32,13 @@ class IndustryDetailsTest extends TestCase
 
     /**
      * @dataProvider validArrayDataProvider
-     *
-     * @param array $options
      */
-    public function testGetSetValue($options)
+    public function testGetSetValue(array $options): void
     {
         $expected = $options['value'];
 
         $instance = self::getInstance();
-        self::assertNull($instance->getValue());
-        self::assertNull($instance->value);
+
         $instance->setValue($expected);
         self::assertEquals($expected, $instance->getValue());
         self::assertEquals($expected, $instance->value);
@@ -59,44 +51,37 @@ class IndustryDetailsTest extends TestCase
 
     /**
      * @dataProvider invalidValueDataProvider
+     *
      * @param mixed $value
-     * @param string $exceptionClassDocumentNumber
      */
-    public function testSetInvalidValue($value, $exceptionClassDocumentNumber)
+    public function testSetInvalidValue($value, string $exceptionClassDocumentNumber): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setValue($value);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentNumber, $e);
-        }
+
+        self::expectException($exceptionClassDocumentNumber);
+        $instance->setValue($value);
     }
 
     /**
      * @dataProvider invalidValueDataProvider
+     *
      * @param mixed $value
-     * @param string $exceptionClassDocumentNumber
      */
-    public function testSetterInvalidValue($value, $exceptionClassDocumentNumber)
+    public function testSetterInvalidValue($value, string $exceptionClassDocumentNumber): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->value = $value;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentNumber, $e);
-        }
+
+        self::expectException($exceptionClassDocumentNumber);
+        $instance->value = $value;
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     * @param array $options
      */
-    public function testGetSetDocumentNumber($options)
+    public function testGetSetDocumentNumber(array $options): void
     {
         $instance = self::getInstance();
 
-        self::assertNull($instance->getDocumentNumber());
-        self::assertNull($instance->document_number);
         $instance->setDocumentNumber($options['document_number']);
         self::assertEquals($options['document_number'], $instance->getDocumentNumber());
         self::assertEquals($options['document_number'], $instance->document_number);
@@ -104,44 +89,33 @@ class IndustryDetailsTest extends TestCase
 
     /**
      * @dataProvider invalidDocumentNumberDataProvider
-     * @param string $document_number
-     * @param string $exceptionClassDocumentNumber
      */
-    public function testSetInvalidDocumentNumber($document_number, $exceptionClassDocumentNumber)
+    public function testSetInvalidDocumentNumber(mixed $document_number, string $exceptionClassDocumentNumber): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setDocumentNumber($document_number);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentNumber, $e);
-        }
+
+        self::expectException($exceptionClassDocumentNumber);
+        $instance->setDocumentNumber($document_number);
     }
 
     /**
      * @dataProvider invalidDocumentNumberDataProvider
-     * @param string $document_number
-     * @param string $exceptionClassDocumentNumber
      */
-    public function testSetterInvalidDocumentNumber($document_number, $exceptionClassDocumentNumber)
+    public function testSetterInvalidDocumentNumber(mixed $document_number, string $exceptionClassDocumentNumber): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->document_number = $document_number;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentNumber, $e);
-        }
+
+        self::expectException($exceptionClassDocumentNumber);
+        $instance->document_number = $document_number;
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     * @param array $options
      */
-    public function testGetSetFederalId($options)
+    public function testGetSetFederalId(array $options): void
     {
         $instance = self::getInstance();
 
-        self::assertNull($instance->getFederalId());
-        self::assertNull($instance->federal_id);
         $instance->setFederalId($options['federal_id']);
         self::assertEquals($options['federal_id'], $instance->getFederalId());
         self::assertEquals($options['federal_id'], $instance->federal_id);
@@ -149,44 +123,33 @@ class IndustryDetailsTest extends TestCase
 
     /**
      * @dataProvider invalidFederalIdDataProvider
-     * @param string $federal_id
-     * @param string $exceptionClassFederalId
      */
-    public function testSetInvalidFederalId($federal_id, $exceptionClassFederalId)
+    public function testSetInvalidFederalId(mixed $federal_id, string $exceptionClassFederalId): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setFederalId($federal_id);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassFederalId, $e);
-        }
+
+        self::expectException($exceptionClassFederalId);
+        $instance->setFederalId($federal_id);
     }
 
     /**
      * @dataProvider invalidFederalIdDataProvider
-     * @param string $federal_id
-     * @param string $exceptionClassFederalId
      */
-    public function testSetterInvalidFederalId($federal_id, $exceptionClassFederalId)
+    public function testSetterInvalidFederalId(mixed $federal_id, string $exceptionClassFederalId): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->federal_id = $federal_id;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassFederalId, $e);
-        }
+
+        self::expectException($exceptionClassFederalId);
+        $instance->federal_id = $federal_id;
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     * @param array $options
      */
-    public function testGetSetDocumentDate($options)
+    public function testGetSetDocumentDate(array $options): void
     {
         $instance = self::getInstance();
 
-        self::assertNull($instance->getDocumentDate());
-        self::assertNull($instance->document_date);
         $instance->setDocumentDate($options['document_date']);
         self::assertEquals($options['document_date'], $instance->getDocumentDate()->format(IndustryDetails::DOCUMENT_DATE_FORMAT));
         self::assertEquals($options['document_date'], $instance->document_date->format(IndustryDetails::DOCUMENT_DATE_FORMAT));
@@ -194,133 +157,95 @@ class IndustryDetailsTest extends TestCase
 
     /**
      * @dataProvider invalidDocumentDateDataProvider
-     * @param string $document_date
-     * @param string $exceptionClassDocumentDate
      */
-    public function testSetInvalidDocumentDate($document_date, $exceptionClassDocumentDate)
+    public function testSetInvalidDocumentDate(mixed $document_date, string $exceptionClassDocumentDate): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->setDocumentDate($document_date);
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentDate, $e);
-        }
+
+        self::expectException($exceptionClassDocumentDate);
+        $instance->setDocumentDate($document_date);
     }
 
     /**
      * @dataProvider invalidDocumentDateDataProvider
-     * @param string $document_date
-     * @param string $exceptionClassDocumentDate
      */
-    public function testSetterInvalidDocumentDate($document_date, $exceptionClassDocumentDate)
+    public function testSetterInvalidDocumentDate(mixed $document_date, string $exceptionClassDocumentDate): void
     {
         $instance = self::getInstance();
-        try {
-            $instance->document_date = $document_date;
-        } catch (\Exception $e) {
-            self::assertInstanceOf($exceptionClassDocumentDate, $e);
-        }
+
+        self::expectException($exceptionClassDocumentDate);
+        $instance->document_date = $document_date;
     }
 
-    public function validArrayDataProvider()
+    public static function validArrayDataProvider()
     {
-        $result = array();
+        $result = [];
         foreach (range(1, 10) as $i) {
-            $result[$i][] = array(
-                'federal_id' => Random::str(1, 5),
+            $result[$i][] = [
+                'federal_id' => Random::value([
+                    '00' . Random::int(1, 9),
+                    '0' . Random::int(1, 6) . Random::int(0, 9),
+                    '07' . Random::int(0, 3)
+                    ]),
                 'document_date' => date(IndustryDetails::DOCUMENT_DATE_FORMAT, Random::int(10000000, 29999999)),
                 'document_number' => Random::str(1, IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH),
                 'value' => Random::str(1, IndustryDetails::VALUE_MAX_LENGTH),
-            );
+            ];
         }
+
         return $result;
     }
 
-    public function invalidValueDataProvider()
+    public static function invalidValueDataProvider()
     {
-        $exceptionValueNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionValueNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionValueNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionValueNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionValueNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::str(IndustryDetails::VALUE_MAX_LENGTH + 1), $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(-1,                   $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(0.0,                  $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(0,                    $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(0.001,                $exceptionValueNamespace . 'InvalidPropertyValueException'),
-            array(true,                 $exceptionValueNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionValueNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+            [Random::str(IndustryDetails::VALUE_MAX_LENGTH + 1), InvalidPropertyValueException::class],
+        ];
     }
 
-    public function invalidDocumentNumberDataProvider()
+    public static function invalidDocumentNumberDataProvider()
     {
-        $exceptionDocumentNumberNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionDocumentNumberNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionDocumentNumberNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionDocumentNumberNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionDocumentNumberNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::str(IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH + 1), $exceptionDocumentNumberNamespace . 'InvalidPropertyValueException'),
-            array('III',                $exceptionDocumentNumberNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionDocumentNumberNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.0,                  $exceptionDocumentNumberNamespace . 'InvalidPropertyValueTypeException'),
-            array(0,                    $exceptionDocumentNumberNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.01,                 $exceptionDocumentNumberNamespace . 'InvalidPropertyValueTypeException'),
-            array(true,                 $exceptionDocumentNumberNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionDocumentNumberNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+            [Random::str(IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH + 1), InvalidPropertyValueException::class],
+        ];
     }
 
-    public function invalidFederalIdDataProvider()
+    public static function invalidFederalIdDataProvider()
     {
-        $exceptionFederalIdNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionFederalIdNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionFederalIdNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionFederalIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionFederalIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::str(IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH + 1), $exceptionFederalIdNamespace . 'InvalidPropertyValueException'),
-            array('III',                $exceptionFederalIdNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionFederalIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.0,                  $exceptionFederalIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(0,                    $exceptionFederalIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.01,                 $exceptionFederalIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(true,                 $exceptionFederalIdNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionFederalIdNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+        ];
     }
 
-    public function invalidDocumentDateDataProvider()
+    public static function invalidDocumentDateDataProvider()
     {
-        $exceptionDocumentDateNamespace = 'YooKassa\\Common\\Exceptions\\';
-        return array(
-            array(null,                 $exceptionDocumentDateNamespace . 'EmptyPropertyValueException'),
-            array('',                   $exceptionDocumentDateNamespace . 'EmptyPropertyValueException'),
-            array(array(),              $exceptionDocumentDateNamespace . 'InvalidPropertyValueTypeException'),
-            array(fopen(__FILE__, 'r'), $exceptionDocumentDateNamespace . 'InvalidPropertyValueTypeException'),
-            array(Random::str(IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH + 1), $exceptionDocumentDateNamespace . 'InvalidPropertyValueException'),
-            array('III',                $exceptionDocumentDateNamespace . 'InvalidPropertyValueException'),
-            array(-0.01,                $exceptionDocumentDateNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.0,                  $exceptionDocumentDateNamespace . 'InvalidPropertyValueTypeException'),
-            array(0,                    $exceptionDocumentDateNamespace . 'InvalidPropertyValueTypeException'),
-            array(0.01,                 $exceptionDocumentDateNamespace . 'InvalidPropertyValueTypeException'),
-            array(true,                 $exceptionDocumentDateNamespace . 'InvalidPropertyValueTypeException'),
-            array(false,                $exceptionDocumentDateNamespace . 'InvalidPropertyValueTypeException'),
-        );
+        return [
+            [null, EmptyPropertyValueException::class],
+            ['', EmptyPropertyValueException::class],
+            [[], TypeError::class],
+            [fopen(__FILE__, 'r'), TypeError::class],
+            [Random::str(IndustryDetails::DOCUMENT_NUMBER_MAX_LENGTH + 1), InvalidPropertyValueException::class],
+            [false, EmptyPropertyValueException::class],
+        ];
     }
 
     /**
      * @dataProvider validArrayDataProvider
-     *
-     * @param array $options
      */
-    public function testJsonSerialize($options)
+    public function testJsonSerialize(array $options): void
     {
         $instance = self::getInstance($options);
         $expected = $options;
         self::assertEquals($expected, $instance->jsonSerialize());
+    }
+
+    protected static function getInstance($options = [])
+    {
+        return new IndustryDetails($options);
     }
 }

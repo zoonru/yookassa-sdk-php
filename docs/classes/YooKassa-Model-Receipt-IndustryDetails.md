@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Class IndustryDetails
+Class IndustryDetails.
 
 **Description:**
 
@@ -36,34 +36,46 @@ Class IndustryDetails
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getDocumentDate()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getDocumentDate) |  | Возвращает дату документа основания |
-| public | [getDocumentNumber()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getDocumentNumber) |  | Возвращает номер нормативного акта федерального органа исполнительной власти |
-| public | [getFederalId()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getFederalId) |  | Возвращает идентификатор федерального органа исполнительной власти |
-| public | [getValue()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getValue) |  | Возвращает значение отраслевого реквизита |
-| public | [jsonSerialize()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
-| public | [setDocumentDate()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setDocumentDate) |  | Устанавливает дату документа основания |
-| public | [setDocumentNumber()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setDocumentNumber) |  | Устанавливает номер нормативного акта федерального органа исполнительной власти |
-| public | [setFederalId()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setFederalId) |  | Устанавливает идентификатор федерального органа исполнительной власти |
-| public | [setValue()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setValue) |  | Устанавливает значение отраслевого реквизита |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
+| public | [getDocumentDate()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getDocumentDate) |  | Возвращает дату документа основания. |
+| public | [getDocumentNumber()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getDocumentNumber) |  | Возвращает номер нормативного акта федерального органа исполнительной власти. |
+| public | [getFederalId()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getFederalId) |  | Возвращает идентификатор федерального органа исполнительной власти. |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [getValue()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_getValue) |  | Возвращает значение отраслевого реквизита. |
+| public | [jsonSerialize()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
+| public | [setDocumentDate()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setDocumentDate) |  | Устанавливает дату документа основания. |
+| public | [setDocumentNumber()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setDocumentNumber) |  | Устанавливает номер нормативного акта федерального органа исполнительной власти. |
+| public | [setFederalId()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setFederalId) |  | Устанавливает идентификатор федерального органа исполнительной власти. |
+| public | [setValue()](../classes/YooKassa-Model-Receipt-IndustryDetails.md#method_setValue) |  | Устанавливает значение отраслевого реквизита. |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Model/Receipt/IndustryDetails.php](../../lib/Model/Receipt/IndustryDetails.php)
-* Package: YooKassa
+* Package: YooKassa\Model
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * \YooKassa\Model\Receipt\IndustryDetails
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -182,7 +194,7 @@ DOCUMENT_DATE_FORMAT = 'Y-m-d' : string
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -195,7 +207,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -209,7 +221,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -231,7 +243,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -245,15 +257,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -264,19 +276,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -286,19 +298,19 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -308,75 +320,88 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getDocumentDate" class="anchor"></a>
-#### public getDocumentDate() : \DateTime
+#### public getDocumentDate() : \DateTime|null
 
 ```php
-public getDocumentDate() : \DateTime
+public getDocumentDate() : \DateTime|null
 ```
 
 **Summary**
 
-Возвращает дату документа основания
+Возвращает дату документа основания.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
 
-**Returns:** \DateTime - Дата документа основания
+**Returns:** \DateTime|null - Дата документа основания
 
 
 <a name="method_getDocumentNumber" class="anchor"></a>
-#### public getDocumentNumber() : string
+#### public getDocumentNumber() : string|null
 
 ```php
-public getDocumentNumber() : string
+public getDocumentNumber() : string|null
 ```
 
 **Summary**
 
-Возвращает номер нормативного акта федерального органа исполнительной власти
+Возвращает номер нормативного акта федерального органа исполнительной власти.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
 
-**Returns:** string - Номер нормативного акта федерального органа исполнительной власти
+**Returns:** string|null - Номер нормативного акта федерального органа исполнительной власти
 
 
 <a name="method_getFederalId" class="anchor"></a>
-#### public getFederalId() : string
+#### public getFederalId() : string|null
 
 ```php
-public getFederalId() : string
+public getFederalId() : string|null
 ```
 
 **Summary**
 
-Возвращает идентификатор федерального органа исполнительной власти
+Возвращает идентификатор федерального органа исполнительной власти.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
 
-**Returns:** string - Идентификатор федерального органа исполнительной власти
+**Returns:** string|null - Идентификатор федерального органа исполнительной власти
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_getValue" class="anchor"></a>
-#### public getValue() : string
+#### public getValue() : string|null
 
 ```php
-public getValue() : string
+public getValue() : string|null
 ```
 
 **Summary**
 
-Возвращает значение отраслевого реквизита
+Возвращает значение отраслевого реквизита.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
 
-**Returns:** string - Значение отраслевого реквизита
+**Returns:** string|null - Значение отраслевого реквизита
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
@@ -388,17 +413,13 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
 
-**Returns:** array - 
+**Returns:** array - Ассоциативный массив со свойствами текущего объекта
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| inheritdoc |  |  |
 
 <a name="method_offsetExists" class="anchor"></a>
 #### public offsetExists() : bool
@@ -409,7 +430,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -431,7 +452,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -453,7 +474,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -476,7 +497,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -490,15 +511,15 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setDocumentDate" class="anchor"></a>
-#### public setDocumentDate() : mixed
+#### public setDocumentDate() : \YooKassa\Model\Receipt\IndustryDetails
 
 ```php
-public setDocumentDate(string|\DateTime $value) : mixed
+public setDocumentDate(\DateTime|string|null $document_date = null) : \YooKassa\Model\Receipt\IndustryDetails
 ```
 
 **Summary**
 
-Устанавливает дату документа основания
+Устанавливает дату документа основания.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
@@ -506,26 +527,26 @@ public setDocumentDate(string|\DateTime $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR \DateTime</code> | value  | Дата документа основания |
+| <code lang="php">\DateTime OR string OR null</code> | document_date  | Дата документа основания |
 
 ##### Throws:
 | Type | Description |
 | ---- | ----------- |
 | \Exception |  |
 
-**Returns:** mixed - 
+**Returns:** \YooKassa\Model\Receipt\IndustryDetails - 
 
 
 <a name="method_setDocumentNumber" class="anchor"></a>
-#### public setDocumentNumber() : mixed
+#### public setDocumentNumber() : self
 
 ```php
-public setDocumentNumber(string $value) : mixed
+public setDocumentNumber(string|null $document_number = null) : self
 ```
 
 **Summary**
 
-Устанавливает номер нормативного акта федерального органа исполнительной власти
+Устанавливает номер нормативного акта федерального органа исполнительной власти.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
@@ -533,21 +554,21 @@ public setDocumentNumber(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Номер нормативного акта федерального органа исполнительной власти |
+| <code lang="php">string OR null</code> | document_number  | Номер нормативного акта федерального органа исполнительной власти |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setFederalId" class="anchor"></a>
-#### public setFederalId() : mixed
+#### public setFederalId() : \YooKassa\Model\Receipt\IndustryDetails
 
 ```php
-public setFederalId(string $value) : mixed
+public setFederalId(string|null $federal_id = null) : \YooKassa\Model\Receipt\IndustryDetails
 ```
 
 **Summary**
 
-Устанавливает идентификатор федерального органа исполнительной власти
+Устанавливает идентификатор федерального органа исполнительной власти.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
@@ -555,21 +576,21 @@ public setFederalId(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Идентификатор федерального органа исполнительной власти |
+| <code lang="php">string OR null</code> | federal_id  | Идентификатор федерального органа исполнительной власти |
 
-**Returns:** mixed - 
+**Returns:** \YooKassa\Model\Receipt\IndustryDetails - 
 
 
 <a name="method_setValue" class="anchor"></a>
-#### public setValue() : mixed
+#### public setValue() : \YooKassa\Model\Receipt\IndustryDetails
 
 ```php
-public setValue(string $value) : mixed
+public setValue(string|null $value = null) : \YooKassa\Model\Receipt\IndustryDetails
 ```
 
 **Summary**
 
-Устанавливает значение отраслевого реквизита
+Устанавливает значение отраслевого реквизита.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Receipt\IndustryDetails](../classes/YooKassa-Model-Receipt-IndustryDetails.md)
@@ -577,9 +598,9 @@ public setValue(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Значение отраслевого реквизита |
+| <code lang="php">string OR null</code> | value  | Значение отраслевого реквизита |
 
-**Returns:** mixed - 
+**Returns:** \YooKassa\Model\Receipt\IndustryDetails - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -592,7 +613,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -609,12 +630,31 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
 **Returns:** array - Ассоциативный массив с не существующими у текущего объекта свойствами
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
+
+**Returns:** mixed - 
 
 
 
@@ -628,11 +668,11 @@ protected getUnknownProperties() : array
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

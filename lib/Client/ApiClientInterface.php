@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -30,9 +30,12 @@ use Psr\Log\LoggerInterface;
 use YooKassa\Common\ResponseObject;
 
 /**
- * Interface ApiClientInterface
+ * Interface ApiClientInterface.
  *
- * @package YooKassa
+ * @category Interface
+ * @package  YooKassa
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 interface ApiClientInterface
 {
@@ -42,62 +45,47 @@ interface ApiClientInterface
      * @param string $path URL запроса
      * @param string $method HTTP метод
      * @param array $queryParams Массив GET параметров запроса
-     * @param string|null $httpBody Тело запроса
+     * @param null|string $httpBody Тело запроса
      * @param array $headers Массив заголовков запроса
-     *
-     * @return ResponseObject
      */
-    public function call($path, $method, $queryParams, $httpBody = null, $headers = array());
+    public function call(string $path, string $method, array $queryParams, ?string $httpBody = null, array $headers = []): ResponseObject;
 
     /**
-     * Устанавливает объект для логирования
+     * Устанавливает объект для логирования.
      *
-     * @param LoggerInterface|null $logger Объект для логирования
+     * @param null|LoggerInterface $logger Объект для логирования
      */
-    public function setLogger($logger);
+    public function setLogger(?LoggerInterface $logger);
 
     /**
-     * Возвращает UserAgent
-     *
-     * @return UserAgent
+     * Возвращает UserAgent.
      */
-    public function getUserAgent();
+    public function getUserAgent(): UserAgent;
 
     /**
-     * Устанавливает shopId магазина
+     * Устанавливает shopId магазина.
      *
-     * @param string|int $shopId shopId магазина
-     * @return mixed
+     * @param int|string|null $shopId shopId магазина
      */
-    public function setShopId($shopId);
+    public function setShopId(mixed $shopId): mixed;
 
     /**
-     * Устанавливает секретный ключ магазина
-     *
-     * @param string $shopPassword
-     * @return mixed
+     * Устанавливает секретный ключ магазина.
      */
-    public function setShopPassword($shopPassword);
+    public function setShopPassword(?string $shopPassword): mixed;
 
     /**
-     * Устанавливает OAuth-токен магазина
-     *
-     * @param string $bearerToken
-     * @return mixed
+     * Устанавливает OAuth-токен магазина.
      */
-    public function setBearerToken($bearerToken);
+    public function setBearerToken(?string $bearerToken): mixed;
 
     /**
-     * Устанавливает настройки
-     *
-     * @param array $config
+     * Устанавливает настройки.
      */
-    public function setConfig($config);
+    public function setConfig(array $config);
 
     /**
-     * Устанавливает дополнительные настройки curl
-     *
-     * @return void
+     * Устанавливает дополнительные настройки curl.
      */
-    public function setAdvancedCurlOptions();
+    public function setAdvancedCurlOptions(): void;
 }

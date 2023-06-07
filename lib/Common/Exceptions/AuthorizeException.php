@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -28,8 +28,6 @@ namespace YooKassa\Common\Exceptions;
 
 /**
  * Ошибка авторизации. Не установлен заголовок.
- *
- * @package YooKassa
  */
 class AuthorizeException extends ApiException
 {

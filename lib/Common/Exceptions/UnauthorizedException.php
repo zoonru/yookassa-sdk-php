@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,21 +29,19 @@ namespace YooKassa\Common\Exceptions;
 /**
  * [Basic Auth] Неверный идентификатор вашего аккаунта в ЮKassa или секретный ключ (имя пользователя и пароль при аутентификации).
  * [OAuth 2.0] Невалидный OAuth-токен: он некорректный, устарел или его отозвали. Запросите токен заново.
- *
- * @package YooKassa
  */
 class UnauthorizedException extends ApiException
 {
-    const HTTP_CODE = 401;
+    public const HTTP_CODE = 401;
 
-    public $type;
+    public mixed $type = null;
 
-    public $retryAfter;
+    public mixed $retryAfter = null;
 
-    public function __construct($responseHeaders = array(), $responseBody = null)
+    public function __construct(array $responseHeaders = [], ?string $responseBody = '')
     {
         $errorData = json_decode($responseBody, true);
-        $message   = '';
+        $message = '';
 
         if (isset($errorData['description'])) {
             $message .= $errorData['description'] . '. ';

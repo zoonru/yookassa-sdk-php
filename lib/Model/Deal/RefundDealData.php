@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,79 +27,59 @@
 namespace YooKassa\Model\Deal;
 
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
+use YooKassa\Model\Receipt\SettlementInterface;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Class PaymentDealInfo
+ * Класс, представляющий модель RefundDealData.
  *
- * @package YooKassa
+ * Данные о сделке, в составе которой проходит возврат.
  *
- * @property SettlementPayoutRefund[] $refund_settlements Данные о распределении денег
- * @property SettlementPayoutRefund[] $refundSettlements Данные о распределении денег
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ * @property ListObjectInterface|SettlementInterface[] $refund_settlements Данные о распределении денег
+ * @property ListObjectInterface|SettlementInterface[] $refundSettlements Данные о распределении денег
  */
 class RefundDealData extends AbstractObject
 {
-    /** @var SettlementPayoutRefund[] Данные о распределении денег */
-    private $_refund_settlements = array();
-
-     /**
-     * Возвращает массив оплат, обеспечивающих выдачу товара
+    /**
+     * Данные о распределении денег.
      *
-     * @return SettlementInterface[] Массив оплат, обеспечивающих выдачу товара.
+     * @var SettlementInterface[]|null
      */
-    public function getRefundSettlements()
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[Assert\AllType(SettlementPayoutRefund::class)]
+    #[Assert\Type(ListObject::class)]
+    private ?ListObject $_refund_settlements = null;
+
+    /**
+     * Возвращает массив оплат, обеспечивающих выдачу товара.
+     *
+     * @return SettlementInterface[]|ListObjectInterface Массив оплат, обеспечивающих выдачу товара
+     */
+    public function getRefundSettlements(): ListObjectInterface
     {
+        if ($this->_refund_settlements === null) {
+            $this->_refund_settlements = new ListObject(SettlementPayoutRefund::class);
+        }
         return $this->_refund_settlements;
     }
 
     /**
-     * Возвращает массив оплат, обеспечивающих выдачу товара
+     * Устанавливает массив оплат, обеспечивающих выдачу товара.
      *
-     * @param SettlementInterface[]|array $value
-     * @return RefundDealData
-     */
-    public function setRefundSettlements($value)
-    {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty refund_settlements value in deal', 0, 'deal.refund_settlements');
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid refund_settlements value type in deal',
-                0,
-                'deal.refund_settlements',
-                $value
-            );
-        }
-        $this->_refund_settlements = array();
-        foreach ($value as $key => $val) {
-            if (is_array($val)) {
-                $this->addRefundSettlement(new SettlementPayoutRefund($val));
-            } elseif ($val instanceof SettlementInterface) {
-                $this->addRefundSettlement($val);
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid refund_settlements value type in deal',
-                    0,
-                    'deal.refund_settlements[' . $key . ']',
-                    $val
-                );
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Добавляет оплату в чек
+     * @param ListObjectInterface|array|null $refund_settlements Данные о распределении денег.
      *
-     * @param SettlementInterface $value Объект добавляемой в чек позиции
-     * @return RefundDealData
+     * @return self
      */
-    public function addRefundSettlement($value)
+    public function setRefundSettlements(mixed $refund_settlements = null): self
     {
-        $this->_refund_settlements[] = $value;
+        $this->_refund_settlements = $this->validatePropertyValue('_refund_settlements', $refund_settlements);
         return $this;
     }
 }

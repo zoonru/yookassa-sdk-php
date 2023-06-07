@@ -12,6 +12,32 @@
 Запрос на создание объекта самозанятого.
 
 ---
+### Examples
+Пример использования билдера
+
+```php
+try {
+    $selfEmployedBuilder = \YooKassa\Request\SelfEmployed\SelfEmployedRequest::builder();
+    $selfEmployedBuilder
+        ->setItn('123456789012')
+        ->setPhone('79001002030')
+        ->setConfirmation(['type' => \YooKassa\Model\SelfEmployed\SelfEmployedConfirmationType::REDIRECT])
+    ;
+
+    // Создаем объект запроса
+    $request = $selfEmployedBuilder->build();
+
+    $idempotenceKey = uniqid('', true);
+    $response = $client->createSelfEmployed($request, $idempotenceKey);
+} catch (Exception $e) {
+    $response = $e;
+}
+
+var_dump($response);
+
+```
+
+---
 ### Constants
 * No constants found
 
@@ -20,7 +46,7 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [$confirmation](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#property_confirmation) |  | Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог. |
-| public | [$itn](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#property_itn) |  | ИНН самозанятого. |
+| public | [$itn](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#property_itn) |  | ИНН самозанятого. Формат: 12 цифр без пробелов. Обязательный параметр, если не передан phone. |
 | public | [$phone](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#property_phone) |  | Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог. |
 
 ---
@@ -28,82 +54,90 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [builder()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_builder) |  | Возвращает билдер объектов запросов создания платежа |
-| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [builder()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_builder) |  | Возвращает билдер объектов запросов создания платежа. |
+| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
 | public | [getConfirmation()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_getConfirmation) |  | Возвращает сценарий подтверждения. |
-| public | [getItn()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_getItn) |  | Возвращает ИНН самозанятого |
-| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации |
+| public | [getItn()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_getItn) |  | Возвращает ИНН самозанятого. |
+| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации. |
 | public | [getPhone()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_getPhone) |  | Возвращает телефон самозанятого. |
-| public | [hasConfirmation()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_hasConfirmation) |  | Проверяет наличие сценария подтверждения самозанятого в запросе |
-| public | [hasItn()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_hasItn) |  | Проверяет наличие ИНН самозанятого в запросе |
-| public | [hasPhone()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_hasPhone) |  | Проверяет наличие телефона самозанятого в запросе |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [hasConfirmation()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_hasConfirmation) |  | Проверяет наличие сценария подтверждения самозанятого в запросе. |
+| public | [hasItn()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_hasItn) |  | Проверяет наличие ИНН самозанятого в запросе. |
+| public | [hasPhone()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_hasPhone) |  | Проверяет наличие телефона самозанятого в запросе. |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
 | public | [setConfirmation()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_setConfirmation) |  | Устанавливает сценарий подтверждения. |
-| public | [setItn()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_setItn) |  | Устанавливает ИНН самозанятого |
+| public | [setItn()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_setItn) |  | Устанавливает ИНН самозанятого. |
 | public | [setPhone()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_setPhone) |  | Устанавливает телефон самозанятого. |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
 | public | [validate()](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md#method_validate) |  | Проверяет на валидность текущий объект |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
-| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Request/SelfEmployed/SelfEmployedRequest.php](../../lib/Request/SelfEmployed/SelfEmployedRequest.php)
-* Package: YooKassa\Model
+* Package: YooKassa\Request
 * Class Hierarchy:  
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
   * \YooKassa\Request\SelfEmployed\SelfEmployedRequest
+* Implements:
+  * [\YooKassa\Request\SelfEmployed\SelfEmployedRequestInterface](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestInterface.md)
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
 
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
+| category |  | Class |
 | author |  | cms@yoomoney.ru |
 
 ---
 ## Properties
 <a name="property_confirmation"></a>
-#### public $confirmation : \YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation|null
+#### public $confirmation : null|\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation
 ---
 ***Description***
 
 Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
 
-**Type:** <a href="../\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation|null"><abbr title="\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation|null">SelfEmployedRequestConfirmation|null</abbr></a>
+**Type:** <a href="../null|\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation"><abbr title="null|\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation">SelfEmployedRequestConfirmation</abbr></a>
 
 **Details:**
 
 
 <a name="property_itn"></a>
-#### public $itn : string|null
+#### public $itn : null|string
 ---
 ***Description***
 
-ИНН самозанятого.
+ИНН самозанятого. Формат: 12 цифр без пробелов. Обязательный параметр, если не передан phone.
 
-**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../null|string"><abbr title="null|string">null|string</abbr></a>
 
 **Details:**
 
 
 <a name="property_phone"></a>
-#### public $phone : string|null
+#### public $phone : null|string
 ---
 ***Description***
 
 Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
 
-**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+**Type:** <a href="../null|string"><abbr title="null|string">null|string</abbr></a>
 
 **Details:**
 
@@ -115,7 +149,7 @@
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -128,7 +162,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -142,7 +176,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -164,7 +198,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -178,15 +212,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -197,19 +231,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -219,7 +253,7 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_builder" class="anchor"></a>
@@ -231,41 +265,41 @@ Static public builder() : \YooKassa\Request\SelfEmployed\SelfEmployedRequestBuil
 
 **Summary**
 
-Возвращает билдер объектов запросов создания платежа
+Возвращает билдер объектов запросов создания платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequest](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md)
 
-**Returns:** \YooKassa\Request\SelfEmployed\SelfEmployedRequestBuilder - Инстанс билдера объектов запросов
+**Returns:** \YooKassa\Request\SelfEmployed\SelfEmployedRequestBuilder - 
 
 
 <a name="method_clearValidationError" class="anchor"></a>
-#### public clearValidationError() : mixed
+#### public clearValidationError() : void
 
 ```php
-public clearValidationError() : mixed
+public clearValidationError() : void
 ```
 
 **Summary**
 
-Очищает статус валидации текущего запроса
+Очищает статус валидации текущего запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -275,7 +309,7 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getConfirmation" class="anchor"></a>
@@ -304,7 +338,7 @@ public getItn() : string|null
 
 **Summary**
 
-Возвращает ИНН самозанятого
+Возвращает ИНН самозанятого.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequest](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md)
@@ -313,20 +347,20 @@ public getItn() : string|null
 
 
 <a name="method_getLastValidationError" class="anchor"></a>
-#### public getLastValidationError() : string
+#### public getLastValidationError() : string|null
 
 ```php
-public getLastValidationError() : string
+public getLastValidationError() : string|null
 ```
 
 **Summary**
 
-Возвращает последнюю ошибку валидации
+Возвращает последнюю ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** string - Последняя произошедшая ошибка валидации
+**Returns:** string|null - Последняя произошедшая ошибка валидации
 
 
 <a name="method_getPhone" class="anchor"></a>
@@ -346,6 +380,19 @@ public getPhone() : string|null
 **Returns:** string|null - Телефон самозанятого
 
 
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
+
+
 <a name="method_hasConfirmation" class="anchor"></a>
 #### public hasConfirmation() : bool
 
@@ -355,7 +402,7 @@ public hasConfirmation() : bool
 
 **Summary**
 
-Проверяет наличие сценария подтверждения самозанятого в запросе
+Проверяет наличие сценария подтверждения самозанятого в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequest](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md)
@@ -372,7 +419,7 @@ public hasItn() : bool
 
 **Summary**
 
-Проверяет наличие ИНН самозанятого в запросе
+Проверяет наличие ИНН самозанятого в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequest](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md)
@@ -389,7 +436,7 @@ public hasPhone() : bool
 
 **Summary**
 
-Проверяет наличие телефона самозанятого в запросе
+Проверяет наличие телефона самозанятого в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequest](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md)
@@ -406,7 +453,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -423,7 +470,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -445,7 +492,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -467,7 +514,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -490,7 +537,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -507,7 +554,7 @@ public offsetUnset(string $offset) : void
 #### public setConfirmation() : $this
 
 ```php
-public setConfirmation(\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|array|null $confirmation = null) : $this
+public setConfirmation(null|array|\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation $confirmation = null) : $this
 ```
 
 **Summary**
@@ -520,21 +567,21 @@ public setConfirmation(\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|arr
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation OR array OR null</code> | confirmation  | Сценарий подтверждения |
+| <code lang="php">null OR array OR \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation</code> | confirmation  | Сценарий подтверждения |
 
 **Returns:** $this - 
 
 
 <a name="method_setItn" class="anchor"></a>
-#### public setItn() : $this
+#### public setItn() : self
 
 ```php
-public setItn(string|null $itn = null) : $this
+public setItn(string|null $itn = null) : self
 ```
 
 **Summary**
 
-Устанавливает ИНН самозанятого
+Устанавливает ИНН самозанятого.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\SelfEmployed\SelfEmployedRequest](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md)
@@ -544,14 +591,14 @@ public setItn(string|null $itn = null) : $this
 | ---- | ---- | ----------- |
 | <code lang="php">string OR null</code> | itn  | ИНН самозанятого |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_setPhone" class="anchor"></a>
-#### public setPhone() : $this
+#### public setPhone() : self
 
 ```php
-public setPhone(string|null $phone = null) : $this
+public setPhone(string|array|null $phone = null) : self
 ```
 
 **Summary**
@@ -564,9 +611,9 @@ public setPhone(string|null $phone = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | phone  | Телефон самозанятого |
+| <code lang="php">string OR array OR null</code> | phone  | Телефон самозанятого |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -579,7 +626,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -613,7 +660,7 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -622,15 +669,15 @@ protected getUnknownProperties() : array
 
 
 <a name="method_setValidationError" class="anchor"></a>
-#### protected setValidationError() : mixed
+#### protected setValidationError() : void
 
 ```php
-protected setValidationError(string $value) : mixed
+protected setValidationError(string $value) : void
 ```
 
 **Summary**
 
-Устанавливает ошибку валидации
+Устанавливает ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
@@ -639,6 +686,25 @@ protected setValidationError(string $value) : mixed
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | value  | Ошибка, произошедшая при валидации объекта |
+
+**Returns:** void - 
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
 
 **Returns:** mixed - 
 
@@ -654,11 +720,11 @@ protected setValidationError(string $value) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

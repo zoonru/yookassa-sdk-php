@@ -5,37 +5,36 @@
 ---
 **Summary:**
 
-Класс объекта запроса для создания возврата
+Класс, представляющий модель CreateRefundRequest.
 
+**Description:**
+
+Класс объекта запроса для создания возврата.
 
 ---
 ### Examples
 Пример использования билдера
 
 ```php
-// Создание запроса возврата через билдер
 try {
     $refundBuilder = \YooKassa\Request\Refunds\CreateRefundRequest::builder();
     $refundBuilder
-                ->setPaymentId('24b94598-000f-5000-9000-1b68e7b15f3f')
-                ->setAmount(3500.00)
-                ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
-                ->setDescription('Не подошел цвет')
-                ->setReceiptItems(array(
-                    array(
-                        'description' => 'Платок Gucci',
-                        'quantity' => '1.00',
-                        'amount' => array(
-                            'value' => '3000.00',
-                            'currency' => 'RUB',
-                        ),
-                        'vat_code' => 2,
-                        'payment_mode' => 'full_payment',
-                        'payment_subject' => 'commodity',
-                    ),
-                ))
-                ->setReceiptEmail('john.doe@merchant.com')
-                ->setTaxSystemCode(1);
+        ->setPaymentId('24b94598-000f-5000-9000-1b68e7b15f3f')
+        ->setAmount(3500.00)
+        ->setCurrency(\YooKassa\Model\CurrencyCode::RUB)
+        ->setDescription('Не подошел цвет')
+        ->setReceiptItems([
+            (new \YooKassa\Model\Receipt\ReceiptItem)
+                ->setDescription('Платок Gucci Новый')
+                ->setQuantity(1)
+                ->setVatCode(2)
+                ->setPrice(new \YooKassa\Model\Receipt\ReceiptItemAmount(3500.00))
+                ->setPaymentSubject(\YooKassa\Model\Receipt\PaymentSubject::COMMODITY)
+                ->setPaymentMode(\YooKassa\Model\Receipt\PaymentMode::FULL_PAYMENT)
+        ])
+        ->setReceiptEmail('john.doe@merchant.com')
+        ->setTaxSystemCode(1)
+    ;
 
     // Создаем объект запроса
     $request = $refundBuilder->build();
@@ -49,6 +48,8 @@ try {
     $response = $e;
 }
 
+var_dump($response);
+
 ```
 
 ---
@@ -60,11 +61,9 @@ try {
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [$amount](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#property_amount) |  | Сумма возврата |
-| public | [$amount](../classes/YooKassa-Common-AbstractRefundRequest.md#property_amount) |  | Сумма возврата |
 | public | [$deal](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#property_deal) |  | Информация о сделке |
 | public | [$description](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#property_description) |  | Комментарий к операции возврата, основание для возврата средств покупателю. |
 | public | [$paymentId](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#property_paymentId) |  | Айди платежа для которого создаётся возврат |
-| public | [$paymentId](../classes/YooKassa-Common-AbstractRefundRequest.md#property_paymentId) |  | Идентификатор платежа для которого создаётся возврат |
 | public | [$receipt](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#property_receipt) |  | Инстанс чека или null |
 | public | [$sources](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#property_sources) |  | Информация о распределении денег — сколько и в какой магазин нужно перевести |
 
@@ -73,54 +72,65 @@ try {
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [builder()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_builder) |  | Возвращает билдер объектов текущего типа |
-| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getAmount()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_getAmount) |  | Возвращает сумму возврата |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [builder()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_builder) |  | Возвращает билдер объектов текущего типа. |
+| public | [clearValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_clearValidationError) |  | Очищает статус валидации текущего запроса. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
+| public | [getAmount()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_getAmount) |  | Возвращает сумму возврата. |
 | public | [getDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_getDeal) |  | Возвращает данные о сделке, в составе которой проходит возврат |
-| public | [getDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_getDescription) |  | Возвращает комментарий к возврату или null, если комментарий не задан |
-| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации |
-| public | [getPaymentId()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_getPaymentId) |  | Возвращает идентификатор платежа для которого создаётся возврат средств |
-| public | [getReceipt()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_getReceipt) |  | Возвращает чек, если он есть |
-| public | [getSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_getSources) |  | Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести |
-| public | [hasAmount()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_hasAmount) |  | Проверяет, была ли установлена сумма возврата |
-| public | [hasDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasDeal) |  | Проверяет, были ли установлены данные о сделке |
-| public | [hasDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasDescription) |  | Проверяет задан ли комментарий к создаваемому возврату |
-| public | [hasPaymentId()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_hasPaymentId) |  | Проверяет, был ли установлена идентификатор платежа |
-| public | [hasReceipt()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_hasReceipt) |  | Проверяет наличие чека |
-| public | [hasSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasSources) |  | Проверяет наличие информации о распределении денег |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
-| public | [removeReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_removeReceipt) |  | Удаляет чек из запроса |
-| public | [setAmount()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_setAmount) |  | Устанавливает сумму |
+| public | [getDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_getDescription) |  | Возвращает комментарий к возврату или null, если комментарий не задан. |
+| public | [getLastValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_getLastValidationError) |  | Возвращает последнюю ошибку валидации. |
+| public | [getPaymentId()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_getPaymentId) |  | Возвращает идентификатор платежа для которого создаётся возврат средств. |
+| public | [getReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_getReceipt) |  | Возвращает чек, если он есть. |
+| public | [getSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_getSources) |  | Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести. |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [hasAmount()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasAmount) |  | Проверяет, была ли установлена сумма возврата. |
+| public | [hasDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasDeal) |  | Проверяет, были ли установлены данные о сделке. |
+| public | [hasDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasDescription) |  | Проверяет задан ли комментарий к создаваемому возврату. |
+| public | [hasPaymentId()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasPaymentId) |  | Проверяет, был ли установлена идентификатор платежа. |
+| public | [hasReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasReceipt) |  | Проверяет наличие чека. |
+| public | [hasSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_hasSources) |  | Проверяет наличие информации о распределении денег. |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
+| public | [removeReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_removeReceipt) |  | Удаляет чек из запроса. |
+| public | [setAmount()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setAmount) |  | Устанавливает сумму. |
 | public | [setDeal()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setDeal) |  | Устанавливает данные о сделке, в составе которой проходит возврат |
-| public | [setDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setDescription) |  | Устанавливает комментарий к возврату |
-| public | [setPaymentId()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_setPaymentId) |  | Устанавливает идентификатор платежа для которого создаётся возврат |
-| public | [setReceipt()](../classes/YooKassa-Common-AbstractRefundRequest.md#method_setReceipt) |  | Устанавливает чек |
-| public | [setSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setSources) |  | Устанавливает sources (массив распределения денег между магазинами) |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
-| public | [validate()](../classes/YooKassa-Common-AbstractRequest.md#method_validate) |  | Валидирует текущий запрос, проверяет все ли нужные свойства установлены |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
-| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации |
+| public | [setDescription()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setDescription) |  | Устанавливает комментарий к возврату. |
+| public | [setPaymentId()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setPaymentId) |  | Устанавливает идентификатор платежа для которого создаётся возврат |
+| public | [setReceipt()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setReceipt) |  | Устанавливает чек. |
+| public | [setSources()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_setSources) |  | Устанавливает sources (массив распределения денег между магазинами). |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
+| public | [validate()](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md#method_validate) |  | Валидирует объект запроса. |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [setValidationError()](../classes/YooKassa-Common-AbstractRequest.md#method_setValidationError) |  | Устанавливает ошибку валидации. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Request/Refunds/CreateRefundRequest.php](../../lib/Request/Refunds/CreateRefundRequest.php)
-* Package: Default
-* Class Hierarchy:   
+* Package: YooKassa\Request
+* Class Hierarchy:  
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
-  * [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
   * \YooKassa\Request\Refunds\CreateRefundRequest
 * Implements:
   * [\YooKassa\Request\Refunds\CreateRefundRequestInterface](../classes/YooKassa-Request-Refunds-CreateRefundRequestInterface.md)
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Properties
@@ -136,27 +146,14 @@ try {
 **Details:**
 
 
-<a name="property_amount"></a>
-#### public $amount : \YooKassa\Model\AmountInterface
----
-***Description***
-
-Сумма возврата
-
-**Type:** <a href="../classes/YooKassa-Model-AmountInterface.html"><abbr title="\YooKassa\Model\AmountInterface">AmountInterface</abbr></a>
-
-**Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
-
-
 <a name="property_deal"></a>
-#### public $deal : \YooKassa\Model\Deal\RefundDealData|null
+#### public $deal : null|\YooKassa\Model\Deal\RefundDealData
 ---
 ***Description***
 
 Информация о сделке
 
-**Type:** <a href="../\YooKassa\Model\Deal\RefundDealData|null"><abbr title="\YooKassa\Model\Deal\RefundDealData|null">RefundDealData|null</abbr></a>
+**Type:** <a href="../null|\YooKassa\Model\Deal\RefundDealData"><abbr title="null|\YooKassa\Model\Deal\RefundDealData">RefundDealData</abbr></a>
 
 **Details:**
 
@@ -185,39 +182,26 @@ try {
 **Details:**
 
 
-<a name="property_paymentId"></a>
-#### public $paymentId : string
----
-***Description***
-
-Идентификатор платежа для которого создаётся возврат
-
-**Type:** <a href="../string"><abbr title="string">string</abbr></a>
-
-**Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
-
-
 <a name="property_receipt"></a>
-#### public $receipt : \YooKassa\Model\ReceiptInterface|null
+#### public $receipt : null|\YooKassa\Model\Receipt\ReceiptInterface
 ---
 ***Description***
 
 Инстанс чека или null
 
-**Type:** <a href="../\YooKassa\Model\ReceiptInterface|null"><abbr title="\YooKassa\Model\ReceiptInterface|null">ReceiptInterface|null</abbr></a>
+**Type:** <a href="../null|\YooKassa\Model\Receipt\ReceiptInterface"><abbr title="null|\YooKassa\Model\Receipt\ReceiptInterface">ReceiptInterface</abbr></a>
 
 **Details:**
 
 
 <a name="property_sources"></a>
-#### public $sources : \YooKassa\Model\SourceInterface[]|null
+#### public $sources : null|\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Refund\SourceInterface[]
 ---
 ***Description***
 
 Информация о распределении денег — сколько и в какой магазин нужно перевести
 
-**Type:** <a href="../\YooKassa\Model\SourceInterface[]|null"><abbr title="\YooKassa\Model\SourceInterface[]|null">SourceInterface[]|null</abbr></a>
+**Type:** <a href="../null|\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Refund\SourceInterface[]"><abbr title="null|\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Refund\SourceInterface[]">SourceInterface[]</abbr></a>
 
 **Details:**
 
@@ -229,7 +213,7 @@ try {
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -242,7 +226,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -256,7 +240,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -278,7 +262,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -292,15 +276,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -311,19 +295,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -333,7 +317,7 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_builder" class="anchor"></a>
@@ -345,7 +329,7 @@ Static public builder() : \YooKassa\Request\Refunds\CreateRefundRequestBuilder
 
 **Summary**
 
-Возвращает билдер объектов текущего типа
+Возвращает билдер объектов текущего типа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
@@ -354,32 +338,32 @@ Static public builder() : \YooKassa\Request\Refunds\CreateRefundRequestBuilder
 
 
 <a name="method_clearValidationError" class="anchor"></a>
-#### public clearValidationError() : mixed
+#### public clearValidationError() : void
 
 ```php
-public clearValidationError() : mixed
+public clearValidationError() : void
 ```
 
 **Summary**
 
-Очищает статус валидации текущего запроса
+Очищает статус валидации текущего запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -389,31 +373,31 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getAmount" class="anchor"></a>
-#### public getAmount() : \YooKassa\Model\AmountInterface
+#### public getAmount() : \YooKassa\Model\AmountInterface|null
 
 ```php
-public getAmount() : \YooKassa\Model\AmountInterface
+public getAmount() : \YooKassa\Model\AmountInterface|null
 ```
 
 **Summary**
 
-Возвращает сумму возврата
+Возвращает сумму возврата.
 
 **Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
-**Returns:** \YooKassa\Model\AmountInterface - Сумма возврата
+**Returns:** \YooKassa\Model\AmountInterface|null - Сумма возврата
 
 
 <a name="method_getDeal" class="anchor"></a>
-#### public getDeal() : \YooKassa\Model\Deal\RefundDealData
+#### public getDeal() : \YooKassa\Model\Deal\RefundDealData|null
 
 ```php
-public getDeal() : \YooKassa\Model\Deal\RefundDealData
+public getDeal() : \YooKassa\Model\Deal\RefundDealData|null
 ```
 
 **Summary**
@@ -423,92 +407,105 @@ public getDeal() : \YooKassa\Model\Deal\RefundDealData
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
-**Returns:** \YooKassa\Model\Deal\RefundDealData - Данные о сделке, в составе которой проходит возврат
+**Returns:** \YooKassa\Model\Deal\RefundDealData|null - Данные о сделке, в составе которой проходит возврат
 
 
 <a name="method_getDescription" class="anchor"></a>
-#### public getDescription() : string
+#### public getDescription() : string|null
 
 ```php
-public getDescription() : string
+public getDescription() : string|null
 ```
 
 **Summary**
 
-Возвращает комментарий к возврату или null, если комментарий не задан
+Возвращает комментарий к возврату или null, если комментарий не задан.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
-**Returns:** string - Комментарий к операции возврата, основание для возврата средств покупателю.
+**Returns:** string|null - Комментарий к операции возврата, основание для возврата средств покупателю
 
 
 <a name="method_getLastValidationError" class="anchor"></a>
-#### public getLastValidationError() : string
+#### public getLastValidationError() : string|null
 
 ```php
-public getLastValidationError() : string
+public getLastValidationError() : string|null
 ```
 
 **Summary**
 
-Возвращает последнюю ошибку валидации
+Возвращает последнюю ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
 
-**Returns:** string - Последняя произошедшая ошибка валидации
+**Returns:** string|null - Последняя произошедшая ошибка валидации
 
 
 <a name="method_getPaymentId" class="anchor"></a>
-#### public getPaymentId() : string
+#### public getPaymentId() : string|null
 
 ```php
-public getPaymentId() : string
+public getPaymentId() : string|null
 ```
 
 **Summary**
 
-Возвращает идентификатор платежа для которого создаётся возврат средств
-
-**Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
-
-**Returns:** string - Идентификатор платежа для которого создаётся возврат
-
-
-<a name="method_getReceipt" class="anchor"></a>
-#### public getReceipt() : \YooKassa\Model\ReceiptInterface|null
-
-```php
-public getReceipt() : \YooKassa\Model\ReceiptInterface|null
-```
-
-**Summary**
-
-Возвращает чек, если он есть
-
-**Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
-
-**Returns:** \YooKassa\Model\ReceiptInterface|null - Данные фискального чека 54-ФЗ или null, если чека нет
-
-
-<a name="method_getSources" class="anchor"></a>
-#### public getSources() : \YooKassa\Model\SourceInterface[]
-
-```php
-public getSources() : \YooKassa\Model\SourceInterface[]
-```
-
-**Summary**
-
-Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести
+Возвращает идентификатор платежа для которого создаётся возврат средств.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
-**Returns:** \YooKassa\Model\SourceInterface[] - Информация о распределении денег
+**Returns:** string|null - Идентификатор платежа для которого создаётся возврат
+
+
+<a name="method_getReceipt" class="anchor"></a>
+#### public getReceipt() : null|\YooKassa\Model\Receipt\ReceiptInterface
+
+```php
+public getReceipt() : null|\YooKassa\Model\Receipt\ReceiptInterface
+```
+
+**Summary**
+
+Возвращает чек, если он есть.
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
+
+**Returns:** null|\YooKassa\Model\Receipt\ReceiptInterface - Данные фискального чека 54-ФЗ или null, если чека нет
+
+
+<a name="method_getSources" class="anchor"></a>
+#### public getSources() : \YooKassa\Model\Refund\SourceInterface[]|\YooKassa\Common\ListObjectInterface
+
+```php
+public getSources() : \YooKassa\Model\Refund\SourceInterface[]|\YooKassa\Common\ListObjectInterface
+```
+
+**Summary**
+
+Возвращает информацию о распределении денег — сколько и в какой магазин нужно перевести.
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
+
+**Returns:** \YooKassa\Model\Refund\SourceInterface[]|\YooKassa\Common\ListObjectInterface - Информация о распределении денег
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_hasAmount" class="anchor"></a>
@@ -520,10 +517,10 @@ public hasAmount() : bool
 
 **Summary**
 
-Проверяет, была ли установлена сумма возврата
+Проверяет, была ли установлена сумма возврата.
 
 **Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
 **Returns:** bool - True если сумма возврата была установлена, false если нет
 
@@ -537,7 +534,7 @@ public hasDeal() : bool
 
 **Summary**
 
-Проверяет, были ли установлены данные о сделке
+Проверяет, были ли установлены данные о сделке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
@@ -554,7 +551,7 @@ public hasDescription() : bool
 
 **Summary**
 
-Проверяет задан ли комментарий к создаваемому возврату
+Проверяет задан ли комментарий к создаваемому возврату.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
@@ -571,10 +568,10 @@ public hasPaymentId() : bool
 
 **Summary**
 
-Проверяет, был ли установлена идентификатор платежа
+Проверяет, был ли установлена идентификатор платежа.
 
 **Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
 **Returns:** bool - True если идентификатор платежа был установлен, false если нет
 
@@ -588,10 +585,10 @@ public hasReceipt() : bool
 
 **Summary**
 
-Проверяет наличие чека
+Проверяет наличие чека.
 
 **Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
 **Returns:** bool - True если чек есть, false если нет
 
@@ -605,7 +602,7 @@ public hasSources() : bool
 
 **Summary**
 
-Проверяет наличие информации о распределении денег
+Проверяет наличие информации о распределении денег.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
@@ -622,7 +619,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -639,7 +636,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -661,7 +658,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -683,7 +680,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -706,7 +703,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -720,49 +717,49 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_removeReceipt" class="anchor"></a>
-#### public removeReceipt() : mixed
+#### public removeReceipt() : void
 
 ```php
-public removeReceipt() : mixed
+public removeReceipt() : void
 ```
 
 **Summary**
 
-Удаляет чек из запроса
+Удаляет чек из запроса.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setAmount" class="anchor"></a>
 #### public setAmount() : self
 
 ```php
-public setAmount(\YooKassa\Model\AmountInterface|array|string $value) : self
+public setAmount(\YooKassa\Model\AmountInterface|array|string $amount = null) : self
 ```
 
 **Summary**
 
-Устанавливает сумму
+Устанавливает сумму.
 
 **Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\AmountInterface OR array OR string</code> | value  | Сумма возврата |
+| <code lang="php">\YooKassa\Model\AmountInterface OR array OR string</code> | amount  | Сумма возврата |
 
-**Returns:** self - Инстанс билдера запросов
+**Returns:** self - 
 
 
 <a name="method_setDeal" class="anchor"></a>
-#### public setDeal() : mixed
+#### public setDeal() : self
 
 ```php
-public setDeal(\YooKassa\Model\Deal\RefundDealData|array|null $value) : mixed
+public setDeal(null|array|\YooKassa\Model\Deal\RefundDealData $deal = null) : self
 ```
 
 **Summary**
@@ -775,26 +772,21 @@ public setDeal(\YooKassa\Model\Deal\RefundDealData|array|null $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\Deal\RefundDealData OR array OR null</code> | value  | Данные о сделке, в составе которой проходит возврат |
+| <code lang="php">null OR array OR \YooKassa\Model\Deal\RefundDealData</code> | deal  | Данные о сделке, в составе которой проходит возврат |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если переданные данные не удалось интерпретировать как данные сделки |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setDescription" class="anchor"></a>
-#### public setDescription() : mixed
+#### public setDescription() : self
 
 ```php
-public setDescription(string $value) : mixed
+public setDescription(string|null $description = null) : self
 ```
 
 **Summary**
 
-Устанавливает комментарий к возврату
+Устанавливает комментарий к возврату.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
@@ -802,21 +794,16 @@ public setDescription(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Комментарий к операции возврата, основание для возврата средств покупателю |
+| <code lang="php">string OR null</code> | description  | Комментарий к операции возврата, основание для возврата средств покупателю |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setPaymentId" class="anchor"></a>
-#### public setPaymentId() : mixed
+#### public setPaymentId() : self
 
 ```php
-public setPaymentId(string $value) : mixed
+public setPaymentId(string|null $payment_id = null) : self
 ```
 
 **Summary**
@@ -824,60 +811,26 @@ public setPaymentId(string $value) : mixed
 Устанавливает идентификатор платежа для которого создаётся возврат
 
 **Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Идентификатор платежа |
+| <code lang="php">string OR null</code> | payment_id  | Идентификатор платежа |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\EmptyPropertyValueException | Выбрасывается если передано пустое значение идентификатора платежа |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если переданное значение является строкой, но не является валидным значением идентификатора платежа |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если передано значение не валидного типа |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setReceipt" class="anchor"></a>
-#### public setReceipt() : mixed
+#### public setReceipt() : self
 
 ```php
-public setReceipt(\YooKassa\Model\ReceiptInterface|array|null $value) : mixed
+public setReceipt(null|array|\YooKassa\Model\Receipt\ReceiptInterface $receipt = null) : self
 ```
 
 **Summary**
 
-Устанавливает чек
-
-**Details:**
-* Inherited From: [\YooKassa\Common\AbstractRefundRequest](../classes/YooKassa-Common-AbstractRefundRequest.md)
-
-##### Parameters:
-| Type | Name | Description |
-| ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\ReceiptInterface OR array OR null</code> | value  | Инстанс чека или null для удаления информации о чеке |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если передан не инстанс класса чека и не null |
-
-**Returns:** mixed - 
-
-
-<a name="method_setSources" class="anchor"></a>
-#### public setSources() : mixed
-
-```php
-public setSources(\YooKassa\Model\SourceInterface[]|array $value) : mixed
-```
-
-**Summary**
-
-Устанавливает sources (массив распределения денег между магазинами)
+Устанавливает чек.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
@@ -885,9 +838,31 @@ public setSources(\YooKassa\Model\SourceInterface[]|array $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SourceInterface[] OR array</code> | value  | Массив распределения денег между магазинами |
+| <code lang="php">null OR array OR \YooKassa\Model\Receipt\ReceiptInterface</code> | receipt  | Инстанс чека или null для удаления информации о чеке |
 
-**Returns:** mixed - 
+**Returns:** self - 
+
+
+<a name="method_setSources" class="anchor"></a>
+#### public setSources() : self
+
+```php
+public setSources(array|\YooKassa\Common\ListObjectInterface|null $sources = null) : self
+```
+
+**Summary**
+
+Устанавливает sources (массив распределения денег между магазинами).
+
+**Details:**
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">array OR \YooKassa\Common\ListObjectInterface OR null</code> | sources  | Массив распределения денег между магазинами |
+
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -900,7 +875,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -912,17 +887,17 @@ public toArray() : array
 #### public validate() : bool
 
 ```php
-Abstract public validate() : bool
+public validate() : bool
 ```
 
 **Summary**
 
-Валидирует текущий запрос, проверяет все ли нужные свойства установлены
+Валидирует объект запроса.
 
 **Details:**
-* Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
+* Inherited From: [\YooKassa\Request\Refunds\CreateRefundRequest](../classes/YooKassa-Request-Refunds-CreateRefundRequest.md)
 
-**Returns:** bool - True если запрос валиден, false если нет
+**Returns:** bool - True если запрос валиден и его можно отправить в API, false если нет
 
 
 <a name="method_getUnknownProperties" class="anchor"></a>
@@ -934,7 +909,7 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -943,15 +918,15 @@ protected getUnknownProperties() : array
 
 
 <a name="method_setValidationError" class="anchor"></a>
-#### protected setValidationError() : mixed
+#### protected setValidationError() : void
 
 ```php
-protected setValidationError(string $value) : mixed
+protected setValidationError(string $value) : void
 ```
 
 **Summary**
 
-Устанавливает ошибку валидации
+Устанавливает ошибку валидации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractRequest](../classes/YooKassa-Common-AbstractRequest.md)
@@ -960,6 +935,25 @@ protected setValidationError(string $value) : mixed
 | Type | Name | Description |
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | value  | Ошибка, произошедшая при валидации объекта |
+
+**Returns:** void - 
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
 
 **Returns:** mixed - 
 
@@ -975,11 +969,11 @@ protected setValidationError(string $value) : mixed
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -2,45 +2,43 @@
 
 namespace Tests\YooKassa\Common;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use YooKassa\Common\AbstractObject;
 
+/**
+ * @internal
+ */
 class AbstractObjectTest extends TestCase
 {
-    protected function getTestInstance()
-    {
-        return new TestAbstractObject();
-    }
-
     /**
      * @dataProvider offsetDataProvider
-     * @param $value
-     * @param $exists
+     *
+     * @param mixed $value
+     * @param mixed $exists
      */
-    public function testOffsetExists($value, $exists)
+    public function testOffsetExists(mixed $value, mixed $exists): void
     {
         $instance = $this->getTestInstance();
-        if ($exists) {
-            self::assertTrue($instance->offsetExists($value));
-            self::assertTrue(isset($instance[$value]));
-            self::assertTrue(isset($instance->{$value}));
-        } else {
+        if (!$exists) {
             self::assertFalse($instance->offsetExists($value));
             self::assertFalse(isset($instance[$value]));
             self::assertFalse(isset($instance->{$value}));
 
             $instance->offsetSet($value, $value);
-            self::assertTrue($instance->offsetExists($value));
-            self::assertTrue(isset($instance[$value]));
-            self::assertTrue(isset($instance->{$value}));
         }
+        self::assertTrue($instance->offsetExists($value));
+        self::assertTrue(isset($instance[$value]));
+        self::assertTrue(isset($instance->{$value}));
     }
 
     /**
      * @dataProvider offsetDataProvider
-     * @param $value
+     *
+     * @param mixed $value
      */
-    public function testOffsetGet($value)
+    public function testOffsetGet(mixed $value): void
     {
         $instance = $this->getTestInstance();
 
@@ -63,10 +61,11 @@ class AbstractObjectTest extends TestCase
 
     /**
      * @dataProvider offsetDataProvider
-     * @param $value
-     * @param $exists
+     *
+     * @param mixed $value
+     * @param mixed $exists
      */
-    public function testOffsetUnset($value, $exists)
+    public function testOffsetUnset(mixed $value, mixed $exists): void
     {
         $instance = $this->getTestInstance();
         if ($exists) {
@@ -103,74 +102,74 @@ class AbstractObjectTest extends TestCase
         }
     }
 
-    public function offsetDataProvider()
+    public static function offsetDataProvider(): array
     {
-        return array(
-            array('property', true),
-            array('propertyCamelCase', true),
-            array('property_camel_case', true),
-            array('Property', true),
-            array('PropertyCamelCase', true),
-            array('Property_Camel_Case', true),
-            array('not_exists', false),
-        );
+        return [
+            ['property', true],
+            ['propertyCamelCase', true],
+            ['property_camel_case', true],
+            ['Property', true],
+            ['PropertyCamelCase', true],
+            ['Property_Camel_Case', true],
+            ['not_exists', false],
+        ];
     }
 
-    public function testJsonSerialize()
+    public function testJsonSerialize(): void
     {
         $instance = $this->getTestInstance();
 
         $data = $instance->jsonSerialize();
-        $expected = array();
+        $expected = [];
         self::assertEquals($expected, $data);
 
         $instance->setProperty('propertyValue');
         $data = $instance->jsonSerialize();
-        $expected = array(
+        $expected = [
             'property' => 'propertyValue',
-        );
+        ];
         self::assertEquals($expected, $data);
 
         $instance->setPropertyCamelCase($this->getTestInstance());
         $data = $instance->jsonSerialize();
-        $expected = array(
+        $expected = [
             'property' => 'propertyValue',
-            'property_camel_case' => array(),
-        );
+            'property_camel_case' => [],
+        ];
         self::assertEquals($expected, $data);
 
-        $instance->getPropertyCamelCase()->setProperty(array('test', 1, 2, 3));
+        $instance->getPropertyCamelCase()->setProperty(['test', 1, 2, 3]);
         $data = $instance->jsonSerialize();
-        $expected = array(
+        $expected = [
             'property' => 'propertyValue',
-            'property_camel_case' => array(
-                'property' => array('test', 1, 2, 3),
-            ),
-        );
+            'property_camel_case' => [
+                'property' => ['test', 1, 2, 3],
+            ],
+        ];
         self::assertEquals($expected, $data);
 
-        $date = new \DateTime();
+        $date = new DateTime();
         $instance->getPropertyCamelCase()->setPropertyCamelCase($date);
         $data = $instance->jsonSerialize();
-        $expected = array(
+        $expected = [
             'property' => 'propertyValue',
-            'property_camel_case' => array(
-                'property' => array('test', 1, 2, 3),
+            'property_camel_case' => [
+                'property' => ['test', 1, 2, 3],
                 'property_camel_case' => $date->format(YOOKASSA_DATE),
-            ),
-        );
+            ],
+        ];
         self::assertEquals($expected, $data);
 
         $instance->getPropertyCamelCase()->unknown_obj = $this->getTestInstance();
         $data = $instance->jsonSerialize();
-        $expected = array(
+        $expected = [
             'property' => 'propertyValue',
-            'property_camel_case' => array(
-                'property' => array('test', 1, 2, 3),
+            'property_camel_case' => [
+                'property' => ['test', 1, 2, 3],
                 'property_camel_case' => $date->format(YOOKASSA_DATE),
-                'unknown_obj' => array(),
-            ),
-        );
+                'unknown_obj' => [],
+            ],
+        ];
         self::assertEquals($expected, $data);
 
         $instance->unknown_property = true;
@@ -178,9 +177,9 @@ class AbstractObjectTest extends TestCase
         $expected['unknown_property'] = true;
         self::assertEquals($expected, $data);
 
-        $instance->unknown_array = array(false);
+        $instance->unknown_array = [false];
         $data = $instance->jsonSerialize();
-        $expected['unknown_array'] = array(false);
+        $expected['unknown_array'] = [false];
         self::assertEquals($expected, $data);
 
         $instance->unknown_date = $date;
@@ -188,14 +187,14 @@ class AbstractObjectTest extends TestCase
         $expected['unknown_date'] = $date->format(YOOKASSA_DATE);
         self::assertEquals($expected, $data);
 
-        $obj = new \stdClass();
+        $obj = new stdClass();
         $obj->test = 'test1';
         $instance->unknown_obj = $obj;
         $data = $instance->jsonSerialize();
         $expected['unknown_obj'] = $obj;
         self::assertEquals($expected, $data);
 
-        $obj = new \stdClass();
+        $obj = new stdClass();
         $obj->test = 'test2';
         $instance->property_camel_case = $obj;
         $data = $instance->jsonSerialize();
@@ -206,6 +205,11 @@ class AbstractObjectTest extends TestCase
         $data = $instance->jsonSerialize();
         unset($expected['property_camel_case']);
         self::assertEquals($expected, $data);
+    }
+
+    protected function getTestInstance(): TestAbstractObject
+    {
+        return new TestAbstractObject();
     }
 }
 
@@ -219,7 +223,7 @@ class TestAbstractObject extends AbstractObject
         return $this->_property;
     }
 
-    public function setProperty($value)
+    public function setProperty($value): void
     {
         $this->_property = $value;
     }
@@ -229,7 +233,7 @@ class TestAbstractObject extends AbstractObject
         return $this->_anotherProperty;
     }
 
-    public function setPropertyCamelCase($value)
+    public function setPropertyCamelCase($value): void
     {
         $this->_anotherProperty = $value;
     }

@@ -2,20 +2,25 @@
 
 namespace Tests\YooKassa\Request\Deals;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use YooKassa\Helpers\Random;
 use YooKassa\Model\Deal\DealStatus;
-use YooKassa\Model\SafeDeal;
+use YooKassa\Model\Deal\SafeDeal;
 use YooKassa\Request\Deals\DealsRequest;
 use YooKassa\Request\Deals\DealsRequestBuilder;
 
+/**
+ * @internal
+ */
 class DealsRequestBuilderTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCursor($options)
+    public function testSetCursor($options): void
     {
         $builder = new DealsRequestBuilder();
 
@@ -33,16 +38,17 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCreatedAtGte($options)
+    public function testSetCreatedAtGte($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getCreatedAtGte());
 
-        $builder->setCreatedAtGte($options['createdAtGte']);
+        $builder->setCreatedAtGte($options['createdAtGte'] ?? null);
         $instance = $builder->build();
         if (empty($options['createdAtGte'])) {
             self::assertNull($instance->getCreatedAtGte());
@@ -53,17 +59,19 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
-     * @throws \Exception
+     *
+     * @param mixed $options
+     *
+     * @throws Exception
      */
-    public function testSetCreatedGt($options)
+    public function testSetCreatedGt($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getCreatedAtGt());
 
-        $builder->setCreatedAtGt($options['createdAtGt']);
+        $builder->setCreatedAtGt($options['createdAtGt'] ?? null);
         $instance = $builder->build();
         if (empty($options['createdAtGt'])) {
             self::assertNull($instance->getCreatedAtGt());
@@ -74,17 +82,19 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
-     * @throws \Exception
+     *
+     * @param mixed $options
+     *
+     * @throws Exception
      */
-    public function testSetCreatedLte($options)
+    public function testSetCreatedLte($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getCreatedAtLte());
 
-        $builder->setCreatedAtLte($options['createdAtLte']);
+        $builder->setCreatedAtLte($options['createdAtLte'] ?? null);
         $instance = $builder->build();
         if (empty($options['createdAtLte'])) {
             self::assertNull($instance->getCreatedAtLte());
@@ -95,16 +105,17 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetCreatedLt($options)
+    public function testSetCreatedLt($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getCreatedAtLt());
 
-        $builder->setCreatedAtLt($options['createdAtLt']);
+        $builder->setCreatedAtLt($options['createdAtLt'] ?? null);
         $instance = $builder->build();
         if (empty($options['createdAtLt'])) {
             self::assertNull($instance->getCreatedAtLt());
@@ -115,16 +126,17 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetExpiresAtGte($options)
+    public function testSetExpiresAtGte($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getExpiresAtGte());
 
-        $builder->setExpiresAtGte($options['expiresAtGte']);
+        $builder->setExpiresAtGte($options['expiresAtGte'] ?? null);
         $instance = $builder->build();
         if (empty($options['expiresAtGte'])) {
             self::assertNull($instance->getExpiresAtGte());
@@ -135,17 +147,19 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
-     * @throws \Exception
+     *
+     * @param mixed $options
+     *
+     * @throws Exception
      */
-    public function testSetExpiresGt($options)
+    public function testSetExpiresGt($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getExpiresAtGt());
 
-        $builder->setExpiresAtGt($options['expiresAtGt']);
+        $builder->setExpiresAtGt($options['expiresAtGt'] ?? null);
         $instance = $builder->build();
         if (empty($options['expiresAtGt'])) {
             self::assertNull($instance->getExpiresAtGt());
@@ -156,17 +170,19 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
-     * @throws \Exception
+     *
+     * @param mixed $options
+     *
+     * @throws Exception
      */
-    public function testSetExpiresLte($options)
+    public function testSetExpiresLte($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getExpiresAtLte());
 
-        $builder->setExpiresAtLte($options['expiresAtLte']);
+        $builder->setExpiresAtLte($options['expiresAtLte'] ?? null);
         $instance = $builder->build();
         if (empty($options['expiresAtLte'])) {
             self::assertNull($instance->getExpiresAtLte());
@@ -177,16 +193,17 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetExpiresLt($options)
+    public function testSetExpiresLt($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getExpiresAtLt());
 
-        $builder->setExpiresAtLt($options['expiresAtLt']);
+        $builder->setExpiresAtLt($options['expiresAtLt'] ?? null);
         $instance = $builder->build();
         if (empty($options['expiresAtLt'])) {
             self::assertNull($instance->getExpiresAtLt());
@@ -195,19 +212,19 @@ class DealsRequestBuilderTest extends TestCase
         }
     }
 
-
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetFullTextSearch($options)
+    public function testSetFullTextSearch($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
         self::assertNull($instance->getFullTextSearch());
 
-        $builder->setFullTextSearch($options['fullTextSearch']);
+        $builder->setFullTextSearch($options['fullTextSearch'] ?? null);
         $instance = $builder->build();
         if (empty($options['fullTextSearch'])) {
             self::assertNull($instance->getFullTextSearch());
@@ -218,14 +235,15 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetLimit($options)
+    public function testSetLimit($options): void
     {
         $builder = new DealsRequestBuilder();
 
         $instance = $builder->build();
-        self::assertNull($instance->getLimit());
+        self::assertNotNull($instance->getLimit());
 
         $builder->setLimit($options['limit']);
         $instance = $builder->build();
@@ -238,9 +256,10 @@ class DealsRequestBuilderTest extends TestCase
 
     /**
      * @dataProvider validDataProvider
-     * @param $options
+     *
+     * @param mixed $options
      */
-    public function testSetStatus($options)
+    public function testSetStatus($options): void
     {
         $builder = new DealsRequestBuilder();
 
@@ -256,77 +275,71 @@ class DealsRequestBuilderTest extends TestCase
         }
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
-        $result   = array(
-            array(
-                array(
-                    'createdAtGte'   => null,
-                    'createdAtGt'    => null,
-                    'createdAtLte'   => null,
-                    'createdAtLt'    => null,
-                    'expiresAtGte'   => null,
-                    'expiresAtGt'    => null,
-                    'expiresAtLte'   => null,
-                    'expiresAtLt'    => null,
+        $result = [
+            [
+                [
+                    'createdAtGte' => null,
+                    'createdAtGt' => null,
+                    'createdAtLte' => null,
+                    'createdAtLt' => null,
+                    'expiresAtGte' => null,
+                    'expiresAtGt' => null,
+                    'expiresAtLte' => null,
+                    'expiresAtLt' => null,
                     'fullTextSearch' => null,
-                    'status'         => null,
-                    'limit'          => null,
-                    'cursor'         => null,
-                ),
-            ),
-            array(
-                array(
-                    'createdAtGte'   => '',
-                    'createdAtGt'    => '',
-                    'createdAtLte'   => '',
-                    'createdAtLt'    => '',
-                    'expiresAtGte'   => '',
-                    'expiresAtGt'    => '',
-                    'expiresAtLte'   => '',
-                    'expiresAtLt'    => '',
+                    'status' => null,
+                    'limit' => Random::int(1, DealsRequest::MAX_LIMIT_VALUE),
+                    'cursor' => null,
+                ],
+            ],
+            [
+                [
                     'fullTextSearch' => '',
-                    'status'         => '',
-                    'limit'          => 0,
-                    'cursor'         => '',
-                ),
-            ),
-        );
+                    'status' => '',
+                    'limit' => 1,
+                    'cursor' => '',
+                ],
+            ],
+        ];
         $statuses = DealStatus::getValidValues();
         for ($i = 0; $i < 10; $i++) {
-            $request  = array(
-                'createdAtGte'   => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createdAtGt'    => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createdAtLte'   => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'createdAtLt'    => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'expiresAtGte'   => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'expiresAtGt'    => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'expiresAtLte'   => date(YOOKASSA_DATE, mt_rand(1, time())),
-                'expiresAtLt'    => date(YOOKASSA_DATE, mt_rand(1, time())),
+            $request = [
+                'createdAtGte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createdAtGt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createdAtLte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'createdAtLt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'expiresAtGte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'expiresAtGt' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'expiresAtLte' => date(YOOKASSA_DATE, Random::int(1, time())),
+                'expiresAtLt' => date(YOOKASSA_DATE, Random::int(1, time())),
                 'fullTextSearch' => Random::str(DealsRequest::MIN_LENGTH_DESCRIPTION, SafeDeal::MAX_LENGTH_DESCRIPTION),
-                'status'         => $statuses[mt_rand(0, count($statuses) - 1)],
-                'limit'          => mt_rand(1, 100),
-                'cursor'         => $this->randomString(mt_rand(1, 30)),
-            );
-            $result[] = array($request);
+                'status' => $statuses[Random::int(0, count($statuses) - 1)],
+                'limit' => Random::int(1, DealsRequest::MAX_LIMIT_VALUE),
+                'cursor' => $this->randomString(Random::int(1, 30)),
+            ];
+            $result[] = [$request];
         }
+
         return $result;
     }
 
-    private function randomString($length, $any = true)
+    private function randomString($length, $any = true): string
     {
         static $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-+_.';
 
         $result = '';
         for ($i = 0; $i < $length; $i++) {
             if ($any) {
-                $char = chr(mt_rand(32, 126));
+                $char = chr(Random::int(32, 126));
             } else {
-                $rnd  = mt_rand(0, strlen($chars) - 1);
-                $char = substr($chars, $rnd, 1);
+                $rnd = Random::int(0, strlen($chars) - 1);
+                $char = $chars[$rnd];
             }
             $result .= $char;
         }
+
         return $result;
     }
 }

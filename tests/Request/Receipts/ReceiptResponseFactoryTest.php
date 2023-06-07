@@ -2,50 +2,54 @@
 
 namespace Tests\YooKassa\Request\Receipts;
 
-use YooKassa\Model\Receipt\SettlementType;
-use YooKassa\Model\ReceiptType;
-use YooKassa\Request\Receipts\ReceiptResponseFactory;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use YooKassa\Model\Receipt\ReceiptType;
+use YooKassa\Model\Receipt\SettlementType;
+use YooKassa\Request\Receipts\ReceiptResponseFactory;
 
+/**
+ * @internal
+ */
 class ReceiptResponseFactoryTest extends TestCase
 {
     /**
      * @dataProvider invalidFactoryDataProvider
-     * @param array $value
-     * @expectedException \InvalidArgumentException
      */
-    public function testInvalidFactory($value)
+    public function testInvalidFactory(array $value): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $instance = new ReceiptResponseFactory();
         $instance->factory($value);
     }
 
-    public function invalidFactoryDataProvider()
+    public static function invalidFactoryDataProvider()
     {
-        return array(
-            array(array()),
-            array(
-                array('type' => new \stdClass())),
-            array(
-                array('type' => SettlementType::POSTPAYMENT)),
-            array(
-                array(
+        return [
+            [[]],
+            [
+                ['type' => new stdClass()]],
+            [
+                ['type' => SettlementType::POSTPAYMENT]],
+            [
+                [
                     'type' => ReceiptType::PAYMENT,
-                    'refund_id' => 1
-                )
-            ),
-            array(
-                array(
+                    'refund_id' => 1,
+                ],
+            ],
+            [
+                [
                     'type' => ReceiptType::PAYMENT,
-                    'payment_id' => 1
-                )
-            ),
-            array(
-                array(
+                    'payment_id' => 1,
+                ],
+            ],
+            [
+                [
                     'type' => ReceiptType::REFUND,
-                    'payment_id' => 1
-                )
-            )
-        );
+                    'payment_id' => 1,
+                ],
+            ],
+        ];
     }
 }

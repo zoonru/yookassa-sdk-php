@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,339 +26,383 @@
 
 namespace YooKassa\Request\Payments;
 
-use YooKassa\Model\Airline;
-use YooKassa\Model\AirlineInterface;
+use YooKassa\Common\AbstractRequestInterface;
+use YooKassa\Common\ListObjectInterface;
 use YooKassa\Model\AmountInterface;
-use YooKassa\Model\ConfirmationAttributes\AbstractConfirmationAttributes;
 use YooKassa\Model\Deal\PaymentDealInfo;
-use YooKassa\Model\FraudData;
 use YooKassa\Model\Metadata;
-use YooKassa\Model\PaymentData\AbstractPaymentData;
-use YooKassa\Model\ReceiptInterface;
-use YooKassa\Model\RecipientInterface;
-use YooKassa\Model\TransferInterface;
+use YooKassa\Model\Payment\RecipientInterface;
+use YooKassa\Model\Payment\TransferInterface;
+use YooKassa\Model\Receipt\ReceiptInterface;
+use YooKassa\Request\Payments\ConfirmationAttributes\AbstractConfirmationAttributes;
+use YooKassa\Request\Payments\PaymentData\AbstractPaymentData;
 
 /**
- * Interface CreatePaymentRequestInterface
+ * Interface CreatePaymentRequestInterface.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
- * @property-read RecipientInterface|null $recipient Получатель платежа, если задан
- * @property-read AmountInterface $amount Сумма создаваемого платежа
- * @property-read ReceiptInterface $receipt Данные фискального чека 54-ФЗ
- * @property-read string $paymentToken Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
- * @property-read string $payment_token Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
- * @property-read string $paymentMethodId Идентификатор записи о сохраненных платежных данных покупателя
- * @property-read string $payment_method_id Идентификатор записи о сохраненных платежных данных покупателя
- * @property-read AbstractPaymentData $paymentMethodData Данные используемые для создания метода оплаты
- * @property-read AbstractPaymentData $payment_method_data Данные используемые для создания метода оплаты
- * @property-read AbstractConfirmationAttributes $confirmation Способ подтверждения платежа
- * @property-read bool $savePaymentMethod Сохранить платежные данные для последующего использования
- * @property-read bool $save_payment_method Сохранить платежные данные для последующего использования
- * @property-read bool $capture Автоматически принять поступившую оплату
- * @property-read string $clientIp IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения.
- * @property-read string $client_ip IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения.
- * @property-read Metadata $metadata Метаданные привязанные к платежу
- * @property-read TransferInterface[] $transfers Метаданные привязанные к платежу
- * @property-read PaymentDealInfo $deal Данные о сделке, в составе которой проходит платеж
- * @property-read FraudData $fraudData Информация для проверки операции на мошенничество
- * @property-read FraudData $fraud_data Информация для проверки операции на мошенничество
- * @property-read string $merchantCustomerId Идентификатор покупателя в вашей системе, например электронная почта или номер телефона
- * @property-read string $merchant_customer_id Идентификатор покупателя в вашей системе, например электронная почта или номер телефона
+ * @property RecipientInterface $recipient Получатель платежа, если задан
+ * @property AmountInterface $amount Сумма создаваемого платежа
+ * @property string $description Описание транзакции
+ * @property ReceiptInterface $receipt Данные фискального чека 54-ФЗ
+ * @property string $paymentToken Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
+ * @property string $payment_token Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
+ * @property string $paymentMethodId Идентификатор записи о сохраненных платежных данных покупателя
+ * @property string $payment_method_id Идентификатор записи о сохраненных платежных данных покупателя
+ * @property AbstractPaymentData $paymentMethodData Данные используемые для создания метода оплаты
+ * @property AbstractPaymentData $payment_method_data Данные используемые для создания метода оплаты
+ * @property AbstractConfirmationAttributes $confirmation Способ подтверждения платежа
+ * @property bool $savePaymentMethod Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
+ * @property bool $save_payment_method Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
+ * @property bool $capture Автоматически принять поступившую оплату
+ * @property string $clientIp IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения
+ * @property string $client_ip IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения
+ * @property Metadata $metadata Метаданные привязанные к платежу
+ * @property PaymentDealInfo $deal Данные о сделке, в составе которой проходит платеж
+ * @property FraudData $fraudData Информация для проверки операции на мошенничество
+ * @property FraudData $fraud_data Информация для проверки операции на мошенничество
+ * @property string $merchantCustomerId Идентификатор покупателя в вашей системе, например электронная почта или номер телефона
+ * @property string $merchant_customer_id Идентификатор покупателя в вашей системе, например электронная почта или номер телефона
  */
 interface CreatePaymentRequestInterface
 {
     /**
-     * Возвращает объект получателя платежа
-     * @return RecipientInterface|null Объект с информацией о получателе платежа или null, если получатель не задан
+     * Возвращает объект получателя платежа.
+     *
+     * @return null|RecipientInterface Объект с информацией о получателе платежа или null, если получатель не задан
      */
-    public function getRecipient();
+    public function getRecipient(): ?RecipientInterface;
 
     /**
-     * Проверяет наличие получателя платежа в запросе
+     * Проверяет наличие получателя платежа в запросе.
+     *
      * @return bool True если получатель платежа задан, false если нет
      */
-    public function hasRecipient();
+    public function hasRecipient(): bool;
 
     /**
-     * Устанавливает объект с информацией о получателе платежа
-     * @param RecipientInterface|null $value Инстанс объекта информации о получателе платежа или null
+     * Устанавливает объект с информацией о получателе платежа.
+     *
+     * @param null|RecipientInterface $recipient Инстанс объекта информации о получателе платежа или null
      */
-    public function setRecipient($value);
+    public function setRecipient(?RecipientInterface $recipient);
 
     /**
-     * Возвращает сумму заказа
-     * @return AmountInterface Сумма заказа
+     * Возвращает сумму заказа.
+     *
+     * @return AmountInterface|null Сумма заказа
      */
-    public function getAmount();
+    public function getAmount(): ?AmountInterface;
 
     /**
-     * Возвращает описание транзакции
-     * @return string Описание транзакции
+     * Возвращает описание транзакции.
+     *
+     * @return string|null Описание транзакции
      */
-    public function getDescription();
+    public function getDescription(): ?string;
 
     /**
-     * Проверяет наличие описания транзакции в создаваемом платеже
+     * Проверяет наличие описания транзакции в создаваемом платеже.
+     *
      * @return bool True если описание транзакции установлено, false если нет
      */
-    public function hasDescription();
+    public function hasDescription(): bool;
 
     /**
-     * Устанавливает описание транзакции
-     * @param string $value Описание транзакции
+     * Устанавливает описание транзакции.
+     *
+     * @param string|null $description Описание транзакции
      */
-    public function setDescription($value);
+    public function setDescription(?string $description): self;
 
     /**
-     * Возвращает чек, если он есть
-     * @return ReceiptInterface|null Данные фискального чека 54-ФЗ или null, если чека нет
+     * Возвращает чек, если он есть.
+     *
+     * @return null|ReceiptInterface Данные фискального чека 54-ФЗ или null, если чека нет
      */
-    public function getReceipt();
+    public function getReceipt(): ?ReceiptInterface;
 
     /**
-     * Проверяет наличие чека в создаваемом платеже
+     * Проверяет наличие чека в создаваемом платеже.
+     *
      * @return bool True если чек есть, false если нет
      */
-    public function hasReceipt();
+    public function hasReceipt(): bool;
 
     /**
-     * Возвращает одноразовый токен для проведения оплаты
-     * @return string Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
+     * Возвращает одноразовый токен для проведения оплаты.
+     *
+     * @return string|null Одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
      */
-    public function getPaymentToken();
+    public function getPaymentToken(): ?string;
 
     /**
-     * Проверяет наличие одноразового токена для проведения оплаты
+     * Проверяет наличие одноразового токена для проведения оплаты.
+     *
      * @return bool True если токен установлен, false если нет
      */
-    public function hasPaymentToken();
+    public function hasPaymentToken(): bool;
 
     /**
-     * Устанавливает одноразовый токен для проведения оплаты, сформированный YooKassa JS widget
-     * @param string $value Одноразовый токен для проведения оплаты
+     * Устанавливает одноразовый токен для проведения оплаты, сформированный YooKassa JS widget.
+     *
+     * @param string|null $payment_token Одноразовый токен для проведения оплаты
      */
-    public function setPaymentToken($value);
+    public function setPaymentToken(?string $payment_token): self;
 
     /**
-     * Устанавливает идентификатор записи платёжных данных покупателя
-     * @return string Идентификатор записи о сохраненных платежных данных покупателя
+     * Устанавливает идентификатор записи платёжных данных покупателя.
+     *
+     * @return string|null Идентификатор записи о сохраненных платежных данных покупателя
      */
-    public function getPaymentMethodId();
+    public function getPaymentMethodId(): ?string;
 
     /**
-     * Проверяет наличие идентификатора записи о платёжных данных покупателя
+     * Проверяет наличие идентификатора записи о платёжных данных покупателя.
+     *
      * @return bool True если идентификатор задан, false если нет
      */
-    public function hasPaymentMethodId();
+    public function hasPaymentMethodId(): bool;
 
     /**
-     * Устанавливает идентификатор записи о сохранённых данных покупателя
-     * @param string $value Идентификатор записи о сохраненных платежных данных покупателя
+     * Устанавливает идентификатор записи о сохранённых данных покупателя.
+     *
+     * @param string|null $payment_method_id Идентификатор записи о сохраненных платежных данных покупателя
      */
-    public function setPaymentMethodId($value);
+    public function setPaymentMethodId(?string $payment_method_id): self;
 
     /**
-     * Возвращает данные для создания метода оплаты
-     * @return AbstractPaymentData Данные используемые для создания метода оплаты
+     * Возвращает данные для создания метода оплаты.
+     *
+     * @return AbstractPaymentData|null Данные используемые для создания метода оплаты
      */
-    public function getPaymentMethodData();
+    public function getPaymentMethodData(): ?AbstractPaymentData;
 
     /**
-     * Проверяет установлен ли объект с методом оплаты
+     * Проверяет установлен ли объект с методом оплаты.
+     *
      * @return bool True если объект метода оплаты установлен, false если нет
      */
-    public function hasPaymentMethodData();
+    public function hasPaymentMethodData(): bool;
 
     /**
-     * Устанавливает объект с информацией для создания метода оплаты
-     * @param AbstractPaymentData|null $value Объект создания метода оплаты или null
+     * Устанавливает объект с информацией для создания метода оплаты.
+     *
+     * @param null|AbstractPaymentData $payment_method_data Объект создания метода оплаты или null
      */
-    public function setPaymentMethodData($value);
+    public function setPaymentMethodData(?AbstractPaymentData $payment_method_data): self;
 
     /**
-     * Возвращает способ подтверждения платежа
-     * @return AbstractConfirmationAttributes Способ подтверждения платежа
+     * Возвращает способ подтверждения платежа.
+     *
+     * @return AbstractConfirmationAttributes|null Способ подтверждения платежа
      */
-    public function getConfirmation();
+    public function getConfirmation(): ?AbstractConfirmationAttributes;
 
     /**
-     * Проверяет, был ли установлен способ подтверждения платежа
+     * Проверяет, был ли установлен способ подтверждения платежа.
+     *
      * @return bool True если способ подтверждения платежа был установлен, false если нет
      */
-    public function hasConfirmation();
+    public function hasConfirmation(): bool;
 
     /**
-     * Устанавливает способ подтверждения платежа
-     * @param AbstractConfirmationAttributes|null $value Способ подтверждения платежа
+     * Устанавливает способ подтверждения платежа.
+     *
+     * @param null|array|AbstractConfirmationAttributes $confirmation Способ подтверждения платежа
      */
-    public function setConfirmation($value);
+    public function setConfirmation(mixed $confirmation): self;
 
     /**
-     * Возвращает флаг сохранения платёжных данных
+     * Возвращает флаг сохранения платёжных данных.
+     *
      * @return bool Флаг сохранения платёжных данных
      */
-    public function getSavePaymentMethod();
+    public function getSavePaymentMethod(): bool;
 
     /**
-     * Проверяет, был ли установлен флаг сохранения платёжных данных
+     * Проверяет, был ли установлен флаг сохранения платёжных данных.
+     *
      * @return bool True если флыг был установлен, false если нет
      */
-    public function hasSavePaymentMethod();
+    public function hasSavePaymentMethod(): bool;
 
     /**
      * Устанавливает флаг сохранения платёжных данных. Значение true инициирует создание многоразового payment_method.
-     * @param bool $value Сохранить платежные данные для последующего использования
+     *
+     * @param bool $save_payment_method Сохранить платежные данные для последующего использования
      */
-    public function setSavePaymentMethod($value);
+    public function setSavePaymentMethod(bool $save_payment_method): self;
 
     /**
-     * Возвращает флаг автоматического принятия поступившей оплаты
+     * Возвращает флаг автоматического принятия поступившей оплаты.
+     *
      * @return bool True если требуется автоматически принять поступившую оплату, false если нет
      */
-    public function getCapture();
+    public function getCapture(): bool;
 
     /**
-     * Проверяет, был ли установлен флаг автоматического приняти поступившей оплаты
+     * Проверяет, был ли установлен флаг автоматического приняти поступившей оплаты.
+     *
      * @return bool True если флаг автоматического принятия оплаты был установлен, false если нет
      */
-    public function hasCapture();
+    public function hasCapture(): bool;
 
     /**
-     * Устанавливает флаг автоматического принятия поступившей оплаты
-     * @param bool $value Автоматически принять поступившую оплату
+     * Устанавливает флаг автоматического принятия поступившей оплаты.
+     *
+     * @param bool $capture Автоматически принять поступившую оплату
      */
-    public function setCapture($value);
+    public function setCapture(bool $capture): self;
 
     /**
-     * Возвращает IPv4 или IPv6-адрес покупателя
-     * @return string IPv4 или IPv6-адрес покупателя
+     * Возвращает IPv4 или IPv6-адрес покупателя.
+     *
+     * @return string|null IPv4 или IPv6-адрес покупателя
      */
-    public function getClientIp();
+    public function getClientIp(): ?string;
 
     /**
-     * Проверяет, был ли установлен IPv4 или IPv6-адрес покупателя
+     * Проверяет, был ли установлен IPv4 или IPv6-адрес покупателя.
+     *
      * @return bool True если IP адрес покупателя был установлен, false если нет
      */
-    public function hasClientIp();
+    public function hasClientIp(): bool;
 
     /**
-     * Устанавливает IP адрес покупателя
-     * @param string $value IPv4 или IPv6-адрес покупателя
+     * Устанавливает IP адрес покупателя.
+     *
+     * @param string|null $client_ip IPv4 или IPv6-адрес покупателя
      */
-    public function setClientIp($value);
+    public function setClientIp(?string $client_ip): self;
 
     /**
      * Возвращает данные оплаты установленные мерчантом
-     * @return Metadata Метаданные привязанные к платежу
+     *
+     * @return Metadata|null Метаданные привязанные к платежу
      */
-    public function getMetadata();
+    public function getMetadata(): ?Metadata;
 
     /**
-     * Проверяет, были ли установлены метаданные заказа
+     * Проверяет, были ли установлены метаданные заказа.
+     *
      * @return bool True если метаданные были установлены, false если нет
      */
-    public function hasMetadata();
+    public function hasMetadata(): bool;
 
     /**
-     * Устанавливает метаданные, привязанные к платежу
-     * @param Metadata|array|null $value Метаданные платежа, устанавливаемые мерчантом
+     * Устанавливает метаданные, привязанные к платежу.
+     *
+     * @param null|array|Metadata $metadata Метаданные платежа, устанавливаемые мерчантом
      */
-    public function setMetadata($value);
+    public function setMetadata(mixed $metadata): self;
 
     /**
-     * Возвращает данные длинной записи
-     * @return Airline
+     * Возвращает данные длинной записи.
      */
-    public function getAirline();
+    public function getAirline(): ?AirlineInterface;
 
     /**
-     * Проверяет, были ли установлены данные длинной записи
-     * @return bool
+     * Проверяет, были ли установлены данные длинной записи.
      */
-    public function hasAirline();
+    public function hasAirline(): bool;
 
     /**
-     * Устанавливает данные авиабилетов
-     * @param AirlineInterface $value Данные авиабилетов
+     * Устанавливает данные авиабилетов.
+     *
+     * @param AirlineInterface|array|null $airline Данные авиабилетов
      */
-    public function setAirline($value);
+    public function setAirline(mixed $airline): AbstractRequestInterface;
 
     /**
-     * Проверяет наличие данных о распределении денег
-     * @return bool
+     * Проверяет наличие данных о распределении денег.
      */
-    public function hasTransfers();
+    public function hasTransfers(): bool;
 
     /**
      * Возвращает данные о распределении денег — сколько и в какой магазин нужно перевести.
      * Присутствует, если вы используете решение ЮKassa для платформ.
-     * (https://yookassa.ru/developers/special-solutions/checkout-for-platforms/basics)
+     * (https://yookassa.ru/developers/special-solutions/checkout-for-platforms/basics).
      *
-     * @return TransferInterface[] Данные о распределении денег
+     * @return TransferInterface[]|ListObjectInterface|null Данные о распределении денег
      */
-    public function getTransfers();
+    public function getTransfers(): ?ListObjectInterface;
 
     /**
      * Устанавливает данные о распределении денег — сколько и в какой магазин нужно перевести.
      * Присутствует, если вы используете решение ЮKassa для платформ.
-     * (https://yookassa.ru/developers/special-solutions/checkout-for-platforms/basics)
+     * (https://yookassa.ru/developers/special-solutions/checkout-for-platforms/basics).
      *
-     * @param TransferInterface[]|array|null $value Данные о распределении денег
+     * @param ListObjectInterface|array|null $transfers Массив распределения денег
+     *
+     * @return self
      */
-    public function setTransfers($value);
+    public function setTransfers(mixed $transfers = null): AbstractRequestInterface;
 
     /**
-     * Возвращает данные о сделке, в составе которой проходит платеж
-     * @return PaymentDealInfo Данные о сделке, в составе которой проходит платеж.
+     * Возвращает данные о сделке, в составе которой проходит платеж.
+     *
+     * @return PaymentDealInfo|null Данные о сделке, в составе которой проходит платеж
      */
-    public function getDeal();
+    public function getDeal(): ?PaymentDealInfo;
 
     /**
-     * Проверяет, были ли установлены данные о сделке
+     * Проверяет, были ли установлены данные о сделке.
+     *
      * @return bool True если данные о сделке были установлены, false если нет
      */
-    public function hasDeal();
+    public function hasDeal(): bool;
 
     /**
      * Устанавливает данные о сделке, в составе которой проходит платеж.
-     * @param PaymentDealInfo|array|null $value Данные о сделке, в составе которой проходит платеж
+     *
+     * @param null|array|PaymentDealInfo $deal Данные о сделке, в составе которой проходит платеж
      */
-    public function setDeal($value);
+    public function setDeal(mixed $deal): self;
 
     /**
-     * Возвращает информацию для проверки операции на мошенничество
-     * @return FraudData Информация для проверки операции на мошенничество
+     * Возвращает информацию для проверки операции на мошенничество.
+     *
+     * @return null|FraudData Информация для проверки операции на мошенничество
      */
-    public function getFraudData();
+    public function getFraudData(): ?FraudData;
 
     /**
-     * Проверяет, была ли установлена информация для проверки операции на мошенничество
+     * Проверяет, была ли установлена информация для проверки операции на мошенничество.
+     *
      * @return bool True если информация была установлена, false если нет
      */
-    public function hasFraudData();
+    public function hasFraudData(): bool;
 
     /**
-     * Устанавливает информацию для проверки операции на мошенничество
-     * @param FraudData|array|null $value Информация для проверки операции на мошенничество
+     * Устанавливает информацию для проверки операции на мошенничество.
+     *
+     * @param null|array|FraudData $fraud_data Информация для проверки операции на мошенничество
      */
-    public function setFraudData($value);
+    public function setFraudData(mixed $fraud_data): self;
 
     /**
-     * Возвращает идентификатор покупателя в вашей системе
-     * @return string Идентификатор покупателя в вашей системе
+     * Возвращает идентификатор покупателя в вашей системе.
+     *
+     * @return string|null Идентификатор покупателя в вашей системе
      */
-    public function getMerchantCustomerId();
+    public function getMerchantCustomerId(): ?string;
 
     /**
-     * Проверяет, был ли установлен идентификатор покупателя в вашей системе
+     * Проверяет, был ли установлен идентификатор покупателя в вашей системе.
+     *
      * @return bool True если идентификатор покупателя был установлен, false если нет
      */
-    public function hasMerchantCustomerId();
+    public function hasMerchantCustomerId(): bool;
 
     /**
-     * Устанавливает идентификатор покупателя в вашей системе
-     * @param string $value Идентификатор покупателя в вашей системе, например электронная почта или номер телефона. Не более 200 символов
+     * Устанавливает идентификатор покупателя в вашей системе.
+     *
+     * @param string|null $merchant_customer_id Идентификатор покупателя в вашей системе, например электронная почта или номер телефона. Не более 200 символов
      */
-    public function setMerchantCustomerId($value);
+    public function setMerchantCustomerId(?string $merchant_customer_id): self;
 }

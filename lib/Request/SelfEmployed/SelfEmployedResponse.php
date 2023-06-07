@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,14 +29,15 @@ namespace YooKassa\Request\SelfEmployed;
 use YooKassa\Model\SelfEmployed\SelfEmployed;
 
 /**
- * Класс, представляющий модель SelfEmployed.
+ * Класс, представляющий модель SelfEmployedResponse.
  *
- * Информация о персональных данных
+ * Класс объекта ответа, возвращаемого API при запросе информация о самозанятом.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
-
 class SelfEmployedResponse extends SelfEmployed
 {
 }

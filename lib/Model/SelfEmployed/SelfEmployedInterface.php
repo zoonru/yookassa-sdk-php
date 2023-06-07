@@ -27,56 +27,57 @@
 namespace YooKassa\Model\SelfEmployed;
 
 use DateTime;
+use Exception;
 use YooKassa\Common\Exceptions\EmptyPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueException;
 use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 
 /**
- * Класс, представляющий модель SelfEmployed.
+ * Interface SelfEmployedInterface.
  *
- * Объект самозанятого.
- *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
- *
+ * @category Interface
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $id Идентификатор самозанятого в ЮKassa.
  * @property string $status Статус подключения самозанятого и выдачи ЮMoney прав на регистрацию чеков.
  * @property DateTime $created_at Время создания объекта самозанятого.
  * @property DateTime $createdAt Время создания объекта самозанятого.
- * @property string|null $itn ИНН самозанятого.
- * @property string|null $phone Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
- * @property SelfEmployedConfirmation|null $confirmation Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
+ * @property null|string $itn ИНН самозанятого.
+ * @property null|string $phone Телефон самозанятого, который привязан к личному кабинету в сервисе Мой налог.
+ * @property null|SelfEmployedConfirmation $confirmation Сценарий подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
  * @property bool $test Идентификатор самозанятого в ЮKassa.
  */
 interface SelfEmployedInterface
 {
     /** @var int Минимальная длина идентификатора */
-    const MIN_LENGTH_ID = 36;
+    public const MIN_LENGTH_ID = 36;
+
     /** @var int Максимальная длина идентификатора */
-    const MAX_LENGTH_ID = 50;
+    public const MAX_LENGTH_ID = 50;
 
     /**
      * Возвращает идентификатор самозанятого.
      *
-     * @return string
+     * @return string|null Идентификатор самозанятого
      */
-    public function getId();
+    public function getId(): ?string;
 
     /**
      * Устанавливает идентификатор самозанятого.
      *
      * @param string $id Идентификатор самозанятого в ЮKassa
      *
-     * @return $this
+     * @return self
      */
-    public function setId($id);
+    public function setId(string $id): self;
 
     /**
      * Возвращает статус самозанятого.
      *
-     * @return string Статус самозанятого
+     * @return string|null Статус самозанятого
      */
-    public function getStatus();
+    public function getStatus(): ?string;
 
     /**
      * Устанавливает статус самозанятого.
@@ -85,90 +86,83 @@ interface SelfEmployedInterface
      *
      * @return $this
      */
-    public function setStatus($status);
+    public function setStatus(string $status): self;
 
     /**
-     * Возвращает время создания объекта самозанятого
+     * Возвращает время создания объекта самозанятого.
      *
-     * @return DateTime Время создания объекта самозанятого
+     * @return DateTime|null Время создания объекта самозанятого
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): ?DateTime;
 
     /**
-     * Устанавливает время создания объекта самозанятого
+     * Устанавливает время создания объекта самозанятого.
      *
-     * @param DateTime|string|int $created_at Время создания объекта самозанятого
-     *
-     * @return $this
-     *
-     * @throws EmptyPropertyValueException Выбрасывается если в метод была передана пустая дата
-     * @throws InvalidPropertyValueException Выбрасывается если передали строку, которую не удалось привести к дате
-     * @throws InvalidPropertyValueTypeException|\Exception Выбрасывается если был передан аргумент, который невозможно
-     * интерпретировать как дату или время
-     */
-    public function setCreatedAt($created_at);
-
-    /**
-     * Возвращает ИНН самозанятого
-     *
-     * @return string|null ИНН самозанятого
-     */
-    public function getItn();
-
-    /**
-     * Устанавливает ИНН самозанятого
-     *
-     * @param string|null $itn ИНН самозанятого
+     * @param DateTime|string|null $created_at Время создания объекта самозанятого
      *
      * @return $this
      */
-    public function setItn($itn = null);
+    public function setCreatedAt(DateTime|string|null $created_at): self;
+
+    /**
+     * Возвращает ИНН самозанятого.
+     *
+     * @return null|string ИНН самозанятого
+     */
+    public function getItn(): ?string;
+
+    /**
+     * Устанавливает ИНН самозанятого.
+     *
+     * @param null|string $itn ИНН самозанятого
+     *
+     * @return self
+     */
+    public function setItn(?string $itn = null): self;
 
     /**
      * Возвращает телефон самозанятого.
      *
-     * @return string|null Телефон самозанятого
+     * @return null|string Телефон самозанятого
      */
-    public function getPhone();
+    public function getPhone(): ?string;
 
     /**
      * Устанавливает телефон самозанятого.
      *
-     * @param string|null $phone Телефон самозанятого
+     * @param null|string $phone Телефон самозанятого
      *
-     * @return $this
+     * @return self
      */
-    public function setPhone($phone = null);
+    public function setPhone(?string $phone = null): self;
 
     /**
      * Возвращает сценарий подтверждения.
-     *
-     * @return SelfEmployedConfirmation|null Сценарий подтверждения
      */
-    public function getConfirmation();
+    public function getConfirmation(): ?SelfEmployedConfirmation;
 
     /**
      * Устанавливает сценарий подтверждения.
      *
-     * @param SelfEmployedConfirmation|array|null $confirmation Сценарий подтверждения
+     * @param array|SelfEmployedConfirmation|null $confirmation Сценарий подтверждения
      *
-     * @return $this
+     * @return self
      */
-    public function setConfirmation($confirmation = null);
+    public function setConfirmation(mixed $confirmation = null): self;
 
     /**
      * Возвращает признак тестовой операции.
      *
-     * @return bool Признак тестовой операции.
+     * @return bool Признак тестовой операции
      */
-    public function getTest();
+    public function getTest(): bool;
 
     /**
      * Устанавливает признак тестовой операции.
      *
-     * @param bool $test Признак тестовой операции.
+     * @param bool $test Признак тестовой операции
      *
-     * @return $this
+     * @return self
      */
-    public function setTest($test);
+    public function setTest(bool $test): self;
 }

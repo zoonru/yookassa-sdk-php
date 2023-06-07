@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,79 +26,44 @@
 
 namespace YooKassa\Request\Payouts;
 
-use Exception;
-use YooKassa\Common\AbstractObject;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
 use YooKassa\Model\Payout\SbpParticipantBank;
+use YooKassa\Request\AbstractListResponse;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс, представляющий модель GetSbpBanksResponse.
+ * Класс, представляющий модель SbpBanksResponse.
  *
- * Список участников СБП, отсортированный по идентификатору участника в порядке убывания (desc)
+ * Список участников СБП, отсортированный по идентификатору участника в порядке убывания (desc).
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
+ *
+ * @property SbpParticipantBank[]|ListObjectInterface|null $items Массив всех участников СБП.
  */
-
-class SbpBanksResponse extends AbstractObject
+class SbpBanksResponse extends AbstractListResponse
 {
     /**
-     * Формат выдачи результатов запроса. Возможное значение: `list` (список).
-     *
-     * @var string
+     * @var SbpParticipantBank[]|ListObjectInterface|null Массив всех участников СБП
      */
-    private $_type;
+    #[Assert\Valid]
+    #[Assert\AllType(SbpParticipantBank::class)]
+    #[Assert\Type(ListObject::class)]
+    protected ?ListObject $_items = null;
 
     /**
-     * @var SbpParticipantBank[]|array
-     */
-    private $_items;
-
-    /**
-     * Конструктор, устанавливает свойства объекта из пришедшего из API ассоциативного массива
+     * Возвращает всех участников СБП.
      *
-     * @param array $sourceArray Массив настроек, пришедший от API
-     * @throws Exception
+     * @return SbpParticipantBank[]|ListObjectInterface Список всех участников СБП
      */
-    public function fromArray($sourceArray)
+    public function getItems(): ListObjectInterface
     {
-        parent::fromArray($sourceArray);
-        $this->_items = array();
-        foreach ($sourceArray['items'] as $paymentInfo) {
-            $this->_items[] = new SbpParticipantBank($paymentInfo);
+        if($this->_items === null) {
+            $this->_items = new ListObject(SbpParticipantBank::class);
         }
-    }
-
-    /**
-     * Возвращает type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->_type;
-    }
-
-    /**
-     * Устанавливает type.
-     *
-     * @param string $type Формат выдачи результатов запроса. Возможное значение: `list` (список).
-     *
-     * @return $this
-     */
-    public function setType($type)
-    {
-        $this->_type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Возвращает items.
-     *
-     * @return SbpParticipantBank[]|array
-     */
-    public function getItems()
-    {
         return $this->_items;
     }
 }

@@ -5,9 +5,12 @@
 ---
 **Summary:**
 
-Данные банковской карты
-Необходим при оплате PCI-DSS данными.
+Класс, представляющий модель PayoutDestinationBankCardCard.
 
+**Description:**
+
+Данные банковской карты.
+Необходим при оплате PCI-DSS данными.
 
 ---
 ### Constants
@@ -33,36 +36,48 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getCardType()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getCardType) |  | Возвращает тип банковской карты |
-| public | [getFirst6()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getFirst6) |  | Возвращает первые 6 цифр номера карты |
-| public | [getIssuerCountry()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getIssuerCountry) |  | Возвращает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2 |
-| public | [getIssuerName()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getIssuerName) |  | Возвращает наименование банка, выпустившего карту |
-| public | [getLast4()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getLast4) |  | Возвращает последние 4 цифры номера карты |
-| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
-| public | [setCardType()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setCardType) |  | Устанавливает тип банковской карты |
-| public | [setFirst6()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setFirst6) |  | Устанавливает первые 6 цифр номера карты |
-| public | [setIssuerCountry()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setIssuerCountry) |  | Устанавливает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2 |
-| public | [setIssuerName()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setIssuerName) |  | Устанавливает наименование банка, выпустившего карту |
-| public | [setLast4()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setLast4) |  | Устанавливает последние 4 цифры номера карты |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
+| public | [getCardType()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getCardType) |  | Возвращает тип банковской карты. |
+| public | [getFirst6()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getFirst6) |  | Возвращает первые 6 цифр номера карты. |
+| public | [getIssuerCountry()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getIssuerCountry) |  | Возвращает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2. |
+| public | [getIssuerName()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getIssuerName) |  | Возвращает наименование банка, выпустившего карту. |
+| public | [getLast4()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_getLast4) |  | Возвращает последние 4 цифры номера карты. |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
+| public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
+| public | [setCardType()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setCardType) |  | Устанавливает тип банковской карты. |
+| public | [setFirst6()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setFirst6) |  | Устанавливает первые 6 цифр номера карты. |
+| public | [setIssuerCountry()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setIssuerCountry) |  | Устанавливает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2. |
+| public | [setIssuerName()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setIssuerName) |  | Устанавливает наименование банка, выпустившего карту. |
+| public | [setLast4()](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md#method_setLast4) |  | Устанавливает последние 4 цифры номера карты. |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Model/Payout/PayoutDestinationBankCardCard.php](../../lib/Model/Payout/PayoutDestinationBankCardCard.php)
-* Package: Default
+* Package: YooKassa\Model
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * \YooKassa\Model\Payout\PayoutDestinationBankCardCard
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -179,7 +194,7 @@ ISO_3166_CODE_LENGTH = 2 : int
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -192,7 +207,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -206,7 +221,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -228,7 +243,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -242,15 +257,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -261,19 +276,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -283,19 +298,19 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array|\Traversable $sourceArray) : mixed
+public fromArray(array|\Traversable $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -305,96 +320,105 @@ public fromArray(array|\Traversable $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array OR \Traversable</code> | sourceArray  | Ассоциативный массив с настройками |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getCardType" class="anchor"></a>
-#### public getCardType() : string
+#### public getCardType() : string|null
 
 ```php
-public getCardType() : string
+public getCardType() : string|null
 ```
 
 **Summary**
 
-Возвращает тип банковской карты
+Возвращает тип банковской карты.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
 
-**Returns:** string - Тип банковской карты
+**Returns:** string|null - Тип банковской карты
 
 
 <a name="method_getFirst6" class="anchor"></a>
-#### public getFirst6() : string
+#### public getFirst6() : string|null
 
 ```php
-public getFirst6() : string
+public getFirst6() : string|null
 ```
 
 **Summary**
 
-Возвращает первые 6 цифр номера карты
+Возвращает первые 6 цифр номера карты.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
 
-**Returns:** string - Первые 6 цифр номера карты
+**Returns:** string|null - Первые 6 цифр номера карты
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| since | 1.0.14 |  |
 
 <a name="method_getIssuerCountry" class="anchor"></a>
-#### public getIssuerCountry() : string
+#### public getIssuerCountry() : string|null
 
 ```php
-public getIssuerCountry() : string
+public getIssuerCountry() : string|null
 ```
 
 **Summary**
 
-Возвращает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2
+Возвращает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
 
-**Returns:** string - Код страны, в которой выпущена карта
+**Returns:** string|null - Код страны, в которой выпущена карта
 
 
 <a name="method_getIssuerName" class="anchor"></a>
-#### public getIssuerName() : string
+#### public getIssuerName() : string|null
 
 ```php
-public getIssuerName() : string
+public getIssuerName() : string|null
 ```
 
 **Summary**
 
-Возвращает наименование банка, выпустившего карту
+Возвращает наименование банка, выпустившего карту.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
 
-**Returns:** string - Наименование банка, выпустившего карту.
+**Returns:** string|null - Наименование банка, выпустившего карту
 
 
 <a name="method_getLast4" class="anchor"></a>
-#### public getLast4() : string
+#### public getLast4() : string|null
 
 ```php
-public getLast4() : string
+public getLast4() : string|null
 ```
 
 **Summary**
 
-Возвращает последние 4 цифры номера карты
+Возвращает последние 4 цифры номера карты.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
 
-**Returns:** string - Последние 4 цифры номера карты
+**Returns:** string|null - Последние 4 цифры номера карты
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
@@ -406,7 +430,7 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -423,7 +447,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -445,7 +469,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -467,7 +491,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -490,7 +514,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -504,15 +528,15 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setCardType" class="anchor"></a>
-#### public setCardType() : mixed
+#### public setCardType() : self
 
 ```php
-public setCardType(string $value) : mixed
+public setCardType(string|null $card_type = null) : self
 ```
 
 **Summary**
 
-Устанавливает тип банковской карты
+Устанавливает тип банковской карты.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
@@ -520,21 +544,21 @@ public setCardType(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Тип банковской карты |
+| <code lang="php">string OR null</code> | card_type  | Тип банковской карты |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setFirst6" class="anchor"></a>
-#### public setFirst6() : mixed
+#### public setFirst6() : self
 
 ```php
-public setFirst6(string $value) : mixed
+public setFirst6(string|null $first6 = null) : self
 ```
 
 **Summary**
 
-Устанавливает первые 6 цифр номера карты
+Устанавливает первые 6 цифр номера карты.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
@@ -542,25 +566,21 @@ public setFirst6(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Первые 6 цифр номера карты |
+| <code lang="php">string OR null</code> | first6  | Первые 6 цифр номера карты |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| since | 1.0.14 |  |
 
 <a name="method_setIssuerCountry" class="anchor"></a>
-#### public setIssuerCountry() : mixed
+#### public setIssuerCountry() : self
 
 ```php
-public setIssuerCountry(string $value) : mixed
+public setIssuerCountry(string|null $issuer_country = null) : self
 ```
 
 **Summary**
 
-Устанавливает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2
+Устанавливает код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
@@ -568,21 +588,21 @@ public setIssuerCountry(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Код страны, в которой выпущена карта |
+| <code lang="php">string OR null</code> | issuer_country  | Код страны, в которой выпущена карта |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setIssuerName" class="anchor"></a>
-#### public setIssuerName() : mixed
+#### public setIssuerName() : self
 
 ```php
-public setIssuerName(string $value) : mixed
+public setIssuerName(string|null $issuer_name = null) : self
 ```
 
 **Summary**
 
-Устанавливает наименование банка, выпустившего карту
+Устанавливает наименование банка, выпустившего карту.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
@@ -590,21 +610,21 @@ public setIssuerName(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Наименование банка, выпустившего карту |
+| <code lang="php">string OR null</code> | issuer_name  | Наименование банка, выпустившего карту |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setLast4" class="anchor"></a>
-#### public setLast4() : mixed
+#### public setLast4() : self
 
 ```php
-public setLast4(string $value) : mixed
+public setLast4(string|null $last4 = null) : self
 ```
 
 **Summary**
 
-Устанавливает последние 4 цифры номера карты
+Устанавливает последние 4 цифры номера карты.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\Payout\PayoutDestinationBankCardCard](../classes/YooKassa-Model-Payout-PayoutDestinationBankCardCard.md)
@@ -612,9 +632,9 @@ public setLast4(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Последние 4 цифры номера карты |
+| <code lang="php">string OR null</code> | last4  | Последние 4 цифры номера карты |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -627,7 +647,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -644,12 +664,31 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
 **Returns:** array - Ассоциативный массив с не существующими у текущего объекта свойствами
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
+
+**Returns:** mixed - 
 
 
 
@@ -663,11 +702,11 @@ protected getUnknownProperties() : array
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

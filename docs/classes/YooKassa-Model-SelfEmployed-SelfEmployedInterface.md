@@ -5,11 +5,7 @@
 ---
 **Summary:**
 
-Класс, представляющий модель SelfEmployed.
-
-**Description:**
-
-Объект самозанятого.
+Interface SelfEmployedInterface.
 
 ---
 ### Constants
@@ -23,16 +19,16 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [getConfirmation()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getConfirmation) |  | Возвращает сценарий подтверждения. |
-| public | [getCreatedAt()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getCreatedAt) |  | Возвращает время создания объекта самозанятого |
+| public | [getCreatedAt()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getCreatedAt) |  | Возвращает время создания объекта самозанятого. |
 | public | [getId()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getId) |  | Возвращает идентификатор самозанятого. |
-| public | [getItn()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getItn) |  | Возвращает ИНН самозанятого |
+| public | [getItn()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getItn) |  | Возвращает ИНН самозанятого. |
 | public | [getPhone()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getPhone) |  | Возвращает телефон самозанятого. |
 | public | [getStatus()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getStatus) |  | Возвращает статус самозанятого. |
 | public | [getTest()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_getTest) |  | Возвращает признак тестовой операции. |
 | public | [setConfirmation()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setConfirmation) |  | Устанавливает сценарий подтверждения. |
-| public | [setCreatedAt()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setCreatedAt) |  | Устанавливает время создания объекта самозанятого |
+| public | [setCreatedAt()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setCreatedAt) |  | Устанавливает время создания объекта самозанятого. |
 | public | [setId()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setId) |  | Устанавливает идентификатор самозанятого. |
-| public | [setItn()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setItn) |  | Устанавливает ИНН самозанятого |
+| public | [setItn()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setItn) |  | Устанавливает ИНН самозанятого. |
 | public | [setPhone()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setPhone) |  | Устанавливает телефон самозанятого. |
 | public | [setStatus()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setStatus) |  | Устанавливает статус самозанятого. |
 | public | [setTest()](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md#method_setTest) |  | Устанавливает признак тестовой операции. |
@@ -41,11 +37,14 @@
 ### Details
 * File: [lib/Model/SelfEmployed/SelfEmployedInterface.php](../../lib/Model/SelfEmployed/SelfEmployedInterface.php)
 * Package: \YooKassa\Model
+* See Also:
+  * [](https://yookassa.ru/developers/api)
 
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
+| category |  | Interface |
 | author |  | cms@yoomoney.ru |
 | property |  | Идентификатор самозанятого в ЮKassa. |
 | property |  | Статус подключения самозанятого и выдачи ЮMoney прав на регистрацию чеков. |
@@ -76,10 +75,10 @@ MAX_LENGTH_ID = 50 : int
 ---
 ## Methods
 <a name="method_getId" class="anchor"></a>
-#### public getId() : string
+#### public getId() : string|null
 
 ```php
-public getId() : string
+public getId() : string|null
 ```
 
 **Summary**
@@ -89,14 +88,14 @@ public getId() : string
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
 
-**Returns:** string - 
+**Returns:** string|null - Идентификатор самозанятого
 
 
 <a name="method_setId" class="anchor"></a>
-#### public setId() : $this
+#### public setId() : self
 
 ```php
-public setId(string $id) : $this
+public setId(string $id) : self
 ```
 
 **Summary**
@@ -111,14 +110,14 @@ public setId(string $id) : $this
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | id  | Идентификатор самозанятого в ЮKassa |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getStatus" class="anchor"></a>
-#### public getStatus() : string
+#### public getStatus() : string|null
 
 ```php
-public getStatus() : string
+public getStatus() : string|null
 ```
 
 **Summary**
@@ -128,7 +127,7 @@ public getStatus() : string
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
 
-**Returns:** string - Статус самозанятого
+**Returns:** string|null - Статус самозанятого
 
 
 <a name="method_setStatus" class="anchor"></a>
@@ -154,32 +153,32 @@ public setStatus(string $status) : $this
 
 
 <a name="method_getCreatedAt" class="anchor"></a>
-#### public getCreatedAt() : \DateTime
+#### public getCreatedAt() : \DateTime|null
 
 ```php
-public getCreatedAt() : \DateTime
+public getCreatedAt() : \DateTime|null
 ```
 
 **Summary**
 
-Возвращает время создания объекта самозанятого
+Возвращает время создания объекта самозанятого.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
 
-**Returns:** \DateTime - Время создания объекта самозанятого
+**Returns:** \DateTime|null - Время создания объекта самозанятого
 
 
 <a name="method_setCreatedAt" class="anchor"></a>
 #### public setCreatedAt() : $this
 
 ```php
-public setCreatedAt(\DateTime|string|int $created_at) : $this
+public setCreatedAt(\DateTime|string|null $created_at) : $this
 ```
 
 **Summary**
 
-Устанавливает время создания объекта самозанятого
+Устанавливает время создания объекта самозанятого.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
@@ -187,45 +186,38 @@ public setCreatedAt(\DateTime|string|int $created_at) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime OR string OR int</code> | created_at  | Время создания объекта самозанятого |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\EmptyPropertyValueException | Выбрасывается если в метод была передана пустая дата |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если передали строку, которую не удалось привести к дате |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException|\Exception | Выбрасывается если был передан аргумент, который невозможно интерпретировать как дату или время |
+| <code lang="php">\DateTime OR string OR null</code> | created_at  | Время создания объекта самозанятого |
 
 **Returns:** $this - 
 
 
 <a name="method_getItn" class="anchor"></a>
-#### public getItn() : string|null
+#### public getItn() : null|string
 
 ```php
-public getItn() : string|null
+public getItn() : null|string
 ```
 
 **Summary**
 
-Возвращает ИНН самозанятого
+Возвращает ИНН самозанятого.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
 
-**Returns:** string|null - ИНН самозанятого
+**Returns:** null|string - ИНН самозанятого
 
 
 <a name="method_setItn" class="anchor"></a>
-#### public setItn() : $this
+#### public setItn() : self
 
 ```php
-public setItn(string|null $itn = null) : $this
+public setItn(null|string $itn = null) : self
 ```
 
 **Summary**
 
-Устанавливает ИНН самозанятого
+Устанавливает ИНН самозанятого.
 
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
@@ -233,16 +225,16 @@ public setItn(string|null $itn = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | itn  | ИНН самозанятого |
+| <code lang="php">null OR string</code> | itn  | ИНН самозанятого |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getPhone" class="anchor"></a>
-#### public getPhone() : string|null
+#### public getPhone() : null|string
 
 ```php
-public getPhone() : string|null
+public getPhone() : null|string
 ```
 
 **Summary**
@@ -252,14 +244,14 @@ public getPhone() : string|null
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
 
-**Returns:** string|null - Телефон самозанятого
+**Returns:** null|string - Телефон самозанятого
 
 
 <a name="method_setPhone" class="anchor"></a>
-#### public setPhone() : $this
+#### public setPhone() : self
 
 ```php
-public setPhone(string|null $phone = null) : $this
+public setPhone(null|string $phone = null) : self
 ```
 
 **Summary**
@@ -272,16 +264,16 @@ public setPhone(string|null $phone = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | phone  | Телефон самозанятого |
+| <code lang="php">null OR string</code> | phone  | Телефон самозанятого |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getConfirmation" class="anchor"></a>
-#### public getConfirmation() : \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|null
+#### public getConfirmation() : ?\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation
 
 ```php
-public getConfirmation() : \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|null
+public getConfirmation() : ?\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation
 ```
 
 **Summary**
@@ -291,14 +283,14 @@ public getConfirmation() : \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
 
-**Returns:** \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|null - Сценарий подтверждения
+**Returns:** ?\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation - 
 
 
 <a name="method_setConfirmation" class="anchor"></a>
-#### public setConfirmation() : $this
+#### public setConfirmation() : self
 
 ```php
-public setConfirmation(\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|array|null $confirmation = null) : $this
+public setConfirmation(array|\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|null $confirmation = null) : self
 ```
 
 **Summary**
@@ -311,9 +303,9 @@ public setConfirmation(\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation|arr
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SelfEmployed\SelfEmployedConfirmation OR array OR null</code> | confirmation  | Сценарий подтверждения |
+| <code lang="php">array OR \YooKassa\Model\SelfEmployed\SelfEmployedConfirmation OR null</code> | confirmation  | Сценарий подтверждения |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 <a name="method_getTest" class="anchor"></a>
@@ -330,14 +322,14 @@ public getTest() : bool
 **Details:**
 * Inherited From: [\YooKassa\Model\SelfEmployed\SelfEmployedInterface](../classes/YooKassa-Model-SelfEmployed-SelfEmployedInterface.md)
 
-**Returns:** bool - Признак тестовой операции.
+**Returns:** bool - Признак тестовой операции
 
 
 <a name="method_setTest" class="anchor"></a>
-#### public setTest() : $this
+#### public setTest() : self
 
 ```php
-public setTest(bool $test) : $this
+public setTest(bool $test) : self
 ```
 
 **Summary**
@@ -350,9 +342,9 @@ public setTest(bool $test) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">bool</code> | test  | Признак тестовой операции. |
+| <code lang="php">bool</code> | test  | Признак тестовой операции |
 
-**Returns:** $this - 
+**Returns:** self - 
 
 
 
@@ -367,11 +359,11 @@ public setTest(bool $test) : $this
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

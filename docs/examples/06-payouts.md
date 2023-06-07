@@ -4,8 +4,8 @@
 
 Выплаты используются в следующих платежных решениях ЮKassa:
 
-* Выплаты — вы как компания переводите деньги физическим лицам и самозанятым (например, выплачиваете кэшбек пользователям).
-* Безопасная сделка — ваша платформа в рамках созданной сделки переводит оплату от одного физического лица другому.
+* Выплаты — вы, как компания, переводите деньги физическим лицам и самозанятым (например, выплачиваете кэшбек пользователям).
+* Безопасная сделка — ваша платформа, в рамках созданной сделки, переводит оплату от одного физического лица другому.
 
 SDK позволяет проводить выплаты, а также получать информацию о них.
 
@@ -42,22 +42,22 @@ require_once 'vendor/autoload.php';
 $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
-$request = array(
-    'amount' => array(
+$request = [
+    'amount' => [
         'value' => '80.00',
         'currency' => 'RUB',
-    ),
-    'payout_destination_data' => array(
+    ],
+    'payout_destination_data' => [
         'type' => 'bank_card',
-        'card' => array(
+        'card' => [
             'number' => '5555555555554477',
-        ),
-    ),
+        ],
+    ],
     'description' => 'Выплата по заказу №37',
-    'metadata' => array(
+    'metadata' => [
         'order_id' => '37',
-    ),
-);
+    ],
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createPayout($request, $idempotenceKey);
@@ -76,20 +76,20 @@ require_once 'vendor/autoload.php';
 $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
-$request = array(
-    'amount' => array(
+$request = [
+    'amount' => [
         'value' => '80.00',
         'currency' => 'RUB',
-    ),
-    'payout_destination_data' => array(
+    ],
+    'payout_destination_data' => [
         'type' => 'yoo_money',
         'account_number' => '4100116075156746',
-    ),
+    ],
     'description' => 'Выплата по заказу №37',
-    'metadata' => array(
+    'metadata' => [
         'order_id' => '37',
-    ),
-);
+    ],
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createPayout($request, $idempotenceKey);
@@ -108,21 +108,21 @@ require_once 'vendor/autoload.php';
 $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
-$request = array(
-    'amount' => array(
+$request = [
+    'amount' => [
         'value' => '80.00',
         'currency' => 'RUB',
-    ),
-    'payout_destination_data' => array(
+    ],
+    'payout_destination_data' => [
         'type' => 'sbp',
         'phone' => '79000000000',
         'bank_id' => '100000000111',
-    ),
+    ],
     'description' => 'Выплата по заказу №37',
-    'metadata' => array(
+    'metadata' => [
         'order_id' => '37',
-    ),
-);
+    ],
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createPayout($request, $idempotenceKey);
@@ -141,24 +141,24 @@ require_once 'vendor/autoload.php';
 $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
-$request = array(
-    'amount' => array(
+$request = [
+    'amount' => [
         'value' => '80.00',
         'currency' => 'RUB',
-    ),
+    ],
     'payout_token' => '<Синоним банковской карты>',
-    'self_employed' => array(
+    'self_employed' => [
         'id' => 'se-d6b9b3fa-0cb8-4aa8-b3c0-254bf0358d4c',
-    ),
-    'receipt_data' => array(
+    ],
+    'receipt_data' => [
         'service_name' => 'Доставка документов'
-    ),
+    ],
     'description' => 'Выплата по заказу №37',
-    'metadata' => array(
+    'metadata' => [
         'order_id' => '37',
         'courier_id' => '001',
-    ),
-);
+    ],
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createPayout($request, $idempotenceKey);
@@ -177,20 +177,20 @@ require_once 'vendor/autoload.php';
 $client = new \YooKassa\Client();
 $client->setAuth('xxxxxx', 'test_XXXXXXX');
 
-$request = array(
-    'amount' => array(
+$request = [
+    'amount' => [
         'value' => '800.00',
         'currency' => 'RUB',
-    ),
+    ],
     'payout_token' => '<Синоним банковской карты>',
     'description' => 'Выплата по заказу №37',
-    'metadata' => array(
+    'metadata' => [
         'order_id' => '37'
-    ),
-    'deal' => array(
+    ],
+    'deal' => [
         'id' => 'dl-285e5ee7-0022-5000-8000-01516a44b147',
-    ),
-);
+    ],
+];
 $idempotenceKey = uniqid('', true);
 try {
     $result = $client->createPayout($request, $idempotenceKey);

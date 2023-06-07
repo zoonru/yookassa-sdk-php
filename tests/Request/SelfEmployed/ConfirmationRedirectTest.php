@@ -5,20 +5,17 @@ namespace Tests\YooKassa\Request\SelfEmployed;
 use YooKassa\Model\SelfEmployed\SelfEmployedConfirmationType;
 use YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationRedirect;
 
-class ConfirmationRedirectTest extends AbstractConfirmationTest
+/**
+ * @internal
+ */
+class ConfirmationRedirectTest extends AbstractTestConfirmation
 {
-    /**
-     * @return SelfEmployedRequestConfirmationRedirect
-     */
-    protected function getTestInstance()
+    protected function getTestInstance(): SelfEmployedRequestConfirmationRedirect
     {
         return new SelfEmployedRequestConfirmationRedirect();
     }
 
-    /**
-     * @return string
-     */
-    protected function getExpectedType()
+    protected function getExpectedType(): string
     {
         return SelfEmployedConfirmationType::REDIRECT;
     }

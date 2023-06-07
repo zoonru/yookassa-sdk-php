@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -27,22 +27,25 @@
 namespace YooKassa\Request\Receipts;
 
 use DateTime;
+use Exception;
 use YooKassa\Common\AbstractObject;
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
+use YooKassa\Common\ListObject;
+use YooKassa\Common\ListObjectInterface;
+use YooKassa\Validator\Constraints as Assert;
+use YooKassa\Model\Payment\ReceiptRegistrationStatus;
 use YooKassa\Model\Receipt\IndustryDetails;
 use YooKassa\Model\Receipt\OperationalDetails;
-use YooKassa\Model\ReceiptRegistrationStatus;
-use YooKassa\Model\ReceiptType;
-use YooKassa\Model\Settlement;
-use YooKassa\Model\SettlementInterface;
+use YooKassa\Model\Receipt\ReceiptType;
+use YooKassa\Model\Receipt\Settlement;
+use YooKassa\Model\Receipt\SettlementInterface;
 
 /**
- * Class AbstractReceipt
+ * Class AbstractReceipt.
  *
- * @package YooKassa
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  *
  * @property string $id Идентификатор чека в ЮKassa.
  * @property string $type Тип чека в онлайн-кассе: приход "payment" или возврат "refund".
@@ -57,82 +60,115 @@ use YooKassa\Model\SettlementInterface;
  * @property string $fiscal_storage_number Номер фискального накопителя в кассовом аппарате.
  * @property string $fiscalProviderId Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать.
  * @property string $fiscal_provider_id Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать.
- * @property \DateTime $registeredAt Дата и время формирования чека в фискальном накопителе.
- * @property \DateTime $registered_at Дата и время формирования чека в фискальном накопителе.
+ * @property DateTime $registeredAt Дата и время формирования чека в фискальном накопителе.
+ * @property DateTime $registered_at Дата и время формирования чека в фискальном накопителе.
  * @property int $taxSystemCode Код системы налогообложения. Число 1-6.
  * @property int $tax_system_code Код системы налогообложения. Число 1-6.
- * @property IndustryDetails[] $receiptIndustryDetails Отраслевой реквизит чека.
- * @property IndustryDetails[] $receipt_industry_details Отраслевой реквизит чека.
+ * @property ListObjectInterface|IndustryDetails[] $receiptIndustryDetails Отраслевой реквизит чека.
+ * @property ListObjectInterface|IndustryDetails[] $receipt_industry_details Отраслевой реквизит чека.
  * @property OperationalDetails $receiptOperationalDetails Операционный реквизит чека.
  * @property OperationalDetails $receipt_operational_details Операционный реквизит чека.
- * @property ReceiptResponseItemInterface[] $items Список товаров в заказе.
- * @property SettlementInterface[] $settlements Перечень совершенных расчетов.
+ * @property ListObjectInterface|ReceiptResponseItemInterface[] $items Список товаров в заказе.
+ * @property ListObjectInterface|SettlementInterface[] $settlements Перечень совершенных расчетов.
  * @property string $onBehalfOf Идентификатор магазина.
  * @property string $on_behalf_of Идентификатор магазина.
  */
 abstract class AbstractReceiptResponse extends AbstractObject implements ReceiptResponseInterface
 {
     /** Длина идентификатора чека */
-    const LENGTH_RECEIPT_ID = 39;
+    public const LENGTH_RECEIPT_ID = 39;
 
-    /** @var string Идентификатор чека в ЮKassa. */
-    private $_id;
+    /** @var string|null Идентификатор чека в ЮKassa. */
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(exactly: self::LENGTH_RECEIPT_ID)]
+    protected ?string $_id = null;
 
-    /** @var string Тип чека в онлайн-кассе: приход "payment" или возврат "refund". */
-    private $_type;
+    /** @var string|null Тип чека в онлайн-кассе: приход "payment" или возврат "refund". */
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [ReceiptType::class, 'getValidValues'])]
+    protected ?string $_type = null;
 
-    /** @var string Статус доставки данных для чека в онлайн-кассу "pending", "succeeded" или "canceled". */
-    private $_status;
+    /** @var string|null Статус доставки данных для чека в онлайн-кассу "pending", "succeeded" или "canceled". */
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Choice(callback: [ReceiptRegistrationStatus::class, 'getValidValues'])]
+    protected ?string $_status = null;
 
-    /** @var string Номер фискального документа. */
-    private $_fiscalDocumentNumber;
+    /** @var string|null Номер фискального документа. */
+    #[Assert\Type('string')]
+    protected ?string $_fiscal_document_number = null;
 
-    /** @var string Номер фискального накопителя в кассовом аппарате. */
-    private $_fiscalStorageNumber;
+    /** @var string|null Номер фискального накопителя в кассовом аппарате. */
+    #[Assert\Type('string')]
+    protected ?string $_fiscal_storage_number = null;
 
-    /** @var string Идентификатор объекта чека */
-    private $_object_id;
+    /** @var string|null Идентификатор объекта чека */
+    #[Assert\Type('string')]
+    protected ?string $_object_id = null;
 
     /**
-     * @var string Фискальный признак чека.
-     * Формируется фискальным накопителем на основе данных, переданных для регистрации чека.
+     * @var string|null Фискальный признак чека.
+     *             Формируется фискальным накопителем на основе данных, переданных для регистрации чека.
      */
-    private $_fiscalAttribute;
+    #[Assert\Type('string')]
+    protected ?string $_fiscal_attribute = null;
 
     /**
-     * @var \DateTime Дата и время формирования чека в фискальном накопителе.
-     * Указывается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+     * @var DateTime|null Дата и время формирования чека в фискальном накопителе.
+     *               Указывается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
      */
-    private $_registeredAt;
+    #[Assert\DateTime(format: YOOKASSA_DATE)]
+    #[Assert\Type('DateTime')]
+    protected ?\DateTime $_registered_at = null;
 
-    /** @var string Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать. */
-    private $_fiscalProviderId;
+    /** @var string|null Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать. */
+    #[Assert\Type('string')]
+    protected ?string $_fiscal_provider_id = null;
 
-    /** @var ReceiptResponseItemInterface[] Список товаров в заказе */
-    private $_items = array();
+    /** @var ReceiptResponseItemInterface[]|ListObjectInterface Список товаров в заказе */
+    #[Assert\NotBlank]
+    #[Assert\Type(ListObject::class)]
+    #[Assert\AllType(ReceiptResponseItem::class)]
+    #[Assert\Valid]
+    protected ?ListObject $_items = null;
 
-    /** @var SettlementInterface[] Список оплат */
-    private $_settlements = array();
+    /** @var SettlementInterface[]|ListObjectInterface Список оплат */
+    #[Assert\Type(ListObject::class)]
+    #[Assert\Count(min: 1)]
+    #[Assert\AllType(Settlement::class)]
+    #[Assert\Valid]
+    protected ?ListObject $_settlements = null;
 
-    /** @var int Код системы налогообложения. Число 1-6. */
-    private $_taxSystemCode;
+    /** @var int|null Код системы налогообложения. Число 1-6. */
+    #[Assert\Type('int')]
+    #[Assert\GreaterThanOrEqual(1)]
+    #[Assert\LessThanOrEqual(6)]
+    protected ?int $_tax_system_code = null;
 
-    /** @var IndustryDetails[] Отраслевой реквизит предмета расчета */
-    private $_receiptIndustryDetails;
+    /** @var IndustryDetails[]|ListObjectInterface|null Отраслевой реквизит предмета расчета */
+    #[Assert\Type(ListObject::class)]
+    #[Assert\AllType(IndustryDetails::class)]
+    #[Assert\Valid]
+    protected ?ListObject $_receipt_industry_details = null;
 
-    /** @var OperationalDetails Операционный реквизит чека */
-    private $_receiptOperationalDetails;
+    /** @var OperationalDetails|null Операционный реквизит чека */
+    #[Assert\Type(OperationalDetails::class)]
+    #[Assert\Valid]
+    protected ?OperationalDetails $_receipt_operational_details = null;
 
-    /** @var string Идентификатор магазина */
-    private $_onBehalfOf;
+    /** @var string|null Идентификатор магазина */
+    #[Assert\Type('string')]
+    protected ?string $_on_behalf_of = null;
 
     /**
      * AbstractReceiptResponse constructor.
      *
      * @param mixed $sourceArray
-     * @throws \Exception
+     *
+     * @throws Exception
      */
-    public function fromArray($sourceArray)
+    public function fromArray(iterable $sourceArray): void
     {
         parent::fromArray($sourceArray);
         if (!empty($sourceArray['refund_id']) || !empty($sourceArray['payment_id'])) {
@@ -145,552 +181,404 @@ abstract class AbstractReceiptResponse extends AbstractObject implements Receipt
     }
 
     /**
-     * @inheritdoc
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->_id;
     }
 
     /**
-     * Устанавливает идентификатор чека
-     * @param string $value Идентификатор чека
+     * Устанавливает идентификатор чека.
      *
-     * @throws InvalidPropertyValueException Выбрасывается если длина переданной строки не равна 40
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     * @param string $id Идентификатор чека
+     *
+     * @return self
      */
-    public function setId($value)
+    public function setId(string $id): self
     {
-        if (TypeCast::canCastToString($value)) {
-            if (mb_strlen((string)$value) !== self::LENGTH_RECEIPT_ID) {
-                throw new InvalidPropertyValueException('Invalid receipt id value', 0, 'Receipt.id', $value);
-            }
-            $this->_id = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException('Invalid receipt id value type', 0, 'Receipt.id', $value);
-        }
+        $this->_id = $this->validatePropertyValue('_id', $id);
+        return $this;
     }
 
     /**
-     * @inheritdoc
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->_type;
     }
 
     /**
-     * Устанавливает типа чека
-     * @param string $value Тип чека
+     * Устанавливает типа чека.
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданная строка не является валидным типом
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     * @param string $type Тип чека
+     *
+     * @return self
      */
-    public function setType($value)
+    public function setType(string $type): self
     {
-        if (TypeCast::canCastToEnumString($value)) {
-            if (!ReceiptType::valueExists((string)$value)) {
-                throw new InvalidPropertyValueException('Invalid receipt type value', 0, 'Receipt.type', $value);
-            }
-            $this->_type = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid receipt type value type',
-                0,
-                'Receipt.type',
-                $value
-            );
-        }
+        $this->_type = $this->validatePropertyValue('_type', $type);
+        return $this;
     }
 
     /**
      * Возвращает идентификатор платежа или возврата, для которого был сформирован чек.
-     * @return string
+     *
+     * @return string|null
      */
-    public function getObjectId()
+    public function getObjectId(): ?string
     {
         return $this->_object_id;
     }
 
     /**
-     * Устанавливает идентификатор платежа или возврата, для которого был сформирован чек
+     * Устанавливает идентификатор платежа или возврата, для которого был сформирован чек.
      *
-     * @param $value
+     * @param string|null $object_id
+     *
+     * @return self
      */
-    public function setObjectId($value)
+    public function setObjectId(?string $object_id): self
     {
-        if ($value === null || $value === '') {
-            $this->_object_id = null;
-        } elseif (TypeCast::canCastToString($value)) {
-            $this->_object_id = (string)$value;
-        } else {
-            throw new InvalidPropertyValueTypeException('Invalid receipt object_id type', 0, 'Receipt.object_id', $value);
-        }
+        $this->_object_id = $this->validatePropertyValue('_object_id', $object_id);
+        return $this;
     }
 
     /**
-     * Фабричный метод создания идентификатора объекта, для которого был сформирован чек
-     *
-     * @param array $receiptData Массив данных чека
-     * @return string|null
+     * {@inheritdoc}
      */
-    private function factoryObjectId($receiptData)
-    {
-        if (array_key_exists('refund_id', $receiptData)) {
-            return $receiptData['refund_id'];
-        } elseif (array_key_exists('payment_id', $receiptData)) {
-            return $receiptData['payment_id'];
-        }
-        return null;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->_status;
     }
 
     /**
-     * Устанавливает состояние регистрации фискального чека
-     * @param string $value Состояние регистрации фискального чека
+     * Устанавливает состояние регистрации фискального чека.
      *
-     * @return AbstractReceiptResponse
+     * @param string|null $status Состояние регистрации фискального чека
      *
-     * @throws InvalidPropertyValueException Выбрасывается если переданное состояние регистрации не существует
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент не строка
+     * @return self
      */
-    public function setStatus($value)
+    public function setStatus(?string $status): self
     {
-        if ($value === null || $value === '') {
-            $this->_status = null;
-        } elseif (TypeCast::canCastToEnumString($value)) {
-            if (ReceiptRegistrationStatus::valueExists($value)) {
-                $this->_status = (string)$value;
-            } else {
-                throw new InvalidPropertyValueException(
-                    'Invalid status value',
-                    0,
-                    'Receipt.status',
-                    $value
-                );
-            }
-        } else {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid status value type',
-                0,
-                'Receipt.status',
-                $value
-            );
-        }
+        $this->_status = $this->validatePropertyValue('_status', $status);
         return $this;
     }
 
     /**
-     * Возвращает номер фискального документа
-     * @return string Номер фискального документа
+     * Возвращает номер фискального документа.
+     *
+     * @return string|null Номер фискального документа
      */
-    public function getFiscalDocumentNumber()
+    public function getFiscalDocumentNumber(): ?string
     {
-        return $this->_fiscalDocumentNumber;
+        return $this->_fiscal_document_number;
     }
 
     /**
      * Устанавливает номер фискального документа
-     * @param string $value Номер фискального документа
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент не строка
+     * @param string|null $fiscal_document_number Номер фискального документа.
+     *
+     * @return self
      */
-    public function setFiscalDocumentNumber($value)
+    public function setFiscalDocumentNumber(?string $fiscal_document_number = null): self
     {
-        if ($value === null || $value === '') {
-            $this->_fiscalDocumentNumber = null;
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid fiscal_document_number value type',
-                0,
-                'Receipt.fiscalDocumentNumber',
-                $value
-            );
-        } else {
-            $this->_fiscalDocumentNumber = (string)$value;
+        $this->_fiscal_document_number = $this->validatePropertyValue(
+            '_fiscal_document_number', $fiscal_document_number
+        );
+        return $this;
+    }
+
+    /**
+     * Возвращает номер фискального накопителя в кассовом аппарате.
+     *
+     * @return string|null Номер фискального накопителя в кассовом аппарате
+     */
+    public function getFiscalStorageNumber(): ?string
+    {
+        return $this->_fiscal_storage_number;
+    }
+
+    /**
+     * Устанавливает номер фискального накопителя в кассовом аппарате.
+     *
+     * @param string|null $fiscal_storage_number Номер фискального накопителя в кассовом аппарате.
+     *
+     * @return self
+     */
+    public function setFiscalStorageNumber(?string $fiscal_storage_number = null): self
+    {
+        $this->_fiscal_storage_number = $this->validatePropertyValue(
+            '_fiscal_storage_number', $fiscal_storage_number
+        );
+        return $this;
+    }
+
+    /**
+     * Возвращает фискальный признак чека.
+     *
+     * @return string|null Фискальный признак чека
+     */
+    public function getFiscalAttribute(): ?string
+    {
+        return $this->_fiscal_attribute;
+    }
+
+    /**
+     * Устанавливает фискальный признак чека.
+     *
+     * @param string|null $fiscal_attribute Фискальный признак чека. Формируется фискальным накопителем на основе данных, переданных для регистрации чека.
+     *
+     * @return self
+     */
+    public function setFiscalAttribute(?string $fiscal_attribute = null): self
+    {
+        $this->_fiscal_attribute = $this->validatePropertyValue('_fiscal_attribute', $fiscal_attribute);
+        return $this;
+    }
+
+    /**
+     * Возвращает дату и время формирования чека в фискальном накопителе.
+     *
+     * @return DateTime|null Дата и время формирования чека в фискальном накопителе
+     */
+    public function getRegisteredAt(): ?DateTime
+    {
+        return $this->_registered_at;
+    }
+
+    /**
+     * Устанавливает дату и время формирования чека в фискальном накопителе.
+     *
+     * @param DateTime|string|null $registered_at Дата и время формирования чека в фискальном накопителе. Указывается в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+     *
+     * @return self
+     */
+    public function setRegisteredAt(DateTime|string|null $registered_at = null): self
+    {
+        $this->_registered_at = $this->validatePropertyValue('_registered_at', $registered_at);
+        return $this;
+    }
+
+    /**
+     * Возвращает идентификатор чека в онлайн-кассе.
+     *
+     * @return string|null Идентификатор чека в онлайн-кассе
+     */
+    public function getFiscalProviderId(): ?string
+    {
+        return $this->_fiscal_provider_id;
+    }
+
+    /**
+     * Устанавливает идентификатор чека в онлайн-кассе.
+     *
+     * @param string|null $fiscal_provider_id Идентификатор чека в онлайн-кассе. Присутствует, если чек удалось зарегистрировать.
+     *
+     * @return self
+     */
+    public function setFiscalProviderId(?string $fiscal_provider_id = null): self
+    {
+        $this->_fiscal_provider_id = $this->validatePropertyValue('_fiscal_provider_id', $fiscal_provider_id);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return ReceiptResponseItemInterface[]|ListObjectInterface
+     */
+    public function getItems(): ListObjectInterface
+    {
+        if ($this->_items === null) {
+            $this->_items = new ListObject(Settlement::class);
         }
-    }
-
-    /**
-     * Возвращает номер фискального накопителя в кассовом аппарате
-     * @return string Номер фискального накопителя в кассовом аппарате
-     */
-    public function getFiscalStorageNumber()
-    {
-        return $this->_fiscalStorageNumber;
-    }
-
-    /**
-     * Устанавливает номер фискального накопителя в кассовом аппарате
-     * @param string $fiscal_storage_number Номер фискального накопителя в кассовом аппарате
-     */
-    public function setFiscalStorageNumber($fiscal_storage_number)
-    {
-        $this->_fiscalStorageNumber = $fiscal_storage_number;
-    }
-
-    /**
-     * Возвращает фискальный признак чека
-     * @return string Фискальный признак чека
-     */
-    public function getFiscalAttribute()
-    {
-        return $this->_fiscalAttribute;
-    }
-
-    /**
-     * Устанавливает фискальный признак чека
-     * @param string $fiscal_attribute Фискальный признак чека
-     */
-    public function setFiscalAttribute($fiscal_attribute)
-    {
-        $this->_fiscalAttribute = $fiscal_attribute;
-    }
-
-    /**
-     * Возвращает дату и время формирования чека в фискальном накопителе
-     * @return DateTime Дата и время формирования чека в фискальном накопителе
-     */
-    public function getRegisteredAt()
-    {
-        return $this->_registeredAt;
-    }
-
-    /**
-     * Устанавливает дату и время формирования чека в фискальном накопителе
-     * @param DateTime $registered_at Дата и время формирования чека в фискальном накопителе
-     */
-    public function setRegisteredAt($registered_at)
-    {
-        $this->_registeredAt = $registered_at;
-    }
-
-    /**
-     * Возвращает идентификатор чека в онлайн-кассе
-     * @return string Идентификатор чека в онлайн-кассе
-     */
-    public function getFiscalProviderId()
-    {
-        return $this->_fiscalProviderId;
-    }
-
-    /**
-     * Устанавливает идентификатор чека в онлайн-кассе
-     * @param string $fiscal_provider_id Идентификатор чека в онлайн-кассе
-     */
-    public function setFiscalProviderId($fiscal_provider_id)
-    {
-        $this->_fiscalProviderId = $fiscal_provider_id;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return ReceiptResponseItem[]|ReceiptResponseItemInterface[]
-     */
-    public function getItems()
-    {
         return $this->_items;
     }
 
     /**
-     * Устанавливает список позиций в чеке
+     * Устанавливает список позиций в чеке.
      *
-     * Если до этого в чеке уже были установлены значения, они удаляются и полностью заменяются переданным списком
-     * позиций. Все передаваемые значения в массиве позиций должны быть объектами класса, реализующего интерфейс
-     * ReceiptItemInterface, в противном случае будет выброшено исключение InvalidPropertyValueTypeException.
+     * @param ReceiptResponseItemInterface[]|null $items Список товаров в заказе
      *
-     * @param ReceiptResponseItemInterface[] $value Список товаров в заказе
-     *
-     * @throws EmptyPropertyValueException Выбрасывается если передали пустой массив значений
-     * @throws InvalidPropertyValueTypeException Выбрасывается если в качестве значения был передан не массив и не
-     * итератор, либо если одно из переданных значений не реализует интерфейс ReceiptItemInterface
+     * @return self
      */
-    public function setItems($value)
+    public function setItems(?array $items): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty items value in receipt', 0, 'receipt.items');
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid items value type in receipt',
-                0,
-                'receipt.items',
-                $value
-            );
-        }
-        $this->_items = array();
-        foreach ($value as $key => $val) {
-            if (is_array($val)) {
-                $this->addItem(new ReceiptResponseItem($val));
-            } elseif ($val instanceof ReceiptResponseItemInterface) {
-                $this->addItem($val);
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid item value type in receipt',
-                    0,
-                    'receipt.items[' . $key . ']',
-                    $val
-                );
-            }
-        }
+        $this->_items = $this->validatePropertyValue('_items', $items);
+        return $this;
     }
 
     /**
-     * Добавляет товар в чек
+     * Добавляет товар в чек.
      *
      * @param ReceiptResponseItemInterface $value Объект добавляемой в чек позиции
      */
-    public function addItem($value)
+    public function addItem(ReceiptResponseItemInterface $value): void
     {
         $this->_items[] = $value;
     }
 
     /**
-     * Возвращает Массив оплат, обеспечивающих выдачу товара
+     * Возвращает Массив оплат, обеспечивающих выдачу товара.
      *
-     * @return SettlementInterface[]
+     * @return SettlementInterface[]|ListObjectInterface
      */
-    public function getSettlements()
+    public function getSettlements(): ListObjectInterface
     {
+        if ($this->_settlements === null) {
+            $this->_settlements = new ListObject(Settlement::class);
+        }
         return $this->_settlements;
     }
 
     /**
-     * Устанавливает массив оплат, обеспечивающих выдачу товара
+     * Устанавливает массив оплат, обеспечивающих выдачу товара.
      *
-     * @param SettlementInterface[] $value
+     * @param SettlementInterface[]|null $settlements
+     *
+     * @return self
      */
-    public function setSettlements($value)
+    public function setSettlements(?array $settlements): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException('Empty settlements value in receipt', 0, 'receipt.settlements');
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid settlements value type in receipt',
-                0,
-                'receipt.settlements',
-                $value
-            );
-        }
-        $this->_settlements = array();
-        foreach ($value as $key => $val) {
-            if (is_array($val)) {
-                $this->addSettlement(new Settlement($val));
-            } elseif ($val instanceof SettlementInterface) {
-                $this->addSettlement($val);
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid settlement value type in receipt',
-                    0,
-                    'receipt.settlements[' . $key . ']',
-                    $val
-                );
-            }
-        }
+        $this->_settlements = $this->validatePropertyValue('_settlements', $settlements);
+        return $this;
     }
 
     /**
-     * Добавляет оплату в массив
-     *
-     * @param SettlementInterface $value
+     * Добавляет оплату в массив.
      */
-    public function addSettlement(SettlementInterface $value)
+    public function addSettlement(SettlementInterface $value): void
     {
         $this->_settlements[] = $value;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getTaxSystemCode(): ?int
+    {
+        return $this->_tax_system_code;
+    }
 
     /**
-     * @inheritdoc
+     * Устанавливает код системы налогообложения.
      *
-     * @return int
-     */
-    public function getTaxSystemCode()
-    {
-        return $this->_taxSystemCode;
-    }
-
-    /**
-     * Устанавливает код системы налогообложения
+     * @param int|null $tax_system_code Код системы налогообложения. Число 1-6
      *
-     * @param int $value Код системы налогообложения. Число 1-6
+     * @return self
+     */
+    public function setTaxSystemCode(?int $tax_system_code): self
+    {
+        $this->_tax_system_code = $this->validatePropertyValue('_tax_system_code', $tax_system_code);
+        return $this;
+    }
+
+    /**
+     * Возвращает отраслевой реквизит чека.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент - не число
-     * @throws InvalidPropertyValueException Выбрасывается если переданный аргумент меньше одного или больше шести
+     * @return IndustryDetails[]|ListObjectInterface Отраслевой реквизит чека
      */
-    public function setTaxSystemCode($value)
+    public function getReceiptIndustryDetails(): ListObjectInterface
     {
-        if ($value === null || $value === '') {
-            $this->_taxSystemCode = null;
-        } elseif (!is_numeric($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid tax_system_code value type',
-                0,
-                'receipt.taxSystemCode'
-            );
-        } else {
-            $castedValue = (int)$value;
-            if ($castedValue < 1 || $castedValue > 6) {
-                throw new InvalidPropertyValueException(
-                    'Invalid tax_system_code value: ' . $value,
-                    0,
-                    'receipt.taxSystemCode'
-                );
-            }
-            $this->_taxSystemCode = $castedValue;
+        if ($this->_receipt_industry_details === null) {
+            $this->_receipt_industry_details = new ListObject(IndustryDetails::class);
         }
+        return $this->_receipt_industry_details;
     }
 
     /**
-     * Возвращает отраслевой реквизит чека
-     * @return IndustryDetails[] Отраслевой реквизит чека
-     */
-    public function getReceiptIndustryDetails()
-    {
-        return $this->_receiptIndustryDetails;
-    }
-
-    /**
-     * Устанавливает отраслевой реквизит чека
-     * @param array|IndustryDetails[] $value Отраслевой реквизит чека
+     * Устанавливает отраслевой реквизит чека.
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент - не массив
-     */
-    public function setReceiptIndustryDetails($value)
-    {
-        if (empty($value)) {
-            $this->_receiptIndustryDetails = null;
-            return;
-        }
-        if (!is_array($value) && !($value instanceof \Traversable)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid receiptIndustryDetails value type in Receipt',
-                0,
-                'Receipt.receipt_industry_details',
-                $value
-            );
-        }
-        $details = array();
-        foreach ($value as $key => $item) {
-            if (is_array($item)) {
-                $item = new IndustryDetails($item);
-            }
-            if ($item instanceof IndustryDetails) {
-                $details[] = $item;
-            } else {
-                throw new InvalidPropertyValueTypeException(
-                    'Invalid receiptIndustryDetails value type in Receipt',
-                    0,
-                    'Receipt.receipt_industry_details[' . $key . ']',
-                    $item
-                );
-            }
-        }
-        $this->_receiptIndustryDetails = $details;
-    }
-
-    /**
-     * Возвращает операционный реквизит чека
-     * @return OperationalDetails Операционный реквизит чека
-     */
-    public function getReceiptOperationalDetails()
-    {
-        return $this->_receiptOperationalDetails;
-    }
-
-    /**
-     * Устанавливает операционный реквизит чека
-     * @param array|OperationalDetails $value Операционный реквизит чека
+     * @param array|IndustryDetails[]|null $receipt_industry_details Отраслевой реквизит чека
      *
-     * @throws InvalidPropertyValueTypeException Выбрасывается если переданный аргумент - не массив
+     * @return self
      */
-    public function setReceiptOperationalDetails($value)
+    public function setReceiptIndustryDetails(?array $receipt_industry_details = null): self
     {
-        if (empty($value)) {
-            $this->_receiptOperationalDetails = null;
-            return;
-        }
-        if (!is_array($value) && !($value instanceof OperationalDetails)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid receiptOperationalDetails value type in Receipt',
-                0,
-                'Receipt.receipt_operational_details',
-                $value
-            );
-        }
-
-        if (is_array($value)) {
-            $value = new OperationalDetails($value);
-        }
-
-        $this->_receiptOperationalDetails = $value;
+        $this->_receipt_industry_details = $this->validatePropertyValue(
+            '_receipt_industry_details', $receipt_industry_details
+        );
+        return $this;
     }
 
     /**
-     * @inheritdoc
+     * Возвращает операционный реквизит чека.
      *
-     * @return string|null
+     * @return OperationalDetails|null Операционный реквизит чека
      */
-    public function getOnBehalfOf()
+    public function getReceiptOperationalDetails(): ?OperationalDetails
     {
-        return $this->_onBehalfOf;
+        return $this->_receipt_operational_details;
     }
 
     /**
-     * Возвращает идентификатор магазина, от имени которого нужно отправить чек
-     * @param string $value Идентификатор магазина, от имени которого нужно отправить чек
+     * Устанавливает операционный реквизит чека.
+     *
+     * @param array|OperationalDetails|null $receipt_operational_details Операционный реквизит чека
+     *
+     * @return self
      */
-    public function setOnBehalfOf($value)
+    public function setReceiptOperationalDetails(mixed $receipt_operational_details = null): self
     {
-        if ($value === null || $value === '') {
-            throw new EmptyPropertyValueException(
-                'Empty onBehalfOf value',
-                0,
-                'Receipt.onBehalfOf'
-            );
-        } elseif (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException(
-                'Invalid onBehalfOf value type',
-                0,
-                'Receipt.onBehalfOf',
-                $value
-            );
-        } else {
-            $this->_onBehalfOf = (string)$value;
-        }
+        $this->_receipt_operational_details = $this->validatePropertyValue(
+            '_receipt_operational_details', $receipt_operational_details
+        );
+        return $this;
     }
 
     /**
-     * Проверяет есть ли в чеке хотя бы одна позиция
+     * {@inheritdoc}
+     */
+    public function getOnBehalfOf(): ?string
+    {
+        return $this->_on_behalf_of;
+    }
+
+    /**
+     * Возвращает идентификатор магазина, от имени которого нужно отправить чек.
+     *
+     * @param string|null $on_behalf_of Идентификатор магазина, от имени которого нужно отправить чек
+     *
+     * @return self
+     */
+    public function setOnBehalfOf(?string $on_behalf_of = null): self
+    {
+        $this->_on_behalf_of = $this->validatePropertyValue('_on_behalf_of', $on_behalf_of);
+        return $this;
+    }
+
+    /**
+     * Проверяет есть ли в чеке хотя бы одна позиция.
      *
      * @return bool True если чек не пуст, false если в чеке нет ни одной позиции
      */
-    public function notEmpty()
+    public function notEmpty(): bool
     {
-        return !empty($this->_items);
+        return !$this->getItems()->isEmpty();
     }
 
     /**
-     * Установка свойств, присущих конкретному объекту
-     *
-     * @param array $receiptData
-     *
-     * @return void
+     * Установка свойств, присущих конкретному объекту.
      */
-    abstract public function setSpecificProperties($receiptData);
+    abstract public function setSpecificProperties(array $receiptData): void;
+
+    /**
+     * Фабричный метод создания идентификатора объекта, для которого был сформирован чек.
+     *
+     * @param array $receiptData Массив данных чека
+     */
+    private function factoryObjectId(array $receiptData): ?string
+    {
+        if (array_key_exists('refund_id', $receiptData)) {
+            return $receiptData['refund_id'];
+        }
+        if (array_key_exists('payment_id', $receiptData)) {
+            return $receiptData['payment_id'];
+        }
+
+        return null;
+    }
 }

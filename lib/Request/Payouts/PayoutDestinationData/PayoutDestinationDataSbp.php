@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,54 +26,65 @@
 
 namespace YooKassa\Request\Payouts\PayoutDestinationData;
 
-use YooKassa\Common\Exceptions\EmptyPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassa\Helpers\TypeCast;
-use YooKassa\Model\PaymentMethodType;
+use YooKassa\Model\Payment\PaymentMethodType;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс PayoutDestinationDataSbp
+ * Класс, представляющий модель PayoutDestinationDataSbp.
  *
- * Метод оплаты, при оплате через ЮMoney
+ * Метод оплаты, при оплате через СБП.
  *
- * @property string $type Тип объекта
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  * @property string $phone Телефон, к которому привязан счет получателя выплаты в системе участника СБП
  * @property string $bank_id Идентификатор выбранного участника СБП — банка или платежного сервиса, подключенного к сервису
  * @property string $bankId Идентификатор выбранного участника СБП — банка или платежного сервиса, подключенного к сервису
  */
 class PayoutDestinationDataSbp extends AbstractPayoutDestinationData
 {
+    /** @var int Максимальная длина строки id банка. */
+    public const MAX_LENGTH_BANK_ID = 12;
+
     /**
      * Телефон, к которому привязан счет получателя выплаты в системе участника СБП.
      *
-     * Указывается в формате ITU-T E.164, например 79000000000.
-     *
-     * @var string
+     * @var string|null
      */
-    private $_phone;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Regex("/^[0-9]{4,15}$/")]
+    private ?string $_phone = null;
 
     /**
-     * Идентификатор выбранного участника СБП — банка или платежного сервиса, подключенного к сервису.
-     *
+     * Идентификатор участника СБП — банка или платежного сервиса, подключенного к сервису.
      * Максимум 12 символов. [Как получить идентификатор участника СБП](/developers/payouts/making-payouts/sbp)
      *
-     * @var string
+     * @var string|null
      */
-    private $_bank_id;
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: self::MAX_LENGTH_BANK_ID)]
+    private ?string $_bank_id = null;
 
-
-    public function __construct()
+    /**
+     * Конструктор PayoutDestinationDataSbp.
+     *
+     * @param array|null $data
+     */
+    public function __construct(?array $data = [])
     {
+        parent::__construct($data);
         $this->setType(PaymentMethodType::SBP);
     }
 
     /**
      * Возвращает телефон, к которому привязан счет получателя выплаты в системе участника СБП.
      *
-     * @return string Телефон, к которому привязан счет получателя выплаты в системе участника СБП
+     * @return string|null Телефон, к которому привязан счет получателя выплаты в системе участника СБП
      */
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->_phone;
     }
@@ -81,29 +92,22 @@ class PayoutDestinationDataSbp extends AbstractPayoutDestinationData
     /**
      * Устанавливает телефон, к которому привязан счет получателя выплаты в системе участника СБП.
      *
-     * @param string $phone Телефон, к которому привязан счет получателя выплаты в системе участника СБП
+     * @param string|null $phone Телефон, к которому привязан счет получателя выплаты в системе участника СБП
      *
-     * @return $this
+     * @return self
      */
-    public function setPhone($phone)
+    public function setPhone(?string $phone = null): self
     {
-        if ($phone === null || $phone === '') {
-            throw new EmptyPropertyValueException('Empty phone value', 0, 'PayoutDestinationDataSbp.phone');
-        }
-        if (!TypeCast::canCastToString($phone)) {
-            throw new InvalidPropertyValueTypeException('Invalid phone value type', 0, 'PayoutDestinationDataSbp.phone');
-        }
-        $this->_phone = (string)preg_replace('/\D/', '', $phone);
-
+        $this->_phone = $this->validatePropertyValue('_phone', $phone);
         return $this;
     }
 
     /**
      * Возвращает идентификатор выбранного участника СБП.
      *
-     * @return string Идентификатор выбранного участника СБП
+     * @return string|null Идентификатор выбранного участника СБП
      */
-    public function getBankId()
+    public function getBankId(): ?string
     {
         return $this->_bank_id;
     }
@@ -111,23 +115,13 @@ class PayoutDestinationDataSbp extends AbstractPayoutDestinationData
     /**
      * Устанавливает идентификатор выбранного участника СБП.
      *
-     * @param string $bankId Идентификатор выбранного участника СБП
+     * @param string|null $bank_id Идентификатор выбранного участника СБП
      *
-     * @return $this
+     * @return self
      */
-    public function setBankId($bankId)
+    public function setBankId(?string $bank_id = null): self
     {
-        if ($bankId === null || $bankId === '') {
-            throw new EmptyPropertyValueException('Empty bank_id value', 0, 'PayoutDestinationDataSbp.bank_id');
-        }
-        if (!TypeCast::canCastToString($bankId)) {
-            throw new InvalidPropertyValueTypeException('Invalid bank_id value type', 0, 'PayoutDestinationDataSbp.bank_id', $bankId);
-        }
-        if (mb_strlen($bankId) > 12) {
-            throw new InvalidPropertyValueException('Invalid bank_id value', 0, 'PayoutDestinationDataSbp.bank_id', $bankId);
-        }
-        $this->_bank_id = (string)$bankId;
-
+        $this->_bank_id = $this->validatePropertyValue('_bank_id', $bank_id);
         return $this;
     }
 }

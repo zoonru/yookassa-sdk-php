@@ -5,8 +5,11 @@
 ---
 **Summary:**
 
-Признак предмета расчета передается в параметре `payment_subject`.
+Класс, представляющий модель PaymentSubject.
 
+**Description:**
+
+Признак предмета расчета (тег в 54 ФЗ — 1212) — это то, за что принимается оплата, например товар, услуга.
 
 ---
 ### Constants
@@ -56,17 +59,27 @@
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [getEnabledValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getEnabledValues) |  | Возвращает значения в enum'е значения которых разрешены |
-| public | [getValidValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getValidValues) |  | Возвращает все значения в enum'e |
-| public | [valueExists()](../classes/YooKassa-Common-AbstractEnum.md#method_valueExists) |  | Проверяет наличие значения в enum'e |
+| public | [getEnabledValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getEnabledValues) |  | Возвращает значения в enum'е значения которых разрешены. |
+| public | [getValidValues()](../classes/YooKassa-Common-AbstractEnum.md#method_getValidValues) |  | Возвращает все значения в enum'e. |
+| public | [valueExists()](../classes/YooKassa-Common-AbstractEnum.md#method_valueExists) |  | Проверяет наличие значения в enum'e. |
 
 ---
 ### Details
 * File: [lib/Model/Receipt/PaymentSubject.php](../../lib/Model/Receipt/PaymentSubject.php)
-* Package: Default
+* Package: YooKassa\Model
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
   * \YooKassa\Model\Receipt\PaymentSubject
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -390,7 +403,7 @@ Static public getEnabledValues() : string[]
 
 **Summary**
 
-Возвращает значения в enum'е значения которых разрешены
+Возвращает значения в enum'е значения которых разрешены.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -407,7 +420,7 @@ Static public getValidValues() : array
 
 **Summary**
 
-Возвращает все значения в enum'e
+Возвращает все значения в enum'e.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -424,7 +437,7 @@ Static public valueExists(mixed $value) : bool
 
 **Summary**
 
-Проверяет наличие значения в enum'e
+Проверяет наличие значения в enum'e.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractEnum](../classes/YooKassa-Common-AbstractEnum.md)
@@ -448,11 +461,11 @@ Static public valueExists(mixed $value) : bool
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

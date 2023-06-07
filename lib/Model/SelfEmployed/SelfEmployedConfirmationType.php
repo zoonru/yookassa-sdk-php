@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -33,18 +33,21 @@ use YooKassa\Common\AbstractEnum;
  *
  * Код сценария подтверждения пользователем заявки ЮMoney на получение прав для регистрации чеков в сервисе Мой налог.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Model
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class SelfEmployedConfirmationType extends AbstractEnum
 {
     /** Необходимо направить плательщика на страницу партнера */
-    const REDIRECT = 'redirect';
+    public const REDIRECT = 'redirect';
 
     /**
-     * @var array Массив принимаемых enum'ом значений
+     * Возвращает список доступных значений
+     * @return string[]
      */
-    protected static $validValues = array(
+    protected static array $validValues = [
         self::REDIRECT => true,
-    );
+    ];
 }

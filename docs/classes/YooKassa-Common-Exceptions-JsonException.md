@@ -31,8 +31,9 @@
 ---
 ## Properties
 <a name="property_errorLabels"></a>
-#### public $errorLabels
+#### public $errorLabels : array
 ---
+**Type:** <a href="../array"><abbr title="array">array</abbr></a>
 
 **Details:**
 
@@ -44,7 +45,7 @@
 #### public __construct() : mixed
 
 ```php
-public __construct(mixed $message = &quot;&quot;, mixed $code, mixed $previous = null) : mixed
+public __construct(mixed $message = &#039;&#039;, mixed $code, mixed $previous = null) : mixed
 ```
 
 **Details:**
@@ -71,11 +72,11 @@ public __construct(mixed $message = &quot;&quot;, mixed $code, mixed $previous =
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

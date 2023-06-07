@@ -30,7 +30,7 @@
 #### public __construct() : mixed
 
 ```php
-public __construct(string $message = &quot;&quot;, int $code, string $property = &quot;&quot;) : mixed
+public __construct(string $message = &#039;&#039;, int $code, string $property = &#039;&#039;) : mixed
 ```
 
 **Summary**
@@ -74,11 +74,11 @@ public getProperty() : string
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

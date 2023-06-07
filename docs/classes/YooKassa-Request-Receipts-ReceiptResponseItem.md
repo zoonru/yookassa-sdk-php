@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Класс, описывающий товар в чеке
+Класс, описывающий товар в чеке.
 
 
 ---
@@ -55,63 +55,75 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [__construct()](../classes/YooKassa-Common-AbstractObject.md#method___construct) |  | AbstractObject constructor. |
-| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства |
-| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства |
-| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства |
-| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство |
-| public | [fromArray()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива |
-| public | [getAgentType()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getAgentType) |  | Возвращает тип посредника, реализующего товар или услугу |
-| public | [getAmount()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getAmount) |  | Возвращает общую стоимость покупаемого товара в копейках/центах |
-| public | [getCountryOfOriginCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getCountryOfOriginCode) |  | Возвращает код страны происхождения товара по общероссийскому классификатору стран мира |
-| public | [getCustomsDeclarationNumber()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getCustomsDeclarationNumber) |  | Возвращает номер таможенной декларации |
-| public | [getDescription()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getDescription) |  | Возвращает наименование товара |
-| public | [getExcise()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getExcise) |  | Возвращает сумму акциза товара с учетом копеек |
-| public | [getMarkCodeInfo()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getMarkCodeInfo) |  | Возвращает код товара |
-| public | [getMarkMode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getMarkMode) |  | Возвращает режим обработки кода маркировки |
-| public | [getMarkQuantity()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getMarkQuantity) |  | Возвращает дробное количество маркированного товара |
-| public | [getMeasure()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getMeasure) |  | Возвращает меру количества предмета расчета |
-| public | [getPaymentMode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getPaymentMode) |  | Возвращает признак способа расчета |
-| public | [getPaymentSubject()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getPaymentSubject) |  | Возвращает признак предмета расчета |
-| public | [getPaymentSubjectIndustryDetails()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getPaymentSubjectIndustryDetails) |  | Возвращает отраслевой реквизит чека |
-| public | [getPrice()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getPrice) |  | Возвращает цену товара |
-| public | [getProductCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getProductCode) |  | Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке |
-| public | [getQuantity()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getQuantity) |  | Возвращает количество товара |
+| public | [__get()](../classes/YooKassa-Common-AbstractObject.md#method___get) |  | Возвращает значение свойства. |
+| public | [__isset()](../classes/YooKassa-Common-AbstractObject.md#method___isset) |  | Проверяет наличие свойства. |
+| public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
+| public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
+| public | [fromArray()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
+| public | [getAgentType()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getAgentType) |  | Возвращает тип посредника, реализующего товар или услугу. |
+| public | [getAmount()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getAmount) |  | Возвращает общую стоимость покупаемого товара в копейках/центах. |
+| public | [getCountryOfOriginCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getCountryOfOriginCode) |  | Возвращает код страны происхождения товара по общероссийскому классификатору стран мира. |
+| public | [getCustomsDeclarationNumber()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getCustomsDeclarationNumber) |  | Возвращает номер таможенной декларации. |
+| public | [getDescription()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getDescription) |  | Возвращает наименование товара. |
+| public | [getExcise()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getExcise) |  | Возвращает сумму акциза товара с учетом копеек. |
+| public | [getMarkCodeInfo()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getMarkCodeInfo) |  | Возвращает код товара. |
+| public | [getMarkMode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getMarkMode) |  | Возвращает режим обработки кода маркировки. |
+| public | [getMarkQuantity()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getMarkQuantity) |  | Возвращает дробное количество маркированного товара. |
+| public | [getMeasure()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getMeasure) |  | Возвращает меру количества предмета расчета. |
+| public | [getPaymentMode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getPaymentMode) |  | Возвращает признак способа расчета. |
+| public | [getPaymentSubject()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getPaymentSubject) |  | Возвращает признак предмета расчета. |
+| public | [getPaymentSubjectIndustryDetails()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getPaymentSubjectIndustryDetails) |  | Возвращает отраслевой реквизит чека. |
+| public | [getPrice()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getPrice) |  | Возвращает цену товара. |
+| public | [getProductCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getProductCode) |  | Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке. |
+| public | [getQuantity()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getQuantity) |  | Возвращает количество товара. |
 | public | [getSupplier()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getSupplier) |  | Возвращает информацию о поставщике товара или услуги |
+| public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
 | public | [getVatCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_getVatCode) |  | Возвращает ставку НДС |
-| public | [jsonSerialize()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
-| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства |
-| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства |
-| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства |
-| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство |
-| public | [setAgentType()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setAgentType) |  | Устанавливает тип посредника, реализующего товар или услугу |
-| public | [setCountryOfOriginCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setCountryOfOriginCode) |  | Устанавливает код страны происхождения товара по общероссийскому классификатору стран мира |
-| public | [setCustomsDeclarationNumber()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setCustomsDeclarationNumber) |  | Устанавливает номер таможенной декларации (от 1 до 32 символов) |
-| public | [setDescription()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setDescription) |  | Устанавливает наименование товара |
-| public | [setExcise()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setExcise) |  | Устанавливает сумму акциза товара с учетом копеек |
-| public | [setMarkCodeInfo()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setMarkCodeInfo) |  | Устанавливает код товара |
-| public | [setMarkMode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setMarkMode) |  | Устанавливает режим обработки кода маркировки |
-| public | [setMarkQuantity()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setMarkQuantity) |  | Устанавливает дробное количество маркированного товара |
-| public | [setMeasure()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setMeasure) |  | Устанавливает меру количества предмета расчета |
-| public | [setPaymentMode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setPaymentMode) |  | Устанавливает признак способа расчета |
-| public | [setPaymentSubject()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setPaymentSubject) |  | Устанавливает признак предмета расчета |
-| public | [setPaymentSubjectIndustryDetails()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setPaymentSubjectIndustryDetails) |  | Устанавливает отраслевой реквизит чека |
-| public | [setPrice()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setPrice) |  | Устанавливает цену товара |
-| public | [setProductCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setProductCode) |  | Устанавливает код товара — уникальный номер, который присваивается экземпляру товара при маркировке |
-| public | [setQuantity()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setQuantity) |  | Устанавливает количество покупаемого товара |
+| public | [jsonSerialize()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
+| public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
+| public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
+| public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
+| public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
+| public | [setAgentType()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setAgentType) |  | Устанавливает тип посредника, реализующего товар или услугу. |
+| public | [setCountryOfOriginCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setCountryOfOriginCode) |  | Устанавливает код страны происхождения товара по общероссийскому классификатору стран мира. |
+| public | [setCustomsDeclarationNumber()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setCustomsDeclarationNumber) |  | Устанавливает номер таможенной декларации (от 1 до 32 символов). |
+| public | [setDescription()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setDescription) |  | Устанавливает наименование товара. |
+| public | [setExcise()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setExcise) |  | Устанавливает сумму акциза товара с учетом копеек. |
+| public | [setMarkCodeInfo()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setMarkCodeInfo) |  | Устанавливает код товара. |
+| public | [setMarkMode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setMarkMode) |  | Устанавливает режим обработки кода маркировки. |
+| public | [setMarkQuantity()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setMarkQuantity) |  | Устанавливает дробное количество маркированного товара. |
+| public | [setMeasure()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setMeasure) |  | Устанавливает меру количества предмета расчета. |
+| public | [setPaymentMode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setPaymentMode) |  | Устанавливает признак способа расчета. |
+| public | [setPaymentSubject()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setPaymentSubject) |  | Устанавливает признак предмета расчета. |
+| public | [setPaymentSubjectIndustryDetails()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setPaymentSubjectIndustryDetails) |  | Устанавливает отраслевой реквизит чека. |
+| public | [setPrice()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setPrice) |  | Устанавливает цену товара. |
+| public | [setProductCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setProductCode) |  | Устанавливает код товара — уникальный номер, который присваивается экземпляру товара при маркировке. |
+| public | [setQuantity()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setQuantity) |  | Устанавливает количество покупаемого товара. |
 | public | [setSupplier()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setSupplier) |  | Устанавливает информацию о поставщике товара или услуги. |
 | public | [setVatCode()](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md#method_setVatCode) |  | Устанавливает ставку НДС |
-| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize() |
-| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта |
+| public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
+| protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
+| protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
 * File: [lib/Request/Receipts/ReceiptResponseItem.php](../../lib/Request/Receipts/ReceiptResponseItem.php)
-* Package: YooKassa
+* Package: YooKassa\Request
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
   * \YooKassa\Request\Receipts\ReceiptResponseItem
 * Implements:
   * [\YooKassa\Request\Receipts\ReceiptResponseItemInterface](../classes/YooKassa-Request-Receipts-ReceiptResponseItemInterface.md)
+
+* See Also:
+  * [](https://yookassa.ru/developers/api)
+
+---
+### Tags
+| Tag | Version | Description |
+| --- | ------- | ----------- |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
 
 ---
 ## Constants
@@ -356,13 +368,13 @@ MAX_PRODUCT_CODE_LENGTH = 96 : int
 
 
 <a name="property_payment_subject_industry_details"></a>
-#### public $payment_subject_industry_details : \YooKassa\Model\Receipt\IndustryDetails[]
+#### public $payment_subject_industry_details : \YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]
 ---
 ***Description***
 
 Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
 
-**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 
@@ -392,13 +404,13 @@ MAX_PRODUCT_CODE_LENGTH = 96 : int
 
 
 <a name="property_paymentSubjectIndustryDetails"></a>
-#### public $paymentSubjectIndustryDetails : \YooKassa\Model\Receipt\IndustryDetails[]
+#### public $paymentSubjectIndustryDetails : \YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]
 ---
 ***Description***
 
 Отраслевой реквизит предмета расчета (тег в 54 ФЗ — 1260)
 
-**Type:** <a href="../\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
+**Type:** <a href="../\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]"><abbr title="\YooKassa\Common\ListObjectInterface|\YooKassa\Model\Receipt\IndustryDetails[]">IndustryDetails[]</abbr></a>
 
 **Details:**
 
@@ -452,13 +464,13 @@ MAX_PRODUCT_CODE_LENGTH = 96 : int
 
 
 <a name="property_supplier"></a>
-#### public $supplier : \YooKassa\Model\Supplier
+#### public $supplier : \YooKassa\Model\Receipt\Supplier
 ---
 ***Description***
 
 Информация о поставщике товара или услуги (тег в 54 ФЗ — 1224)
 
-**Type:** <a href="../classes/YooKassa-Model-Supplier.html"><abbr title="\YooKassa\Model\Supplier">Supplier</abbr></a>
+**Type:** <a href="../classes/YooKassa-Model-Receipt-Supplier.html"><abbr title="\YooKassa\Model\Receipt\Supplier">Supplier</abbr></a>
 
 **Details:**
 
@@ -494,7 +506,7 @@ MAX_PRODUCT_CODE_LENGTH = 96 : int
 #### public __construct() : mixed
 
 ```php
-public __construct(array $data = array()) : mixed
+public __construct(array|null $data = []) : mixed
 ```
 
 **Summary**
@@ -507,7 +519,7 @@ AbstractObject constructor.
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array</code> | data  |  |
+| <code lang="php">array OR null</code> | data  |  |
 
 **Returns:** mixed - 
 
@@ -521,7 +533,7 @@ public __get(string $propertyName) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -543,7 +555,7 @@ public __isset(string $propertyName) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -557,15 +569,15 @@ public __isset(string $propertyName) : bool
 
 
 <a name="method___set" class="anchor"></a>
-#### public __set() : mixed
+#### public __set() : void
 
 ```php
-public __set(string $propertyName, mixed $value) : mixed
+public __set(string $propertyName, mixed $value) : void
 ```
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -576,19 +588,19 @@ public __set(string $propertyName, mixed $value) : mixed
 | <code lang="php">string</code> | propertyName  | Имя свойства |
 | <code lang="php">mixed</code> | value  | Значение свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method___unset" class="anchor"></a>
-#### public __unset() : mixed
+#### public __unset() : void
 
 ```php
-public __unset(string $propertyName) : mixed
+public __unset(string $propertyName) : void
 ```
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -598,19 +610,19 @@ public __unset(string $propertyName) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">string</code> | propertyName  | Имя удаляемого свойства |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_fromArray" class="anchor"></a>
-#### public fromArray() : mixed
+#### public fromArray() : void
 
 ```php
-public fromArray(array $sourceArray) : mixed
+public fromArray(array $sourceArray) : void
 ```
 
 **Summary**
 
-Устанавливает значения свойств текущего объекта из массива
+Устанавливает значения свойств текущего объекта из массива.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -620,262 +632,262 @@ public fromArray(array $sourceArray) : mixed
 | ---- | ---- | ----------- |
 | <code lang="php">array</code> | sourceArray  | Массив с информацией о товаре, пришедший от API |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_getAgentType" class="anchor"></a>
-#### public getAgentType() : string
+#### public getAgentType() : string|null
 
 ```php
-public getAgentType() : string
+public getAgentType() : string|null
 ```
 
 **Summary**
 
-Возвращает тип посредника, реализующего товар или услугу
+Возвращает тип посредника, реализующего товар или услугу.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string - Тип посредника
+**Returns:** string|null - Тип посредника
 
 
 <a name="method_getAmount" class="anchor"></a>
-#### public getAmount() : int
+#### public getAmount() : int|null
 
 ```php
-public getAmount() : int
+public getAmount() : int|null
 ```
 
 **Summary**
 
-Возвращает общую стоимость покупаемого товара в копейках/центах
+Возвращает общую стоимость покупаемого товара в копейках/центах.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** int - Сумма стоимости покупаемого товара
+**Returns:** int|null - Сумма стоимости покупаемого товара
 
 
 <a name="method_getCountryOfOriginCode" class="anchor"></a>
-#### public getCountryOfOriginCode() : string|null
+#### public getCountryOfOriginCode() : null|string
 
 ```php
-public getCountryOfOriginCode() : string|null
+public getCountryOfOriginCode() : null|string
 ```
 
 **Summary**
 
-Возвращает код страны происхождения товара по общероссийскому классификатору стран мира
+Возвращает код страны происхождения товара по общероссийскому классификатору стран мира.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string|null - Код страны происхождения товара
+**Returns:** null|string - Код страны происхождения товара
 
 
 <a name="method_getCustomsDeclarationNumber" class="anchor"></a>
-#### public getCustomsDeclarationNumber() : string|null
+#### public getCustomsDeclarationNumber() : null|string
 
 ```php
-public getCustomsDeclarationNumber() : string|null
+public getCustomsDeclarationNumber() : null|string
 ```
 
 **Summary**
 
-Возвращает номер таможенной декларации
+Возвращает номер таможенной декларации.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string|null - Номер таможенной декларации (от 1 до 32 символов)
+**Returns:** null|string - Номер таможенной декларации (от 1 до 32 символов)
 
 
 <a name="method_getDescription" class="anchor"></a>
-#### public getDescription() : string
+#### public getDescription() : string|null
 
 ```php
-public getDescription() : string
+public getDescription() : string|null
 ```
 
 **Summary**
 
-Возвращает наименование товара
+Возвращает наименование товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string - Наименование товара
+**Returns:** string|null - Наименование товара
 
 
 <a name="method_getExcise" class="anchor"></a>
-#### public getExcise() : float|null
+#### public getExcise() : null|float
 
 ```php
-public getExcise() : float|null
+public getExcise() : null|float
 ```
 
 **Summary**
 
-Возвращает сумму акциза товара с учетом копеек
+Возвращает сумму акциза товара с учетом копеек.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** float|null - Сумма акциза товара с учетом копеек
+**Returns:** null|float - Сумма акциза товара с учетом копеек
 
 
 <a name="method_getMarkCodeInfo" class="anchor"></a>
-#### public getMarkCodeInfo() : \YooKassa\Model\Receipt\MarkCodeInfo
+#### public getMarkCodeInfo() : \YooKassa\Model\Receipt\MarkCodeInfo|null
 
 ```php
-public getMarkCodeInfo() : \YooKassa\Model\Receipt\MarkCodeInfo
+public getMarkCodeInfo() : \YooKassa\Model\Receipt\MarkCodeInfo|null
 ```
 
 **Summary**
 
-Возвращает код товара
+Возвращает код товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** \YooKassa\Model\Receipt\MarkCodeInfo - Код товара
+**Returns:** \YooKassa\Model\Receipt\MarkCodeInfo|null - Код товара
 
 
 <a name="method_getMarkMode" class="anchor"></a>
-#### public getMarkMode() : string
+#### public getMarkMode() : string|null
 
 ```php
-public getMarkMode() : string
+public getMarkMode() : string|null
 ```
 
 **Summary**
 
-Возвращает режим обработки кода маркировки
+Возвращает режим обработки кода маркировки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string - Режим обработки кода маркировки
+**Returns:** string|null - Режим обработки кода маркировки
 
 
 <a name="method_getMarkQuantity" class="anchor"></a>
-#### public getMarkQuantity() : \YooKassa\Model\Receipt\MarkQuantity
+#### public getMarkQuantity() : \YooKassa\Model\Receipt\MarkQuantity|null
 
 ```php
-public getMarkQuantity() : \YooKassa\Model\Receipt\MarkQuantity
+public getMarkQuantity() : \YooKassa\Model\Receipt\MarkQuantity|null
 ```
 
 **Summary**
 
-Возвращает дробное количество маркированного товара
+Возвращает дробное количество маркированного товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** \YooKassa\Model\Receipt\MarkQuantity - Дробное количество маркированного товара
+**Returns:** \YooKassa\Model\Receipt\MarkQuantity|null - Дробное количество маркированного товара
 
 
 <a name="method_getMeasure" class="anchor"></a>
-#### public getMeasure() : string
+#### public getMeasure() : string|null
 
 ```php
-public getMeasure() : string
+public getMeasure() : string|null
 ```
 
 **Summary**
 
-Возвращает меру количества предмета расчета
+Возвращает меру количества предмета расчета.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string - Мера количества предмета расчета
+**Returns:** string|null - Мера количества предмета расчета
 
 
 <a name="method_getPaymentMode" class="anchor"></a>
-#### public getPaymentMode() : string|null
+#### public getPaymentMode() : null|string
 
 ```php
-public getPaymentMode() : string|null
+public getPaymentMode() : null|string
 ```
 
 **Summary**
 
-Возвращает признак способа расчета
+Возвращает признак способа расчета.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string|null - Признак способа расчета
+**Returns:** null|string - Признак способа расчета
 
 
 <a name="method_getPaymentSubject" class="anchor"></a>
-#### public getPaymentSubject() : string|null
+#### public getPaymentSubject() : null|string
 
 ```php
-public getPaymentSubject() : string|null
+public getPaymentSubject() : null|string
 ```
 
 **Summary**
 
-Возвращает признак предмета расчета
+Возвращает признак предмета расчета.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string|null - Признак предмета расчета
+**Returns:** null|string - Признак предмета расчета
 
 
 <a name="method_getPaymentSubjectIndustryDetails" class="anchor"></a>
-#### public getPaymentSubjectIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+#### public getPaymentSubjectIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]|\YooKassa\Common\ListObjectInterface
 
 ```php
-public getPaymentSubjectIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]
+public getPaymentSubjectIndustryDetails() : \YooKassa\Model\Receipt\IndustryDetails[]|\YooKassa\Common\ListObjectInterface
 ```
 
 **Summary**
 
-Возвращает отраслевой реквизит чека
+Возвращает отраслевой реквизит чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** \YooKassa\Model\Receipt\IndustryDetails[] - Отраслевой реквизит чека
+**Returns:** \YooKassa\Model\Receipt\IndustryDetails[]|\YooKassa\Common\ListObjectInterface - Отраслевой реквизит чека
 
 
 <a name="method_getPrice" class="anchor"></a>
-#### public getPrice() : \YooKassa\Model\AmountInterface
+#### public getPrice() : \YooKassa\Model\AmountInterface|null
 
 ```php
-public getPrice() : \YooKassa\Model\AmountInterface
+public getPrice() : \YooKassa\Model\AmountInterface|null
 ```
 
 **Summary**
 
-Возвращает цену товара
+Возвращает цену товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** \YooKassa\Model\AmountInterface - Цена товара
+**Returns:** \YooKassa\Model\AmountInterface|null - Цена товара
 
 
 <a name="method_getProductCode" class="anchor"></a>
-#### public getProductCode() : string|null
+#### public getProductCode() : null|string
 
 ```php
-public getProductCode() : string|null
+public getProductCode() : null|string
 ```
 
 **Summary**
 
-Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке
+Возвращает код товара — уникальный номер, который присваивается экземпляру товара при маркировке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** string|null - Код товара
+**Returns:** null|string - Код товара
 
 
 <a name="method_getQuantity" class="anchor"></a>
@@ -887,7 +899,7 @@ public getQuantity() : float
 
 **Summary**
 
-Возвращает количество товара
+Возвращает количество товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -896,10 +908,10 @@ public getQuantity() : float
 
 
 <a name="method_getSupplier" class="anchor"></a>
-#### public getSupplier() : \YooKassa\Model\SupplierInterface
+#### public getSupplier() : \YooKassa\Model\Receipt\SupplierInterface|null
 
 ```php
-public getSupplier() : \YooKassa\Model\SupplierInterface
+public getSupplier() : \YooKassa\Model\Receipt\SupplierInterface|null
 ```
 
 **Summary**
@@ -909,14 +921,27 @@ public getSupplier() : \YooKassa\Model\SupplierInterface
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** \YooKassa\Model\SupplierInterface - 
+**Returns:** \YooKassa\Model\Receipt\SupplierInterface|null - 
+
+
+<a name="method_getValidator" class="anchor"></a>
+#### public getValidator() : \YooKassa\Validator\Validator
+
+```php
+public getValidator() : \YooKassa\Validator\Validator
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+**Returns:** \YooKassa\Validator\Validator - 
 
 
 <a name="method_getVatCode" class="anchor"></a>
-#### public getVatCode() : int|null
+#### public getVatCode() : null|int
 
 ```php
-public getVatCode() : int|null
+public getVatCode() : null|int
 ```
 
 **Summary**
@@ -926,7 +951,7 @@ public getVatCode() : int|null
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** int|null - Ставка НДС, число 1-6, или null, если ставка не задана
+**Returns:** null|int - Ставка НДС, число 1-6, или null, если ставка не задана
 
 
 <a name="method_jsonSerialize" class="anchor"></a>
@@ -938,17 +963,13 @@ public jsonSerialize() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
 
-**Returns:** array - 
+**Returns:** array - Ассоциативный массив со свойствами текущего объекта
 
-##### Tags
-| Tag | Version | Description |
-| --- | ------- | ----------- |
-| inheritdoc |  |  |
 
 <a name="method_offsetExists" class="anchor"></a>
 #### public offsetExists() : bool
@@ -959,7 +980,7 @@ public offsetExists(string $offset) : bool
 
 **Summary**
 
-Проверяет наличие свойства
+Проверяет наличие свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -981,7 +1002,7 @@ public offsetGet(string $offset) : mixed
 
 **Summary**
 
-Возвращает значение свойства
+Возвращает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1003,7 +1024,7 @@ public offsetSet(string $offset, mixed $value) : void
 
 **Summary**
 
-Устанавливает значение свойства
+Устанавливает значение свойства.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1026,7 +1047,7 @@ public offsetUnset(string $offset) : void
 
 **Summary**
 
-Удаляет свойство
+Удаляет свойство.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1040,15 +1061,15 @@ public offsetUnset(string $offset) : void
 
 
 <a name="method_setAgentType" class="anchor"></a>
-#### public setAgentType() : mixed
+#### public setAgentType() : self
 
 ```php
-public setAgentType(string $value) : mixed
+public setAgentType(string|null $agent_type = null) : self
 ```
 
 **Summary**
 
-Устанавливает тип посредника, реализующего товар или услугу
+Устанавливает тип посредника, реализующего товар или услугу.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1056,21 +1077,21 @@ public setAgentType(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Тип посредника |
+| <code lang="php">string OR null</code> | agent_type  | Тип посредника |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setCountryOfOriginCode" class="anchor"></a>
-#### public setCountryOfOriginCode() : mixed
+#### public setCountryOfOriginCode() : self
 
 ```php
-public setCountryOfOriginCode(string $value) : mixed
+public setCountryOfOriginCode(string|null $country_of_origin_code = null) : self
 ```
 
 **Summary**
 
-Устанавливает код страны происхождения товара по общероссийскому классификатору стран мира
+Устанавливает код страны происхождения товара по общероссийскому классификатору стран мира.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1078,26 +1099,21 @@ public setCountryOfOriginCode(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Код страны происхождения товара |
+| <code lang="php">string OR null</code> | country_of_origin_code  | Код страны происхождения товара |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setCustomsDeclarationNumber" class="anchor"></a>
-#### public setCustomsDeclarationNumber() : mixed
+#### public setCustomsDeclarationNumber() : self
 
 ```php
-public setCustomsDeclarationNumber(string $value) : mixed
+public setCustomsDeclarationNumber(string|null $customs_declaration_number = null) : self
 ```
 
 **Summary**
 
-Устанавливает номер таможенной декларации (от 1 до 32 символов)
+Устанавливает номер таможенной декларации (от 1 до 32 символов).
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1105,26 +1121,21 @@ public setCustomsDeclarationNumber(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Номер таможенной декларации |
+| <code lang="php">string OR null</code> | customs_declaration_number  | Номер таможенной декларации |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setDescription" class="anchor"></a>
-#### public setDescription() : mixed
+#### public setDescription() : self
 
 ```php
-public setDescription(string $value) : mixed
+public setDescription(string|null $description) : self
 ```
 
 **Summary**
 
-Устанавливает наименование товара
+Устанавливает наименование товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1132,27 +1143,21 @@ public setDescription(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Наименование товара |
+| <code lang="php">string OR null</code> | description  | Наименование товара |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\EmptyPropertyValueException | Выбрасывается если было передано пустое значение |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setExcise" class="anchor"></a>
-#### public setExcise() : mixed
+#### public setExcise() : self
 
 ```php
-public setExcise(float $value) : mixed
+public setExcise(float|null $excise = null) : self
 ```
 
 **Summary**
 
-Устанавливает сумму акциза товара с учетом копеек
+Устанавливает сумму акциза товара с учетом копеек.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1160,26 +1165,21 @@ public setExcise(float $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">float</code> | value  | Сумма акциза товара с учетом копеек |
+| <code lang="php">float OR null</code> | excise  | Сумма акциза товара с учетом копеек |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента было передано не число |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setMarkCodeInfo" class="anchor"></a>
-#### public setMarkCodeInfo() : mixed
+#### public setMarkCodeInfo() : self
 
 ```php
-public setMarkCodeInfo(array|\YooKassa\Model\Receipt\MarkCodeInfo $value) : mixed
+public setMarkCodeInfo(array|\YooKassa\Model\Receipt\MarkCodeInfo|null $mark_code_info = null) : self
 ```
 
 **Summary**
 
-Устанавливает код товара
+Устанавливает код товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1187,21 +1187,21 @@ public setMarkCodeInfo(array|\YooKassa\Model\Receipt\MarkCodeInfo $value) : mixe
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \YooKassa\Model\Receipt\MarkCodeInfo</code> | value  | Код товара |
+| <code lang="php">array OR \YooKassa\Model\Receipt\MarkCodeInfo OR null</code> | mark_code_info  | Код товара |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setMarkMode" class="anchor"></a>
-#### public setMarkMode() : mixed
+#### public setMarkMode() : self
 
 ```php
-public setMarkMode(string $value) : mixed
+public setMarkMode(string|null $mark_mode = null) : self
 ```
 
 **Summary**
 
-Устанавливает режим обработки кода маркировки
+Устанавливает режим обработки кода маркировки.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1209,21 +1209,21 @@ public setMarkMode(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Режим обработки кода маркировки |
+| <code lang="php">string OR null</code> | mark_mode  | Режим обработки кода маркировки |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setMarkQuantity" class="anchor"></a>
-#### public setMarkQuantity() : mixed
+#### public setMarkQuantity() : self
 
 ```php
-public setMarkQuantity(array|\YooKassa\Model\Receipt\MarkQuantity $value) : mixed
+public setMarkQuantity(array|\YooKassa\Model\Receipt\MarkQuantity|null $mark_quantity = null) : self
 ```
 
 **Summary**
 
-Устанавливает дробное количество маркированного товара
+Устанавливает дробное количество маркированного товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1231,21 +1231,21 @@ public setMarkQuantity(array|\YooKassa\Model\Receipt\MarkQuantity $value) : mixe
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \YooKassa\Model\Receipt\MarkQuantity</code> | value  | Дробное количество маркированного товара |
+| <code lang="php">array OR \YooKassa\Model\Receipt\MarkQuantity OR null</code> | mark_quantity  | Дробное количество маркированного товара |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setMeasure" class="anchor"></a>
-#### public setMeasure() : mixed
+#### public setMeasure() : self
 
 ```php
-public setMeasure(string $value) : mixed
+public setMeasure(string|null $measure) : self
 ```
 
 **Summary**
 
-Устанавливает меру количества предмета расчета
+Устанавливает меру количества предмета расчета.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1253,21 +1253,21 @@ public setMeasure(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Мера количества предмета расчета |
+| <code lang="php">string OR null</code> | measure  | Мера количества предмета расчета |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setPaymentMode" class="anchor"></a>
-#### public setPaymentMode() : mixed
+#### public setPaymentMode() : self
 
 ```php
-public setPaymentMode(string $value) : mixed
+public setPaymentMode(string|null $payment_mode = null) : self
 ```
 
 **Summary**
 
-Устанавливает признак способа расчета
+Устанавливает признак способа расчета.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1275,26 +1275,21 @@ public setPaymentMode(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Признак способа расчета |
+| <code lang="php">string OR null</code> | payment_mode  | Признак способа расчета |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setPaymentSubject" class="anchor"></a>
-#### public setPaymentSubject() : mixed
+#### public setPaymentSubject() : self
 
 ```php
-public setPaymentSubject(string $value) : mixed
+public setPaymentSubject(null|string $payment_subject = null) : self
 ```
 
 **Summary**
 
-Устанавливает признак предмета расчета
+Устанавливает признак предмета расчета.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1302,26 +1297,21 @@ public setPaymentSubject(string $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Признак предмета расчета |
+| <code lang="php">null OR string</code> | payment_subject  | Признак предмета расчета |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setPaymentSubjectIndustryDetails" class="anchor"></a>
-#### public setPaymentSubjectIndustryDetails() : mixed
+#### public setPaymentSubjectIndustryDetails() : self
 
 ```php
-public setPaymentSubjectIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[] $value) : mixed
+public setPaymentSubjectIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDetails[]|null $payment_subject_industry_details = null) : self
 ```
 
 **Summary**
 
-Устанавливает отраслевой реквизит чека
+Устанавливает отраслевой реквизит чека.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1329,21 +1319,21 @@ public setPaymentSubjectIndustryDetails(array|\YooKassa\Model\Receipt\IndustryDe
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[]</code> | value  | Отраслевой реквизит чека |
+| <code lang="php">array OR \YooKassa\Model\Receipt\IndustryDetails[] OR null</code> | payment_subject_industry_details  | Отраслевой реквизит чека |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setPrice" class="anchor"></a>
-#### public setPrice() : mixed
+#### public setPrice() : void
 
 ```php
-public setPrice(\YooKassa\Model\AmountInterface $value) : mixed
+public setPrice(\YooKassa\Model\AmountInterface|array|null $value) : void
 ```
 
 **Summary**
 
-Устанавливает цену товара
+Устанавливает цену товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1351,21 +1341,21 @@ public setPrice(\YooKassa\Model\AmountInterface $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\AmountInterface</code> | value  | Цена товара |
+| <code lang="php">\YooKassa\Model\AmountInterface OR array OR null</code> | value  | Цена товара |
 
-**Returns:** mixed - 
+**Returns:** void - 
 
 
 <a name="method_setProductCode" class="anchor"></a>
-#### public setProductCode() : mixed
+#### public setProductCode() : self
 
 ```php
-public setProductCode(string|\YooKassa\Helpers\ProductCode $value) : mixed
+public setProductCode(\YooKassa\Helpers\ProductCode|string $product_code) : self
 ```
 
 **Summary**
 
-Устанавливает код товара — уникальный номер, который присваивается экземпляру товара при маркировке
+Устанавливает код товара — уникальный номер, который присваивается экземпляру товара при маркировке.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1373,26 +1363,21 @@ public setProductCode(string|\YooKassa\Helpers\ProductCode $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR \YooKassa\Helpers\ProductCode</code> | value  | Код товара |
+| <code lang="php">\YooKassa\Helpers\ProductCode OR string</code> | product_code  | Код товара |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента была передана не строка |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setQuantity" class="anchor"></a>
-#### public setQuantity() : mixed
+#### public setQuantity() : self
 
 ```php
-public setQuantity(int $value) : mixed
+public setQuantity(float|null $quantity) : self
 ```
 
 **Summary**
 
-Устанавливает количество покупаемого товара
+Устанавливает количество покупаемого товара.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Receipts\ReceiptResponseItem](../classes/YooKassa-Request-Receipts-ReceiptResponseItem.md)
@@ -1400,23 +1385,16 @@ public setQuantity(int $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">int</code> | value  | Количество |
+| <code lang="php">float OR null</code> | quantity  | Количество |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\EmptyPropertyValueException | Выбрасывается если было передано пустое значение |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если в качестве аргумента был передан ноль или отрицательное число |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента было передано не число |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setSupplier" class="anchor"></a>
-#### public setSupplier() : mixed
+#### public setSupplier() : self
 
 ```php
-public setSupplier(\YooKassa\Model\SupplierInterface|array $value) : mixed
+public setSupplier(array|\YooKassa\Model\Receipt\SupplierInterface|null $supplier = null) : self
 ```
 
 **Summary**
@@ -1429,16 +1407,16 @@ public setSupplier(\YooKassa\Model\SupplierInterface|array $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\SupplierInterface OR array</code> | value  |  |
+| <code lang="php">array OR \YooKassa\Model\Receipt\SupplierInterface OR null</code> | supplier  | Информация о поставщике товара или услуги |
 
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_setVatCode" class="anchor"></a>
-#### public setVatCode() : mixed
+#### public setVatCode() : self
 
 ```php
-public setVatCode(int $value) : mixed
+public setVatCode(int|null $vat_code = null) : self
 ```
 
 **Summary**
@@ -1451,15 +1429,9 @@ public setVatCode(int $value) : mixed
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">int</code> | value  | Ставка НДС, число 1-6 |
+| <code lang="php">int OR null</code> | vat_code  | Ставка НДС, число 1-6 |
 
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueException | Выбрасывается если в качестве аргумента было передано число меньше одного или больше шести |
-| \YooKassa\Common\Exceptions\InvalidPropertyValueTypeException | Выбрасывается если в качестве аргумента было передано не число |
-
-**Returns:** mixed - 
+**Returns:** self - 
 
 
 <a name="method_toArray" class="anchor"></a>
@@ -1472,7 +1444,7 @@ public toArray() : array
 **Summary**
 
 Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
-Является алиасом метода AbstractObject::jsonSerialize()
+Является алиасом метода AbstractObject::jsonSerialize().
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
@@ -1489,12 +1461,31 @@ protected getUnknownProperties() : array
 
 **Summary**
 
-Возвращает массив свойств которые не существуют, но были заданы у объекта
+Возвращает массив свойств которые не существуют, но были заданы у объекта.
 
 **Details:**
 * Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
 
 **Returns:** array - Ассоциативный массив с не существующими у текущего объекта свойствами
+
+
+<a name="method_validatePropertyValue" class="anchor"></a>
+#### protected validatePropertyValue() : mixed
+
+```php
+protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mixed
+```
+
+**Details:**
+* Inherited From: [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string</code> | propertyName  |  |
+| <code lang="php">mixed</code> | propertyValue  |  |
+
+**Returns:** mixed - 
 
 
 
@@ -1508,11 +1499,11 @@ protected getUnknownProperties() : array
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

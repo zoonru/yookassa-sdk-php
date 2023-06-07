@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -26,69 +26,34 @@
 
 namespace YooKassa\Request\Receipts;
 
-use YooKassa\Model\ReceiptItem;
-use YooKassa\Model\ReceiptType;
-use YooKassa\Model\Settlement;
+use YooKassa\Model\Receipt\ReceiptType;
 
 /**
- * Класс сериалайзера объекта запроса к API создание чека
- *
- * @package YooKassa
+ * Класс сериалайзера объекта запроса к API создание чека.
  */
 class CreatePostReceiptRequestSerializer
 {
     /**
-     * Сериализует объект запроса к API для дальнейшей его отправки
+     * Сериализует объект запроса к API для дальнейшей его отправки.
      *
      * @param CreatePostReceiptRequestInterface $request Сериализуемый объект
+     *
      * @return array Массив с информацией, отправляемый в дальнейшем в API
      */
-    public function serialize(CreatePostReceiptRequestInterface $request)
+    public function serialize(CreatePostReceiptRequestInterface $request): array
     {
-        $result = array_merge(array(
-            'type' => $request->getType(),
-            'send' => $request->getSend(),
-        ), $this->serializeObjectId($request));
-
-        /** @var Settlement $item */
-        foreach ($request->getSettlements() as $item) {
-            $result['settlements'][] = $item->jsonSerialize();
-        }
-
-        /** @var ReceiptItem $item */
-        foreach ($request->getItems() as $item) {
-            $result['items'][] = $item->jsonSerialize();
-        }
-
-        $customer = $request->getCustomer();
-        if ($customer !== null) {
-            $result['customer'] = $customer->jsonSerialize();
-        }
-
-        $value = $request->getTaxSystemCode();
-        if (!empty($value)) {
-            $result['tax_system_code'] = $value;
-        }
-
-        $onBehalfOf = $request->getOnBehalfOf();
-        if (!empty($onBehalfOf)) {
-            $result['on_behalf_of'] = $onBehalfOf;
-        }
-
+        $result = array_merge($request->toArray(), $this->serializeObjectId($request));
+        unset($result['object_id'], $result['object_type']);
         return $result;
     }
 
-    /**
-     * @param CreatePostReceiptRequestInterface $request
-     * @return array
-     */
-    private function serializeObjectId(CreatePostReceiptRequestInterface $request)
+    private function serializeObjectId(CreatePostReceiptRequestInterface $request): array
     {
-        $result = array();
+        $result = [];
 
-        if ($request->getObjectType() === ReceiptType::PAYMENT) {
+        if (ReceiptType::PAYMENT === $request->getObjectType()) {
             $result['payment_id'] = $request->getObjectId();
-        } elseif ($request->getObjectType() === ReceiptType::REFUND) {
+        } elseif (ReceiptType::REFUND === $request->getObjectType()) {
             $result['refund_id'] = $request->getObjectId();
         }
 

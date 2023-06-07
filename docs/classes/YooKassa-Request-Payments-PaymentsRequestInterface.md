@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Interface PaymentsRequestInterface
+Interface PaymentsRequestInterface.
 
 ---
 ### Constants
@@ -15,82 +15,86 @@ Interface PaymentsRequestInterface
 ### Methods
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [getCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCapturedAtGt) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCapturedAtGte) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCapturedAtLt) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCapturedAtLte) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCreatedAtGt) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCreatedAtGte) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCreatedAtLt) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCreatedAtLte) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена |
-| public | [getCursor()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCursor) |  | Возвращает страницу выдачи результатов или null, если она до этого не была установлена |
-| public | [getLimit()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getLimit) |  | Возвращает ограничение количества объектов платежа или null, если оно до этого не было установлено |
-| public | [getPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getPaymentMethod) |  | Возвращает код способа оплаты выбираемых платежей или null, если он до этого не был установлен |
-| public | [getStatus()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getStatus) |  | Возвращает статус выбираемых платежей или null, если он до этого не был установлен |
-| public | [hasCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCapturedAtGt) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи |
-| public | [hasCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCapturedAtGte) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи |
-| public | [hasCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCapturedAtLt) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи |
-| public | [hasCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCapturedAtLte) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи |
-| public | [hasCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCreatedAtGt) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи |
-| public | [hasCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCreatedAtGte) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи |
-| public | [hasCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCreatedAtLt) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи |
-| public | [hasCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCreatedAtLte) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи |
-| public | [hasCursor()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCursor) |  | Проверяет, была ли установлена страница выдачи результатов |
-| public | [hasLimit()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasLimit) |  | Проверяет, было ли установлено ограничение количества объектов платежа |
-| public | [hasPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasPaymentMethod) |  | Проверяет, был ли установлен код способа оплаты выбираемых платежей |
-| public | [hasStatus()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasStatus) |  | Проверяет, был ли установлен статус выбираемых платежей |
-| public | [setCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCapturedAtGt) |  | Устанавливает дату создания от которой выбираются платежи |
-| public | [setCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCapturedAtGte) |  | Устанавливает дату создания от которой выбираются платежи |
-| public | [setCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCapturedAtLt) |  | Устанавливает дату создания до которой выбираются платежи |
-| public | [setCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCapturedAtLte) |  | Устанавливает дату создания до которой выбираются платежи |
-| public | [setCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCreatedAtGt) |  | Устанавливает дату создания от которой выбираются платежи |
-| public | [setCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCreatedAtGte) |  | Устанавливает дату создания от которой выбираются платежи |
-| public | [setCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCreatedAtLt) |  | Устанавливает дату создания до которой выбираются платежи |
-| public | [setCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCreatedAtLte) |  | Устанавливает дату создания до которой выбираются платежи |
-| public | [setCursor()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCursor) |  | Устанавливает страницу выдачи результатов |
-| public | [setLimit()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setLimit) |  | Устанавливает ограничение количества объектов платежа |
-| public | [setPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setPaymentMethod) |  | Устанавливает код способа оплаты выбираемых платежей |
-| public | [setStatus()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setStatus) |  | Устанавливает статус выбираемых платежей |
+| public | [getCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCapturedAtGt) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCapturedAtGte) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCapturedAtLt) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCapturedAtLte) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCreatedAtGt) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCreatedAtGte) |  | Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCreatedAtLt) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCreatedAtLte) |  | Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена. |
+| public | [getCursor()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getCursor) |  | Возвращает страницу выдачи результатов или null, если она до этого не была установлена. |
+| public | [getLimit()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getLimit) |  | Возвращает ограничение количества объектов платежа или null, если оно до этого не было установлено. |
+| public | [getPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getPaymentMethod) |  | Возвращает код способа оплаты выбираемых платежей или null, если он до этого не был установлен. |
+| public | [getStatus()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_getStatus) |  | Возвращает статус выбираемых платежей или null, если он до этого не был установлен. |
+| public | [hasCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCapturedAtGt) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи. |
+| public | [hasCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCapturedAtGte) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи. |
+| public | [hasCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCapturedAtLt) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи. |
+| public | [hasCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCapturedAtLte) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи. |
+| public | [hasCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCreatedAtGt) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи. |
+| public | [hasCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCreatedAtGte) |  | Проверяет, была ли установлена дата создания от которой выбираются платежи. |
+| public | [hasCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCreatedAtLt) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи. |
+| public | [hasCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCreatedAtLte) |  | Проверяет, была ли установлена дата создания до которой выбираются платежи. |
+| public | [hasCursor()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasCursor) |  | Проверяет, была ли установлена страница выдачи результатов. |
+| public | [hasLimit()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasLimit) |  | Проверяет, было ли установлено ограничение количества объектов платежа. |
+| public | [hasPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasPaymentMethod) |  | Проверяет, был ли установлен код способа оплаты выбираемых платежей. |
+| public | [hasStatus()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_hasStatus) |  | Проверяет, был ли установлен статус выбираемых платежей. |
+| public | [setCapturedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCapturedAtGt) |  | Устанавливает дату создания от которой выбираются платежи. |
+| public | [setCapturedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCapturedAtGte) |  | Устанавливает дату создания от которой выбираются платежи. |
+| public | [setCapturedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCapturedAtLt) |  | Устанавливает дату создания до которой выбираются платежи. |
+| public | [setCapturedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCapturedAtLte) |  | Устанавливает дату создания до которой выбираются платежи. |
+| public | [setCreatedAtGt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCreatedAtGt) |  | Устанавливает дату создания от которой выбираются платежи. |
+| public | [setCreatedAtGte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCreatedAtGte) |  | Устанавливает дату создания от которой выбираются платежи. |
+| public | [setCreatedAtLt()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCreatedAtLt) |  | Устанавливает дату создания до которой выбираются платежи. |
+| public | [setCreatedAtLte()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCreatedAtLte) |  | Устанавливает дату создания до которой выбираются платежи. |
+| public | [setCursor()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setCursor) |  | Устанавливает страницу выдачи результатов. |
+| public | [setLimit()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setLimit) |  | Устанавливает ограничение количества объектов платежа. |
+| public | [setPaymentMethod()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setPaymentMethod) |  | Устанавливает код способа оплаты выбираемых платежей. |
+| public | [setStatus()](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md#method_setStatus) |  | Устанавливает статус выбираемых платежей. |
 
 ---
 ### Details
 * File: [lib/Request/Payments/PaymentsRequestInterface.php](../../lib/Request/Payments/PaymentsRequestInterface.php)
-* Package: \YooKassa
+* Package: \YooKassa\Request
+* See Also:
+  * [](https://yookassa.ru/developers/api)
 
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
-| property-read |  | Страница выдачи результатов, которую необходимо отобразить |
-| property-read |  | Время создания, от (включительно) |
-| property-read |  | Время создания, от (не включая) |
-| property-read |  | Время создания, до (включительно) |
-| property-read |  | Время создания, до (не включая) |
-| property-read |  | Время подтверждения, от (включительно) |
-| property-read |  | Время подтверждения, от (не включая) |
-| property-read |  | Время подтверждения, до (включительно) |
-| property-read |  | Время подтверждения, до (не включая) |
-| property-read |  | Ограничение количества объектов платежа, отображаемых на одной странице выдачи |
-| property-read |  | Идентификатор шлюза. |
-| property-read |  | Статус платежа |
+| category |  | Class |
+| author |  | cms@yoomoney.ru |
+| property |  | Страница выдачи результатов, которую необходимо отобразить |
+| property |  | Время создания, от (включительно) |
+| property |  | Время создания, от (не включая) |
+| property |  | Время создания, до (включительно) |
+| property |  | Время создания, до (не включая) |
+| property |  | Время подтверждения, от (включительно) |
+| property |  | Время подтверждения, от (не включая) |
+| property |  | Время подтверждения, до (включительно) |
+| property |  | Время подтверждения, до (не включая) |
+| property |  | Ограничение количества объектов платежа, отображаемых на одной странице выдачи |
+| property |  | Идентификатор шлюза. |
+| property |  | Статус платежа |
 
 ---
 ## Methods
 <a name="method_getCursor" class="anchor"></a>
-#### public getCursor() : string|null
+#### public getCursor() : null|string
 
 ```php
-public getCursor() : string|null
+public getCursor() : null|string
 ```
 
 **Summary**
 
-Возвращает страницу выдачи результатов или null, если она до этого не была установлена
+Возвращает страницу выдачи результатов или null, если она до этого не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** string|null - Страница выдачи результатов
+**Returns:** null|string - Страница выдачи результатов
 
 
 <a name="method_hasCursor" class="anchor"></a>
@@ -102,7 +106,7 @@ public hasCursor() : bool
 
 **Summary**
 
-Проверяет, была ли установлена страница выдачи результатов
+Проверяет, была ли установлена страница выдачи результатов.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -111,15 +115,15 @@ public hasCursor() : bool
 
 
 <a name="method_setCursor" class="anchor"></a>
-#### public setCursor() : void
+#### public setCursor() : self
 
 ```php
-public setCursor(string $value) : void
+public setCursor(string $cursor) : self
 ```
 
 **Summary**
 
-Устанавливает страницу выдачи результатов
+Устанавливает страницу выдачи результатов.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -127,26 +131,26 @@ public setCursor(string $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Страница |
+| <code lang="php">string</code> | cursor  | Страница |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getLimit" class="anchor"></a>
-#### public getLimit() : string|null
+#### public getLimit() : null|int
 
 ```php
-public getLimit() : string|null
+public getLimit() : null|int
 ```
 
 **Summary**
 
-Возвращает ограничение количества объектов платежа или null, если оно до этого не было установлено
+Возвращает ограничение количества объектов платежа или null, если оно до этого не было установлено.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** string|null - Ограничение количества объектов платежа
+**Returns:** null|int - Ограничение количества объектов платежа
 
 
 <a name="method_hasLimit" class="anchor"></a>
@@ -158,7 +162,7 @@ public hasLimit() : bool
 
 **Summary**
 
-Проверяет, было ли установлено ограничение количества объектов платежа
+Проверяет, было ли установлено ограничение количества объектов платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -167,15 +171,15 @@ public hasLimit() : bool
 
 
 <a name="method_setLimit" class="anchor"></a>
-#### public setLimit() : void
+#### public setLimit() : self
 
 ```php
-public setLimit(int $value) : void
+public setLimit(int $limit) : self
 ```
 
 **Summary**
 
-Устанавливает ограничение количества объектов платежа
+Устанавливает ограничение количества объектов платежа.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -183,26 +187,26 @@ public setLimit(int $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">int</code> | value  | Количества объектов платежа на странице |
+| <code lang="php">int</code> | limit  | Количества объектов платежа на странице |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getCreatedAtGte" class="anchor"></a>
-#### public getCreatedAtGte() : \DateTime|null
+#### public getCreatedAtGte() : null|\DateTime
 
 ```php
-public getCreatedAtGte() : \DateTime|null
+public getCreatedAtGte() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** \DateTime|null - Время создания, от (включительно)
+**Returns:** null|\DateTime - Время создания, от (включительно)
 
 
 <a name="method_hasCreatedAtGte" class="anchor"></a>
@@ -214,7 +218,7 @@ public hasCreatedAtGte() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания от которой выбираются платежи
+Проверяет, была ли установлена дата создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -223,15 +227,15 @@ public hasCreatedAtGte() : bool
 
 
 <a name="method_setCreatedAtGte" class="anchor"></a>
-#### public setCreatedAtGte() : void
+#### public setCreatedAtGte() : self
 
 ```php
-public setCreatedAtGte(\DateTime $value) : void
+public setCreatedAtGte(\DateTime|string|null $_created_at_gte) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются платежи
+Устанавливает дату создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -239,26 +243,26 @@ public setCreatedAtGte(\DateTime $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | value  | Дата |
+| <code lang="php">\DateTime OR string OR null</code> | _created_at_gte  | Дата |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getCreatedAtGt" class="anchor"></a>
-#### public getCreatedAtGt() : \DateTime|null
+#### public getCreatedAtGt() : null|\DateTime
 
 ```php
-public getCreatedAtGt() : \DateTime|null
+public getCreatedAtGt() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** \DateTime|null - Время создания, от (не включая)
+**Returns:** null|\DateTime - Время создания, от (не включая)
 
 
 <a name="method_hasCreatedAtGt" class="anchor"></a>
@@ -270,7 +274,7 @@ public hasCreatedAtGt() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания от которой выбираются платежи
+Проверяет, была ли установлена дата создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -279,15 +283,15 @@ public hasCreatedAtGt() : bool
 
 
 <a name="method_setCreatedAtGt" class="anchor"></a>
-#### public setCreatedAtGt() : void
+#### public setCreatedAtGt() : self
 
 ```php
-public setCreatedAtGt(\DateTime $value) : void
+public setCreatedAtGt(\DateTime|string|null $created_at_gt) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются платежи
+Устанавливает дату создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -295,26 +299,26 @@ public setCreatedAtGt(\DateTime $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | value  | Дата |
+| <code lang="php">\DateTime OR string OR null</code> | created_at_gt  | Дата создания |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getCreatedAtLte" class="anchor"></a>
-#### public getCreatedAtLte() : \DateTime|null
+#### public getCreatedAtLte() : null|\DateTime
 
 ```php
-public getCreatedAtLte() : \DateTime|null
+public getCreatedAtLte() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** \DateTime|null - Время создания, до (включительно)
+**Returns:** null|\DateTime - Время создания, до (включительно)
 
 
 <a name="method_hasCreatedAtLte" class="anchor"></a>
@@ -326,7 +330,7 @@ public hasCreatedAtLte() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания до которой выбираются платежи
+Проверяет, была ли установлена дата создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -335,15 +339,15 @@ public hasCreatedAtLte() : bool
 
 
 <a name="method_setCreatedAtLte" class="anchor"></a>
-#### public setCreatedAtLte() : void
+#### public setCreatedAtLte() : self
 
 ```php
-public setCreatedAtLte(\DateTime $value) : void
+public setCreatedAtLte(\DateTime|string|null $created_at_lte) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются платежи
+Устанавливает дату создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -351,26 +355,26 @@ public setCreatedAtLte(\DateTime $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | value  | Дата |
+| <code lang="php">\DateTime OR string OR null</code> | created_at_lte  | Дата |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getCreatedAtLt" class="anchor"></a>
-#### public getCreatedAtLt() : \DateTime|null
+#### public getCreatedAtLt() : null|\DateTime
 
 ```php
-public getCreatedAtLt() : \DateTime|null
+public getCreatedAtLt() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** \DateTime|null - Время создания, до (не включая)
+**Returns:** null|\DateTime - Время создания, до (не включая)
 
 
 <a name="method_hasCreatedAtLt" class="anchor"></a>
@@ -382,7 +386,7 @@ public hasCreatedAtLt() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания до которой выбираются платежи
+Проверяет, была ли установлена дата создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -391,15 +395,15 @@ public hasCreatedAtLt() : bool
 
 
 <a name="method_setCreatedAtLt" class="anchor"></a>
-#### public setCreatedAtLt() : void
+#### public setCreatedAtLt() : self
 
 ```php
-public setCreatedAtLt(\DateTime $value) : void
+public setCreatedAtLt(\DateTime|string|null $created_at_lt) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются платежи
+Устанавливает дату создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -407,26 +411,26 @@ public setCreatedAtLt(\DateTime $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | value  | Дата |
+| <code lang="php">\DateTime OR string OR null</code> | created_at_lt  | Дата |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getCapturedAtGte" class="anchor"></a>
-#### public getCapturedAtGte() : \DateTime|null
+#### public getCapturedAtGte() : null|\DateTime
 
 ```php
-public getCapturedAtGte() : \DateTime|null
+public getCapturedAtGte() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** \DateTime|null - Время создания, от (включительно)
+**Returns:** null|\DateTime - Время создания, от (включительно)
 
 
 <a name="method_hasCapturedAtGte" class="anchor"></a>
@@ -438,7 +442,7 @@ public hasCapturedAtGte() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания от которой выбираются платежи
+Проверяет, была ли установлена дата создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -447,15 +451,15 @@ public hasCapturedAtGte() : bool
 
 
 <a name="method_setCapturedAtGte" class="anchor"></a>
-#### public setCapturedAtGte() : void
+#### public setCapturedAtGte() : self
 
 ```php
-public setCapturedAtGte(\DateTime $value) : void
+public setCapturedAtGte(\DateTime|string|null $captured_at_gte) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются платежи
+Устанавливает дату создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -463,26 +467,26 @@ public setCapturedAtGte(\DateTime $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | value  | Дата |
+| <code lang="php">\DateTime OR string OR null</code> | captured_at_gte  | Дата |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getCapturedAtGt" class="anchor"></a>
-#### public getCapturedAtGt() : \DateTime|null
+#### public getCapturedAtGt() : null|\DateTime
 
 ```php
-public getCapturedAtGt() : \DateTime|null
+public getCapturedAtGt() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания от которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** \DateTime|null - Время создания, от (не включая)
+**Returns:** null|\DateTime - Время создания, от (не включая)
 
 
 <a name="method_hasCapturedAtGt" class="anchor"></a>
@@ -494,7 +498,7 @@ public hasCapturedAtGt() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания от которой выбираются платежи
+Проверяет, была ли установлена дата создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -503,15 +507,15 @@ public hasCapturedAtGt() : bool
 
 
 <a name="method_setCapturedAtGt" class="anchor"></a>
-#### public setCapturedAtGt() : void
+#### public setCapturedAtGt() : self
 
 ```php
-public setCapturedAtGt(\DateTime $value) : void
+public setCapturedAtGt(\DateTime|string|null $captured_at_gt) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания от которой выбираются платежи
+Устанавливает дату создания от которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -519,26 +523,26 @@ public setCapturedAtGt(\DateTime $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | value  | Дата |
+| <code lang="php">\DateTime OR string OR null</code> | captured_at_gt  | Дата |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getCapturedAtLte" class="anchor"></a>
-#### public getCapturedAtLte() : \DateTime|null
+#### public getCapturedAtLte() : null|\DateTime
 
 ```php
-public getCapturedAtLte() : \DateTime|null
+public getCapturedAtLte() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** \DateTime|null - Время создания, до (включительно)
+**Returns:** null|\DateTime - Время создания, до (включительно)
 
 
 <a name="method_hasCapturedAtLte" class="anchor"></a>
@@ -550,7 +554,7 @@ public hasCapturedAtLte() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания до которой выбираются платежи
+Проверяет, была ли установлена дата создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -559,15 +563,15 @@ public hasCapturedAtLte() : bool
 
 
 <a name="method_setCapturedAtLte" class="anchor"></a>
-#### public setCapturedAtLte() : void
+#### public setCapturedAtLte() : self
 
 ```php
-public setCapturedAtLte(\DateTime $value) : void
+public setCapturedAtLte(\DateTime|string|null $captured_at_lte) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются платежи
+Устанавливает дату создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -575,26 +579,26 @@ public setCapturedAtLte(\DateTime $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | value  | Дата |
+| <code lang="php">\DateTime OR string OR null</code> | captured_at_lte  | Дата |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getCapturedAtLt" class="anchor"></a>
-#### public getCapturedAtLt() : \DateTime|null
+#### public getCapturedAtLt() : null|\DateTime
 
 ```php
-public getCapturedAtLt() : \DateTime|null
+public getCapturedAtLt() : null|\DateTime
 ```
 
 **Summary**
 
-Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена
+Возвращает дату создания до которой будут возвращены платежи или null, если дата не была установлена.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** \DateTime|null - Время создания, до (не включая)
+**Returns:** null|\DateTime - Время создания, до (не включая)
 
 
 <a name="method_hasCapturedAtLt" class="anchor"></a>
@@ -606,7 +610,7 @@ public hasCapturedAtLt() : bool
 
 **Summary**
 
-Проверяет, была ли установлена дата создания до которой выбираются платежи
+Проверяет, была ли установлена дата создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -615,15 +619,15 @@ public hasCapturedAtLt() : bool
 
 
 <a name="method_setCapturedAtLt" class="anchor"></a>
-#### public setCapturedAtLt() : void
+#### public setCapturedAtLt() : self
 
 ```php
-public setCapturedAtLt(\DateTime $value) : void
+public setCapturedAtLt(\DateTime|string|null $captured_at_lt) : self
 ```
 
 **Summary**
 
-Устанавливает дату создания до которой выбираются платежи
+Устанавливает дату создания до которой выбираются платежи.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -631,26 +635,26 @@ public setCapturedAtLt(\DateTime $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\DateTime</code> | value  | Дата |
+| <code lang="php">\DateTime OR string OR null</code> | captured_at_lt  | Дата |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getStatus" class="anchor"></a>
-#### public getStatus() : string|null
+#### public getStatus() : null|string
 
 ```php
-public getStatus() : string|null
+public getStatus() : null|string
 ```
 
 **Summary**
 
-Возвращает статус выбираемых платежей или null, если он до этого не был установлен
+Возвращает статус выбираемых платежей или null, если он до этого не был установлен.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** string|null - Статус выбираемых платежей
+**Returns:** null|string - Статус выбираемых платежей
 
 
 <a name="method_hasStatus" class="anchor"></a>
@@ -662,7 +666,7 @@ public hasStatus() : bool
 
 **Summary**
 
-Проверяет, был ли установлен статус выбираемых платежей
+Проверяет, был ли установлен статус выбираемых платежей.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -671,15 +675,15 @@ public hasStatus() : bool
 
 
 <a name="method_setStatus" class="anchor"></a>
-#### public setStatus() : void
+#### public setStatus() : self
 
 ```php
-public setStatus(string $value) : void
+public setStatus(string $status) : self
 ```
 
 **Summary**
 
-Устанавливает статус выбираемых платежей
+Устанавливает статус выбираемых платежей.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -687,26 +691,26 @@ public setStatus(string $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Статус платежей |
+| <code lang="php">string</code> | status  | Статус платежей |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 <a name="method_getPaymentMethod" class="anchor"></a>
-#### public getPaymentMethod() : string|null
+#### public getPaymentMethod() : null|string
 
 ```php
-public getPaymentMethod() : string|null
+public getPaymentMethod() : null|string
 ```
 
 **Summary**
 
-Возвращает код способа оплаты выбираемых платежей или null, если он до этого не был установлен
+Возвращает код способа оплаты выбираемых платежей или null, если он до этого не был установлен.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
 
-**Returns:** string|null - Код способа оплаты выбираемых платежей
+**Returns:** null|string - Код способа оплаты выбираемых платежей
 
 
 <a name="method_hasPaymentMethod" class="anchor"></a>
@@ -718,7 +722,7 @@ public hasPaymentMethod() : bool
 
 **Summary**
 
-Проверяет, был ли установлен код способа оплаты выбираемых платежей
+Проверяет, был ли установлен код способа оплаты выбираемых платежей.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -727,15 +731,15 @@ public hasPaymentMethod() : bool
 
 
 <a name="method_setPaymentMethod" class="anchor"></a>
-#### public setPaymentMethod() : void
+#### public setPaymentMethod() : self
 
 ```php
-public setPaymentMethod(string $value) : void
+public setPaymentMethod(string $payment_method) : self
 ```
 
 **Summary**
 
-Устанавливает код способа оплаты выбираемых платежей
+Устанавливает код способа оплаты выбираемых платежей.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\PaymentsRequestInterface](../classes/YooKassa-Request-Payments-PaymentsRequestInterface.md)
@@ -743,9 +747,9 @@ public setPaymentMethod(string $value) : void
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | value  | Код способа оплаты |
+| <code lang="php">string</code> | payment_method  | Код способа оплаты |
 
-**Returns:** void - 
+**Returns:** self - 
 
 
 
@@ -760,11 +764,11 @@ public setPaymentMethod(string $value) : void
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

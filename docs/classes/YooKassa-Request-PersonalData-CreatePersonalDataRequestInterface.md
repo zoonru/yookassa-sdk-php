@@ -5,7 +5,7 @@
 ---
 **Summary:**
 
-Класс, представляющий интерфейс SbpPayoutRecipientPersonalDataRequestInterface.
+Interface CreatePersonalDataRequestInterface.
 
 ---
 ### Constants
@@ -20,37 +20,40 @@
 | public | [getMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_getMetadata) |  | Возвращает метаданные. |
 | public | [getMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_getMiddleName) |  | Возвращает отчество пользователя. |
 | public | [getType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_getType) |  | Возвращает тип персональных данных. |
-| public | [hasFirstName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasFirstName) |  | Проверяет наличие имени пользователя в запросе |
-| public | [hasLastName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasLastName) |  | Проверяет наличие фамилии пользователя в запросе |
-| public | [hasMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasMetadata) |  | Проверяет, были ли установлены метаданные |
-| public | [hasMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasMiddleName) |  | Проверяет наличие отчества пользователя в запросе |
-| public | [hasType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasType) |  | Проверяет наличие типа персональных данных в запросе |
+| public | [hasFirstName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasFirstName) |  | Проверяет наличие имени пользователя в запросе. |
+| public | [hasLastName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasLastName) |  | Проверяет наличие фамилии пользователя в запросе. |
+| public | [hasMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasMetadata) |  | Проверяет, были ли установлены метаданные. |
+| public | [hasMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasMiddleName) |  | Проверяет наличие отчества пользователя в запросе. |
+| public | [hasType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_hasType) |  | Проверяет наличие типа персональных данных в запросе. |
 | public | [setFirstName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_setFirstName) |  | Устанавливает имя пользователя. |
 | public | [setLastName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_setLastName) |  | Устанавливает фамилию пользователя. |
 | public | [setMetadata()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_setMetadata) |  | Устанавливает метаданные. |
 | public | [setMiddleName()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_setMiddleName) |  | Устанавливает отчество пользователя. |
 | public | [setType()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_setType) |  | Устанавливает тип персональных данных. |
-| public | [toArray()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации |
+| public | [toArray()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
 | public | [validate()](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md#method_validate) |  | Проверяет на валидность текущий объект |
 
 ---
 ### Details
 * File: [lib/Request/PersonalData/CreatePersonalDataRequestInterface.php](../../lib/Request/PersonalData/CreatePersonalDataRequestInterface.php)
-* Package: \YooKassa\Model
+* Package: \YooKassa\Request
+* See Also:
+  * [](https://yookassa.ru/developers/api)
 
 ---
 ### Tags
 | Tag | Version | Description |
 | --- | ------- | ----------- |
+| category |  | Interface |
 | author |  | cms@yoomoney.ru |
 
 ---
 ## Methods
 <a name="method_getType" class="anchor"></a>
-#### public getType() : string
+#### public getType() : string|null
 
 ```php
-public getType() : string
+public getType() : string|null
 ```
 
 **Summary**
@@ -60,14 +63,14 @@ public getType() : string
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
 
-**Returns:** string - Тип персональных данных
+**Returns:** string|null - Тип персональных данных
 
 
 <a name="method_setType" class="anchor"></a>
 #### public setType() : $this
 
 ```php
-public setType(string $type) : $this
+public setType(string|null $type) : $this
 ```
 
 **Summary**
@@ -80,7 +83,7 @@ public setType(string $type) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | type  | Тип персональных данных |
+| <code lang="php">string OR null</code> | type  | Тип персональных данных |
 
 **Returns:** $this - 
 
@@ -94,7 +97,7 @@ public hasType() : bool
 
 **Summary**
 
-Проверяет наличие типа персональных данных в запросе
+Проверяет наличие типа персональных данных в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
@@ -103,10 +106,10 @@ public hasType() : bool
 
 
 <a name="method_getLastName" class="anchor"></a>
-#### public getLastName() : string
+#### public getLastName() : string|null
 
 ```php
-public getLastName() : string
+public getLastName() : string|null
 ```
 
 **Summary**
@@ -116,14 +119,14 @@ public getLastName() : string
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
 
-**Returns:** string - Фамилия пользователя
+**Returns:** string|null - Фамилия пользователя
 
 
 <a name="method_setLastName" class="anchor"></a>
 #### public setLastName() : $this
 
 ```php
-public setLastName(string $last_name) : $this
+public setLastName(string|null $last_name) : $this
 ```
 
 **Summary**
@@ -136,7 +139,7 @@ public setLastName(string $last_name) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | last_name  | Фамилия пользователя. |
+| <code lang="php">string OR null</code> | last_name  | Фамилия пользователя |
 
 **Returns:** $this - 
 
@@ -150,7 +153,7 @@ public hasLastName() : bool
 
 **Summary**
 
-Проверяет наличие фамилии пользователя в запросе
+Проверяет наличие фамилии пользователя в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
@@ -159,10 +162,10 @@ public hasLastName() : bool
 
 
 <a name="method_getFirstName" class="anchor"></a>
-#### public getFirstName() : string
+#### public getFirstName() : string|null
 
 ```php
-public getFirstName() : string
+public getFirstName() : string|null
 ```
 
 **Summary**
@@ -172,14 +175,14 @@ public getFirstName() : string
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
 
-**Returns:** string - Имя пользователя
+**Returns:** string|null - Имя пользователя
 
 
 <a name="method_setFirstName" class="anchor"></a>
 #### public setFirstName() : $this
 
 ```php
-public setFirstName(string $first_name) : $this
+public setFirstName(string|null $first_name) : $this
 ```
 
 **Summary**
@@ -192,7 +195,7 @@ public setFirstName(string $first_name) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string</code> | first_name  | Имя пользователя. |
+| <code lang="php">string OR null</code> | first_name  | Имя пользователя |
 
 **Returns:** $this - 
 
@@ -206,7 +209,7 @@ public hasFirstName() : bool
 
 **Summary**
 
-Проверяет наличие имени пользователя в запросе
+Проверяет наличие имени пользователя в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
@@ -215,10 +218,10 @@ public hasFirstName() : bool
 
 
 <a name="method_getMiddleName" class="anchor"></a>
-#### public getMiddleName() : string|null
+#### public getMiddleName() : null|string
 
 ```php
-public getMiddleName() : string|null
+public getMiddleName() : null|string
 ```
 
 **Summary**
@@ -228,14 +231,14 @@ public getMiddleName() : string|null
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
 
-**Returns:** string|null - Отчество пользователя
+**Returns:** null|string - Отчество пользователя
 
 
 <a name="method_setMiddleName" class="anchor"></a>
 #### public setMiddleName() : $this
 
 ```php
-public setMiddleName(string|null $middle_name = null) : $this
+public setMiddleName(null|string $middle_name = null) : $this
 ```
 
 **Summary**
@@ -248,7 +251,7 @@ public setMiddleName(string|null $middle_name = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | middle_name  | Отчество пользователя |
+| <code lang="php">null OR string</code> | middle_name  | Отчество пользователя |
 
 **Returns:** $this - 
 
@@ -262,7 +265,7 @@ public hasMiddleName() : bool
 
 **Summary**
 
-Проверяет наличие отчества пользователя в запросе
+Проверяет наличие отчества пользователя в запросе.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
@@ -271,10 +274,10 @@ public hasMiddleName() : bool
 
 
 <a name="method_getMetadata" class="anchor"></a>
-#### public getMetadata() : \YooKassa\Model\Metadata
+#### public getMetadata() : \YooKassa\Model\Metadata|null
 
 ```php
-public getMetadata() : \YooKassa\Model\Metadata
+public getMetadata() : \YooKassa\Model\Metadata|null
 ```
 
 **Summary**
@@ -284,14 +287,14 @@ public getMetadata() : \YooKassa\Model\Metadata
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
 
-**Returns:** \YooKassa\Model\Metadata - Метаданные
+**Returns:** \YooKassa\Model\Metadata|null - Метаданные
 
 
 <a name="method_setMetadata" class="anchor"></a>
 #### public setMetadata() : $this
 
 ```php
-public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
+public setMetadata(null|array|\YooKassa\Model\Metadata $metadata) : $this
 ```
 
 **Summary**
@@ -304,7 +307,7 @@ public setMetadata(\YooKassa\Model\Metadata|array|null $metadata = null) : $this
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">\YooKassa\Model\Metadata OR array OR null</code> | metadata  | Метаданные |
+| <code lang="php">null OR array OR \YooKassa\Model\Metadata</code> | metadata  | Метаданные |
 
 **Returns:** $this - 
 
@@ -318,7 +321,7 @@ public hasMetadata() : bool
 
 **Summary**
 
-Проверяет, были ли установлены метаданные
+Проверяет, были ли установлены метаданные.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
@@ -352,7 +355,7 @@ public toArray() : array
 
 **Summary**
 
-Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
+Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации.
 
 **Details:**
 * Inherited From: [\YooKassa\Request\PersonalData\CreatePersonalDataRequestInterface](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestInterface.md)
@@ -372,11 +375,11 @@ public toArray() : array
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

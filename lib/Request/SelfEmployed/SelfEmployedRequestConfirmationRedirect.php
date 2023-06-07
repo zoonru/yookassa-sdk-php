@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MIT License
+ * The MIT License.
  *
  * Copyright (c) 2023 "YooMoney", NBСO LLC
  *
@@ -29,17 +29,25 @@ namespace YooKassa\Request\SelfEmployed;
 use YooKassa\Model\SelfEmployed\SelfEmployedConfirmationType;
 
 /**
- * Класс, представляющий модель SelfEmployedConfirmationAttrsRedirect.
+ * Класс, представляющий модель SelfEmployedRequestConfirmationRedirect.
  *
  * Перенаправление пользователя на сайт сервиса Мой налог для выдачи прав ЮMoney.
  *
- * @package YooKassa\Model
- * @author  cms@yoomoney.ru
+ * @category Class
+ * @package  YooKassa\Request
+ * @author   cms@yoomoney.ru
+ * @link     https://yookassa.ru/developers/api
  */
 class SelfEmployedRequestConfirmationRedirect extends SelfEmployedRequestConfirmation
 {
-    public function __construct()
+    /**
+     * Конструктор SelfEmployedRequestConfirmationRedirect.
+     *
+     * @param array|null $data
+     */
+    public function __construct(?array $data = [])
     {
+        parent::__construct($data);
         $this->setType(SelfEmployedConfirmationType::REDIRECT);
     }
 }

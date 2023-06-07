@@ -4,17 +4,23 @@
 
 ## Parent: [\YooKassa\Request](../namespaces/yookassa-request.md)
 
+### Interfaces
+
+| Name | Summary |
+| ---- | ------- |
+| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestInterface](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestInterface.md) | Interface SelfEmployedRequestInterface. |
+
 ### Classes
 
 | Name | Summary |
 | ---- | ------- |
 | [\YooKassa\Request\SelfEmployed\SelfEmployedRequest](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequest.md) | Класс, представляющий модель SelfEmployedRequest. |
-| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestBuilder](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md) | Класс билдера объектов запросов к API на создание самозанятого |
+| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestBuilder](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestBuilder.md) | Класс, представляющий модель SelfEmployedRequestBuilder. |
 | [\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmation](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmation.md) | Класс, представляющий модель SelfEmployedRequestConfirmation. |
-| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationFactory](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationFactory.md) | Class SelfEmployedRequestConfirmationFactory |
-| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationRedirect](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationRedirect.md) | Класс, представляющий модель SelfEmployedConfirmationAttrsRedirect. |
-| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestSerializer](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestSerializer.md) | Класс сериалайзера объекта запроса к API на создание самозанятого |
-| [\YooKassa\Request\SelfEmployed\SelfEmployedResponse](../classes/YooKassa-Request-SelfEmployed-SelfEmployedResponse.md) | Класс, представляющий модель SelfEmployed. |
+| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationFactory](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationFactory.md) | Класс, представляющий модель SelfEmployedRequestConfirmationFactory. |
+| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestConfirmationRedirect](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestConfirmationRedirect.md) | Класс, представляющий модель SelfEmployedRequestConfirmationRedirect. |
+| [\YooKassa\Request\SelfEmployed\SelfEmployedRequestSerializer](../classes/YooKassa-Request-SelfEmployed-SelfEmployedRequestSerializer.md) | Класс, представляющий модель SelfEmployedRequestSerializer. |
+| [\YooKassa\Request\SelfEmployed\SelfEmployedResponse](../classes/YooKassa-Request-SelfEmployed-SelfEmployedResponse.md) | Класс, представляющий модель SelfEmployedResponse. |
 
 ---
 
@@ -26,11 +32,11 @@
 
 ### Reports
 * [Errors - 0](../reports/errors.md)
-* [Markers - 1](../reports/markers.md)
-* [Deprecated - 25](../reports/deprecated.md)
+* [Markers - 0](../reports/markers.md)
+* [Deprecated - 7](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-05-10 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney
