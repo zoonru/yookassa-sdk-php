@@ -32,9 +32,10 @@
 #### [lib/Model/Payment/PaymentMethodType.php](../../lib/Model/Payment/PaymentMethodType.php)
 | Line | Element | Description |
 | ---- | ------- | ----------- |
-| 90 | \YooKassa\Model\Payment\PaymentMethodType::WEBMONEY | Будет удален в следующих версиях |
-| 106 | \YooKassa\Model\Payment\PaymentMethodType::PSB | Будет удален в следующих версиях |
-| 116 | \YooKassa\Model\Payment\PaymentMethodType::WECHAT | Будет удален в следующих версиях |
+| 90 | \YooKassa\Model\Payment\PaymentMethodType::WEBMONEY | Больше недоступен |
+| 97 | \YooKassa\Model\Payment\PaymentMethodType::ALFABANK | Больше недоступен |
+| 110 | \YooKassa\Model\Payment\PaymentMethodType::PSB | Больше недоступен |
+| 120 | \YooKassa\Model\Payment\PaymentMethodType::WECHAT | Больше недоступен |
 
 ---
 
@@ -47,10 +48,10 @@
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 7](../reports/deprecated.md)
+* [Deprecated - 8](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-16 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

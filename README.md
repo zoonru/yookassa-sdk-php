@@ -16,9 +16,8 @@ Russian | [English](README.en.md)
 PHP 8.0 (и выше) с расширением libcurl
 
 ## Установка
-### В консоли с помощью Composer
 
-1. Установите менеджер пакетов Composer.
+1. [Установите менеджер пакетов Composer](https://getcomposer.org/download/).
 2. В консоли выполните команду
 ```bash
 composer require yoomoney/yookassa-sdk-php
@@ -40,14 +39,6 @@ composer update
 3. В коде вашего проекта подключите автозагрузку файлов нашего клиента:
 ```php
 require __DIR__ . '/vendor/autoload.php';
-```
-
-### Вручную
-
-1. Скачайте [архив YooKassa API PHP Client Library](https://git.yoomoney.ru/rest/api/latest/projects/SDK/repos/yookassa-sdk-php/archive?format=zip), распакуйте его и скопируйте каталог lib в нужное место в вашем проекте.
-2. В коде вашего проекта подключите автозагрузку файлов нашего клиента:
-```php
-require __DIR__ . '/lib/autoload.php'; 
 ```
 
 ## Начало работы
