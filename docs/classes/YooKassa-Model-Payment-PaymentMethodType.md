@@ -42,7 +42,7 @@
 | public | [GOOGLE_PAY](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_GOOGLE_PAY) |  | Платеж Google Pay |
 | public | [QIWI](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_QIWI) |  | Платеж из кошелька Qiwi |
 | public | [WEBMONEY](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_WEBMONEY) | *deprecated* | Платеж из кошелька Webmoney |
-| public | [ALFABANK](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_ALFABANK) |  | Платеж через Альфа-Клик |
+| public | [ALFABANK](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_ALFABANK) | *deprecated* | Платеж через Альфа-Клик |
 | public | [B2B_SBERBANK](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_B2B_SBERBANK) |  | Сбербанк Бизнес Онлайн |
 | public | [TINKOFF_BANK](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_TINKOFF_BANK) |  | Интернет-банк Тинькофф |
 | public | [PSB](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_PSB) | *deprecated* | ПромсвязьБанк |
@@ -165,16 +165,18 @@ WEBMONEY = 'webmoney'
 ```
 
 **deprecated**
-Будет удален в следующих версиях
+Больше недоступен
 
 <a name="constant_ALFABANK" class="anchor"></a>
-###### ALFABANK
+###### ~~ALFABANK~~
 Платеж через Альфа-Клик
 
 ```php
 ALFABANK = 'alfabank'
 ```
 
+**deprecated**
+Больше недоступен
 
 <a name="constant_B2B_SBERBANK" class="anchor"></a>
 ###### B2B_SBERBANK
@@ -203,7 +205,7 @@ PSB = 'psb'
 ```
 
 **deprecated**
-Будет удален в следующих версиях
+Больше недоступен
 
 <a name="constant_INSTALLMENTS" class="anchor"></a>
 ###### INSTALLMENTS
@@ -223,7 +225,7 @@ WECHAT = 'wechat'
 ```
 
 **deprecated**
-Будет удален в следующих версиях
+Больше недоступен
 
 <a name="constant_SBP" class="anchor"></a>
 ###### SBP
@@ -316,10 +318,10 @@ Static public valueExists(mixed $value) : bool
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 7](../reports/deprecated.md)
+* [Deprecated - 8](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-07 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-16 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

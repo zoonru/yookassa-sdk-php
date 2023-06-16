@@ -85,11 +85,15 @@ class PaymentMethodType extends AbstractEnum
     /**
      * Платеж из кошелька Webmoney
      *
-     * @deprecated Будет удален в следующих версиях
+     * @deprecated Больше недоступен
      */
     public const WEBMONEY = 'webmoney';
 
-    /** Платеж через Альфа-Клик */
+    /**
+     * Платеж через Альфа-Клик
+     *
+     * @deprecated Больше недоступен
+     */
     public const ALFABANK = 'alfabank';
 
     /** Сбербанк Бизнес Онлайн */
@@ -101,7 +105,7 @@ class PaymentMethodType extends AbstractEnum
     /**
      * ПромсвязьБанк
      *
-     * @deprecated Будет удален в следующих версиях
+     * @deprecated Больше недоступен
      */
     public const PSB = 'psb';
 
@@ -111,7 +115,7 @@ class PaymentMethodType extends AbstractEnum
     /**
      * Оплата через WeChat.
      *
-     * @deprecated Будет удален в следующих версиях
+     * @deprecated Больше недоступен
      */
     public const WECHAT = 'wechat';
 
@@ -128,7 +132,7 @@ class PaymentMethodType extends AbstractEnum
         self::GOOGLE_PAY => false,
         self::QIWI => true,
         self::WEBMONEY => false,
-        self::ALFABANK => true,
+        self::ALFABANK => false,
         self::TINKOFF_BANK => true,
         self::INSTALLMENTS => true,
         self::B2B_SBERBANK => true,
