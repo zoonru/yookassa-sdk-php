@@ -506,6 +506,6 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-16 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-23 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney
