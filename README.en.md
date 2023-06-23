@@ -7,13 +7,13 @@
 
 [Russian](README.md) | English
 
-This product is used for managing payments under [The YooKassa API](https://yookassa.ru/en/developers/api)
-For usage by those who implemented YooKassa using the API method.
+This product is used for managing payments under [The YooKassa API](https://yookassa.ru/en/developers/api). For usage by those who implemented YooKassa using the API method.
 
 ## Requirements
 PHP 8.0 (or later version) with the libcurl library
 
 ## Installation
+### Under console using Composer
 
 1. [Install Composer, a package manager](https://getcomposer.org/download/).
 2. In the console, run the following command:
@@ -22,7 +22,7 @@ composer require yoomoney/yookassa-sdk-php
 ```
 
 ### Do the following for the composer.json file of your project:
-1. Add a string `"yoomoney/yookassa-sdk-php": "^3.0"` to the list of dependencies of your project in the composer.json file
+1. Add a string `"yoomoney/yookassa-sdk-php": "^3.0"` to the list of dependencies of your project in the composer.json file:
 ```
 ...
    "require": {
@@ -41,7 +41,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 ## Commencing work
 
-1. Import required classes
+1. Import required classes:
 ```php
 use YooKassa\Client;
 ```
@@ -50,13 +50,15 @@ use YooKassa\Client;
 $client = new Client();
 $client->setAuth('shopId', 'secretKey');
 ```
-3. Call the required API method. 
-   
-   [More details in our documentation for the YooKassa API](https://yookassa.ru/en/developers/api#create_payment).
+3. Call the required API method.
 
-   [More details in our documentation for the YooKassa SDK](docs/readme.md).
+   [More details in our documentation for the YooKassa API](https://yookassa.ru/en/developers/api#create_payment)
+
+   [More details in our documentation for the YooKassa SDK](docs/readme.md)
 
 ## Examples of using the API SDK
+
+#### [What's new in SDK version 3.x](docs/examples/migration-3x.md)
 
 #### [YooKassa SDK Settings](docs/examples/01-configuration.md)
 * [Additional settings for Curl](docs/examples/01-configuration.md#Установка-дополнительных-настроек-для-Curl)
@@ -95,11 +97,11 @@ $client->setAuth('shopId', 'secretKey');
 
 #### [Working with payouts](docs/examples/06-payouts.md)
 * [Request to create a payout](docs/examples/06-payouts.md#Запрос-на-выплату-продавцу)
-  * [Payouts to bank card](docs/examples/06-payouts.md#проведение-выплаты-на-банковскую-карту)
-  * [Payouts to YooMoney wallets](docs/examples/06-payouts.md#проведение-выплаты-на-кошелек-юmoney)
-  * [Payouts via Fast Payment Service](docs/examples/06-payouts.md#проведение-выплаты-через-сбп)
-  * [Payouts to self-employed](docs/examples/06-payouts.md#выплаты-самозанятым)
-  * [Payouts by safe deal](docs/examples/06-payouts.md#проведение-выплаты-по-безопасной-сделке)
+  * [Payouts to bank card](docs/examples/06-payouts.md#Проведение-выплаты-на-банковскую-карту)
+  * [Payouts to YooMoney wallets](docs/examples/06-payouts.md#Проведение-выплаты-в-кошелек-юmoney)
+  * [Payouts via Fast Payment Service](docs/examples/06-payouts.md#Проведение-выплаты-через-сбп)
+  * [Payouts to self-employed](docs/examples/06-payouts.md#Выплаты-самозанятым)
+  * [Payouts by safe deal](docs/examples/06-payouts.md#Проведение-выплаты-по-безопасной-сделке)
 * [Get payout information](docs/examples/06-payouts.md#Получить-информацию-о-выплате)
 
 #### [Working with self-employed](docs/examples/07-self-employed.md)

@@ -270,7 +270,7 @@ DEFAULT_ATTEMPTS_COUNT = 3
 Текущая версия библиотеки.
 
 ```php
-SDK_VERSION = '3.0.1'
+SDK_VERSION = '3.0.2'
 ```
 
 
@@ -2540,6 +2540,6 @@ protected handleError(\YooKassa\Common\ResponseObject $response) : void
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-16 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-23 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney
