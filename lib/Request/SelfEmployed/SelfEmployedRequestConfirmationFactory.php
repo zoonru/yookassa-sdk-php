@@ -44,7 +44,7 @@ class SelfEmployedRequestConfirmationFactory
     /**
      * @var string[]
      */
-    private $typeClassMap = [
+    private array $typeClassMap = [
         SelfEmployedConfirmationType::REDIRECT => 'SelfEmployedRequestConfirmationRedirect',
     ];
 

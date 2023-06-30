@@ -90,7 +90,7 @@ class PaymentsRequestSerializerTest extends TestCase
                 'paymentMethod' => $methods[Random::int(0, count($methods) - 1)],
                 'status' => $statuses[Random::int(0, count($statuses) - 1)],
                 'limit' => Random::int(1, 100),
-                'cursor' => Random::str(Random::int(1, 30)),
+                'cursor' => Random::str(Random::int(2, 30)),
             ];
             $result[] = [$request];
         }

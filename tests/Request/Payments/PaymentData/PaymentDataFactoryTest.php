@@ -104,12 +104,6 @@ class PaymentDataFactoryTest extends TestCase
         $result = [
             [
                 [
-                    'type' => PaymentMethodType::ALFABANK,
-                    'login' => Random::str(10, 20),
-                ],
-            ],
-            [
-                [
                     'type' => PaymentMethodType::GOOGLE_PAY,
                     'paymentMethodToken' => Random::str(10, 20),
                     'googleTransactionId' => Random::str(10, 20),
@@ -184,6 +178,17 @@ class PaymentDataFactoryTest extends TestCase
         return [
             [[]],
             [['type' => 'test']],
+            [
+                [
+                    'type' => PaymentMethodType::ALFABANK,
+                    'login' => Random::str(10, 20),
+                ],
+            ],
+            [
+                [
+                    'type' => PaymentMethodType::UNKNOWN,
+                ],
+            ],
         ];
     }
 

@@ -49,6 +49,8 @@
 | public | [INSTALLMENTS](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_INSTALLMENTS) |  | Заплатить по частям |
 | public | [WECHAT](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_WECHAT) | *deprecated* | Оплата через WeChat. |
 | public | [SBP](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_SBP) |  | Оплата через сервис быстрых платежей |
+| public | [SBER_LOAN](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_SBER_LOAN) |  | Прием оплаты с использованием Кредита от СберБанка |
+| public | [UNKNOWN](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_UNKNOWN) | *deprecated* | Для неизвестных методов оплаты |
 
 ---
 ### Properties
@@ -236,6 +238,26 @@ SBP = 'sbp'
 ```
 
 
+<a name="constant_SBER_LOAN" class="anchor"></a>
+###### SBER_LOAN
+Прием оплаты с использованием Кредита от СберБанка
+
+```php
+SBER_LOAN = 'sber_loan'
+```
+
+
+<a name="constant_UNKNOWN" class="anchor"></a>
+###### ~~UNKNOWN~~
+Для неизвестных методов оплаты
+
+```php
+UNKNOWN = 'unknown'
+```
+
+**deprecated**
+Не используется для реальных платежей
+
 
 ---
 ## Properties
@@ -318,10 +340,10 @@ Static public valueExists(mixed $value) : bool
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 8](../reports/deprecated.md)
+* [Deprecated - 13](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-23 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-30 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

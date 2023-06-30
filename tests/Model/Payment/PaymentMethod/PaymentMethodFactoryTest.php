@@ -28,18 +28,6 @@ class PaymentMethodFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidTypeDataProvider
-     *
-     * @param mixed $type
-     */
-    public function testInvalidFactory($type): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $instance = $this->getTestInstance();
-        $instance->factory($type);
-    }
-
-    /**
      * @dataProvider validArrayDataProvider
      */
     public function testFactoryFromArray(array $options): void
@@ -268,7 +256,6 @@ class PaymentMethodFactoryTest extends TestCase
     {
         return [
             [[]],
-            [['type' => 'test']],
         ];
     }
 

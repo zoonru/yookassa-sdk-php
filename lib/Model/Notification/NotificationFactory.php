@@ -35,7 +35,7 @@ use InvalidArgumentException;
  */
 class NotificationFactory
 {
-    private $typeClassMap = [
+    private array $typeClassMap = [
         NotificationEventType::PAYMENT_CANCELED => 'NotificationCanceled',
         NotificationEventType::REFUND_SUCCEEDED => 'NotificationRefundSucceeded',
         NotificationEventType::PAYMENT_SUCCEEDED => 'NotificationSucceeded',
