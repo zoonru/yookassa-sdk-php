@@ -38,6 +38,7 @@ use YooKassa\Model\Payment\PaymentMethodType;
  * @package  YooKassa\Model
  * @author   cms@yoomoney.ru
  * @link     https://yookassa.ru/developers/api
+ * @deprecated Будет удален в следующих версиях
  *
  * @property string $login Имя пользователя в Альфа-Клике
  */

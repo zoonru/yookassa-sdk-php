@@ -28,8 +28,10 @@
 | [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodPsb](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodPsb.md) | Класс, представляющий модель PaymentMethodPsb. |
 | [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodQiwi](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodQiwi.md) | Класс, представляющий модель PaymentMethodQiwi. |
 | [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodSberbank](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodSberbank.md) | Класс, представляющий модель PaymentMethodSberbank. |
+| [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodSberLoan](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodSberLoan.md) | Класс, представляющий модель PaymentMethodSberLoan. |
 | [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodSbp](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodSbp.md) | Класс, представляющий модель PaymentMethodSbp. |
 | [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodTinkoffBank](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodTinkoffBank.md) | Класс, представляющий модель PaymentMethodTinkoffBank. |
+| [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodUnknown](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodUnknown.md) | Класс, представляющий модель PaymentMethodUnknown. |
 | [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodWebmoney](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodWebmoney.md) | Класс, представляющий модель PaymentMethodWebmoney. |
 | [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodWechat](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodWechat.md) | Класс, представляющий модель PaymentMethodWeChat. |
 | [\YooKassa\Model\Payment\PaymentMethod\PaymentMethodYooMoney](../classes/YooKassa-Model-Payment-PaymentMethod-PaymentMethodYooMoney.md) | Класс, представляющий модель PaymentMethodYooMoney. |
@@ -45,10 +47,10 @@
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 8](../reports/deprecated.md)
+* [Deprecated - 13](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-23 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-30 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

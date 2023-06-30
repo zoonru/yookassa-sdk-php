@@ -122,6 +122,16 @@ class PaymentMethodType extends AbstractEnum
     /** Оплата через сервис быстрых платежей */
     public const SBP = 'sbp';
 
+    /** Прием оплаты с использованием Кредита от СберБанка */
+    public const SBER_LOAN = 'sber_loan';
+
+    /**
+     * Для неизвестных методов оплаты
+     *
+     * @deprecated Не используется для реальных платежей
+     */
+    public const UNKNOWN = 'unknown';
+
     protected static array $validValues = [
         self::YOO_MONEY => true,
         self::BANK_CARD => true,
@@ -139,5 +149,7 @@ class PaymentMethodType extends AbstractEnum
         self::PSB => false,
         self::WECHAT => false,
         self::SBP => true,
+        self::SBER_LOAN => true,
+        self::UNKNOWN => false,
     ];
 }

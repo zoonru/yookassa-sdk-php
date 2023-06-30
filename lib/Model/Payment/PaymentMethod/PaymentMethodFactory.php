@@ -62,6 +62,8 @@ class PaymentMethodFactory
         PaymentMethodType::PSB => 'PaymentMethodPsb',
         PaymentMethodType::WECHAT => 'PaymentMethodWechat',
         PaymentMethodType::SBP => 'PaymentMethodSbp',
+        PaymentMethodType::SBER_LOAN => 'PaymentMethodSberLoan',
+        PaymentMethodType::UNKNOWN => 'PaymentMethodUnknown',
     ];
 
     /**
@@ -74,7 +76,7 @@ class PaymentMethodFactory
     public function factory(?string $type): AbstractPaymentMethod
     {
         if (!array_key_exists($type, $this->typeClassMap)) {
-            throw new InvalidArgumentException('Invalid payment method data type "' . $type . '"');
+            $type = PaymentMethodType::UNKNOWN;
         }
         $className = __NAMESPACE__ . '\\' . $this->typeClassMap[$type];
 
@@ -95,25 +97,14 @@ class PaymentMethodFactory
                 unset($data['type']);
             } else {
                 throw new InvalidArgumentException(
-                    'Parameter type not specified in PaymentDataFactory.factoryFromArray()'
+                    'Parameter type not specified in PaymentMethodFactory.factoryFromArray()'
                 );
             }
         }
 
         $paymentData = $this->factory($type);
-        $this->fillModel($paymentData, $data);
+        $paymentData->fromArray($data);
 
         return $paymentData;
-    }
-
-    private function fillModel(AbstractPaymentMethod $paymentData, array $data): void
-    {
-        foreach ($data as $key => $value) {
-            if ($paymentData->offsetExists($key)) {
-                $paymentData->offsetSet($key, $value);
-            } elseif (is_array($value)) {
-                $this->fillModel($paymentData, $value);
-            }
-        }
     }
 }

@@ -77,6 +77,7 @@
 | --- | ------- | ----------- |
 | category |  | Class |
 | author |  | cms@yoomoney.ru |
+| deprecated |  | Будет удален в следующих версиях |
 
 ---
 ## Properties
@@ -723,10 +724,10 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 8](../reports/deprecated.md)
+* [Deprecated - 13](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-23 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-06-30 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

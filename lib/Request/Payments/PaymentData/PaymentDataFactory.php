@@ -50,11 +50,11 @@ class PaymentDataFactory
         PaymentMethodType::APPLE_PAY => 'PaymentDataApplePay',
         PaymentMethodType::GOOGLE_PAY => 'PaymentDataGooglePay',
         PaymentMethodType::QIWI => 'PaymentDataQiwi',
-        PaymentMethodType::ALFABANK => 'PaymentDataAlfabank',
         PaymentMethodType::INSTALLMENTS => 'PaymentDataInstallments',
         PaymentMethodType::B2B_SBERBANK => 'PaymentDataB2bSberbank',
         PaymentMethodType::TINKOFF_BANK => 'PaymentDataTinkoffBank',
         PaymentMethodType::SBP => 'PaymentDataSbp',
+        PaymentMethodType::SBER_LOAN => 'PaymentDataSberLoan',
     ];
 
     /**

@@ -39,6 +39,8 @@ use YooKassa\Validator\Constraints as Assert;
  * @author   cms@yoomoney.ru
  * @link     https://yookassa.ru/developers/api
  *
+ * @deprecated Будет удален в следующих версиях
+ *
  * @property string $login Логин пользователя в Альфа-Клике. Обязателен для сценария [External](/developers/payment-acceptance/getting-started/payment-process#external).
  */
 class PaymentDataAlfabank extends AbstractPaymentData

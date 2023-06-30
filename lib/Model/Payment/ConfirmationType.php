@@ -57,7 +57,7 @@ class ConfirmationType extends AbstractEnum
     /**
      * Необходимо ждать пока плательщик самостоятельно подтвердит платеж.
      *
-     * @deprecated Будет удален в будущих версиях
+     * @deprecated Будет удален в следующих версиях
      */
     public const CODE_VERIFICATION = 'code_verification';
 

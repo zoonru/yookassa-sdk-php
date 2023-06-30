@@ -317,7 +317,7 @@ class DealsRequestBuilderTest extends TestCase
                 'fullTextSearch' => Random::str(DealsRequest::MIN_LENGTH_DESCRIPTION, SafeDeal::MAX_LENGTH_DESCRIPTION),
                 'status' => $statuses[Random::int(0, count($statuses) - 1)],
                 'limit' => Random::int(1, DealsRequest::MAX_LIMIT_VALUE),
-                'cursor' => $this->randomString(Random::int(1, 30)),
+                'cursor' => $this->randomString(Random::int(2, 30)),
             ];
             $result[] = [$request];
         }

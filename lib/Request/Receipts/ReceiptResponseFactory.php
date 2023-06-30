@@ -34,7 +34,7 @@ use YooKassa\Model\Receipt\ReceiptType;
  */
 class ReceiptResponseFactory
 {
-    private $typeClassMap = [
+    private array $typeClassMap = [
         ReceiptType::PAYMENT => 'PaymentReceiptResponse',
         ReceiptType::REFUND => 'RefundReceiptResponse',
         ReceiptType::SIMPLE => 'SimpleReceiptResponse',
