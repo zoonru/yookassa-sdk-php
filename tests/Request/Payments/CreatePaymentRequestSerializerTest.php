@@ -177,7 +177,7 @@ class CreatePaymentRequestSerializerTest extends TestCase
         if (array_key_exists('capture', $options)) {
             $expected['capture'] = (bool) $options['capture'];
         }
-        if (array_key_exists('savePaymentMethod', $options)) {
+        if (array_key_exists('savePaymentMethod', $options) && isset($options['savePaymentMethod'])) {
             $expected['save_payment_method'] = (bool) $options['savePaymentMethod'];
         }
         if (!empty($options['description'])) {
@@ -298,7 +298,7 @@ class CreatePaymentRequestSerializerTest extends TestCase
                     ],
                     'description' => Random::str(10),
                     'capture' => true,
-                    'savePaymentMethod' => false,
+                    'savePaymentMethod' => null,
                     'airline' => [
                         'booking_reference' => Random::str(10),
                         'ticket_number' => Random::int(10),

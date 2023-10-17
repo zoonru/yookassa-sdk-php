@@ -951,7 +951,7 @@ public setRecipient(array|\YooKassa\Model\Payment\RecipientInterface|null $value
 #### public setSavePaymentMethod() : \YooKassa\Request\Payments\CreatePaymentRequestBuilder
 
 ```php
-public setSavePaymentMethod(bool $value) : \YooKassa\Request\Payments\CreatePaymentRequestBuilder
+public setSavePaymentMethod(bool|null $value = null) : \YooKassa\Request\Payments\CreatePaymentRequestBuilder
 ```
 
 **Summary**
@@ -964,7 +964,7 @@ public setSavePaymentMethod(bool $value) : \YooKassa\Request\Payments\CreatePaym
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">bool</code> | value  | Сохранить платежные данные для последующего использования |
+| <code lang="php">bool OR null</code> | value  | Сохранить платежные данные для последующего использования |
 
 ##### Throws:
 | Type | Description |
@@ -1064,10 +1064,10 @@ protected initCurrentObject() : \YooKassa\Request\Payments\CreatePaymentRequest
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 13](../reports/deprecated.md)
+* [Deprecated - 15](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-30 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-10-17 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

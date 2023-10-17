@@ -97,6 +97,7 @@ class ReceiptItemTest extends TestCase
             [''],
             [new StringObject('')],
             [false],
+            [Random::str(129, 180)],
         ];
     }
 

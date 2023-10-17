@@ -17,6 +17,7 @@
 | ----------:| ---- | ---- | ------- |
 | public | [MERCHANT](../classes/YooKassa-Model-Payment-CancellationDetailsPartyCode.md#constant_MERCHANT) |  | Продавец товаров и услуг. |
 | public | [YOO_MONEY](../classes/YooKassa-Model-Payment-CancellationDetailsPartyCode.md#constant_YOO_MONEY) |  | ЮKassa. |
+| public | [YANDEX_CHECKOUT](../classes/YooKassa-Model-Payment-CancellationDetailsPartyCode.md#constant_YANDEX_CHECKOUT) | *deprecated* |  |
 | public | [PAYMENT_NETWORK](../classes/YooKassa-Model-Payment-CancellationDetailsPartyCode.md#constant_PAYMENT_NETWORK) |  | «Внешние» участники платежного процесса (например, эмитент, сторонний платежный сервис). |
 
 ---
@@ -70,6 +71,15 @@ MERCHANT = 'merchant'
 YOO_MONEY = 'yoo_money'
 ```
 
+
+<a name="constant_YANDEX_CHECKOUT" class="anchor"></a>
+###### ~~YANDEX_CHECKOUT~~
+```php
+YANDEX_CHECKOUT = 'yandex_checkout'
+```
+
+**deprecated**
+Устарел. Оставлен для обратной совместимости
 
 <a name="constant_PAYMENT_NETWORK" class="anchor"></a>
 ###### PAYMENT_NETWORK
@@ -162,10 +172,10 @@ Static public valueExists(mixed $value) : bool
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 13](../reports/deprecated.md)
+* [Deprecated - 15](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-30 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-10-17 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

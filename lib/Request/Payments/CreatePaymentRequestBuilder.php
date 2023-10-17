@@ -223,13 +223,13 @@ class CreatePaymentRequestBuilder extends AbstractPaymentRequestBuilder
     /**
      * Устанавливает флаг сохранения платёжных данных. Значение true инициирует создание многоразового payment_method.
      *
-     * @param bool $value Сохранить платежные данные для последующего использования
+     * @param bool|null $value Сохранить платежные данные для последующего использования
      *
      * @return CreatePaymentRequestBuilder Инстанс текущего билдера
      *
      * @throws InvalidPropertyValueTypeException Генерируется если переданный аргумент не кастится в bool
      */
-    public function setSavePaymentMethod(bool $value): CreatePaymentRequestBuilder
+    public function setSavePaymentMethod(?bool $value = null): CreatePaymentRequestBuilder
     {
         $this->currentObject->setSavePaymentMethod($value);
 
