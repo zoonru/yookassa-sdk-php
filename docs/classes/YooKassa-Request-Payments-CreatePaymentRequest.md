@@ -526,25 +526,25 @@ IPv4 или IPv6-адрес покупателя. Если не указан, и
 
 
 <a name="property_save_payment_method"></a>
-#### public $save_payment_method : bool
+#### public $save_payment_method : bool|null
 ---
 ***Description***
 
 Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
 
-**Type:** <a href="../bool"><abbr title="bool">bool</abbr></a>
+**Type:** <a href="../bool|null"><abbr title="bool|null">bool|null</abbr></a>
 
 **Details:**
 
 
 <a name="property_savePaymentMethod"></a>
-#### public $savePaymentMethod : bool
+#### public $savePaymentMethod : bool|null
 ---
 ***Description***
 
 Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
 
-**Type:** <a href="../bool"><abbr title="bool">bool</abbr></a>
+**Type:** <a href="../bool|null"><abbr title="bool|null">bool|null</abbr></a>
 
 **Details:**
 
@@ -1041,10 +1041,10 @@ public getRecipient() : null|\YooKassa\Model\Payment\RecipientInterface
 
 
 <a name="method_getSavePaymentMethod" class="anchor"></a>
-#### public getSavePaymentMethod() : bool
+#### public getSavePaymentMethod() : bool|null
 
 ```php
-public getSavePaymentMethod() : bool
+public getSavePaymentMethod() : bool|null
 ```
 
 **Summary**
@@ -1054,7 +1054,7 @@ public getSavePaymentMethod() : bool
 **Details:**
 * Inherited From: [\YooKassa\Request\Payments\CreatePaymentRequest](../classes/YooKassa-Request-Payments-CreatePaymentRequest.md)
 
-**Returns:** bool - Флаг сохранения платёжных данных
+**Returns:** bool|null - Флаг сохранения платёжных данных
 
 
 <a name="method_getTransfers" class="anchor"></a>
@@ -1874,7 +1874,7 @@ public setRecipient(null|array|\YooKassa\Model\Payment\RecipientInterface $recip
 #### public setSavePaymentMethod() : self
 
 ```php
-public setSavePaymentMethod(bool $save_payment_method) : self
+public setSavePaymentMethod(bool|null $save_payment_method = null) : self
 ```
 
 **Summary**
@@ -1887,7 +1887,7 @@ public setSavePaymentMethod(bool $save_payment_method) : self
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">bool</code> | save_payment_method  | Сохранить платежные данные для последующего использования |
+| <code lang="php">bool OR null</code> | save_payment_method  | Сохранить платежные данные для последующего использования |
 
 ##### Throws:
 | Type | Description |
@@ -2024,10 +2024,10 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 13](../reports/deprecated.md)
+* [Deprecated - 15](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-30 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-10-17 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

@@ -733,7 +733,7 @@ class CreatePaymentRequestBuilderTest extends TestCase
         $builder = new CreatePaymentRequestBuilder();
 
         $instance = $builder->build($this->getRequiredData());
-        self::assertFalse($instance->getSavePaymentMethod());
+        self::assertNull($instance->getSavePaymentMethod());
 
         $builder->setSavePaymentMethod($options['savePaymentMethod']);
         $instance = $builder->build($this->getRequiredData());

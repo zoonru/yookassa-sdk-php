@@ -18,6 +18,7 @@
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
 | public | [YOO_MONEY](../classes/YooKassa-Model-Refund-RefundCancellationDetailsPartyCode.md#constant_YOO_MONEY) |  | ЮKassa |
+| public | [YANDEX_CHECKOUT](../classes/YooKassa-Model-Refund-RefundCancellationDetailsPartyCode.md#constant_YANDEX_CHECKOUT) | *deprecated* |  |
 | public | [REFUND_NETWORK](../classes/YooKassa-Model-Refund-RefundCancellationDetailsPartyCode.md#constant_REFUND_NETWORK) |  | Любые участники процесса возврата, кроме ЮKassa и вас (например, эмитент банковской карты) |
 
 ---
@@ -62,6 +63,15 @@
 YOO_MONEY = 'yoo_money'
 ```
 
+
+<a name="constant_YANDEX_CHECKOUT" class="anchor"></a>
+###### ~~YANDEX_CHECKOUT~~
+```php
+YANDEX_CHECKOUT = 'yandex_checkout'
+```
+
+**deprecated**
+Устарел. Оставлен для обратной совместимости
 
 <a name="constant_REFUND_NETWORK" class="anchor"></a>
 ###### REFUND_NETWORK
@@ -154,10 +164,10 @@ Static public valueExists(mixed $value) : bool
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 13](../reports/deprecated.md)
+* [Deprecated - 15](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-30 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-10-17 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

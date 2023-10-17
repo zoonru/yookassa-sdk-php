@@ -56,8 +56,8 @@ use YooKassa\Request\Payments\PaymentData\AbstractPaymentData;
  * @property AbstractPaymentData $paymentMethodData Данные используемые для создания метода оплаты
  * @property AbstractPaymentData $payment_method_data Данные используемые для создания метода оплаты
  * @property AbstractConfirmationAttributes $confirmation Способ подтверждения платежа
- * @property bool $savePaymentMethod Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
- * @property bool $save_payment_method Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
+ * @property bool|null $savePaymentMethod Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
+ * @property bool|null $save_payment_method Сохранить платежные данные для последующего использования. Значение true инициирует создание многоразового payment_method
  * @property bool $capture Автоматически принять поступившую оплату
  * @property string $clientIp IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения
  * @property string $client_ip IPv4 или IPv6-адрес покупателя. Если не указан, используется IP-адрес TCP-подключения
@@ -220,9 +220,9 @@ interface CreatePaymentRequestInterface
     /**
      * Возвращает флаг сохранения платёжных данных.
      *
-     * @return bool Флаг сохранения платёжных данных
+     * @return bool|null Флаг сохранения платёжных данных
      */
-    public function getSavePaymentMethod(): bool;
+    public function getSavePaymentMethod(): ?bool;
 
     /**
      * Проверяет, был ли установлен флаг сохранения платёжных данных.
@@ -234,9 +234,9 @@ interface CreatePaymentRequestInterface
     /**
      * Устанавливает флаг сохранения платёжных данных. Значение true инициирует создание многоразового payment_method.
      *
-     * @param bool $save_payment_method Сохранить платежные данные для последующего использования
+     * @param bool|null $save_payment_method Сохранить платежные данные для последующего использования
      */
-    public function setSavePaymentMethod(bool $save_payment_method): self;
+    public function setSavePaymentMethod(?bool $save_payment_method = null): self;
 
     /**
      * Возвращает флаг автоматического принятия поступившей оплаты.

@@ -2,7 +2,6 @@
 
 namespace YooKassa\Model\Webhook;
 
-
 /**
  * Interface WebhookInterface.
  *

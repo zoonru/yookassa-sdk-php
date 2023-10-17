@@ -2,6 +2,7 @@
 
 # Deprecated Elements
 ### Table of Contents
+* [lib/Model/Payment/CancellationDetailsPartyCode.php](../../lib/Model/Payment/CancellationDetailsPartyCode.php)
 * [lib/Model/Payment/ConfirmationType.php](../../lib/Model/Payment/ConfirmationType.php)
 * [lib/Model/Payment/PaymentMethod/PaymentMethodAlfaBank.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodAlfaBank.php)
 * [lib/Model/Payment/PaymentMethod/PaymentMethodFactory.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodFactory.php)
@@ -10,8 +11,14 @@
 * [lib/Model/Payment/PaymentMethod/PaymentMethodWebmoney.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodWebmoney.php)
 * [lib/Model/Payment/PaymentMethod/PaymentMethodWechat.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodWechat.php)
 * [lib/Model/Payment/PaymentMethodType.php](../../lib/Model/Payment/PaymentMethodType.php)
+* [lib/Model/Refund/RefundCancellationDetailsPartyCode.php](../../lib/Model/Refund/RefundCancellationDetailsPartyCode.php)
 * [lib/Request/Payments/PaymentData/PaymentDataAlfabank.php](../../lib/Request/Payments/PaymentData/PaymentDataAlfabank.php)
 
+<a id="lib/Model/Payment/CancellationDetailsPartyCode.php"></a>
+#### [lib/Model/Payment/CancellationDetailsPartyCode.php](../../lib/Model/Payment/CancellationDetailsPartyCode.php)
+| Line | Element | Description |
+| ---- | ------- | ----------- |
+| 56 | \YooKassa\Model\Payment\CancellationDetailsPartyCode::YANDEX_CHECKOUT | Устарел. Оставлен для обратной совместимости |
 <a id="lib/Model/Payment/ConfirmationType.php"></a>
 #### [lib/Model/Payment/ConfirmationType.php](../../lib/Model/Payment/ConfirmationType.php)
 | Line | Element | Description |
@@ -56,6 +63,11 @@
 | 110 | \YooKassa\Model\Payment\PaymentMethodType::PSB | Больше недоступен |
 | 120 | \YooKassa\Model\Payment\PaymentMethodType::WECHAT | Больше недоступен |
 | 133 | \YooKassa\Model\Payment\PaymentMethodType::UNKNOWN | Не используется для реальных платежей |
+<a id="lib/Model/Refund/RefundCancellationDetailsPartyCode.php"></a>
+#### [lib/Model/Refund/RefundCancellationDetailsPartyCode.php](../../lib/Model/Refund/RefundCancellationDetailsPartyCode.php)
+| Line | Element | Description |
+| ---- | ------- | ----------- |
+| 51 | \YooKassa\Model\Refund\RefundCancellationDetailsPartyCode::YANDEX_CHECKOUT | Устарел. Оставлен для обратной совместимости |
 <a id="lib/Request/Payments/PaymentData/PaymentDataAlfabank.php"></a>
 #### [lib/Request/Payments/PaymentData/PaymentDataAlfabank.php](../../lib/Request/Payments/PaymentData/PaymentDataAlfabank.php)
 | Line | Element | Description |
@@ -73,10 +85,10 @@
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 13](../reports/deprecated.md)
+* [Deprecated - 15](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-06-30 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-10-17 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney

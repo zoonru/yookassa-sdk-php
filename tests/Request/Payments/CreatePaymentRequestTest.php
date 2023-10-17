@@ -89,6 +89,47 @@ class CreatePaymentRequestTest extends TestCase
      *
      * @param mixed $options
      */
+    public function testDescription($options): void
+    {
+        $instance = new CreatePaymentRequest();
+
+        self::assertFalse($instance->hasDescription());
+        self::assertNull($instance->getDescription());
+        self::assertNull($instance->description);
+
+        $instance->setDescription($options['description'] ?? null);
+        if (empty($options['description'])) {
+            self::assertFalse($instance->hasDescription());
+            self::assertNull($instance->getDescription());
+            self::assertNull($instance->description);
+        } else {
+            self::assertTrue($instance->hasDescription());
+            self::assertSame($options['description'], $instance->getDescription());
+            self::assertSame($options['description'], $instance->description);
+        }
+
+        $instance->setDescription(null);
+        self::assertFalse($instance->hasDescription());
+        self::assertNull($instance->getDescription());
+        self::assertNull($instance->description);
+
+        $instance->description = $options['description'] ?? null;
+        if (empty($options['description'])) {
+            self::assertFalse($instance->hasDescription());
+            self::assertNull($instance->getDescription());
+            self::assertNull($instance->description);
+        } else {
+            self::assertTrue($instance->hasDescription());
+            self::assertSame($options['description'], $instance->getDescription());
+            self::assertSame($options['description'], $instance->description);
+        }
+    }
+
+    /**
+     * @dataProvider validDataProvider
+     *
+     * @param mixed $options
+     */
     public function testAmount($options): void
     {
         $instance = new CreatePaymentRequest();
@@ -384,15 +425,15 @@ class CreatePaymentRequestTest extends TestCase
     {
         $instance = new CreatePaymentRequest();
 
-        self::assertTrue($instance->hasSavePaymentMethod());
-        self::assertFalse($instance->getSavePaymentMethod());
-        self::assertFalse($instance->savePaymentMethod);
+        self::assertFalse($instance->hasSavePaymentMethod());
+        self::assertNull($instance->getSavePaymentMethod());
+        self::assertNull($instance->savePaymentMethod);
 
         $instance->setSavePaymentMethod($options['savePaymentMethod']);
         if (null === $options['savePaymentMethod'] || '' === $options['savePaymentMethod']) {
-            self::assertTrue($instance->hasSavePaymentMethod());
-            self::assertFalse($instance->getSavePaymentMethod());
-            self::assertFalse($instance->savePaymentMethod);
+            self::assertFalse($instance->hasSavePaymentMethod());
+            self::assertNull($instance->getSavePaymentMethod());
+            self::assertNull($instance->savePaymentMethod);
         } else {
             self::assertTrue($instance->hasSavePaymentMethod());
             self::assertSame($options['savePaymentMethod'], $instance->getSavePaymentMethod());
@@ -401,9 +442,9 @@ class CreatePaymentRequestTest extends TestCase
 
         $instance->savePaymentMethod = $options['savePaymentMethod'];
         if (null === $options['savePaymentMethod'] || '' === $options['savePaymentMethod']) {
-            self::assertTrue($instance->hasSavePaymentMethod());
-            self::assertFalse($instance->getSavePaymentMethod());
-            self::assertFalse($instance->savePaymentMethod);
+            self::assertFalse($instance->hasSavePaymentMethod());
+            self::assertNull($instance->getSavePaymentMethod());
+            self::assertNull($instance->savePaymentMethod);
         } else {
             self::assertTrue($instance->hasSavePaymentMethod());
             self::assertSame($options['savePaymentMethod'], $instance->getSavePaymentMethod());
@@ -859,7 +900,7 @@ class CreatePaymentRequestTest extends TestCase
                     'paymentMethodId' => null,
                     'paymentMethodData' => null,
                     'confirmation' => null,
-                    'savePaymentMethod' => false,
+                    'savePaymentMethod' => null,
                     'capture' => true,
                     'clientIp' => null,
                     'metadata' => null,
@@ -902,6 +943,7 @@ class CreatePaymentRequestTest extends TestCase
         ];
         for ($i = 0; $i < 10; $i++) {
             $request = [
+                'description' => Random::str(0, Payment::MAX_LENGTH_DESCRIPTION),
                 'recipient' => new Recipient(['account_id' => Random::str(11, '0123456789')]),
                 'amount' => new MonetaryAmount(Random::int(1, 1000000)),
                 'referenceId' => uniqid('', true),

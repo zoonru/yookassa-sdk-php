@@ -45,11 +45,17 @@ class RefundCancellationDetailsPartyCode extends AbstractEnum
     /** ЮKassa */
     public const YOO_MONEY = 'yoo_money';
 
+    /**
+     * @deprecated Устарел. Оставлен для обратной совместимости
+     */
+    public const YANDEX_CHECKOUT = 'yandex_checkout';
+
     /** Любые участники процесса возврата, кроме ЮKassa и вас (например, эмитент банковской карты) */
     public const REFUND_NETWORK = 'refund_network';
 
     protected static array $validValues = [
         self::YOO_MONEY => true,
+        self::YANDEX_CHECKOUT => false,
         self::REFUND_NETWORK => true,
     ];
 }

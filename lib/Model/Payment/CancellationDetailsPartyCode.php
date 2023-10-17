@@ -51,6 +51,11 @@ class CancellationDetailsPartyCode extends AbstractEnum
     public const YOO_MONEY = 'yoo_money';
 
     /**
+     * @deprecated Устарел. Оставлен для обратной совместимости
+     */
+    public const YANDEX_CHECKOUT = 'yandex_checkout';
+
+    /**
      * «Внешние» участники платежного процесса (например, эмитент, сторонний платежный сервис).
      */
     public const PAYMENT_NETWORK = 'payment_network';
@@ -58,6 +63,7 @@ class CancellationDetailsPartyCode extends AbstractEnum
     protected static array $validValues = [
         self::MERCHANT => true,
         self::YOO_MONEY => true,
+        self::YANDEX_CHECKOUT => false,
         self::PAYMENT_NETWORK => true,
     ];
 }
