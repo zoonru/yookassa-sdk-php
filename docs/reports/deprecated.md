@@ -12,6 +12,9 @@
 * [lib/Model/Payment/PaymentMethod/PaymentMethodWechat.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodWechat.php)
 * [lib/Model/Payment/PaymentMethodType.php](../../lib/Model/Payment/PaymentMethodType.php)
 * [lib/Model/Refund/RefundCancellationDetailsPartyCode.php](../../lib/Model/Refund/RefundCancellationDetailsPartyCode.php)
+* [lib/Model/Refund/RefundMethod/RefundMethodUnknown.php](../../lib/Model/Refund/RefundMethod/RefundMethodUnknown.php)
+* [lib/Model/Refund/RefundMethodType.php](../../lib/Model/Refund/RefundMethodType.php)
+* [lib/Model/Settings/Me.php](../../lib/Model/Settings/Me.php)
 * [lib/Request/Payments/PaymentData/PaymentDataAlfabank.php](../../lib/Request/Payments/PaymentData/PaymentDataAlfabank.php)
 
 <a id="lib/Model/Payment/CancellationDetailsPartyCode.php"></a>
@@ -68,6 +71,22 @@
 | Line | Element | Description |
 | ---- | ------- | ----------- |
 | 51 | \YooKassa\Model\Refund\RefundCancellationDetailsPartyCode::YANDEX_CHECKOUT | Устарел. Оставлен для обратной совместимости |
+<a id="lib/Model/Refund/RefundMethod/RefundMethodUnknown.php"></a>
+#### [lib/Model/Refund/RefundMethod/RefundMethodUnknown.php](../../lib/Model/Refund/RefundMethod/RefundMethodUnknown.php)
+| Line | Element | Description |
+| ---- | ------- | ----------- |
+| 42 | \YooKassa\Model\Refund\RefundMethod\RefundMethodUnknown | Не используется в реальных возвратах |
+<a id="lib/Model/Refund/RefundMethodType.php"></a>
+#### [lib/Model/Refund/RefundMethodType.php](../../lib/Model/Refund/RefundMethodType.php)
+| Line | Element | Description |
+| ---- | ------- | ----------- |
+| 53 | \YooKassa\Model\Refund\RefundMethodType::UNKNOWN | Не используется для реальных возвратов |
+<a id="lib/Model/Settings/Me.php"></a>
+#### [lib/Model/Settings/Me.php](../../lib/Model/Settings/Me.php)
+| Line | Element | Description |
+| ---- | ------- | ----------- |
+| 252 | \YooKassa\Model\Settings\Me::getFiscalizationEnabled() | Устарел. |
+| 265 | \YooKassa\Model\Settings\Me::setFiscalizationEnabled() | Устарел. |
 <a id="lib/Request/Payments/PaymentData/PaymentDataAlfabank.php"></a>
 #### [lib/Request/Payments/PaymentData/PaymentDataAlfabank.php](../../lib/Request/Payments/PaymentData/PaymentDataAlfabank.php)
 | Line | Element | Description |
@@ -85,10 +104,10 @@
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 15](../reports/deprecated.md)
+* [Deprecated - 19](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2023-10-17 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2023-12-11 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2023 YooMoney
