@@ -49,7 +49,7 @@ use YooKassa\Common\AbstractEnum;
  * - `psb` - ПромсвязьБанк
  * - `installments` - Заплатить по частям
  * - `wechat` - Платеж через WeChat
- * - `sbp` - Платеж через через сервис быстрых платежей
+ * - `sbp` - Платеж через сервис быстрых платежей
  *
  * @category Class
  * @package  YooKassa\Model
