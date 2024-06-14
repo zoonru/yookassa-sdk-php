@@ -78,11 +78,11 @@ class FiscalizationData extends AbstractObject
     /**
      * Устанавливает enabled.
      *
-     * @param bool|array|null $enabled В настройках магазина включена отправка чеков.
+     * @param bool|null $enabled В настройках магазина включена отправка чеков.
      *
      * @return self
      */
-    public function setEnabled(mixed $enabled = null): self
+    public function setEnabled(?bool $enabled = null): self
     {
         $this->_enabled = $this->validatePropertyValue('_enabled', $enabled);
         return $this;

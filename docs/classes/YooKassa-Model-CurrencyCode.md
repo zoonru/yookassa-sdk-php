@@ -30,6 +30,7 @@
 | public | [INR](../classes/YooKassa-Model-CurrencyCode.md#constant_INR) |  | Индийская рупия |
 | public | [MDL](../classes/YooKassa-Model-CurrencyCode.md#constant_MDL) |  | Молдавский лей |
 | public | [AZN](../classes/YooKassa-Model-CurrencyCode.md#constant_AZN) |  | Азербайджанский манат |
+| public | [AMD](../classes/YooKassa-Model-CurrencyCode.md#constant_AMD) |  | Армянский драм |
 
 ---
 ### Properties
@@ -169,6 +170,15 @@ AZN = 'AZN'
 ```
 
 
+<a name="constant_AMD" class="anchor"></a>
+###### AMD
+Армянский драм
+
+```php
+AMD = 'AMD'
+```
+
+
 
 ---
 ## Properties
@@ -255,6 +265,6 @@ Static public valueExists(mixed $value) : bool
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

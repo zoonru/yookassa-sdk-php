@@ -9,8 +9,10 @@
 
 **Description:**
 
-Персональные данные получателя выплаты. Необходимо передавать,
-если вы делаете выплату с [проверкой получателя](/developers/payouts/scenario-extensions/recipient-check). Только для обычных выплат.
+Персональные данные получателя выплаты. Только для обычных выплат.
+Необходимо передавать в этих сценариях:
+ * [выплаты с проверкой получателя](https://yookassa.ru/developers/payouts/scenario-extensions/recipient-check);
+ * [выплаты с передачей данных получателя для выписок из реестра](https://yookassa.ru/developers/payouts/scenario-extensions/recipient-data-send).
 
 ---
 ### Constants
@@ -460,6 +462,6 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

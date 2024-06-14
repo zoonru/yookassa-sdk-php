@@ -52,6 +52,7 @@
 | public | [getReceiptOperationalDetails()](../classes/YooKassa-Model-Receipt-Receipt.md#method_getReceiptOperationalDetails) |  | Возвращает операционный реквизит чека. |
 | public | [getSettlements()](../classes/YooKassa-Model-Receipt-Receipt.md#method_getSettlements) |  | Возвращает массив оплат, обеспечивающих выдачу товара. |
 | public | [getShippingAmountValue()](../classes/YooKassa-Model-Receipt-Receipt.md#method_getShippingAmountValue) |  | Возвращает стоимость доставки исходя из состава чека. |
+| public | [getShippingItems()](../classes/YooKassa-Model-Receipt-Receipt.md#method_getShippingItems) |  | Возвращает список товаров в заказе, являющихся доставкой |
 | public | [getTaxSystemCode()](../classes/YooKassa-Model-Receipt-Receipt.md#method_getTaxSystemCode) |  | Возвращает код системы налогообложения. |
 | public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
 | public | [jsonSerialize()](../classes/YooKassa-Model-Receipt-Receipt.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
@@ -611,6 +612,23 @@ public getShippingAmountValue() : int
 **Returns:** int - Стоимость доставки из состава чека в центах/копейках
 
 
+<a name="method_getShippingItems" class="anchor"></a>
+#### public getShippingItems() : \YooKassa\Model\Receipt\ReceiptItemInterface[]|\YooKassa\Common\ListObjectInterface
+
+```php
+public getShippingItems() : \YooKassa\Model\Receipt\ReceiptItemInterface[]|\YooKassa\Common\ListObjectInterface
+```
+
+**Summary**
+
+Возвращает список товаров в заказе, являющихся доставкой
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Receipt\Receipt](../classes/YooKassa-Model-Receipt-Receipt.md)
+
+**Returns:** \YooKassa\Model\Receipt\ReceiptItemInterface[]|\YooKassa\Common\ListObjectInterface - Список товаров в заказе, являющихся доставкой
+
+
 <a name="method_getTaxSystemCode" class="anchor"></a>
 #### public getTaxSystemCode() : int|null
 
@@ -1054,6 +1072,6 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

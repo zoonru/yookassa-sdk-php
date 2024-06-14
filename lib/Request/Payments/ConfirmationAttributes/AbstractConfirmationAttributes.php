@@ -101,7 +101,7 @@ abstract class AbstractConfirmationAttributes extends AbstractObject
      *
      * @return self
      */
-    public function setLocale(mixed $locale = null): self
+    public function setLocale(?string $locale = null): self
     {
         $this->_locale = $this->validatePropertyValue('_locale', $locale);
         return $this;

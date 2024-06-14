@@ -94,8 +94,8 @@ class CreateRefundRequest extends AbstractRequest implements CreateRefundRequest
      * @var SourceInterface[]|ListObjectInterface|null Информация о распределении денег
      */
     #[Assert\Valid]
-    #[Assert\Type(ListObject::class)]
     #[Assert\AllType(Source::class)]
+    #[Assert\Type(ListObject::class)]
     private ?ListObject $_sources = null;
 
     /**

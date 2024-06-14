@@ -53,7 +53,7 @@ use YooKassa\Validator\Constraints as Assert;
  * @property Metadata $metadata Любые дополнительные данные, которые нужны вам для работы.
  * @property bool $test Признак тестовой операции.
  */
-class SafeDeal extends BaseDeal implements DealInterface
+class SafeDeal extends AbstractBaseDeal implements DealInterface
 {
     /** @var int Максимальная длина строки id сделки. */
     public const MAX_LENGTH_ID = 50;

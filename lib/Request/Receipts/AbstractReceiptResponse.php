@@ -393,7 +393,7 @@ abstract class AbstractReceiptResponse extends AbstractObject implements Receipt
     public function getItems(): ListObjectInterface
     {
         if ($this->_items === null) {
-            $this->_items = new ListObject(Settlement::class);
+            $this->_items = new ListObject(ReceiptResponseItem::class);
         }
         return $this->_items;
     }

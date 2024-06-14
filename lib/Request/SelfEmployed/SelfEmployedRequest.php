@@ -116,11 +116,11 @@ class SelfEmployedRequest extends AbstractRequest implements SelfEmployedRequest
     /**
      * Устанавливает телефон самозанятого.
      *
-     * @param string|array|null $phone Телефон самозанятого
+     * @param string|null $phone Телефон самозанятого
      *
      * @return self
      */
-    public function setPhone(mixed $phone = null): self
+    public function setPhone(?string $phone = null): self
     {
         $this->_phone = $this->validatePropertyValue('_phone', $phone);
         return $this;
@@ -158,7 +158,7 @@ class SelfEmployedRequest extends AbstractRequest implements SelfEmployedRequest
         if (is_array($confirmation)) {
             $confirmation = (new SelfEmployedRequestConfirmationFactory)->factoryFromArray($confirmation);
         }
-        $this->_confirmation = $this->validatePropertyValue('_payout_destination_data', $confirmation);
+        $this->_confirmation = $this->validatePropertyValue('_confirmation', $confirmation);
         return $this;
     }
 

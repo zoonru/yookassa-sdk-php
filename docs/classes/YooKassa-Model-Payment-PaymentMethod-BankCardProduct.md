@@ -1,16 +1,16 @@
 # [YooKassa API SDK](../home.md)
 
-# Abstract Class: \YooKassa\Model\Payment\PaymentMethod\B2b\Sberbank\VatData
-### Namespace: [\YooKassa\Model\Payment\PaymentMethod\B2b\Sberbank](../namespaces/yookassa-model-payment-paymentmethod-b2b-sberbank.md)
+# Class: \YooKassa\Model\Payment\PaymentMethod\BankCardProduct
+### Namespace: [\YooKassa\Model\Payment\PaymentMethod](../namespaces/yookassa-model-payment-paymentmethod.md)
 ---
 **Summary:**
 
-Класс, представляющий модель VatData.
+Класс, представляющий модель BankCardProduct.
 
 **Description:**
 
-Данные о налоге на добавленную стоимость (НДС). Платеж может облагаться или не облагаться НДС.
-Товары могут облагаться по одной ставке НДС или по разным.
+Карточный продукт платежной системы, с которым ассоциирована банковская карта.
+Например, карточные продукты платежной системы Мир: `Mir Classic`, `Mir Classic Credit`, `MIR Privilege Plus` и другие.
 
 ---
 ### Constants
@@ -20,8 +20,8 @@
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [$type](../classes/YooKassa-Model-Payment-PaymentMethod-B2b-Sberbank-VatData.md#property_type) |  | Способ расчёта НДС |
-| protected | [$_type](../classes/YooKassa-Model-Payment-PaymentMethod-B2b-Sberbank-VatData.md#property__type) |  |  |
+| public | [$code](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md#property_code) |  | Код карточного продукта. Пример: ~`MCP` |
+| public | [$name](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md#property_name) |  | Название карточного продукта. Пример: ~`MIR Privilege` |
 
 ---
 ### Methods
@@ -33,25 +33,27 @@
 | public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
 | public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
 | public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
-| public | [getType()](../classes/YooKassa-Model-Payment-PaymentMethod-B2b-Sberbank-VatData.md#method_getType) |  | Возвращает способ расчёта НДС |
+| public | [getCode()](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md#method_getCode) |  | Возвращает code. |
+| public | [getName()](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md#method_getName) |  | Возвращает name. |
 | public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
 | public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
 | public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
 | public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
 | public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
 | public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
-| public | [setType()](../classes/YooKassa-Model-Payment-PaymentMethod-B2b-Sberbank-VatData.md#method_setType) |  | Устанавливает способ расчёта НДС |
+| public | [setCode()](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md#method_setCode) |  | Устанавливает code. |
+| public | [setName()](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md#method_setName) |  | Устанавливает name. |
 | public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
 | protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
 | protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
-* File: [lib/Model/Payment/PaymentMethod/B2b/Sberbank/VatData.php](../../lib/Model/Payment/PaymentMethod/B2b/Sberbank/VatData.php)
+* File: [lib/Model/Payment/PaymentMethod/BankCardProduct.php](../../lib/Model/Payment/PaymentMethod/BankCardProduct.php)
 * Package: YooKassa\Model
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
-  * \YooKassa\Model\Payment\PaymentMethod\B2b\Sberbank\VatData
+  * \YooKassa\Model\Payment\PaymentMethod\BankCardProduct
 
 * See Also:
   * [](https://yookassa.ru/developers/api)
@@ -65,23 +67,27 @@
 
 ---
 ## Properties
-<a name="property_type"></a>
-#### public $type : string
+<a name="property_code"></a>
+#### public $code : string
 ---
 ***Description***
 
-Способ расчёта НДС
+Код карточного продукта. Пример: ~`MCP`
 
 **Type:** <a href="../string"><abbr title="string">string</abbr></a>
 
 **Details:**
 
 
-<a name="property__type"></a>
-#### protected $_type : ?string
+<a name="property_name"></a>
+#### public $name : string|null
 ---
-**Type:** <a href="../?string"><abbr title="?string">?string</abbr></a>
-Способ расчёта НДС
+***Description***
+
+Название карточного продукта. Пример: ~`MIR Privilege`
+
+**Type:** <a href="../string|null"><abbr title="string|null">string|null</abbr></a>
+
 **Details:**
 
 
@@ -221,21 +227,38 @@ public fromArray(array|\Traversable $sourceArray) : void
 **Returns:** void - 
 
 
-<a name="method_getType" class="anchor"></a>
-#### public getType() : string|null
+<a name="method_getCode" class="anchor"></a>
+#### public getCode() : string|null
 
 ```php
-public getType() : string|null
+public getCode() : string|null
 ```
 
 **Summary**
 
-Возвращает способ расчёта НДС
+Возвращает code.
 
 **Details:**
-* Inherited From: [\YooKassa\Model\Payment\PaymentMethod\B2b\Sberbank\VatData](../classes/YooKassa-Model-Payment-PaymentMethod-B2b-Sberbank-VatData.md)
+* Inherited From: [\YooKassa\Model\Payment\PaymentMethod\BankCardProduct](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md)
 
-**Returns:** string|null - Способ расчёта НДС
+**Returns:** string|null - 
+
+
+<a name="method_getName" class="anchor"></a>
+#### public getName() : string|null
+
+```php
+public getName() : string|null
+```
+
+**Summary**
+
+Возвращает name.
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Payment\PaymentMethod\BankCardProduct](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md)
+
+**Returns:** string|null - 
 
 
 <a name="method_getValidator" class="anchor"></a>
@@ -357,24 +380,46 @@ public offsetUnset(string $offset) : void
 **Returns:** void - 
 
 
-<a name="method_setType" class="anchor"></a>
-#### public setType() : self
+<a name="method_setCode" class="anchor"></a>
+#### public setCode() : self
 
 ```php
-public setType(string|null $type) : self
+public setCode(string|null $code = null) : self
 ```
 
 **Summary**
 
-Устанавливает способ расчёта НДС
+Устанавливает code.
 
 **Details:**
-* Inherited From: [\YooKassa\Model\Payment\PaymentMethod\B2b\Sberbank\VatData](../classes/YooKassa-Model-Payment-PaymentMethod-B2b-Sberbank-VatData.md)
+* Inherited From: [\YooKassa\Model\Payment\PaymentMethod\BankCardProduct](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md)
 
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR null</code> | type  | Способ расчёта НДС |
+| <code lang="php">string OR null</code> | code  | Код карточного продукта. Пример: ~`MCP` |
+
+**Returns:** self - 
+
+
+<a name="method_setName" class="anchor"></a>
+#### public setName() : self
+
+```php
+public setName(string|null $name = null) : self
+```
+
+**Summary**
+
+Устанавливает name.
+
+**Details:**
+* Inherited From: [\YooKassa\Model\Payment\PaymentMethod\BankCardProduct](../classes/YooKassa-Model-Payment-PaymentMethod-BankCardProduct.md)
+
+##### Parameters:
+| Type | Name | Description |
+| ---- | ---- | ----------- |
+| <code lang="php">string OR null</code> | name  | Название карточного продукта. Пример: ~`MIR Privilege` |
 
 **Returns:** self - 
 
@@ -449,6 +494,6 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

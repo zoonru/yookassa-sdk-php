@@ -76,6 +76,9 @@ class CurrencyCode extends AbstractEnum
     /** Азербайджанский манат */
     public const AZN = 'AZN';
 
+    /** Армянский драм */
+    public const AMD = 'AMD';
+
     protected static array $validValues = [
         self::RUB => true,
         self::USD => true,
@@ -89,5 +92,6 @@ class CurrencyCode extends AbstractEnum
         self::INR => true,
         self::MDL => true,
         self::AZN => true,
+        self::AMD => true,
     ];
 }

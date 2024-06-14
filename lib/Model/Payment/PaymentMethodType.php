@@ -73,7 +73,7 @@ class PaymentMethodType extends AbstractEnum
     /** Платеж с баланса мобильного телефона */
     public const MOBILE_BALANCE = 'mobile_balance';
 
-    /** латеж ApplePay */
+    /** Платеж ApplePay */
     public const APPLE_PAY = 'apple_pay';
 
     /** Платеж Google Pay */

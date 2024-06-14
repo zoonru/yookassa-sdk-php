@@ -1,6 +1,6 @@
 # [YooKassa API SDK](../home.md)
 
-# Abstract Class: \YooKassa\Model\Deal\BaseDeal
+# Abstract Class: \YooKassa\Model\Deal\AbstractBaseDeal
 ### Namespace: [\YooKassa\Model\Deal](../namespaces/yookassa-model-deal.md)
 ---
 **Summary:**
@@ -19,8 +19,8 @@
 ### Properties
 | Visibility | Name | Flag | Summary |
 | ----------:| ---- | ---- | ------- |
-| public | [$type](../classes/YooKassa-Model-Deal-BaseDeal.md#property_type) |  | Тип сделки |
-| protected | [$_type](../classes/YooKassa-Model-Deal-BaseDeal.md#property__type) |  | Тип сделки |
+| public | [$type](../classes/YooKassa-Model-Deal-AbstractBaseDeal.md#property_type) |  | Тип сделки |
+| protected | [$_type](../classes/YooKassa-Model-Deal-AbstractBaseDeal.md#property__type) |  | Тип сделки |
 
 ---
 ### Methods
@@ -32,25 +32,25 @@
 | public | [__set()](../classes/YooKassa-Common-AbstractObject.md#method___set) |  | Устанавливает значение свойства. |
 | public | [__unset()](../classes/YooKassa-Common-AbstractObject.md#method___unset) |  | Удаляет свойство. |
 | public | [fromArray()](../classes/YooKassa-Common-AbstractObject.md#method_fromArray) |  | Устанавливает значения свойств текущего объекта из массива. |
-| public | [getType()](../classes/YooKassa-Model-Deal-BaseDeal.md#method_getType) |  | Возвращает тип сделки. |
+| public | [getType()](../classes/YooKassa-Model-Deal-AbstractBaseDeal.md#method_getType) |  | Возвращает тип сделки. |
 | public | [getValidator()](../classes/YooKassa-Common-AbstractObject.md#method_getValidator) |  |  |
 | public | [jsonSerialize()](../classes/YooKassa-Common-AbstractObject.md#method_jsonSerialize) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации. |
 | public | [offsetExists()](../classes/YooKassa-Common-AbstractObject.md#method_offsetExists) |  | Проверяет наличие свойства. |
 | public | [offsetGet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetGet) |  | Возвращает значение свойства. |
 | public | [offsetSet()](../classes/YooKassa-Common-AbstractObject.md#method_offsetSet) |  | Устанавливает значение свойства. |
 | public | [offsetUnset()](../classes/YooKassa-Common-AbstractObject.md#method_offsetUnset) |  | Удаляет свойство. |
-| public | [setType()](../classes/YooKassa-Model-Deal-BaseDeal.md#method_setType) |  | Устанавливает тип сделки. |
+| public | [setType()](../classes/YooKassa-Model-Deal-AbstractBaseDeal.md#method_setType) |  | Устанавливает тип сделки. |
 | public | [toArray()](../classes/YooKassa-Common-AbstractObject.md#method_toArray) |  | Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации Является алиасом метода AbstractObject::jsonSerialize(). |
 | protected | [getUnknownProperties()](../classes/YooKassa-Common-AbstractObject.md#method_getUnknownProperties) |  | Возвращает массив свойств которые не существуют, но были заданы у объекта. |
 | protected | [validatePropertyValue()](../classes/YooKassa-Common-AbstractObject.md#method_validatePropertyValue) |  |  |
 
 ---
 ### Details
-* File: [lib/Model/Deal/BaseDeal.php](../../lib/Model/Deal/BaseDeal.php)
+* File: [lib/Model/Deal/AbstractBaseDeal.php](../../lib/Model/Deal/AbstractBaseDeal.php)
 * Package: YooKassa\Model
 * Class Hierarchy: 
   * [\YooKassa\Common\AbstractObject](../classes/YooKassa-Common-AbstractObject.md)
-  * \YooKassa\Model\Deal\BaseDeal
+  * \YooKassa\Model\Deal\AbstractBaseDeal
 
 * See Also:
   * [](https://yookassa.ru/developers/api)
@@ -236,7 +236,7 @@ public getType() : string|null
 Возвращает тип сделки.
 
 **Details:**
-* Inherited From: [\YooKassa\Model\Deal\BaseDeal](../classes/YooKassa-Model-Deal-BaseDeal.md)
+* Inherited From: [\YooKassa\Model\Deal\AbstractBaseDeal](../classes/YooKassa-Model-Deal-AbstractBaseDeal.md)
 
 **Returns:** string|null - 
 
@@ -372,7 +372,7 @@ public setType(string|null $type = null) : self
 Устанавливает тип сделки.
 
 **Details:**
-* Inherited From: [\YooKassa\Model\Deal\BaseDeal](../classes/YooKassa-Model-Deal-BaseDeal.md)
+* Inherited From: [\YooKassa\Model\Deal\AbstractBaseDeal](../classes/YooKassa-Model-Deal-AbstractBaseDeal.md)
 
 ##### Parameters:
 | Type | Name | Description |
@@ -452,6 +452,6 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

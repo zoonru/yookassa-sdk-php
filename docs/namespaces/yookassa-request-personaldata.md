@@ -4,6 +4,10 @@
 
 ## Parent: [\YooKassa\Request](../namespaces/yookassa-request.md)
 
+### Namespaces
+
+* [\YooKassa\Request\PersonalData\PersonalDataType](../namespaces/yookassa-request-personaldata-personaldatatype.md)
+
 ### Interfaces
 
 | Name | Summary |
@@ -14,9 +18,8 @@
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Request\PersonalData\CreatePersonalDataRequest](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequest.md) | Класс, представляющий модель CreatePersonalDataRequest. |
-| [\YooKassa\Request\PersonalData\CreatePersonalDataRequestBuilder](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestBuilder.md) | Класс, представляющий модель CreatePersonalDataRequestBuilder. |
-| [\YooKassa\Request\PersonalData\CreatePersonalDataRequestSerializer](../classes/YooKassa-Request-PersonalData-CreatePersonalDataRequestSerializer.md) | Класс, представляющий модель CreatePersonalDataRequestSerializer. |
+| [\YooKassa\Request\PersonalData\CreatePayoutStatementRecipientPersonalDataRequestBuilder](../classes/YooKassa-Request-PersonalData-CreatePayoutStatementRecipientPersonalDataRequestBuilder.md) | Класс, представляющий модель CreatePayoutStatementRecipientPersonalDataRequestBuilder. |
+| [\YooKassa\Request\PersonalData\CreateSbpPayoutRecipientPersonalDataRequestBuilder](../classes/YooKassa-Request-PersonalData-CreateSbpPayoutRecipientPersonalDataRequestBuilder.md) | Класс, представляющий модель CreatePayoutStatementRecipientPersonalDataRequestBuilder. |
 | [\YooKassa\Request\PersonalData\PersonalDataResponse](../classes/YooKassa-Request-PersonalData-PersonalDataResponse.md) | Класс, представляющий модель PersonalDataResponse. |
 
 ---
@@ -34,6 +37,6 @@
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

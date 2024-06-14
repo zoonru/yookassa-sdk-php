@@ -60,7 +60,7 @@ class PaymentMethodSberLoan extends AbstractPaymentMethod
      * @var string|null
      */
     #[Assert\Type('string')]
-    #[Assert\Regex("/^loan|installments_([0-9]{1,})$/")]
+    #[Assert\Regex("/^loan|installments_([0-9]{1,2})$/")]
     private ?string $_loan_option = null;
 
     /**

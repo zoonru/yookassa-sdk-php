@@ -70,7 +70,7 @@ class PaymentDataBankCardCard extends AbstractObject
      */
     #[Assert\NotBlank]
     #[Assert\Type('string')]
-    #[Assert\Regex('/^[0-9]{2}$/')]
+    #[Assert\Regex("/^(0?[1-9]|1[0-2])$/")]
     #[Assert\GreaterThanOrEqual(value: 1)]
     #[Assert\LessThanOrEqual(value: 12)]
     private ?string $_expiry_month = null;
