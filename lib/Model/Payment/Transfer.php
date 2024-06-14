@@ -262,7 +262,7 @@ class Transfer extends AbstractObject implements TransferInterface
     /**
      * Устанавливает metadata.
      *
-     * @param string|array|null $value Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
+     * @param Metadata|array|null $value Любые дополнительные данные, которые нужны вам для работы (например, ваш внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
      *
      * @return self
      */
@@ -285,11 +285,11 @@ class Transfer extends AbstractObject implements TransferInterface
     /**
      * Устанавливает порядок перевода денег продавцам.
      *
-     * @param bool|array|null $value Порядок перевода денег продавцам: ~`true` — перевести сразу, ~`false` — сначала захолдировать.
+     * @param bool|null $value Порядок перевода денег продавцам: ~`true` — перевести сразу, ~`false` — сначала захолдировать.
      *
      * @return self
      */
-    public function setReleaseFunds(mixed $value = null): self
+    public function setReleaseFunds(?bool $value = null): self
     {
         $this->_release_funds = $this->validatePropertyValue('_release_funds', $value);
         return $this;

@@ -42,7 +42,7 @@ use YooKassa\Validator\Constraints as Assert;
  *
  * @property string $type Способ расчёта НДС
  */
-abstract class VatData extends AbstractObject
+abstract class AbstractVatData extends AbstractObject
 {
     /**
      * @var string|null Способ расчёта НДС

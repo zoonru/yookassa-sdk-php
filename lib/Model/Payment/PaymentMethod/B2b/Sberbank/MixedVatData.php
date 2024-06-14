@@ -42,7 +42,7 @@ use YooKassa\Validator\Constraints as Assert;
  *
  * @property AmountInterface $amount Сумма НДС
 */
-class MixedVatData extends VatData
+class MixedVatData extends AbstractVatData
 {
     /**
      * @var AmountInterface|null Сумма НДС

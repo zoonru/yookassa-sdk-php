@@ -98,7 +98,7 @@ class Supplier extends AbstractObject implements SupplierInterface
      *
      * @return self
      */
-    public function setPhone(mixed $phone = null): self
+    public function setPhone(?string $phone = null): self
     {
         $this->_phone = $this->validatePropertyValue('_phone', $phone);
         return $this;
@@ -114,7 +114,7 @@ class Supplier extends AbstractObject implements SupplierInterface
      *
      * @return self
      */
-    public function setInn(mixed $inn = null): self
+    public function setInn(?string $inn = null): self
     {
         $this->_inn = $this->validatePropertyValue('_inn', $inn);
         return $this;

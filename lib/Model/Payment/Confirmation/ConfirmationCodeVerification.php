@@ -29,7 +29,7 @@ namespace YooKassa\Model\Payment\Confirmation;
 use YooKassa\Model\Payment\ConfirmationType;
 
 /**
- * Класс, представляющий модель ConfirmationEmbedded.
+ * Класс, представляющий модель ConfirmationCodeVerification.
  *
  * @category Class
  * @package  YooKassa\Model

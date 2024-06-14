@@ -36,7 +36,7 @@ namespace YooKassa\Model\Payment\PaymentMethod\B2b\Sberbank;
  * @author   cms@yoomoney.ru
  * @link     https://yookassa.ru/developers/api
 */
-class UntaxedVatData extends VatData
+class UntaxedVatData extends AbstractVatData
 {
     public function __construct(?array $data = [])
     {

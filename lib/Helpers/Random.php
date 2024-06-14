@@ -109,7 +109,7 @@ class Random
             }
         } else {
             for ($i = 0; $i < $length; $i++) {
-                $chr = $characters[self::int(0, strlen($characters) - 1)];
+                $chr = mb_substr($characters, self::int(0, mb_strlen($characters) - 1), 1);
                 $result .= $chr;
             }
         }

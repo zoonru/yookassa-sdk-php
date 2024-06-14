@@ -24,29 +24,54 @@
  * THE SOFTWARE.
  */
 
-namespace YooKassa\Request\PersonalData;
+namespace YooKassa\Model\Deal;
+
+use YooKassa\Common\AbstractObject;
+use YooKassa\Validator\Constraints as Assert;
 
 /**
- * Класс, представляющий модель CreatePersonalDataRequestSerializer.
+ * Класс, представляющий модель BaseDeal.
  *
- * Класс объекта осуществляющего сериализацию объекта запроса к API на создание персональных данных.
+ * Базовая сущность сделки.
  *
- * @category Class
- * @package  YooKassa\Request
+ * @category Abstract Class
+ * @package  YooKassa\Model
  * @author   cms@yoomoney.ru
  * @link     https://yookassa.ru/developers/api
+ * @property string $type Тип сделки
  */
-class CreatePersonalDataRequestSerializer
+abstract class AbstractBaseDeal extends AbstractObject
 {
     /**
-     * Формирует ассоциативный массив данных из объекта запроса.
+     * Тип сделки
      *
-     * @param CreatePersonalDataRequestInterface $request Объект запроса
-     *
-     * @return array Массив данных для дальнейшего кодирования в JSON
+     * @var string|null
      */
-    public function serialize(CreatePersonalDataRequestInterface $request): array
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [DealType::class, 'getValidValues'])]
+    #[Assert\Type('string')]
+    protected ?string $_type = null;
+
+    /**
+     * Возвращает тип сделки.
+     *
+     * @return string|null
+     */
+    public function getType(): ?string
     {
-        return $request->toArray();
+        return $this->_type;
+    }
+
+    /**
+     * Устанавливает тип сделки.
+     *
+     * @param string|null $type
+     *
+     * @return self
+     */
+    public function setType(?string $type = null): self
+    {
+        $this->_type = $this->validatePropertyValue('_type', $type);
+        return $this;
     }
 }

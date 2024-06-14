@@ -14,7 +14,7 @@
 
 | Name | Summary |
 | ---- | ------- |
-| [\YooKassa\Model\Deal\BaseDeal](../classes/YooKassa-Model-Deal-BaseDeal.md) | Класс, представляющий модель BaseDeal. |
+| [\YooKassa\Model\Deal\AbstractBaseDeal](../classes/YooKassa-Model-Deal-AbstractBaseDeal.md) | Класс, представляющий модель BaseDeal. |
 | [\YooKassa\Model\Deal\CaptureDealData](../classes/YooKassa-Model-Deal-CaptureDealData.md) | Класс, представляющий модель CaptureDealData. |
 | [\YooKassa\Model\Deal\DealBalanceAmount](../classes/YooKassa-Model-Deal-DealBalanceAmount.md) | Класс, представляющий модель DealBalanceAmount. |
 | [\YooKassa\Model\Deal\DealStatus](../classes/YooKassa-Model-Deal-DealStatus.md) | Класс, представляющий модель DealStatus. |
@@ -44,6 +44,6 @@
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

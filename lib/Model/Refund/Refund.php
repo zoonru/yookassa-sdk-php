@@ -264,7 +264,7 @@ class Refund extends AbstractObject implements RefundInterface
      *
      * @return self
      */
-    public function setReceiptRegistration(mixed $receipt_registration = null): self
+    public function setReceiptRegistration(?string $receipt_registration = null): self
     {
         $this->_receipt_registration = $this->validatePropertyValue('_receipt_registration', $receipt_registration);
         return $this;

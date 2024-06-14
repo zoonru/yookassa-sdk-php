@@ -258,7 +258,7 @@ class Me extends AbstractObject
      * Устанавливает признак включенной фискализации.
      *
      * @deprecated Устарел.
-     * @param bool|array|null $fiscalization_enabled Признак включенной фискализации.
+     * @param bool|null $fiscalization_enabled Признак включенной фискализации.
      *
      * @return self
      */
@@ -304,11 +304,11 @@ class Me extends AbstractObject
     /**
      * Устанавливает ИНН магазина.
      *
-     * @param string|array|null $itn ИНН магазина (10 или 12 цифр).
+     * @param string|null $itn ИНН магазина (10 или 12 цифр).
      *
      * @return self
      */
-    public function setItn(mixed $itn = null): self
+    public function setItn(?string $itn = null): self
     {
         $this->_itn = $this->validatePropertyValue('_itn', $itn);
         return $this;

@@ -43,7 +43,7 @@ use YooKassa\Validator\Constraints as Assert;
  * @property string $rate Налоговая ставка (в процентах). Возможные значения: ~`7`, ~`10`, ~`18` и ~`20`.
  * @property AmountInterface $amount Сумма НДС
 */
-class CalculatedVatData extends VatData
+class CalculatedVatData extends AbstractVatData
 {
     /**
      * @var string|null Налоговая ставка НДС

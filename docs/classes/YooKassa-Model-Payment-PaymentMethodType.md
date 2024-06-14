@@ -38,7 +38,7 @@
 | public | [SBERBANK](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_SBERBANK) |  | Платеж СбербанкОнлайн |
 | public | [CASH](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_CASH) |  | Платеж наличными |
 | public | [MOBILE_BALANCE](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_MOBILE_BALANCE) |  | Платеж с баланса мобильного телефона |
-| public | [APPLE_PAY](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_APPLE_PAY) |  | латеж ApplePay |
+| public | [APPLE_PAY](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_APPLE_PAY) |  | Платеж ApplePay |
 | public | [GOOGLE_PAY](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_GOOGLE_PAY) |  | Платеж Google Pay |
 | public | [QIWI](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_QIWI) | *deprecated* | Платеж из кошелька Qiwi |
 | public | [WEBMONEY](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_WEBMONEY) | *deprecated* | Платеж из кошелька Webmoney |
@@ -133,7 +133,7 @@ MOBILE_BALANCE = 'mobile_balance'
 
 <a name="constant_APPLE_PAY" class="anchor"></a>
 ###### APPLE_PAY
-латеж ApplePay
+Платеж ApplePay
 
 ```php
 APPLE_PAY = 'apple_pay'
@@ -346,6 +346,6 @@ Static public valueExists(mixed $value) : bool
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

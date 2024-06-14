@@ -104,8 +104,8 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
 
     /** @var null|IndustryDetails[]|ListObjectInterface Отраслевой реквизит предмета расчета. Можно передавать, если используете Чеки от ЮKassa или онлайн-кассу, обновленную до ФФД 1.2. */
     #[Assert\Valid]
-    #[Assert\Type(ListObject::class)]
     #[Assert\AllType(IndustryDetails::class)]
+    #[Assert\Type(ListObject::class)]
     private ?ListObject $_receipt_industry_details = null;
 
     /** @var OperationalDetails|null Операционный реквизит чека */
@@ -115,16 +115,16 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
 
     /** @var ReceiptItemInterface[]|ListObjectInterface Список товаров в заказе. Для чеков по 54-ФЗ можно передать не более 100 товаров, для чеков самозанятых — не более шести. */
     #[Assert\NotBlank]
-    #[Assert\Type(ListObject::class)]
     #[Assert\Valid]
     #[Assert\AllType(ReceiptItem::class)]
+    #[Assert\Type(ListObject::class)]
     private ?ListObject $_items = null;
 
     /** @var SettlementInterface[]|ListObjectInterface Список платежей */
     #[Assert\NotBlank]
-    #[Assert\Type(ListObject::class)]
     #[Assert\Valid]
     #[Assert\AllType(Settlement::class)]
+    #[Assert\Type(ListObject::class)]
     private ?ListObject $_settlements = null;
 
     /** @var string|null Идентификатор объекта оплаты */
@@ -401,7 +401,7 @@ class CreatePostReceiptRequest extends AbstractRequest implements CreatePostRece
      *
      * @return self
      */
-    public function setSend(mixed $send = null): self
+    public function setSend(bool $send = null): self
     {
         $this->_send = $this->validatePropertyValue('_send', $send);
         return $this;

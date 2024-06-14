@@ -28,8 +28,6 @@ namespace YooKassa\Request\Deals;
 
 use YooKassa\Common\AbstractRequestBuilder;
 use YooKassa\Common\AbstractRequestInterface;
-use YooKassa\Common\Exceptions\InvalidPropertyValueException;
-use YooKassa\Common\Exceptions\InvalidPropertyValueTypeException;
 use YooKassa\Model\Metadata;
 
 /**

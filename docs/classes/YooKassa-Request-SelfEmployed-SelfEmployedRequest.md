@@ -598,7 +598,7 @@ public setItn(string|null $itn = null) : self
 #### public setPhone() : self
 
 ```php
-public setPhone(string|array|null $phone = null) : self
+public setPhone(string|null $phone = null) : self
 ```
 
 **Summary**
@@ -611,7 +611,7 @@ public setPhone(string|array|null $phone = null) : self
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">string OR array OR null</code> | phone  | Телефон самозанятого |
+| <code lang="php">string OR null</code> | phone  | Телефон самозанятого |
 
 **Returns:** self - 
 
@@ -725,6 +725,6 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

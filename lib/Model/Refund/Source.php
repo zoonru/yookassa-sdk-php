@@ -89,7 +89,7 @@ class Source extends AbstractObject implements SourceInterface
      *
      * @return self
      */
-    public function setAccountId(mixed $account_id = null): self
+    public function setAccountId(?string $account_id = null): self
     {
         $this->_account_id = $this->validatePropertyValue('_account_id', $account_id);
         return $this;

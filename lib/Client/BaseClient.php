@@ -89,7 +89,7 @@ class BaseClient
     public const SELF_EMPLOYED_PATH = '/self_employed';
 
     /** Имя HTTP заголовка, используемого для передачи idempotence key */
-    public const IDEMPOTENCY_KEY_HEADER = 'Idempotence-Key';
+    public const IDEMPOTENCE_KEY_HEADER = 'Idempotence-Key';
 
     /**
      * Значение по умолчанию времени ожидания между запросами при отправке повторного запроса в случае получения

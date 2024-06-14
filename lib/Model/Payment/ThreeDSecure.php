@@ -70,12 +70,11 @@ class ThreeDSecure extends AbstractObject
     /**
      * Устанавливает applied.
      *
-     * @param bool|array|null $applied Отображение пользователю формы для прохождения аутентификации по 3‑D Secure. Возможные значения:  * ~`true` — ЮKassa отобразила пользователю форму, чтобы он мог пройти аутентификацию по 3‑D Secure; * ~`false` — платеж проходил без аутентификации по 3‑D Secure.
+     * @param bool|null $applied Отображение пользователю формы для прохождения аутентификации по 3‑D Secure. Возможные значения:  * ~`true` — ЮKassa отобразила пользователю форму, чтобы он мог пройти аутентификацию по 3‑D Secure; * ~`false` — платеж проходил без аутентификации по 3‑D Secure.
      *
      * @return self
-     * @throws Exception
      */
-    public function setApplied(mixed $applied = null): self
+    public function setApplied(?bool $applied = null): self
     {
         $this->_applied = $this->validatePropertyValue('_applied', $applied);
         return $this;

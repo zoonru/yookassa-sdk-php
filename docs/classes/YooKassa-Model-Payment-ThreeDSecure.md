@@ -351,7 +351,7 @@ public offsetUnset(string $offset) : void
 #### public setApplied() : self
 
 ```php
-public setApplied(bool|array|null $applied = null) : self
+public setApplied(bool|null $applied = null) : self
 ```
 
 **Summary**
@@ -364,12 +364,7 @@ public setApplied(bool|array|null $applied = null) : self
 ##### Parameters:
 | Type | Name | Description |
 | ---- | ---- | ----------- |
-| <code lang="php">bool OR array OR null</code> | applied  | Отображение пользователю формы для прохождения аутентификации по 3‑D Secure. Возможные значения:  * ~`true` — ЮKassa отобразила пользователю форму, чтобы он мог пройти аутентификацию по 3‑D Secure; * ~`false` — платеж проходил без аутентификации по 3‑D Secure. |
-
-##### Throws:
-| Type | Description |
-| ---- | ----------- |
-| \Exception |  |
+| <code lang="php">bool OR null</code> | applied  | Отображение пользователю формы для прохождения аутентификации по 3‑D Secure. Возможные значения:  * ~`true` — ЮKassa отобразила пользователю форму, чтобы он мог пройти аутентификацию по 3‑D Secure; * ~`false` — платеж проходил без аутентификации по 3‑D Secure. |
 
 **Returns:** self - 
 
@@ -444,6 +439,6 @@ protected validatePropertyValue(string $propertyName, mixed $propertyValue) : mi
 
 ---
 
-This document was automatically generated from source code comments on 2024-04-01 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney
