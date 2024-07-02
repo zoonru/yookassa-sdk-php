@@ -151,7 +151,7 @@ class VatDataFactoryTest extends TestCase
                     'type' => VatDataType::CALCULATED,
                     'rate' => Random::value(VatDataRate::getValidValues()),
                     'amount' => [
-                        'value' => Random::int(0, 9999.99),
+                        'value' => Random::int(0, 9999),
                         'currency' => Random::value(CurrencyCode::getValidValues()),
                     ],
                 ],
@@ -160,7 +160,7 @@ class VatDataFactoryTest extends TestCase
                 [
                     'type' => VatDataType::MIXED,
                     'amount' => [
-                        'value' => Random::int(0, 9999.99),
+                        'value' => Random::int(0, 9999),
                         'currency' => Random::value(CurrencyCode::getValidValues()),
                     ],
                 ],

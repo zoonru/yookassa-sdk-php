@@ -49,7 +49,6 @@ class PaymentDataFactory
         PaymentMethodType::MOBILE_BALANCE => 'PaymentDataMobileBalance',
         PaymentMethodType::APPLE_PAY => 'PaymentDataApplePay',
         PaymentMethodType::GOOGLE_PAY => 'PaymentDataGooglePay',
-        PaymentMethodType::INSTALLMENTS => 'PaymentDataInstallments',
         PaymentMethodType::B2B_SBERBANK => 'PaymentDataB2bSberbank',
         PaymentMethodType::TINKOFF_BANK => 'PaymentDataTinkoffBank',
         PaymentMethodType::SBP => 'PaymentDataSbp',

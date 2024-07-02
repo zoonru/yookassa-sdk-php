@@ -113,7 +113,11 @@ class PaymentMethodType extends AbstractEnum
      */
     public const PSB = 'psb';
 
-    /** Заплатить по частям */
+    /**
+     * Заплатить по частям
+     *
+     * @deprecated Больше недоступен
+     */
     public const INSTALLMENTS = 'installments';
 
     /**
@@ -148,7 +152,7 @@ class PaymentMethodType extends AbstractEnum
         self::WEBMONEY => false,
         self::ALFABANK => false,
         self::TINKOFF_BANK => true,
-        self::INSTALLMENTS => true,
+        self::INSTALLMENTS => false,
         self::B2B_SBERBANK => true,
         self::PSB => false,
         self::WECHAT => false,
