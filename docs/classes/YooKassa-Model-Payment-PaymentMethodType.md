@@ -46,7 +46,7 @@
 | public | [B2B_SBERBANK](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_B2B_SBERBANK) |  | Сбербанк Бизнес Онлайн |
 | public | [TINKOFF_BANK](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_TINKOFF_BANK) |  | Интернет-банк Тинькофф |
 | public | [PSB](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_PSB) | *deprecated* | ПромсвязьБанк |
-| public | [INSTALLMENTS](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_INSTALLMENTS) |  | Заплатить по частям |
+| public | [INSTALLMENTS](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_INSTALLMENTS) | *deprecated* | Заплатить по частям |
 | public | [WECHAT](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_WECHAT) | *deprecated* | Оплата через WeChat. |
 | public | [SBP](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_SBP) |  | Оплата через сервис быстрых платежей |
 | public | [SBER_LOAN](../classes/YooKassa-Model-Payment-PaymentMethodType.md#constant_SBER_LOAN) |  | Прием оплаты с использованием Кредита от СберБанка |
@@ -212,13 +212,15 @@ PSB = 'psb'
 Больше недоступен
 
 <a name="constant_INSTALLMENTS" class="anchor"></a>
-###### INSTALLMENTS
+###### ~~INSTALLMENTS~~
 Заплатить по частям
 
 ```php
 INSTALLMENTS = 'installments'
 ```
 
+**deprecated**
+Больше недоступен
 
 <a name="constant_WECHAT" class="anchor"></a>
 ###### ~~WECHAT~~
@@ -342,10 +344,10 @@ Static public valueExists(mixed $value) : bool
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 22](../reports/deprecated.md)
+* [Deprecated - 25](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-07-02 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

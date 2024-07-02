@@ -180,11 +180,6 @@ class PaymentDataFactoryTest extends TestCase
             ],
             [
                 [
-                    'type' => PaymentMethodType::INSTALLMENTS,
-                ],
-            ],
-            [
-                [
                     'type' => PaymentMethodType::TINKOFF_BANK,
                 ],
             ],
@@ -210,6 +205,11 @@ class PaymentDataFactoryTest extends TestCase
                 [
                     'type' => PaymentMethodType::ALFABANK,
                     'login' => Random::str(10, 20),
+                ],
+            ],
+            [
+                [
+                    'type' => PaymentMethodType::INSTALLMENTS,
                 ],
             ],
             [

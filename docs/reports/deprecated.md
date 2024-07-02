@@ -6,6 +6,7 @@
 * [lib/Model/Payment/ConfirmationType.php](../../lib/Model/Payment/ConfirmationType.php)
 * [lib/Model/Payment/PaymentMethod/PaymentMethodAlfaBank.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodAlfaBank.php)
 * [lib/Model/Payment/PaymentMethod/PaymentMethodFactory.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodFactory.php)
+* [lib/Model/Payment/PaymentMethod/PaymentMethodInstallments.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodInstallments.php)
 * [lib/Model/Payment/PaymentMethod/PaymentMethodPsb.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodPsb.php)
 * [lib/Model/Payment/PaymentMethod/PaymentMethodQiwi.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodQiwi.php)
 * [lib/Model/Payment/PaymentMethod/PaymentMethodUnknown.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodUnknown.php)
@@ -17,6 +18,7 @@
 * [lib/Model/Refund/RefundMethodType.php](../../lib/Model/Refund/RefundMethodType.php)
 * [lib/Model/Settings/Me.php](../../lib/Model/Settings/Me.php)
 * [lib/Request/Payments/PaymentData/PaymentDataAlfabank.php](../../lib/Request/Payments/PaymentData/PaymentDataAlfabank.php)
+* [lib/Request/Payments/PaymentData/PaymentDataInstallments.php](../../lib/Request/Payments/PaymentData/PaymentDataInstallments.php)
 * [lib/Request/Payments/PaymentData/PaymentDataQiwi.php](../../lib/Request/Payments/PaymentData/PaymentDataQiwi.php)
 
 <a id="lib/Model/Payment/CancellationDetailsPartyCode.php"></a>
@@ -39,6 +41,11 @@
 | Line | Element | Description |
 | ---- | ------- | ----------- |
 | 45 | \YooKassa\Model\Payment\PaymentMethod\PaymentMethodFactory::YANDEX_MONEY | Для поддержки старых платежей |
+<a id="lib/Model/Payment/PaymentMethod/PaymentMethodInstallments.php"></a>
+#### [lib/Model/Payment/PaymentMethod/PaymentMethodInstallments.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodInstallments.php)
+| Line | Element | Description |
+| ---- | ------- | ----------- |
+| 42 | \YooKassa\Model\Payment\PaymentMethod\PaymentMethodInstallments | Будет удален в следующих версиях |
 <a id="lib/Model/Payment/PaymentMethod/PaymentMethodPsb.php"></a>
 #### [lib/Model/Payment/PaymentMethod/PaymentMethodPsb.php](../../lib/Model/Payment/PaymentMethod/PaymentMethodPsb.php)
 | Line | Element | Description |
@@ -72,8 +79,9 @@
 | 94 | \YooKassa\Model\Payment\PaymentMethodType::WEBMONEY | Больше недоступен |
 | 101 | \YooKassa\Model\Payment\PaymentMethodType::ALFABANK | Больше недоступен |
 | 114 | \YooKassa\Model\Payment\PaymentMethodType::PSB | Больше недоступен |
-| 124 | \YooKassa\Model\Payment\PaymentMethodType::WECHAT | Больше недоступен |
-| 137 | \YooKassa\Model\Payment\PaymentMethodType::UNKNOWN | Не используется для реальных платежей |
+| 121 | \YooKassa\Model\Payment\PaymentMethodType::INSTALLMENTS | Больше недоступен |
+| 128 | \YooKassa\Model\Payment\PaymentMethodType::WECHAT | Больше недоступен |
+| 141 | \YooKassa\Model\Payment\PaymentMethodType::UNKNOWN | Не используется для реальных платежей |
 <a id="lib/Model/Refund/RefundCancellationDetailsPartyCode.php"></a>
 #### [lib/Model/Refund/RefundCancellationDetailsPartyCode.php](../../lib/Model/Refund/RefundCancellationDetailsPartyCode.php)
 | Line | Element | Description |
@@ -100,6 +108,11 @@
 | Line | Element | Description |
 | ---- | ------- | ----------- |
 | 46 | \YooKassa\Request\Payments\PaymentData\PaymentDataAlfabank | Будет удален в следующих версиях |
+<a id="lib/Request/Payments/PaymentData/PaymentDataInstallments.php"></a>
+#### [lib/Request/Payments/PaymentData/PaymentDataInstallments.php](../../lib/Request/Payments/PaymentData/PaymentDataInstallments.php)
+| Line | Element | Description |
+| ---- | ------- | ----------- |
+| 42 | \YooKassa\Request\Payments\PaymentData\PaymentDataInstallments | Будет удален в следующих версиях |
 <a id="lib/Request/Payments/PaymentData/PaymentDataQiwi.php"></a>
 #### [lib/Request/Payments/PaymentData/PaymentDataQiwi.php](../../lib/Request/Payments/PaymentData/PaymentDataQiwi.php)
 | Line | Element | Description |
@@ -117,10 +130,10 @@
 ### Reports
 * [Errors - 0](../reports/errors.md)
 * [Markers - 0](../reports/markers.md)
-* [Deprecated - 22](../reports/deprecated.md)
+* [Deprecated - 25](../reports/deprecated.md)
 
 ---
 
-This document was automatically generated from source code comments on 2024-06-14 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2024-07-02 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2024 YooMoney

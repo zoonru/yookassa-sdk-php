@@ -37,6 +37,7 @@ use YooKassa\Model\Payment\PaymentMethodType;
  * @package  YooKassa\Request
  * @author   cms@yoomoney.ru
  * @link     https://yookassa.ru/developers/api
+ * @deprecated Будет удален в следующих версиях
  */
 class PaymentDataInstallments extends AbstractPaymentData
 {
